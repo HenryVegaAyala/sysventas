@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="febd8629-9dc4-4e03-9c07-90a6f63cf010" name="Crm" url="http://ftp.groupgyg.com">
+        <fileTransfer host="ftp.groupgyg.com" port="21" password="dfe9dfd8dfc7dfeadf98df9adf9bdf9d" username="crm@crm.groupgyg.com">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

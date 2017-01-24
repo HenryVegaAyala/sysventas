@@ -22,6 +22,66 @@ CREATE DATABASE IF NOT EXISTS sysventascrm;
 USE sysventascrm;
 
 --
+-- Definition of table `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+CREATE TABLE `cliente` (
+  `Codigo_Cliente` int(11) NOT NULL,
+  `Nombre` varchar(100) DEFAULT NULL,
+  `Apellido` varchar(100) DEFAULT NULL,
+  `Profesion` varchar(45) DEFAULT NULL,
+  `Direccion` varchar(200) DEFAULT NULL,
+  `Telefono` varchar(15) DEFAULT NULL,
+  `Observacion` varchar(200) DEFAULT NULL,
+  `Fecha_Creado` datetime DEFAULT NULL,
+  `Fecha_Modificado` datetime DEFAULT NULL,
+  `Fecha_Eliminado` datetime DEFAULT NULL,
+  `Usuario_Creado` datetime DEFAULT NULL,
+  `Usuario_Modificado` datetime DEFAULT NULL,
+  `Usuario_Eliminado` datetime DEFAULT NULL,
+  `Estado` char(1) DEFAULT NULL,
+  `Codigo_Opc` int(11) NOT NULL,
+  `Codigo_Tlmk` int(11) NOT NULL,
+  PRIMARY KEY (`Codigo_Cliente`),
+  KEY `fk_cliente_folio_idx` (`Codigo_Opc`),
+  KEY `fk_cliente_folio1_idx` (`Codigo_Tlmk`),
+  CONSTRAINT `fk_cliente_folio` FOREIGN KEY (`Codigo_Opc`) REFERENCES `folio` (`Codigo_Folio`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cliente_folio1` FOREIGN KEY (`Codigo_Tlmk`) REFERENCES `folio` (`Codigo_Folio`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cliente`
+--
+
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+
+
+--
+-- Definition of table `folio`
+--
+
+DROP TABLE IF EXISTS `folio`;
+CREATE TABLE `folio` (
+  `Codigo_Folio` int(11) NOT NULL,
+  `Valor` varchar(100) DEFAULT NULL,
+  `Descripcion` varchar(200) DEFAULT NULL,
+  `Estado` char(1) DEFAULT NULL,
+  `Fecha_Modificada` datetime DEFAULT NULL,
+  `Usuario_Modificado` datetime DEFAULT NULL,
+  PRIMARY KEY (`Codigo_Folio`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `folio`
+--
+
+/*!40000 ALTER TABLE `folio` DISABLE KEYS */;
+/*!40000 ALTER TABLE `folio` ENABLE KEYS */;
+
+
+--
 -- Definition of table `rol`
 --
 

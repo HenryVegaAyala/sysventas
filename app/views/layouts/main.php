@@ -28,47 +28,59 @@ AppAsset::register($this);
     <?php
     NavBar::begin([
         'brandLabel' => 'GROUP GyG ',
+        'innerContainerOptions' => ['class' => ' full-wrapper relative clearfix'],
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-default navbar-fixed-top',
         ],
     ]);
+
     echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
+        'options' => ['class' => 'navbar-nav navbar-left'],
         'items' => [
 
-//            ['label' => 'Submenu', 'items' => [
-//                ['label' => 'Action', 'url' => '#'],
-//                ['label' => 'Another action', 'url' => '#'],
-//                ['label' => 'Something else here', 'url' => '#'],
-//            ],
-//            ],
+            ['label' => 'Modulo Registro', 'items' => [
+                ['label' => 'Registrar Cliente', 'url' => ['/cliente/create']],
+                ['label' => 'Registrar Productos y Servicios', 'url' => '#'],
+                ['label' => 'Registrar de Ventas', 'url' => '#'],
+                ['label' => 'Registrar de Ingreso - Caja Efectivo', 'url' => '#'],
+            ], 'visible' => !Yii::$app->user->isGuest],
 
-            ['label' => '1', 'url' => ['/usuario/1'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '2', 'url' => ['/usuario/2'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '3', 'url' => ['/usuario/2'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '4', 'url' => ['/usuario/4'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '5', 'url' => ['/usuario/5'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '6', 'url' => ['/usuario/6'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '7', 'url' => ['/usuario/7'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '8', 'url' => ['/usuario/8'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '9', 'url' => ['/usuario/9'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '10', 'url' => ['/usuario/10'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '11', 'url' => ['/usuario/11'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '12', 'url' => ['/usuario/12'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '13', 'url' => ['/usuario/13'], 'visible' => !Yii::$app->user->isGuest],
-            ['label' => '14', 'url' => ['/usuario/14'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Modulo Seguimiento', 'items' => [
+                ['label' => 'Clientes potenciales', 'url' => '#'],
+                ['label' => 'Fidelización', 'url' => '#'],
+                ['label' => 'Comisiones', 'url' => '#'],
+                ['label' => 'Supervisión', 'url' => '#'],
+            ], 'visible' => !Yii::$app->user->isGuest],
 
-            ['label' => 'Usuario', 'url' => ['/usuario/index'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'Modulo Finanza', 'items' => [
+                ['label' => 'Tesoreria y Cobranzas', 'url' => '#'],
+                ['label' => 'Ciclo Comercial', 'url' => '#'],
+                ['label' => 'Requisiones y Pedidos', 'url' => '#'],
+            ], 'visible' => !Yii::$app->user->isGuest],
 
-//            ['label' => 'Home', 'url' => ['/site/index'],'visible'=>!Yii::$app->user->isGuest],
+            ['label' => 'Reportes', 'items' => [
+                ['label' => 'Reporte General', 'url' => '#'],
+                ['label' => 'Contratos', 'url' => '#'],
+                ['label' => 'Facturas', 'url' => '#'],
+                ['label' => 'Documentos y Cotizaciones', 'url' => '#'],
+            ], 'visible' => !Yii::$app->user->isGuest],
+
+            ['label' => 'Modulo Usuario', 'items' => [
+                ['label' => 'Registrar Usuario', 'url' => ['/usuario/index'], 'visible' => !Yii::$app->user->isGuest],
+            ], 'visible' => !Yii::$app->user->isGuest],
+
+            ['label' => 'Administración', 'items' => [
+                ['label' => 'Configuración', 'url' => '#'],
+            ], 'visible' => !Yii::$app->user->isGuest],
+
             Yii::$app->user->isGuest ? (
             ['label' => 'Iniciar Sesión', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Cerrar Sesión (' . Yii::$app->user->identity->Email . ')',
+                    '<i class="fa fa-user-times" aria-hidden="true"></i> Cerrar Sesión (' . Yii::$app->user->identity->Email . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\Autocomplete;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cliente */
@@ -26,13 +27,13 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-sm-4">
-            <?= $form->field($model, 'Profesion')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'Distrito')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-sm-4">
             <?= $form->field($model, 'Estado_Civil')->textInput(['maxlength' => true]) ?>
         </div>
         <div class="col-sm-4">
-            <?= $form->field($model, 'Distrito')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'Profesion')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
 
@@ -49,20 +50,29 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <?= $form->field($model, 'Traslado')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <?= $form->field($model, 'Tarjeta_De_Credito')->textInput() ?>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <?= $form->field($model, 'Promotor')->textInput(['maxlength' => true]) ?>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             <?= $form->field($model, 'Local')->textInput(['maxlength' => true]) ?>
         </div>
     </div>
-    
+
+    <?php
+    echo yii\jui\AutoComplete::widget([
+        'name' => 'file',
+        'clientOptions' => [
+            'source' => ['USA', 'RUS'],
+        ],
+    ]);
+    ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

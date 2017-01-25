@@ -53,6 +53,7 @@ class Cliente extends \yii\db\ActiveRecord
     {
         return [
             [['Codigo_Cliente', 'Codigo_Opc', 'Codigo_Tlmk'], 'required'],
+            [['Edad','Nombre', 'Apellido','Estado_Civil', 'Distrito'], 'required'],
             [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito', 'Codigo_Opc', 'Codigo_Tlmk'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'safe'],
             [['Nombre', 'Apellido', 'Local'], 'string', 'max' => 100],

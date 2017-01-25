@@ -12,38 +12,57 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'Codigo_Cliente')->textInput() ?>
+    <div class="row">
+        <div class="col-sm-5">
+            <?= $form->field($model, 'Nombre')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-5">
+            <?= $form->field($model, 'Apellido')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-2">
+            <?= $form->field($model, 'Edad')->textInput() ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'Nombre')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+        <div class="col-sm-4">
+            <?= $form->field($model, 'Profesion')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'Estado_Civil')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'Distrito')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'Apellido')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+        <div class="col-sm-4">
+            <?= $form->field($model, 'Telefono_Casa')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'Telefono_Celular')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'Email')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
 
-    <?= $form->field($model, 'Profesion')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'Direccion')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'Telefono')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'Observacion')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'Fecha_Creado')->textInput() ?>
-
-    <?= $form->field($model, 'Fecha_Modificado')->textInput() ?>
-
-    <?= $form->field($model, 'Fecha_Eliminado')->textInput() ?>
-
-    <?= $form->field($model, 'Usuario_Creado')->textInput() ?>
-
-    <?= $form->field($model, 'Usuario_Modificado')->textInput() ?>
-
-    <?= $form->field($model, 'Usuario_Eliminado')->textInput() ?>
-
-    <?= $form->field($model, 'Estado')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'Codigo_Opc')->textInput() ?>
-
-    <?= $form->field($model, 'Codigo_Tlmk')->textInput() ?>
-
+    <div class="row">
+        <div class="col-sm-4">
+            <?= $form->field($model, 'Traslado')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'Tarjeta_De_Credito')->textInput() ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'Promotor')->textInput(['maxlength' => true]) ?>
+        </div>
+        <div class="col-sm-4">
+            <?= $form->field($model, 'Local')->textInput(['maxlength' => true]) ?>
+        </div>
+    </div>
+    
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

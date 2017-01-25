@@ -23,9 +23,27 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Profesion') ?>
 
-    <?= $form->field($model, 'Direccion') ?>
+    <?= $form->field($model, 'Edad') ?>
 
-    <?php // echo $form->field($model, 'Telefono') ?>
+    <?php // echo $form->field($model, 'Estado_Civil') ?>
+
+    <?php // echo $form->field($model, 'Distrito') ?>
+
+    <?php // echo $form->field($model, 'Direccion') ?>
+
+    <?php // echo $form->field($model, 'Telefono_Casa') ?>
+
+    <?php // echo $form->field($model, 'Telefono_Celular') ?>
+
+    <?php // echo $form->field($model, 'Email') ?>
+
+    <?php // echo $form->field($model, 'Traslado') ?>
+
+    <?php // echo $form->field($model, 'Tarjeta_De_Credito') ?>
+
+    <?php // echo $form->field($model, 'Promotor') ?>
+
+    <?php // echo $form->field($model, 'Local') ?>
 
     <?php // echo $form->field($model, 'Observacion') ?>
 

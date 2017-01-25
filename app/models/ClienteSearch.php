@@ -18,8 +18,8 @@ class ClienteSearch extends Cliente
     public function rules()
     {
         return [
-            [['Codigo_Cliente', 'Codigo_Opc', 'Codigo_Tlmk'], 'integer'],
-            [['Nombre', 'Apellido', 'Profesion', 'Direccion', 'Telefono', 'Observacion', 'Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Estado'], 'safe'],
+            [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito', 'Codigo_Opc', 'Codigo_Tlmk'], 'integer'],
+            [['Nombre', 'Apellido', 'Profesion', 'Estado_Civil', 'Distrito', 'Direccion', 'Telefono_Casa', 'Telefono_Celular', 'Email', 'Traslado', 'Promotor', 'Local', 'Observacion', 'Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Estado'], 'safe'],
         ];
     }
 
@@ -60,6 +60,8 @@ class ClienteSearch extends Cliente
         // grid filtering conditions
         $query->andFilterWhere([
             'Codigo_Cliente' => $this->Codigo_Cliente,
+            'Edad' => $this->Edad,
+            'Tarjeta_De_Credito' => $this->Tarjeta_De_Credito,
             'Fecha_Creado' => $this->Fecha_Creado,
             'Fecha_Modificado' => $this->Fecha_Modificado,
             'Fecha_Eliminado' => $this->Fecha_Eliminado,
@@ -73,8 +75,15 @@ class ClienteSearch extends Cliente
         $query->andFilterWhere(['like', 'Nombre', $this->Nombre])
             ->andFilterWhere(['like', 'Apellido', $this->Apellido])
             ->andFilterWhere(['like', 'Profesion', $this->Profesion])
+            ->andFilterWhere(['like', 'Estado_Civil', $this->Estado_Civil])
+            ->andFilterWhere(['like', 'Distrito', $this->Distrito])
             ->andFilterWhere(['like', 'Direccion', $this->Direccion])
-            ->andFilterWhere(['like', 'Telefono', $this->Telefono])
+            ->andFilterWhere(['like', 'Telefono_Casa', $this->Telefono_Casa])
+            ->andFilterWhere(['like', 'Telefono_Celular', $this->Telefono_Celular])
+            ->andFilterWhere(['like', 'Email', $this->Email])
+            ->andFilterWhere(['like', 'Traslado', $this->Traslado])
+            ->andFilterWhere(['like', 'Promotor', $this->Promotor])
+            ->andFilterWhere(['like', 'Local', $this->Local])
             ->andFilterWhere(['like', 'Observacion', $this->Observacion])
             ->andFilterWhere(['like', 'Estado', $this->Estado]);
 

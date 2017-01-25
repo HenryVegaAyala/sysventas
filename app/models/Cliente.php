@@ -11,8 +11,17 @@ use Yii;
  * @property string $Nombre
  * @property string $Apellido
  * @property string $Profesion
+ * @property integer $Edad
+ * @property string $Estado_Civil
+ * @property string $Distrito
  * @property string $Direccion
- * @property string $Telefono
+ * @property string $Telefono_Casa
+ * @property string $Telefono_Celular
+ * @property string $Email
+ * @property string $Traslado
+ * @property integer $Tarjeta_De_Credito
+ * @property string $Promotor
+ * @property string $Local
  * @property string $Observacion
  * @property string $Fecha_Creado
  * @property string $Fecha_Modificado
@@ -44,13 +53,14 @@ class Cliente extends \yii\db\ActiveRecord
     {
         return [
             [['Codigo_Cliente', 'Codigo_Opc', 'Codigo_Tlmk'], 'required'],
-            [['Codigo_Cliente', 'Codigo_Opc', 'Codigo_Tlmk'], 'integer'],
+            [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito', 'Codigo_Opc', 'Codigo_Tlmk'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'safe'],
-            [['Nombre', 'Apellido'], 'string', 'max' => 100],
-            [['Profesion'], 'string', 'max' => 45],
+            [['Nombre', 'Apellido', 'Local'], 'string', 'max' => 100],
+            [['Profesion', 'Email', 'Traslado'], 'string', 'max' => 45],
+            [['Estado_Civil', 'Distrito', 'Estado'], 'string', 'max' => 1],
             [['Direccion', 'Observacion'], 'string', 'max' => 200],
-            [['Telefono'], 'string', 'max' => 15],
-            [['Estado'], 'string', 'max' => 1],
+            [['Telefono_Casa', 'Telefono_Celular'], 'string', 'max' => 15],
+            [['Promotor'], 'string', 'max' => 50],
             [['Codigo_Opc'], 'exist', 'skipOnError' => true, 'targetClass' => Folio::className(), 'targetAttribute' => ['Codigo_Opc' => 'Codigo_Folio']],
             [['Codigo_Tlmk'], 'exist', 'skipOnError' => true, 'targetClass' => Folio::className(), 'targetAttribute' => ['Codigo_Tlmk' => 'Codigo_Folio']],
         ];
@@ -66,8 +76,17 @@ class Cliente extends \yii\db\ActiveRecord
             'Nombre' => 'Nombre',
             'Apellido' => 'Apellido',
             'Profesion' => 'Profesion',
+            'Edad' => 'Edad',
+            'Estado_Civil' => 'Estado  Civil',
+            'Distrito' => 'Distrito',
             'Direccion' => 'Direccion',
-            'Telefono' => 'Telefono',
+            'Telefono_Casa' => 'Telefono  Casa',
+            'Telefono_Celular' => 'Telefono  Celular',
+            'Email' => 'Email',
+            'Traslado' => 'Traslado',
+            'Tarjeta_De_Credito' => 'Tarjeta  De  Credito',
+            'Promotor' => 'Promotor',
+            'Local' => 'Local',
             'Observacion' => 'Observacion',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',

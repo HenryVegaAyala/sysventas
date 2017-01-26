@@ -21,9 +21,9 @@ CREATE SCHEMA IF NOT EXISTS `sis_crm` DEFAULT CHARACTER SET latin1 ;
 USE `sis_crm` ;
 
 -- -----------------------------------------------------
--- Table `sis_crm`.`cliente`
+-- Table `cliente`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sis_crm`.`cliente` (
+CREATE TABLE IF NOT EXISTS `cliente` (
   `Codigo_Cliente` INT(11) NOT NULL,
   `Nombre` VARCHAR(100) NULL DEFAULT NULL,
   `Apellido` VARCHAR(100) NULL DEFAULT NULL,
@@ -53,9 +53,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `sis_crm`.`folio`
+-- Table `folio`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sis_crm`.`folio` (
+CREATE TABLE IF NOT EXISTS `folio` (
   `Codigo_Folio` INT(11) NOT NULL,
   `Valor` VARCHAR(100) NULL DEFAULT NULL,
   `Descripcion` VARCHAR(200) NULL DEFAULT NULL,
@@ -68,9 +68,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `sis_crm`.`rol`
+-- Table `rol`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sis_crm`.`rol` (
+CREATE TABLE IF NOT EXISTS `rol` (
   `Cod_Rol` INT(11) NOT NULL,
   `Descripcion` VARCHAR(45) NULL DEFAULT NULL,
   `Fecha_Creada` DATETIME NULL DEFAULT NULL,
@@ -83,9 +83,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `sis_crm`.`usuario`
+-- Table `usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sis_crm`.`usuario` (
+CREATE TABLE IF NOT EXISTS `usuario` (
   `Codigo_Usuario` INT(11) NOT NULL,
   `Nombre` VARCHAR(45) NULL DEFAULT NULL,
   `Apellido` VARCHAR(45) NULL DEFAULT NULL,
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `sis_crm`.`usuario` (
   INDEX `fk_Usuario_Roles_idx` (`Codigo_Rol` ASC),
   CONSTRAINT `fk_Usuario_Roles`
     FOREIGN KEY (`Codigo_Rol`)
-    REFERENCES `sis_crm`.`rol` (`Cod_Rol`)
+    REFERENCES `rol` (`Cod_Rol`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -115,9 +115,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `sis_crm`.`producto`
+-- Table `producto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sis_crm`.`producto` (
+CREATE TABLE IF NOT EXISTS `producto` (
   `Codigo_Producto` INT(11) NOT NULL,
   `Nombre` VARCHAR(100) NULL,
   `Precio` DECIMAL(10,2) NULL,
@@ -138,9 +138,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `sis_crm`.`factura`
+-- Table `factura`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sis_crm`.`factura` (
+CREATE TABLE IF NOT EXISTS `factura` (
   `Codigo_Factura` INT(11) NOT NULL,
   `Codigo_Cliente` INT(11) NOT NULL,
   `Fecha_Creado` DATETIME NULL DEFAULT NULL,
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `sis_crm`.`factura` (
   INDEX `fk_factura_cliente1_idx` (`Codigo_Cliente` ASC),
   CONSTRAINT `fk_factura_cliente1`
     FOREIGN KEY (`Codigo_Cliente`)
-    REFERENCES `sis_crm`.`cliente` (`Codigo_Cliente`)
+    REFERENCES `cliente` (`Codigo_Cliente`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -162,9 +162,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `sis_crm`.`detalle_factura`
+-- Table `detalle_factura`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sis_crm`.`detalle_factura` (
+CREATE TABLE IF NOT EXISTS `detalle_factura` (
   `Codigo_Factura` INT(11) NOT NULL,
   `Codigo_Fact_Detalle` INT(11) NOT NULL,
   `Codigo_Producto` INT(11) NOT NULL,
@@ -185,12 +185,12 @@ CREATE TABLE IF NOT EXISTS `sis_crm`.`detalle_factura` (
   INDEX `fk_detalle_factura_producto1_idx` (`Codigo_Producto` ASC),
   CONSTRAINT `fk_detalle_factura_factura1`
     FOREIGN KEY (`Codigo_Factura`)
-    REFERENCES `sis_crm`.`factura` (`Codigo_Factura`)
+    REFERENCES `factura` (`Codigo_Factura`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_detalle_factura_producto1`
     FOREIGN KEY (`Codigo_Producto`)
-    REFERENCES `sis_crm`.`producto` (`Codigo_Producto`)
+    REFERENCES `producto` (`Codigo_Producto`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -198,9 +198,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `sis_crm`.`documento`
+-- Table `documento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sis_crm`.`documento` (
+CREATE TABLE IF NOT EXISTS `documento` (
   `Codigo_Documento` INT(11) NOT NULL,
   `Nombre` VARCHAR(45) NULL,
   `Fecha_Creado` DATETIME NULL,
@@ -216,9 +216,9 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `sis_crm`.`contrato`
+-- Table `contrato`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sis_crm`.`contrato` (
+CREATE TABLE IF NOT EXISTS `contrato` (
   `Codigo_Contrato` INT(11) NOT NULL,
   `Nombre` VARCHAR(45) NULL,
   `Apellidos` VARCHAR(150) NULL,

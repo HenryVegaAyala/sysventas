@@ -91,7 +91,7 @@ use app\models\Cliente;
             <div class="hide">
                 <?php
                 $model = new Cliente();
-                echo AutoComplete::widget([
+                echo yii\jui\AutoComplete::widget([
                     'id' => 'cliente-distrito',
                     'name' => 'Cliente[Distrito]',
                     'clientOptions' => [

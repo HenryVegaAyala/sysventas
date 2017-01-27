@@ -40,7 +40,7 @@ use app\models\Rol;
                 </div>
 
                 <div class="col-sm-6">
-                    <?= $form->field($model, 'Codigo_Rol')->dropDownList($model->getRol(), ['prompt' => 'Seleccione una Categoria']) ?>
+                    <?= $form->field($model, 'Codigo_Rol')->dropDownList($model->getRol(), ['prompt' => 'Seleccione una Categoria', 'class' => 'form-control loginmodal-container-combo']) ?>
                 </div>
                 
             </div>

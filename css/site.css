@@ -167,6 +167,12 @@ a.desc:after {
     padding: 0 8px;
 }
 
+.loginmodal-container-combo {
+    padding: 7px;
+    width: 100% !important;
+    border-radius: 0px;
+}
+
 .loginmodal-submit {
     border: 0px;
     color: #fff;

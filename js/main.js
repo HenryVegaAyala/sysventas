@@ -15,3 +15,9 @@ $(document).ready(function () {
 		$(".search-form").toggle();
 	});
 });
+
+function valueChanged() {
+	$('.uso_normal').is(":checkbox")
+	$(".uso_interno").toggle();
+	$('.uso_normal').hide();
+}

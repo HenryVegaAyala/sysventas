@@ -18,7 +18,7 @@ class ClienteSearch extends Cliente
     public function rules()
     {
         return [
-            [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito', 'Codigo_Opc', 'Codigo_Tlmk'], 'integer'],
+            [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito'], 'integer'],
             [['Nombre', 'Apellido', 'Profesion', 'Estado_Civil', 'Distrito', 'Direccion', 'Telefono_Casa', 'Telefono_Celular', 'Email', 'Traslado', 'Promotor', 'Local', 'Observacion', 'Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Estado'], 'safe'],
         ];
     }
@@ -68,8 +68,6 @@ class ClienteSearch extends Cliente
             'Usuario_Creado' => $this->Usuario_Creado,
             'Usuario_Modificado' => $this->Usuario_Modificado,
             'Usuario_Eliminado' => $this->Usuario_Eliminado,
-            'Codigo_Opc' => $this->Codigo_Opc,
-            'Codigo_Tlmk' => $this->Codigo_Tlmk,
         ]);
 
         $query->andFilterWhere(['like', 'Nombre', $this->Nombre])

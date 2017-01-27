@@ -67,11 +67,11 @@ AppAsset::register($this);
             ], 'visible' => !Yii::$app->user->isGuest],
 
             ['label' => 'Modulo Usuario', 'items' => [
-                ['label' => 'Registrar Usuario', 'url' => ['/usuario/index'], 'visible' => !Yii::$app->user->isGuest],
+                ['label' => 'Registrar Usuario', 'url' => ['/usuario/index']],
             ], 'visible' => !Yii::$app->user->isGuest],
 
             ['label' => 'Administración', 'items' => [
-                ['label' => 'Configuración', 'url' => '#'],
+                ['label' => 'Configuración', 'url' => ['/folio/index']],
             ], 'visible' => !Yii::$app->user->isGuest],
 
             Yii::$app->user->isGuest ? (
@@ -80,7 +80,7 @@ AppAsset::register($this);
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    '<i class="fa fa-user-times" aria-hidden="true"></i> Cerrar Sesión (' . Yii::$app->user->identity->Email . ')',
+                    '<i class="fa fa-user-times" aria-hidden="true"></i> Cerrar Sesión (' . Yii::$app->user->identity->Nombre .' '.Yii::$app->user->identity->Apellido . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()

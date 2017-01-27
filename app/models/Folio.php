@@ -13,9 +13,6 @@ use Yii;
  * @property string $Estado
  * @property string $Fecha_Modificada
  * @property string $Usuario_Modificado
- *
- * @property Cliente[] $clientes
- * @property Cliente[] $clientes0
  */
 class Folio extends \yii\db\ActiveRecord
 {
@@ -33,10 +30,11 @@ class Folio extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo_Folio'], 'required'],
+            [['Valor','Descripcion'], 'required'],
             [['Codigo_Folio'], 'integer'],
             [['Fecha_Modificada', 'Usuario_Modificado'], 'safe'],
             [['Valor'], 'string', 'max' => 100],
+            [['Valor'], 'match', 'pattern' => '/^[0-9]+$/','message' => 'Sólo se aceptan números'],
             [['Descripcion'], 'string', 'max' => 200],
             [['Estado'], 'string', 'max' => 1],
         ];
@@ -55,21 +53,5 @@ class Folio extends \yii\db\ActiveRecord
             'Fecha_Modificada' => 'Fecha  Modificada',
             'Usuario_Modificado' => 'Usuario  Modificado',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getClientes()
-    {
-        return $this->hasMany(Cliente::className(), ['Codigo_Opc' => 'Codigo_Folio']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getClientes0()
-    {
-        return $this->hasMany(Cliente::className(), ['Codigo_Tlmk' => 'Codigo_Folio']);
     }
 }

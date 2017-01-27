@@ -30,17 +30,16 @@ use Yii;
  * @property string $Usuario_Modificado
  * @property string $Usuario_Eliminado
  * @property string $Estado
- * @property integer $Codigo_Opc
- * @property integer $Codigo_Tlmk
  *
- * @property Folio $codigoOpc
- * @property Folio $codigoTlmk
+ * @property Factura[] $facturas
  */
 class Cliente extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
+    public $uso_interno;
+
     public static function tableName()
     {
         return 'cliente';
@@ -52,18 +51,16 @@ class Cliente extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo_Cliente', 'Codigo_Opc', 'Codigo_Tlmk'], 'required'],
-            [['Edad','Nombre', 'Apellido','Estado_Civil', 'Distrito'], 'required'],
-            [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito', 'Codigo_Opc', 'Codigo_Tlmk'], 'integer'],
+            [['Nombre', 'Apellido', 'Estado_Civil', 'Distrito', 'Profesion'], 'required'],
+            [['Edad'], 'required', 'message' => 'Edad es requerida.'],
+            [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'safe'],
             [['Nombre', 'Apellido', 'Local'], 'string', 'max' => 100],
             [['Profesion', 'Email', 'Traslado'], 'string', 'max' => 45],
-            [['Estado_Civil', 'Distrito', 'Estado'], 'string', 'max' => 1],
+            [['Estado_Civil', 'Estado'], 'string', 'max' => 1],
             [['Direccion', 'Observacion'], 'string', 'max' => 200],
             [['Telefono_Casa', 'Telefono_Celular'], 'string', 'max' => 15],
             [['Promotor'], 'string', 'max' => 50],
-            [['Codigo_Opc'], 'exist', 'skipOnError' => true, 'targetClass' => Folio::className(), 'targetAttribute' => ['Codigo_Opc' => 'Codigo_Folio']],
-            [['Codigo_Tlmk'], 'exist', 'skipOnError' => true, 'targetClass' => Folio::className(), 'targetAttribute' => ['Codigo_Tlmk' => 'Codigo_Folio']],
         ];
     }
 
@@ -74,16 +71,16 @@ class Cliente extends \yii\db\ActiveRecord
     {
         return [
             'Codigo_Cliente' => 'Codigo  Cliente',
-            'Nombre' => 'Nombre',
-            'Apellido' => 'Apellido',
-            'Profesion' => 'Profesion',
+            'Nombre' => 'Nombres',
+            'Apellido' => 'Apellidos',
+            'Profesion' => 'Profesión',
             'Edad' => 'Edad',
             'Estado_Civil' => 'Estado  Civil',
             'Distrito' => 'Distrito',
-            'Direccion' => 'Direccion',
-            'Telefono_Casa' => 'Telefono  Casa',
-            'Telefono_Celular' => 'Telefono  Celular',
-            'Email' => 'Email',
+            'Direccion' => 'Dirección',
+            'Telefono_Casa' => 'Teléfono de Casa',
+            'Telefono_Celular' => 'Teléfono de Celular',
+            'Email' => 'Correo Electrónico',
             'Traslado' => 'Traslado',
             'Tarjeta_De_Credito' => 'Tarjeta  De  Credito',
             'Promotor' => 'Promotor',
@@ -96,24 +93,36 @@ class Cliente extends \yii\db\ActiveRecord
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Estado' => 'Estado',
-            'Codigo_Opc' => 'Codigo  Opc',
-            'Codigo_Tlmk' => 'Codigo  Tlmk',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCodigoOpc()
+    public function getFacturas()
     {
-        return $this->hasOne(Folio::className(), ['Codigo_Folio' => 'Codigo_Opc']);
+        return $this->hasMany(Factura::className(), ['Codigo_Cliente' => 'Codigo_Cliente']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCodigoTlmk()
+    public function getDistrito()
     {
-        return $this->hasOne(Folio::className(), ['Codigo_Folio' => 'Codigo_Tlmk']);
+        $data = Usuario::find()
+            ->select(['Email as value', 'Email as label'])
+            ->asArray()
+            ->all();
+        return $data;
     }
+
+    public function getEstadoCivil()
+    {
+        $var = [
+            0 => 'Soltero/a',
+            1 => 'Comprometido/a',
+            2 => 'Casado/a',
+            3 => 'Divorciado/a',
+            4 => 'Viudo/a'
+        ];
+        return $var;
+    }
+
 }

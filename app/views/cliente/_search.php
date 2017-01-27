@@ -61,10 +61,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'Estado') ?>
 
-    <?php // echo $form->field($model, 'Codigo_Opc') ?>
-
-    <?php // echo $form->field($model, 'Codigo_Tlmk') ?>
-
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
         <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>

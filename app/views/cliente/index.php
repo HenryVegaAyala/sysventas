@@ -47,8 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'Usuario_Modificado',
             // 'Usuario_Eliminado',
             // 'Estado',
-            // 'Codigo_Opc',
-            // 'Codigo_Tlmk',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
+use yii\db\Query;
 
 /**
  * This is the model class for table "cliente".
@@ -35,9 +37,6 @@ use Yii;
  */
 class Cliente extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
     public $uso_interno;
 
     public static function tableName()
@@ -45,22 +44,26 @@ class Cliente extends \yii\db\ActiveRecord
         return 'cliente';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
             [['Nombre', 'Apellido', 'Estado_Civil', 'Distrito', 'Profesion'], 'required'],
             [['Edad'], 'required', 'message' => 'Edad es requerida.'],
-            [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito'], 'integer'],
-            [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'safe'],
-            [['Nombre', 'Apellido', 'Local'], 'string', 'max' => 100],
-            [['Profesion', 'Email', 'Traslado'], 'string', 'max' => 45],
+            [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito'], 'integer', 'message' => 'Debe ser númerico.'],
+            [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
+            [['Nombre', 'Apellido', 'Distrito', 'Local', 'Usuario_Creado'], 'string', 'max' => 100],
             [['Estado_Civil', 'Estado'], 'string', 'max' => 1],
             [['Direccion', 'Observacion'], 'string', 'max' => 200],
-            [['Telefono_Casa', 'Telefono_Celular'], 'string', 'max' => 15],
+            [['Telefono_Casa', 'Telefono_Celular'], 'integer', 'max' => 15],
             [['Promotor'], 'string', 'max' => 50],
+
+            [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^.{3,80}$/", 'message' => 'Mínimo 3 caracteres'],
+            [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^[a-z]+$/i", 'message' => 'Sólo se aceptan letras y números'],
+
+            [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Celular'], 'integer', 'message' => 'Debe ser númerico.'],
+
+            [['Email'], 'match', 'pattern' => "/^.{3,45}$/",  'message' => 'Mínimo 3 caracteres del correo'],
+            [['Email'], 'email', 'message' => 'Debe de ser un correo válido'],
         ];
     }
 
@@ -106,8 +109,17 @@ class Cliente extends \yii\db\ActiveRecord
 
     public function getDistrito()
     {
-        $data = Usuario::find()
-            ->select(['Email as value', 'Email as label'])
+        $data = Distrito::find()
+            ->select(['descripcion as value', 'descripcion as label'])
+            ->asArray()
+            ->all();
+        return $data;
+    }
+
+    public function getCarrera()
+    {
+        $data = Carrera::find()
+            ->select(['Nombre as value', 'Nombre as label'])
             ->asArray()
             ->all();
         return $data;
@@ -123,6 +135,29 @@ class Cliente extends \yii\db\ActiveRecord
             4 => 'Viudo/a'
         ];
         return $var;
+    }
+
+    public function getCodigoCliente()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(Codigo_Cliente), 0) + 1');
+        $query->select($expresion)->from('cliente');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function ActualizarUsuario($id, $fh_delete,$usuario,$estado)
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        $db->createCommand("UPDATE cliente SET 
+                            Fecha_Eliminado = '" . $fh_delete . "',
+                            Estado = '" . $estado . "',
+                            Usuario_Eliminado = '" . $usuario . "'  
+                            WHERE Codigo_Cliente = '" . $id . "';")->execute();
+        $transaction->commit();
+
     }
 
 }

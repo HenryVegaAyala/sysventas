@@ -41,7 +41,7 @@ class ClienteSearch extends Cliente
      */
     public function search($params)
     {
-        $query = Cliente::find();
+        $query = Cliente::find()->where(['Estado' => 1]);
 
         // add conditions that should always apply here
 

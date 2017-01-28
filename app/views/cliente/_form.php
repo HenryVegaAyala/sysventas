@@ -38,13 +38,27 @@ use app\models\Cliente;
 
             <div class="row">
                 <div class="col-sm-4">
-                    <?= $form->field($model, 'Distrito')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'Distrito')->widget(\yii\jui\AutoComplete::classname(), [
+                        'options' => [
+                            'class' => 'form-control',
+                        ],
+                        'clientOptions' => [
+                            'source' => $model->getDistrito(),
+                        ],
+                    ]) ?>
                 </div>
                 <div class="col-sm-4">
                     <?= $form->field($model, 'Estado_Civil')->dropDownList($model->getEstadoCivil(), ['prompt' => 'Seleccione un Estado  Civil', 'class' => 'form-control loginmodal-container-combo']) ?>
                 </div>
                 <div class="col-sm-4">
-                    <?= $form->field($model, 'Profesion')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'Profesion')->widget(\yii\jui\AutoComplete::classname(), [
+                        'options' => [
+                            'class' => 'form-control',
+                        ],
+                        'clientOptions' => [
+                            'source' => $model->getCarrera(),
+                        ],
+                    ]) ?>
                 </div>
             </div>
 
@@ -71,7 +85,7 @@ use app\models\Cliente;
                 <div class="col-sm-3 uso_normal">
                     <div class="form-group field-cliente-uso_interno">
                         <label class="control-label">Seleccionar si es de uso interno</label>
-                        <?= $form->field($model, 'uso_interno')->checkbox(['class' => 'check-selec', 'onchange' => 'valueChanged()'])?>
+                        <?= $form->field($model, 'uso_interno')->checkbox(['class' => 'check-selec', 'onchange' => 'valueChanged()']) ?>
                     </div>
                 </div>
 
@@ -83,19 +97,6 @@ use app\models\Cliente;
                         <?= $form->field($model, 'Local')->textInput(['maxlength' => true]) ?>
                     </div>
                 </div>
-            </div>
-
-            <div class="hide">
-                <?php
-                $model = new Cliente();
-                echo yii\jui\AutoComplete::widget([
-                    'id' => 'cliente-distrito',
-                    'name' => 'Cliente[Distrito]',
-                    'clientOptions' => [
-                        'source' => $model->getDistrito()
-                    ],
-                ])
-                ?>
             </div>
         </div>
     </div>

@@ -20,11 +20,7 @@ use app\models\Cliente;
         <p class="note"></p>
     </div>
 
-    <?php $form = ActiveForm::begin([
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-12\">{input}</div>\n<div class=\"col-lg-12\">{error}</div>",
-        ],
-    ]); ?>
+    <?php $form = ActiveForm::begin([]); ?>
 
     <div class="fieldset">
         <div class="container-fluid">
@@ -72,10 +68,11 @@ use app\models\Cliente;
                     <?= $form->field($model, 'Tarjeta_De_Credito')->textInput() ?>
                 </div>
 
-                <div class="col-sm-6 uso_normal" id="hides">
-                    <?= $form->field($model, 'uso_interno')->checkbox(
-                        ['template' => "<div class=\"col-lg-6\">{input} {label}</div>", 'class' => 'check-selec', 'onchange' => 'valueChanged()']
-                    )->label('Seleccionar si es de uso interno') ?>
+                <div class="col-sm-3 uso_normal">
+                    <div class="form-group field-cliente-uso_interno">
+                        <label class="control-label">Seleccionar si es de uso interno</label>
+                        <?= $form->field($model, 'uso_interno')->checkbox(['class' => 'check-selec', 'onchange' => 'valueChanged()'])?>
+                    </div>
                 </div>
 
                 <div class="uso_interno" style="display: none;">

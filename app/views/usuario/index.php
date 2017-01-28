@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         $Rol = $model->getRol($variable);
                         return $Rol;
                     },
-                    'contentOptions'=>['style'=>'max-width: 100px;']
+                    'contentOptions' => ['style' => 'max-width: 100px;']
                 ],
                 ['class' => 'yii\grid\ActionColumn'],
             ],

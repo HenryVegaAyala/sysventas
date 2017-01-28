@@ -41,7 +41,7 @@ AppAsset::register($this);
 
             ['label' => 'Modulo Registro', 'items' => [
                 ['label' => 'Registrar Cliente', 'url' => ['/cliente/create']],
-                ['label' => 'Registrar Productos y Servicios', 'url' => '#'],
+                ['label' => 'Registrar Productos y Servicios', 'url' => ['/producto/create']],
                 ['label' => 'Registrar de Ventas', 'url' => '#'],
                 ['label' => 'Registrar de Ingreso - Caja Efectivo', 'url' => '#'],
             ], 'visible' => !Yii::$app->user->isGuest],
@@ -80,7 +80,7 @@ AppAsset::register($this);
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    '<i class="fa fa-user-times" aria-hidden="true"></i> Cerrar Sesión (' . Yii::$app->user->identity->Nombre .' '.Yii::$app->user->identity->Apellido . ')',
+                    '<i class="fa fa-user-times" aria-hidden="true"></i> Cerrar Sesión (' . Yii::$app->user->identity->Nombre . ' ' . Yii::$app->user->identity->Apellido . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()

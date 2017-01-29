@@ -74,7 +74,7 @@ class Documento extends \yii\db\ActiveRecord
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Estado' => 'Estado',
-            'Fecha_Creado' => 'Fecha  Creado',
+            'Fecha_Creado' => 'Fecha',
         ];
     }
 
@@ -86,6 +86,19 @@ class Documento extends \yii\db\ActiveRecord
         $comando = $query->createCommand();
         $data = $comando->queryScalar();
         return $data;
+    }
+
+    public function ActualizarDocumento($id, $fh_delete,$usuario,$estado)
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        $db->createCommand("UPDATE documento SET 
+                            Fecha_Eliminado ='" . $fh_delete . "',
+                            Estado = '" . $estado . "',
+                            Usuario_Eliminado = '" . $usuario . "'  
+                            WHERE Codigo_Documento = '" . $id . "';")->execute();
+        $transaction->commit();
+
     }
 
 }

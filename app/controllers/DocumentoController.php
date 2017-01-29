@@ -101,7 +101,6 @@ class DocumentoController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $model->Estado = '2';
             $documento = UploadedFile::getInstance($model, 'archivo2');
 
             $nombre = $model->Nombre;
@@ -139,8 +138,12 @@ class DocumentoController extends Controller
 
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
 
+        $model = new Documento();
+        $fh_delete = $this->ZonaHoraria();
+        $estado = '0';
+        $usuario = Yii::$app->user->identity->Email;
+        $model->ActualizarDocumento($id,$fh_delete,$usuario,$estado);
         return $this->redirect(['index']);
     }
 

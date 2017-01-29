@@ -41,7 +41,7 @@ class DocumentoSearch extends Documento
      */
     public function search($params)
     {
-        $query = Documento::find();
+        $query = Documento::find()->where(['Estado' => 1]);
 
         // add conditions that should always apply here
 

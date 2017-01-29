@@ -65,8 +65,13 @@ class ProductoController extends Controller
     {
         $model = new Producto();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Codigo_Producto]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->Codigo_Producto = $model->getCodigoProducto();
+            $model->Fecha_Creado = $this->ZonaHoraria();
+            $model->Estado = '1';
+            $model->Usuario_Creado = Yii::$app->user->identity->Email;
+            $model->save();
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,8 +89,11 @@ class ProductoController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Codigo_Producto]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->Fecha_Modificado = $this->ZonaHoraria();
+            $model->Usuario_Modificado = Yii::$app->user->identity->Email;
+            $model->save();
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -101,8 +109,11 @@ class ProductoController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
+        $model = new Producto();
+        $fh_delete = $this->ZonaHoraria();
+        $estado = '0';
+        $usuario = Yii::$app->user->identity->Email;
+        $model->ActualizarProducto($id,$fh_delete,$usuario,$estado);
         return $this->redirect(['index']);
     }
 
@@ -120,5 +131,12 @@ class ProductoController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function ZonaHoraria()
+    {
+        date_default_timezone_set('America/Lima');
+        $Fecha_Hora = date('Y-m-d h:i:s', time());
+        return $Fecha_Hora;
     }
 }

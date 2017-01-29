@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'Precio_por_Noche',
             'Vigencia',
             // 'Desc_Afiliado',
-            // 'Combo_Adquirido',
             // 'Fecha_Creado',
             // 'Fecha_Modificado',
             // 'Fecha_Eliminado',

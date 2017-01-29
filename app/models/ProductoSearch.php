@@ -19,7 +19,7 @@ class ProductoSearch extends Producto
     {
         return [
             [['Codigo_Producto', 'Vigencia'], 'integer'],
-            [['Nombre', 'Combo_Adquirido', 'Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Estado'], 'safe'],
+            [['Nombre', 'Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Estado'], 'safe'],
             [['Precio', 'Precio_por_Noche', 'Desc_Afiliado'], 'number'],
         ];
     }
@@ -42,7 +42,7 @@ class ProductoSearch extends Producto
      */
     public function search($params)
     {
-        $query = Producto::find();
+        $query = Producto::find()->where(['Estado' => 1]);
 
         // add conditions that should always apply here
 
@@ -74,7 +74,6 @@ class ProductoSearch extends Producto
         ]);
 
         $query->andFilterWhere(['like', 'Nombre', $this->Nombre])
-            ->andFilterWhere(['like', 'Combo_Adquirido', $this->Combo_Adquirido])
             ->andFilterWhere(['like', 'Estado', $this->Estado]);
 
         return $dataProvider;

@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
+use yii\db\Query;
 
 /**
  * This is the model class for table "producto".
@@ -13,7 +15,6 @@ use Yii;
  * @property string $Precio_por_Noche
  * @property integer $Vigencia
  * @property double $Desc_Afiliado
- * @property string $Combo_Adquirido
  * @property string $Fecha_Creado
  * @property string $Fecha_Modificado
  * @property string $Fecha_Eliminado
@@ -21,8 +22,6 @@ use Yii;
  * @property string $Usuario_Modificado
  * @property string $Usuario_Eliminado
  * @property string $Estado
- *
- * @property DetalleFactura[] $detalleFacturas
  */
 class Producto extends \yii\db\ActiveRecord
 {
@@ -40,13 +39,15 @@ class Producto extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Nombre', 'Precio', 'Precio_por_Noche', 'Vigencia', 'Desc_Afiliado'], 'required'],
+            [['Nombre','Precio', 'Precio_por_Noche', 'Desc_Afiliado', 'Vigencia'], 'required'],
             [['Codigo_Producto', 'Vigencia'], 'integer'],
             [['Precio', 'Precio_por_Noche', 'Desc_Afiliado'], 'number'],
-            [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'safe'],
-            [['Nombre'], 'string', 'max' => 100],
-            [['Combo_Adquirido'], 'string', 'max' => 120],
+            [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
+            [['Nombre', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
+
+            
+
         ];
     }
 
@@ -61,8 +62,7 @@ class Producto extends \yii\db\ActiveRecord
             'Precio' => 'Precio',
             'Precio_por_Noche' => 'Precio por  Noche',
             'Vigencia' => 'Vigencia',
-            'Desc_Afiliado' => 'Descuento para  Afiliados',
-            'Combo_Adquirido' => 'Combo  Adquirido',
+            'Desc_Afiliado' => 'Descuento al Afiliado',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',
             'Fecha_Eliminado' => 'Fecha  Eliminado',
@@ -73,11 +73,26 @@ class Producto extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getDetalleFacturas()
+    public function getCodigoProducto()
     {
-        return $this->hasMany(DetalleFactura::className(), ['Codigo_Producto' => 'Codigo_Producto']);
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(Codigo_Producto), 0) + 1');
+        $query->select($expresion)->from('producto');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function ActualizarProducto($id, $fh_delete, $usuario, $estado)
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        $db->createCommand("UPDATE producto SET 
+                            Fecha_Eliminado = '" . $fh_delete . "',
+                            Estado = '" . $estado . "',
+                            Usuario_Eliminado = '" . $usuario . "'  
+                            WHERE Codigo_Producto = '" . $id . "';")->execute();
+        $transaction->commit();
+
     }
 }

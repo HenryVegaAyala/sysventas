@@ -27,8 +27,6 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'Desc_Afiliado') ?>
 
-    <?php // echo $form->field($model, 'Combo_Adquirido') ?>
-
     <?php // echo $form->field($model, 'Fecha_Creado') ?>
 
     <?php // echo $form->field($model, 'Fecha_Modificado') ?>

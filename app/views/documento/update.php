@@ -5,16 +5,13 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Documento */
 
-$this->title = 'Update Documento: ' . $model->Codigo_Documento;
+$this->title = 'Actualizar Documento: ' . $model->Codigo_Documento;
 $this->params['breadcrumbs'][] = ['label' => 'Documentos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->Codigo_Documento, 'url' => ['view', 'id' => $model->Codigo_Documento]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Actualizar';
 ?>
 <div class="documento-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
+    <?= $this->render('_update', [
         'model' => $model,
     ]) ?>
 

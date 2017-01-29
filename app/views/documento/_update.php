@@ -32,7 +32,17 @@ use yii\widgets\ActiveForm;
                     <?= $form->field($model, 'Nombre')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-sm-6">
-                    <?= $form->field($model, 'archivo')->fileInput(['class' => 'form-control','multiple' => true]) ?>
+                    <?= $form->field($model, 'archivo2')->fileInput(['class' => 'form-control', 'multiple' => true]) ?>
+                    <center>
+                        <?php if (!$model->isNewRecord) : ?>
+                            <?php if ($model->extension != 'pdf') { ?>
+                                <?php echo Html::img(Yii::getAlias('@groupgygUrlImagen') . '/' . $model->archivo, ['height' => '120px']); ?>
+                            <?php } else { ?>
+                                <?= Html::img('help/pdf.png', ['height' => '120px']); ?>
+                            <?php } ?>
+                            <p><?php echo $model->archivo ?></p>
+                        <?php endif; ?>
+                    </center>
                 </div>
             </div>
         </div>
@@ -40,8 +50,8 @@ use yii\widgets\ActiveForm;
 
     <div class="panel-footer container-fluid foo">
         <div class="col-sm-12">
-            <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
-            <?= Html::resetButton($model->isNewRecord ? "<i class=\"fa fa-eraser\" aria-hidden=\"true\"></i> Limpiar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($model->isNewRecord ? "Guardar" : "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar", ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
+            <?= Html::resetButton($model->isNewRecord ? "<i class=\"fa fa-eraser\" aria-hidden=\"true\"></i> Limpiar" : "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Restablecer", ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
             <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
         </div>
         <?php ActiveForm::end(); ?>

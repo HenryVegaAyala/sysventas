@@ -1,7 +1,12 @@
 <?php
 
+Yii::setAlias('@groupgygImgPathImagen','C:\wamp64\www\dolibar\documentos\imagen\\');
+Yii::setAlias('@groupgygImgPathPdf','C:\wamp64\www\dolibar\documentos\pdf\\');
+
+Yii::setAlias('@groupgygUrlImagen','http://localhost/dolibar/documentos/imagen/');
+Yii::setAlias('@groupgygUrlPdf','http://localhost/dolibar/documentos/pdf/');
+
 return [
-    'adminEmail' => 'ingenierovega9321@gmail.com',
-    'title' => 'Aplicación yii',
-    'salt' => 'fsddsflj38343lj0',
+    'adminEmail' => 'admin@example.com',
+
 ];

@@ -113,7 +113,7 @@ class ProductoController extends Controller
         $fh_delete = $this->ZonaHoraria();
         $estado = '0';
         $usuario = Yii::$app->user->identity->Email;
-        $model->ActualizarProducto($id,$fh_delete,$usuario,$estado);
+        $model->ActualizarProducto($id, $fh_delete, $usuario, $estado);
         return $this->redirect(['index']);
     }
 

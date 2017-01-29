@@ -19,21 +19,11 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'Codigo_Documento',
             'Nombre',
             'archivo',
             'Fecha_Creado',
-            'Fecha_Modificado',
-            // 'Fecha_Eliminado',
-            // 'Usuario_Creado',
-            // 'Usuario_Eliminado',
-            // 'Usuario_Modificado',
-            // 'Estado',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Documento */
@@ -33,19 +32,6 @@ use kartik\file\FileInput;
             </div>
         </div>
     </div>
-
-    <?php
-
-    echo $form->field($model, 'archivo')->widget(FileInput::classname(), [
-        'options' => ['accept' => 'image/*'],
-    ]);
-
-    echo '<label class="control-label">Upload Document</label>';
-    echo FileInput::widget([
-        'name' => 'archivo',
-    ]);
-
-    ?>
 
     <div class="panel-footer container-fluid foo">
         <div class="col-sm-12">

@@ -17,7 +17,7 @@ use yii\widgets\ActiveForm;
     <div class="container-fluid">
         <p class="note"></p>
     </div>
-    
+
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="fieldset">

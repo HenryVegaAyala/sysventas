@@ -65,8 +65,15 @@ class FolioController extends Controller
     {
         $model = new Folio();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Codigo_Folio]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->Codigo_Folio = $model->getCodigoFolio();
+            $model->Fecha_Creada = $this->ZonaHoraria();
+            $model->Usuario_Creado = Yii::$app->user->identity->Email;
+            $model->Estado = '1';
+            $model->save();
+
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,8 +91,13 @@ class FolioController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Codigo_Folio]);
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->Fecha_Modificada = $this->ZonaHoraria();
+            $model->Usuario_Modificado = Yii::$app->user->identity->Email;
+
+            $model->save();
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -121,4 +133,12 @@ class FolioController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function ZonaHoraria()
+    {
+        date_default_timezone_set('America/Lima');
+        $Fecha_Hora = date('Y-m-d h:i:s', time());
+        return $Fecha_Hora;
+    }
+
 }

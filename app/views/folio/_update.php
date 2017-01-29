@@ -2,11 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
-use app\models\Rol;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Usuario */
+/* @var $model app\models\Folio */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -19,39 +17,17 @@ use app\models\Rol;
     <div class="container-fluid">
         <p class="note"></p>
     </div>
+
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="fieldset">
         <div class="container-fluid">
-
             <div class="row">
-                <div class="col-sm-6">
-                    <?= $form->field($model, 'Nombre')->textInput(['maxlength' => true]) ?>
+                <div class="col-sm-9">
+                    <?= $form->field($model, 'Descripcion')->textInput(['maxlength' => true]) ?>
                 </div>
-
-                <div class="col-sm-6">
-                    <?= $form->field($model, 'Apellido')->textInput(['maxlength' => true]) ?>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <?= $form->field($model, 'Email')->textInput(['maxlength' => true]) ?>
-                </div>
-
-                <div class="col-sm-6">
-                    <?= $form->field($model, 'Codigo_Rol')->dropDownList($model->getRol(), ['prompt' => 'Seleccione una Categoria', 'class' => 'form-control loginmodal-container-combo']) ?>
-                </div>
-                
-            </div>
-
-            <div class="row">
-                <div class="col-sm-6">
-                    <?= $form->field($model, 'Contrasena')->passwordInput(['maxlength' => true]) ?>
-                </div>
-
-                <div class="col-sm-6">
-                    <?= $form->field($model, "password_repeat")->passwordInput(['value' => $model->Contrasena]) ?>
+                <div class="col-sm-3">
+                    <?= $form->field($model, 'Valor')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
         </div>
@@ -63,7 +39,6 @@ use app\models\Rol;
             <?= Html::resetButton($model->isNewRecord ? "<i class=\"fa fa-eraser\" aria-hidden=\"true\"></i> Limpiar" : "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Restablecer", ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
             <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
         </div>
-    </div>
         <?php ActiveForm::end(); ?>
     </div>
 </div>

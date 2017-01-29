@@ -5,16 +5,13 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Cliente */
 
-$this->title = 'Update Cliente: ' . $model->Codigo_Cliente;
-$this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->Codigo_Cliente, 'url' => ['view', 'id' => $model->Codigo_Cliente]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Actualización de datos del cliente: ' . $model->Nombre .' '. $model->Apellido;
+$this->params['breadcrumbs'][] = ['label' => 'Cliente', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Actualizar Cliente';
 ?>
 <div class="cliente-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= $this->render('_form', [
+    <?= $this->render('_update', [
         'model' => $model,
     ]) ?>
 

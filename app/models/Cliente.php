@@ -51,16 +51,18 @@ class Cliente extends \yii\db\ActiveRecord
             [['Edad'], 'required', 'message' => 'Edad es requerida.'],
             [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito'], 'integer', 'message' => 'Debe ser númerico.'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
-            [['Nombre', 'Apellido', 'Distrito', 'Local', 'Usuario_Creado'], 'string', 'max' => 100],
+            [['Nombre', 'Apellido', 'Distrito', 'Profesion', 'Local', 'Usuario_Creado'], 'string', 'max' => 100],
             [['Estado_Civil', 'Estado'], 'string', 'max' => 1],
             [['Direccion', 'Observacion'], 'string', 'max' => 200],
-            [['Telefono_Casa', 'Telefono_Celular'], 'integer', 'max' => 15],
+//            [['Telefono_Casa', 'Telefono_Celular'], 'integer', 'max' => 15],
             [['Promotor'], 'string', 'max' => 50],
 
             [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^.{3,80}$/", 'message' => 'Mínimo 3 caracteres'],
-            [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^[a-z]+$/i", 'message' => 'Sólo se aceptan letras y números'],
+            [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\_\-\/\. ]+$/i", 'message' => 'Sólo se aceptan letras'],
 
             [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Celular'], 'integer', 'message' => 'Debe ser númerico.'],
+            [['Telefono_Casa', 'Telefono_Celular'], 'match', 'pattern' => "/^.{3,15}$/",  'message' => 'Mínimo 7 caracteres del correo'],
+            [['Edad'], 'match', 'pattern' => "/^.{2,2}$/",  'message' => 'Debe ser edad correcta'],
 
             [['Email'], 'match', 'pattern' => "/^.{3,45}$/",  'message' => 'Mínimo 3 caracteres del correo'],
             [['Email'], 'email', 'message' => 'Debe de ser un correo válido'],

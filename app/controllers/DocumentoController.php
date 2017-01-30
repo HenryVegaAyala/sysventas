@@ -85,7 +85,7 @@ class DocumentoController extends Controller
             }
 
             $model->archivo = $documentos;
-            $model->extesion = $documento->getExtension();
+            $model->extension = $documento->getExtension();
             $model->save();
             return $this->redirect(['index']);
         } else {

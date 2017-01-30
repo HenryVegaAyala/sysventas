@@ -75,6 +75,7 @@ class Documento extends \yii\db\ActiveRecord
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Estado' => 'Estado',
             'Fecha_Creado' => 'Fecha',
+            'archivo2' => 'Archivo'
         ];
     }
 

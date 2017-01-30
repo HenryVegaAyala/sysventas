@@ -1,5 +1,6 @@
 <?php
 
+// amazon
 //return [
 //    'class' => 'yii\db\Connection',
 //    'dsn' => 'mysql:host=sispaal.cnjv4vhhy3or.us-west-2.rds.amazonaws.com;dbname=sis_crm',
@@ -8,6 +9,7 @@
 //    'charset' => 'utf8',
 //];
 
+// dominio
 //return [
 //    'class' => 'yii\db\Connection',
 //    'dsn' => 'mysql:host=localhost;dbname=groupg12_rustica',
@@ -16,11 +18,20 @@
 //    'charset' => 'utf8',
 //];
 
+// Windows
+//return [
+//    'class' => 'yii\db\Connection',
+//    'dsn' => 'mysql:host=localhost;dbname=sis_crm',
+//    'username' => 'root',
+//    'password' => '',
+//    'charset' => 'utf8',
+//];
+
+// linux
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=sis_crm',
     'username' => 'root',
-    'password' => '',
+    'password' => 'root',
     'charset' => 'utf8',
 ];
-

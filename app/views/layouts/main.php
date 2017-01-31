@@ -47,7 +47,7 @@ AppAsset::register($this);
             ], 'visible' => !Yii::$app->user->isGuest],
 
             ['label' => 'Modulo Seguimiento', 'items' => [
-                ['label' => 'Clientes potenciales', 'url' => '#'],
+                ['label' => 'Clientes potenciales', 'url' => ['/cliente/index']],
                 ['label' => 'Fidelización', 'url' => '#'],
                 ['label' => 'Comisiones', 'url' => '#'],
                 ['label' => 'Supervisión', 'url' => '#'],

@@ -62,7 +62,7 @@ AppAsset::register($this);
             ['label' => 'Reportes', 'items' => [
                 ['label' => 'Reporte General', 'url' => '#'],
                 ['label' => 'Contratos', 'url' => ['/contrato/index']],
-                ['label' => 'Facturas', 'url' => ['/factura/factura']],
+                ['label' => 'Facturas', 'url' => ['/factura/index']],
                 ['label' => 'Documentos y Cotizaciones', 'url' => ['/documento/index']],
             ], 'visible' => !Yii::$app->user->isGuest],
 

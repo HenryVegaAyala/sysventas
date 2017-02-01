@@ -19,19 +19,19 @@
 //];
 
 // Windows
-//return [
-//    'class' => 'yii\db\Connection',
-//    'dsn' => 'mysql:host=localhost;dbname=sis_crm',
-//    'username' => 'root',
-//    'password' => '',
-//    'charset' => 'utf8',
-//];
-
-// linux
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=sis_crm',
+    'dsn' => 'mysql:host=localhost;dbname=sis_crm',
     'username' => 'root',
-    'password' => 'root',
+    'password' => '',
     'charset' => 'utf8',
 ];
+
+// linux
+//return [
+//    'class' => 'yii\db\Connection',
+//    'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=sis_crm',
+//    'username' => 'root',
+//    'password' => 'root',
+//    'charset' => 'utf8',
+//];

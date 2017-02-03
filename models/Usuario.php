@@ -4,155 +4,155 @@ namespace app\models;
 
 use Yii;
 use yii\db\Query;
-use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "usuario".
+ * This is the model class for table "user".
  *
- * @property integer $Codigo_Usuario
- * @property string $Nombre
- * @property string $Apellido
- * @property string $Email
- * @property string $Contrasena
- * @property string $AuthKey
- * @property string $AccessToken
- * @property integer $Activate
- * @property string $Fecha_Creado
- * @property string $Fecha_Modificada
- * @property string $Fecha_Eliminada
- * @property string $Usuario_Creado
- * @property string $Usuario_Modificado
- * @property string $Usuario_Eliminado
- * @property string $Ultima_Sesion
- * @property string $Estado
- * @property integer $Codigo_Rol
+ * @property integer $id
+ * @property string $username
+ * @property string $email
+ * @property string $password_hash
+ * @property string $auth_key
+ * @property integer $confirmed_at
+ * @property string $unconfirmed_email
+ * @property integer $blocked_at
+ * @property string $registration_ip
+ * @property integer $created_at
+ * @property integer $updated_at
+ * @property integer $flags
+ * @property integer $last_login_at
+ * @property integer $status
+ * @property string $password_reset_token
  *
- * @property Rol $codigoRol
+ * @property Profile $profile
+ * @property SocialAccount[] $socialAccounts
+ * @property Token[] $tokens
  */
 class Usuario extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
-    public $password_repeat;
-
     public static function tableName()
     {
-        return 'usuario';
+        return 'user';
     }
 
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
-            [['Codigo_Usuario', 'Codigo_Rol', 'Nombre', 'Apellido', 'Email', 'Contrasena', 'password_repeat'], 'required', 'message' => 'Este campo es requerido'],
-            [['Codigo_Usuario', 'Activate', 'Codigo_Rol'], 'integer'],
-            [['Fecha_Creado', 'Fecha_Modificada', 'Fecha_Eliminada', 'Ultima_Sesion'], 'safe'],
-            [['Nombre', 'Apellido', 'Email'], 'string', 'max' => 45],
-            [['Contrasena', 'AuthKey', 'AccessToken', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 250],
-            [['Estado'], 'string', 'max' => 1],
-            [['Codigo_Rol'], 'exist', 'skipOnError' => true, 'targetClass' => Rol::className(), 'targetAttribute' => ['Codigo_Rol' => 'Cod_Rol']],
-
-            ['Nombre', 'match', 'pattern' => "/^.{1,50}$/", 'message' => 'Mínimo 1 caracter'],
-//            ['Nombre', 'username_existe'],
-
-            ['Email', 'match', 'pattern' => "/^.{5,80}$/", 'message' => 'Mínimo 5 y máximo 80 caracteres'],
-            ['Email', 'email', 'message' => 'Formato de correo no válido'],
-//            ['Email', 'email_existe'],
-
-            ['Contrasena', 'match', 'pattern' => "/^.{6,250}$/", 'message' => 'Mínimo 6 y máximo 16 caracteres'],
-            ['password_repeat', 'compare', 'compareAttribute' => 'Contrasena', 'message' => 'Los passwords no coinciden'],
+            [['username', 'email', 'password_hash', 'auth_key', 'created_at', 'updated_at'], 'required'],
+            [['confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'flags', 'last_login_at', 'status'], 'integer'],
+            [['username', 'email', 'password_hash', 'unconfirmed_email'], 'string', 'max' => 255],
+            [['auth_key'], 'string', 'max' => 32],
+            [['registration_ip'], 'string', 'max' => 45],
+            [['password_reset_token'], 'string', 'max' => 256],
+            [['username'], 'unique'],
+            [['email'], 'unique'],
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
     public function attributeLabels()
     {
         return [
-            'Codigo_Usuario' => 'Codigo  Usuario',
-            'Nombre' => 'Nombres',
-            'Apellido' => 'Apellidos',
-            'Email' => 'Email',
-            'Contrasena' => 'Contraseña',
-            'AuthKey' => 'Auth Key',
-            'AccessToken' => 'Access Token',
-            'Activate' => 'Activate',
-            'Fecha_Creado' => 'Fecha  Creado',
-            'Fecha_Modificada' => 'Fecha  Modificada',
-            'Fecha_Eliminada' => 'Fecha  Eliminada',
-            'Ultima_Sesion' => 'Ultima  Sesion',
-            'password_repeat' => 'Repetir Contraseña',
-            'Estado' => 'Estado',
-            'Codigo_Rol' => 'Rol',
+            'id' => 'ID',
+            'username' => 'Username',
+            'email' => 'Email',
+            'password_hash' => 'Password Hash',
+            'auth_key' => 'Auth Key',
+            'confirmed_at' => 'Confirmed At',
+            'unconfirmed_email' => 'Unconfirmed Email',
+            'blocked_at' => 'Blocked At',
+            'registration_ip' => 'Registration Ip',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+            'flags' => 'Flags',
+            'last_login_at' => 'Last Login At',
+            'status' => 'Status',
+            'password_reset_token' => 'Password Reset Token',
         ];
     }
 
-    public function getCodigoRol()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfile()
     {
-        return $this->hasOne(Rol::className(), ['Cod_Rol' => 'Codigo_Rol']);
+        return $this->hasOne(Profile::className(), ['user_id' => 'id']);
     }
 
-    public function email_existe($attribute, $params)
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSocialAccounts()
     {
-        //Buscar el email en la tabla
-        $table = Usuario::find()->where("Email=:Email", [":Email" => $this->Email]);
+        return $this->hasMany(SocialAccount::className(), ['user_id' => 'id']);
+    }
 
-        //Si el email existe mostrar el error
-        if ($table->count() == 1) {
-            $this->addError($attribute, "El email seleccionado existe");
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTokens()
+    {
+        return $this->hasMany(Token::className(), ['user_id' => 'id']);
+    }
+
+    public function getRol($rol)
+    {
+        switch ($rol) {
+            case 1:
+                return 'Administrador';
+                break;
+            case 2:
+                return 'Digitador';
+                break;
+            case 3:
+                return 'Supervisor';
+                break;
+            case 4:
+                return 'Anfitrión';
+                break;
+            case 5:
+                return 'Director de mercadeo';
+                break;
+            case 6:
+                return 'Telemarketing';
+                break;
+            case 7:
+                return 'Confirmador';
+                break;
+            case 8:
+                return 'Supervisora de telemarketing';
+                break;
+            case 9:
+                return 'No access liner';
+                break;
+            case 10:
+                return 'No access closer';
+                break;
+            case 11:
+                return 'Jefe de contratos';
+                break;
+            case 12:
+                return 'Jefe de sala';
+                break;
+            case 13:
+                return 'Jefe de ventas';
+                break;
+            case 14:
+                return 'Director de proyecto';
+                break;
+            case 15:
+                return 'Gerente General';
+                break;
+            default:
+                return 'Sin permiso';
         }
     }
-
-    public function username_existe($attribute, $params)
-    {
-        //Buscar el username en la tabla
-        $table = Usuario::find()->where("Nombre=:Nombre", [":Nombre" => $this->Nombre]);
-
-        //Si el username existe mostrar el error
-        if ($table->count() == 1) {
-            $this->addError($attribute, "El usuario seleccionado existe");
-        }
-    }
-
-    public function getCodigoUsuario()
-    {
-        $query = new Query();
-        $query->select('max(Codigo_Usuario) + 1 as Codigo')->from('usuario');
-        $comando = $query->createCommand();
-        $data = $comando->queryScalar();
-        return $data;
-    }
-
-    public function getEmailExistente($email)
-    {
-        $query = new Query();
-        $query->select('Email')->from('usuario')->where(['Email' => "$email"]);
-        $comando = $query->createCommand();
-        $data = $comando->queryScalar();
-        return $data;
-    }
-
-    public function ActualizarUsuario($id, $fh_delete,$usuario,$estado)
-    {
-        $db = Yii::$app->db;
-        $transaction = $db->beginTransaction();
-        $db->createCommand("UPDATE usuario SET 
-                            Fecha_Eliminada='" . $fh_delete . "',
-                            Estado = '" . $estado . "',
-                            Usuario_Eliminado = '" . $usuario . "'  
-                            WHERE Codigo_Usuario = '" . $id . "';")->execute();
-        $transaction->commit();
-
-    }
-
-    public function getRol()
-    {
-        $resultado = ArrayHelper::map(Rol::find()->orderBy('Descripcion asc')->where('estado = 1')->asArray()->all(), 'Cod_Rol', 'Descripcion');
-        return $resultado;
-    }
-
-    public function getEstado()
-    {
-        $var = [ 0 => 'Inactivo', 1 => 'Activo'];
-        return $var;
-    }
-
 }

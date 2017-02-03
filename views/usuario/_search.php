@@ -12,34 +12,44 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
-        'method' => 'post',
+        'method' => 'get',
     ]); ?>
 
-    <div class="fieldset">
-        <div class="container-fluid">
+    <?= $form->field($model, 'id') ?>
 
-            <div class="col-sm-3">
-                <?= $form->field($model, 'Codigo_Usuario') ?>
-            </div>
+    <?= $form->field($model, 'username') ?>
 
-            <div class="col-sm-3">
-                <?= $form->field($model, 'Nombre') ?>
-            </div>
+    <?= $form->field($model, 'email') ?>
 
-            <div class="col-sm-3">
-                <?= $form->field($model, 'Apellido') ?>
-            </div>
+    <?= $form->field($model, 'password_hash') ?>
 
-            <div class="col-sm-3">
-                <?= $form->field($model, 'Codigo_Rol')->dropDownList($model->getRol(), ['prompt' => 'Seleccione una Categoria', 'class' => 'form-control loginmodal-container-combo']) ?>
-            </div>
+    <?= $form->field($model, 'auth_key') ?>
 
-        </div>
-        <div class="panel-footer container-fluid foo">
-            <?= Html::submitButton("<i class=\"fa fa-search\" aria-hidden=\"true\"></i> Buscar", ['class' => 'btn btn-primary', 'id' => 'BtnBuscar']) ?>
-            <?= Html::resetButton("<i class=\"fa fa-eraser\" aria-hidden=\"true\"></i> Limpiar", ['class' => 'btn btn-primary']) ?>
-            <?= Html::button("<i class=\"fa fa-times\" aria-hidden=\"true\"></i> Cerrar", ['class' => 'btn btn-primary', 'id' => 'BtnCerrar']) ?>
-            <?php ActiveForm::end(); ?>
-        </div>
+    <?php // echo $form->field($model, 'confirmed_at') ?>
+
+    <?php // echo $form->field($model, 'unconfirmed_email') ?>
+
+    <?php // echo $form->field($model, 'blocked_at') ?>
+
+    <?php // echo $form->field($model, 'registration_ip') ?>
+
+    <?php // echo $form->field($model, 'created_at') ?>
+
+    <?php // echo $form->field($model, 'updated_at') ?>
+
+    <?php // echo $form->field($model, 'flags') ?>
+
+    <?php // echo $form->field($model, 'last_login_at') ?>
+
+    <?php // echo $form->field($model, 'status') ?>
+
+    <?php // echo $form->field($model, 'password_reset_token') ?>
+
+    <div class="form-group">
+        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
     </div>
+
+    <?php ActiveForm::end(); ?>
+
 </div>

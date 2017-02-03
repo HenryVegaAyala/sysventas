@@ -51,10 +51,10 @@ class ClienteController extends Controller
             $model->Codigo_Cliente = $model->getCodigoCliente();
             $model->Fecha_Creado = $this->ZonaHoraria();
             $model->Estado = '1';
-            $model->Usuario_Creado = Yii::$app->user->identity->Email;
+            $model->Usuario_Creado = Yii::$app->user->identity->email;
 
             $model->save();
-            return $this->redirect(['index']);
+            return $this->redirect(['create']);
         } else {
             return $this->render('create', [
                 'model' => $model,

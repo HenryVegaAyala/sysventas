@@ -2,66 +2,48 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\helpers\ArrayHelper;
-use app\models\Rol;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Usuario */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="panel panel-default">
+<div class="usuario-form">
 
-    <div class="panel-heading">
-        <h3 class="panel-title">Registrar <?= $this->title?></h3>
-    </div>
-
-    <div class="container-fluid">
-        <p class="note"></p>
-    </div>
     <?php $form = ActiveForm::begin(); ?>
 
-    <div class="fieldset">
-        <div class="container-fluid">
+    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <?= $form->field($model, 'Nombre')->textInput(['maxlength' => true]) ?>
-                </div>
+    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-                <div class="col-sm-6">
-                    <?= $form->field($model, 'Apellido')->textInput(['maxlength' => true]) ?>
-                </div>
-            </div>
+    <?= $form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?>
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <?= $form->field($model, 'Email')->textInput(['maxlength' => true]) ?>
-                </div>
+    <?= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
 
-                <div class="col-sm-6">
-                    <?= $form->field($model, 'Codigo_Rol')->dropDownList($model->getRol(), ['prompt' => 'Seleccione una Categoria', 'class' => 'form-control loginmodal-container-combo']) ?>
-                </div>
-            </div>
+    <?= $form->field($model, 'confirmed_at')->textInput() ?>
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <?= $form->field($model, 'Contrasena')->passwordInput(['maxlength' => true]) ?>
-                </div>
+    <?= $form->field($model, 'unconfirmed_email')->textInput(['maxlength' => true]) ?>
 
-                <div class="col-sm-6">
-                    <?= $form->field($model, "password_repeat")->input("password") ?>
-                </div>
-            </div>
-        </div>
+    <?= $form->field($model, 'blocked_at')->textInput() ?>
+
+    <?= $form->field($model, 'registration_ip')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'created_at')->textInput() ?>
+
+    <?= $form->field($model, 'updated_at')->textInput() ?>
+
+    <?= $form->field($model, 'flags')->textInput() ?>
+
+    <?= $form->field($model, 'last_login_at')->textInput() ?>
+
+    <?= $form->field($model, 'status')->textInput() ?>
+
+    <?= $form->field($model, 'password_reset_token')->textInput(['maxlength' => true]) ?>
+
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-    <div class="panel-footer container-fluid foo">
-        <div class="col-sm-12">
-            <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
-            <?= Html::resetButton($model->isNewRecord ? "<i class=\"fa fa-eraser\" aria-hidden=\"true\"></i> Limpiar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
-            <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
-        </div>
-        <?php ActiveForm::end(); ?>
-    </div>
+    <?php ActiveForm::end(); ?>
+
 </div>

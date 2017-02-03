@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use app\models\Usuario;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
@@ -27,16 +28,19 @@ use yii\helpers\Html;
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?= $directoryAsset ?>/img/user2-160x160.png" class="img-circle" alt="Foto Usuario"/>
+                            <img src="<?= $directoryAsset ?>/img/user2-160x160.png" class="img-circle"
+                                 alt="Foto Usuario"/>
                             <p>
-                                <?= Yii::$app->user->identity->username ?> - Administrador
+
+                                <?php $model = new Usuario(); ?>
+                                <?= Yii::$app->user->identity->username . ' - ' . $model->getRol(Yii::$app->user->identity->id) ?>
                                 <small>Miembro desde <?= date('d-m-Y') ?></small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <?php echo Html::a('Cambiar Contraseña', ['/user/security/logout'], ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']); ?>
+                                <?php echo Html::a('Cambiar Contraseña', ['/usuario/index'], ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']); ?>
                             </div>
                             <div class="pull-right">
                                 <?php echo Html::a('Cerrar Sesión', ['/user/security/logout'], ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']); ?>

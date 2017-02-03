@@ -60,7 +60,7 @@ class Cliente extends \yii\db\ActiveRecord
             [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^.{3,80}$/", 'message' => 'Mínimo 3 caracteres'],
             [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\_\-\/\. ]+$/i", 'message' => 'Sólo se aceptan letras'],
 
-            [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Celular'], 'integer', 'message' => 'Debe ser númerico.'],
+            [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Celular','Traslado'], 'integer', 'message' => 'Debe ser númerico.'],
             [['Telefono_Casa', 'Telefono_Celular'], 'match', 'pattern' => "/^.{3,15}$/",  'message' => 'Mínimo 7 caracteres del correo'],
             [['Edad'], 'match', 'pattern' => "/^.{2,2}$/",  'message' => 'Debe ser edad correcta'],
 
@@ -135,6 +135,24 @@ class Cliente extends \yii\db\ActiveRecord
             2 => 'Casado/a',
             3 => 'Divorciado/a',
             4 => 'Viudo/a'
+        ];
+        return $var;
+    }
+
+    public function getTraslado()
+    {
+        $var = [
+            0 => 'Particular',
+            1 => 'Bus',
+        ];
+        return $var;
+    }
+
+    public function getTarjeta()
+    {
+        $var = [
+            0 => 'Tarjeta de Crédito',
+            1 => 'Tarjeta de Débito',
         ];
         return $var;
     }

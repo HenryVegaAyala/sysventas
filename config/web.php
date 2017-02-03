@@ -116,10 +116,13 @@ $config = [
 
                 /** Sesion **/
                 ['pattern' => '/sesion', 'route' => '/user/security/login', 'suffix' => '.php'],
-                ['pattern' => '/sesion', 'route' => '/user/login', 'suffix' => '.php'],
 
                 /** Producto **/
-                ['pattern' => '/producto', 'route' => '/producto/index', 'suffix' => '.php'],
+                ['pattern' => '/producto', 'route' => '/producto/create', 'suffix' => '.php'],
+
+                /** Cliente **/
+                ['pattern' => '/cliente', 'route' => '/cliente/create', 'suffix' => '.php'],
+                
             ],
         ],
 

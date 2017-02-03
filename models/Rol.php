@@ -62,53 +62,5 @@ class Rol extends \yii\db\ActiveRecord
         return $this->hasMany(Usuario::className(), ['Codigo_Rol' => 'Cod_Rol']);
     }
 
-    public function getRol($rol)
-    {
-        switch ($rol) {
-            case 1:
-                return 'Anfitrión';
-                break;
-            case 2:
-                return 'Supervisor';
-                break;
-            case 3:
-                return 'Digitador';
-                return;
-            case 4:
-                return 'Director de mercadeo';
-                return;
-            case 5:
-                return 'Telemarketing';
-                return;
-            case 6:
-                return 'Confirmador';
-                return;
-            case 7:
-                return 'Supervisora de telemarketing';
-                return;
-            case 8:
-                return 'No access liner';
-                return;
-            case 9:
-                return 'No access closer';
-                return;
-            case 10:
-                return 'Jefe de contratos';
-                return;
-            case 11:
-                return 'Jefe de sala';
-                return;
-            case 12:
-                return 'Jefe de ventas';
-                break;
-            case 13:
-                return 'Director de proyecto';
-                break;
-            case 14:
-                return 'Gerente General';
-                break;
-            default:
-                return 'Sin permiso';
-        }
-    }
+
 }

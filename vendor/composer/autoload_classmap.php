@@ -12,6 +12,7 @@ return array(
     'CGIFIMAGE' => $vendorDir . '/mpdf/mpdf/classes/gif.php',
     'CGIFIMAGEHEADER' => $vendorDir . '/mpdf/mpdf/classes/gif.php',
     'CGIFLZW' => $vendorDir . '/mpdf/mpdf/classes/gif.php',
+    'FPDF' => $vendorDir . '/setasign/fpdf/fpdf.php',
     'FPDF_TPL' => $vendorDir . '/setasign/fpdi/fpdf_tpl.php',
     'FPDI' => $vendorDir . '/setasign/fpdi/fpdi.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',

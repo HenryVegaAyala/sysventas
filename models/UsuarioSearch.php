@@ -8,7 +8,7 @@ use yii\data\ActiveDataProvider;
 use app\models\Usuario;
 
 /**
- * UsuarioSearch represents the model behind the search form about `app\models\Usuario`.
+ * UsuarioSearch represents the model behind the search form of `app\models\Usuario`.
  */
 class UsuarioSearch extends Usuario
 {
@@ -18,8 +18,8 @@ class UsuarioSearch extends Usuario
     public function rules()
     {
         return [
-            [['Codigo_Usuario', 'Activate', 'Codigo_Rol'], 'integer'],
-            [['Nombre', 'Apellido', 'Email', 'Contrasena', 'AuthKey', 'AccessToken', 'Fecha_Creado', 'Fecha_Modificada', 'Fecha_Eliminada', 'Ultima_Sesion', 'Estado'], 'safe'],
+            [['id', 'confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'flags', 'last_login_at', 'status'], 'integer'],
+            [['username', 'email', 'password_hash', 'auth_key', 'unconfirmed_email', 'registration_ip', 'password_reset_token'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class UsuarioSearch extends Usuario
      */
     public function search($params)
     {
-        $query = Usuario::find()->where(['Estado' => 1]);
+        $query = Usuario::find();
 
         // add conditions that should always apply here
 
@@ -59,22 +59,23 @@ class UsuarioSearch extends Usuario
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'Codigo_Usuario' => $this->Codigo_Usuario,
-            'Activate' => $this->Activate,
-            'Fecha_Creado' => $this->Fecha_Creado,
-            'Fecha_Modificada' => $this->Fecha_Modificada,
-            'Fecha_Eliminada' => $this->Fecha_Eliminada,
-            'Ultima_Sesion' => $this->Ultima_Sesion,
-            'Codigo_Rol' => $this->Codigo_Rol,
+            'id' => $this->id,
+            'confirmed_at' => $this->confirmed_at,
+            'blocked_at' => $this->blocked_at,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'flags' => $this->flags,
+            'last_login_at' => $this->last_login_at,
+            'status' => $this->status,
         ]);
 
-        $query->andFilterWhere(['like', 'Nombre', $this->Nombre])
-            ->andFilterWhere(['like', 'Apellido', $this->Apellido])
-            ->andFilterWhere(['like', 'Email', $this->Email])
-            ->andFilterWhere(['like', 'Contrasena', $this->Contrasena])
-            ->andFilterWhere(['like', 'AuthKey', $this->AuthKey])
-            ->andFilterWhere(['like', 'AccessToken', $this->AccessToken])
-            ->andFilterWhere(['like', 'Estado', $this->Estado]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
+            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
+            ->andFilterWhere(['like', 'unconfirmed_email', $this->unconfirmed_email])
+            ->andFilterWhere(['like', 'registration_ip', $this->registration_ip])
+            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token]);
 
         return $dataProvider;
     }

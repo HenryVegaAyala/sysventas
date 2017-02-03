@@ -19,7 +19,7 @@ $menu = MenuHelper::getAssignedMenu(Yii::$app->user->id);
                 </center>
             </li>
             <li>
-                <a href="/yii/index.php/admin"><i class="fa fa-dashboard"></i> <span>Admin</span></a>
+                <a href="/index.php/admin"><i class="fa fa-dashboard"></i> <span>Admin</span></a>
             </li>
 
             <?php foreach ($menu as $key => $submenu) { ?>

@@ -4,46 +4,36 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Usuario */
+/* @var $model app\models\Producto */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Usuarios', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
+$this->title = 'Usuario Detallado de: ' . $model->username;
 ?>
-<div class="usuario-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><?= Html::encode($this->title) ?> </h3>
+        </div>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'username',
-            'email:email',
-            'password_hash',
-            'auth_key',
-            'confirmed_at',
-            'unconfirmed_email:email',
-            'blocked_at',
-            'registration_ip',
-            'created_at',
-            'updated_at',
-            'flags',
-            'last_login_at',
-            'status',
-            'password_reset_token',
-        ],
-    ]) ?>
+        <div class="producto-view">
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'username',
+                    'email:email',
+                    'status',
+                    'Fecha_Creado',
+                    'Codigo_Rol'
+                ],
+            ]) ?>
 
+            <div class="panel-footer container-fluid foo">
+                <p>
+                    <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['index'], ['class' => 'btn btn-primary']) ?>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>

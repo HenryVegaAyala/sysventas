@@ -46,7 +46,7 @@ class Producto extends \yii\db\ActiveRecord
             [['Nombre', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
 
-            
+
 
         ];
     }
@@ -94,5 +94,14 @@ class Producto extends \yii\db\ActiveRecord
                             WHERE Codigo_Producto = '" . $id . "';")->execute();
         $transaction->commit();
 
+    }
+
+    public function Pasaporte($codigo)
+    {
+        $query = new Query();
+        $query->select('nombre')->from('producto')->where("Codigo_Producto ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
     }
 }

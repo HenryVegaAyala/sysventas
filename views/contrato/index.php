@@ -18,41 +18,44 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php
         echo Button::widget([
             'label' => " Búsqueda Avanzada",
-            'options' => ['class' => 'btn btn-link fa fa-search'],
+            'options' => ['class' => 'btn btn-link fa fa-search', 'id' => 'BtnBuscarAvanzada'],
         ]);
         ?>
     </h4>
 
-    <div class="search-form">
+    <div class="search-form FormularioOculto">
         <?php echo $this->render('_search', ['model' => $searchModel]); ?>
     </div>
-<br>
-    <div class="TableOculto">
-        <div class="table-responsive">
-            <?= GridView::widget([
-                'dataProvider' => $dataProvider,
-                'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    'Codigo_Contrato',
-                    'Nombre',
-                    'Apellidos',
-                    'Dni_1',
-                    'Estado_Civil_1',
-                    'Ocupacion_1',
-                    ['class' => 'yii\grid\ActionColumn','header'=>'Contrato','template'=>'{contrato} ',
-                        'headerOptions' => ['class' => 'itemHide'],
-                        'contentOptions' => ['class' => 'itemHide'],
-                        'buttons'=>[
-                            'contrato' => function ($url, $model) {
-                                return Html::a('<span class="fa fa-file-pdf-o"></span>', $url, [
-                                    'title' => Yii::t('app', 'contrato'),
-                                    'data-confirm' => Yii::t('app', '¿Desea Generar el Contrato?'),
-                                ]);
-                            },
-                        ]
-                    ],
+    
+    <br>
+
+    <div class="table-responsive">
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+                'Codigo_Contrato',
+                'Nombre',
+                'Apellidos',
+                'Dni_1',
+                'Estado_Civil_1',
+                'Ocupacion_1',
+                ['class' => 'yii\grid\ActionColumn', 
+                    'header' => 'Imprimir Contrato', 
+                    'template' => '{contrato} ',
+                    'headerOptions' => ['class' => 'itemHide'],
+                    'contentOptions' => ['class' => 'itemHide'],
+                    'buttons' => [
+                        'contrato' => function ($url, $model) {
+                            return Html::a('<span class="fa fa-file-pdf-o"></span>', $url, [
+                                'title' => Yii::t('app', 'contrato'),
+                                'target' => '_blank',
+//                                    'data-confirm' => Yii::t('app', '¿Desea Generar el Contrato?'),
+                            ]);
+                        },
+                    ]
                 ],
-            ]); ?>
-        </div>
+            ],
+        ]); ?>
     </div>
 </div>

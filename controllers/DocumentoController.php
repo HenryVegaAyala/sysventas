@@ -61,7 +61,7 @@ class DocumentoController extends Controller
             $model->Codigo_Documento = $model->getCodigoDocumento();
             $model->Fecha_Creado = $this->ZonaHoraria();
             $model->Estado = '1';
-            $model->Usuario_Creado = Yii::$app->user->identity->Email;
+            $model->Usuario_Creado = Yii::$app->user->identity->email;
 
             $documento = UploadedFile::getInstance($model, 'archivo');
 
@@ -114,7 +114,7 @@ class DocumentoController extends Controller
             }
             if (isset($documento)) {
                 $model->Fecha_Modificado = $this->ZonaHoraria();
-                $model->Usuario_Modificado = Yii::$app->user->identity->Email;
+                $model->Usuario_Modificado = Yii::$app->user->identity->email;
                 $ReNombre = substr($nombre, 0, $recorrido);
                 $documentos = $this->getDocumento($documento->getExtension(), $ReNombre, $model->Codigo_Documento);
 
@@ -142,7 +142,7 @@ class DocumentoController extends Controller
         $model = new Documento();
         $fh_delete = $this->ZonaHoraria();
         $estado = '0';
-        $usuario = Yii::$app->user->identity->Email;
+        $usuario = Yii::$app->user->identity->email;
         $model->ActualizarDocumento($id,$fh_delete,$usuario,$estado);
         return $this->redirect(['index']);
     }

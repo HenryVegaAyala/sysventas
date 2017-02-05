@@ -33,14 +33,14 @@ use app\models\Usuario;
                             <p>
 
                                 <?php $model = new Usuario(); ?>
-                                <?= Yii::$app->user->identity->username . ' - ' . $model->getRol(Yii::$app->user->identity->id) ?>
-                                <small>Miembro desde <?= date('d-m-Y') ?></small>
+                                <?= Yii::$app->user->identity->username . ' - ' . $model->getRol(Yii::$app->user->identity->Codigo_Rol) ?>
+                                <small>Miembro desde <?= date('d-m-Y', strtotime(Yii::$app->user->identity->Fecha_Creado))  ?></small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <?php echo Html::a('Cambiar Contraseña', ['/usuario/index'], ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']); ?>
+                                <?php echo Html::a('Cambiar Contraseña', ["/usuario/update?id=" . Yii::$app->user->identity->id], ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']); ?>
                             </div>
                             <div class="pull-right">
                                 <?php echo Html::a('Cerrar Sesión', ['/user/security/logout'], ['data-method' => 'post', 'class' => 'btn btn-default btn-flat']); ?>

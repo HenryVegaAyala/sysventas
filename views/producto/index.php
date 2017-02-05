@@ -8,37 +8,45 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Productos';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="producto-index">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Lista de Productos</h3>
+    </div>
 
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('Create Producto', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'Codigo_Producto',
             'Nombre',
             'Precio',
             'Precio_por_Noche',
-            'Vigencia',
-            // 'Desc_Afiliado',
-            // 'Fecha_Creado',
-            // 'Fecha_Modificado',
-            // 'Fecha_Eliminado',
-            // 'Usuario_Creado',
-            // 'Usuario_Modificado',
-            // 'Usuario_Eliminado',
-            // 'Estado',
+            [
+                'attribute' => 'Vigencia',
+                'label' => 'Vigencia',
+                'value' => function ($data) {
+                    if ($data->Vigencia > 1) {
+                        return $data->Vigencia . ' años';
+                    } else {
+                        return $data->Vigencia . ' año';
+                    }
+                }
+            ],
+            [
+                'attribute' => 'Desc_Afiliado',
+                'label' => 'Descuento al Afiliado',
+                'value' => function ($data) {
+                    return $data->Desc_Afiliado . ' %';
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <div class="panel-footer container-fluid foo">
+    </div>
 </div>

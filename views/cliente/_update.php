@@ -76,10 +76,10 @@ use app\models\Cliente;
 
             <div class="row">
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'Traslado')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'Traslado')->dropDownList($model->getTraslado(), ['prompt' => 'Seleccionar tipo de Traslado', 'class' => 'form-control loginmodal-container-combo']) ?>
                 </div>
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'Tarjeta_De_Credito')->textInput() ?>
+                    <?= $form->field($model, 'Tarjeta_De_Credito')->dropDownList($model->getTarjeta(), ['prompt' => 'Seleccione una Tarjeta', 'class' => 'form-control loginmodal-container-combo']) ?>
                 </div>
 
                 <div class="col-sm-3 uso_normal">
@@ -104,8 +104,7 @@ use app\models\Cliente;
     <div class="panel-footer container-fluid foo">
         <div class="col-sm-12">
             <?= Html::submitButton($model->isNewRecord ? "Guardar" : "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar", ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
-            <?= Html::resetButton($model->isNewRecord ? "<i class=\"fa fa-eraser\" aria-hidden=\"true\"></i> Limpiar" : "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Restablecer", ['class' => $model->isNewRecord ? 'btn btn-primary' : 'btn btn-primary']) ?>
-            <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
+           <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>

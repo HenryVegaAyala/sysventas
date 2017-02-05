@@ -3,9 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\UsuarioSearch */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var yii\web\View $this
+ * @var app\models\UsuarioSearch $model
+ * @var yii\widgets\ActiveForm $form
+ */
 ?>
 
 <div class="usuario-search">
@@ -44,6 +46,22 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'status') ?>
 
     <?php // echo $form->field($model, 'password_reset_token') ?>
+
+    <?php // echo $form->field($model, 'Fecha_Creado') ?>
+
+    <?php // echo $form->field($model, 'Fecha_Modificada') ?>
+
+    <?php // echo $form->field($model, 'Fecha_Eliminada') ?>
+
+    <?php // echo $form->field($model, 'Usuario_Creado') ?>
+
+    <?php // echo $form->field($model, 'Usuario_Modificado') ?>
+
+    <?php // echo $form->field($model, 'Usuario_Eliminado') ?>
+
+    <?php // echo $form->field($model, 'Ultima_Sesion') ?>
+
+    <?php // echo $form->field($model, 'Codigo_Rol') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

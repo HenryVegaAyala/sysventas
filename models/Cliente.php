@@ -60,11 +60,11 @@ class Cliente extends \yii\db\ActiveRecord
             [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^.{3,80}$/", 'message' => 'Mínimo 3 caracteres'],
             [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\_\-\/\. ]+$/i", 'message' => 'Sólo se aceptan letras'],
 
-            [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Celular','Traslado'], 'integer', 'message' => 'Debe ser númerico.'],
-            [['Telefono_Casa', 'Telefono_Celular'], 'match', 'pattern' => "/^.{3,15}$/",  'message' => 'Mínimo 7 caracteres del correo'],
-            [['Edad'], 'match', 'pattern' => "/^.{2,2}$/",  'message' => 'Debe ser edad correcta'],
+            [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Celular', 'Traslado'], 'integer', 'message' => 'Debe ser númerico.'],
+            [['Telefono_Casa', 'Telefono_Celular'], 'match', 'pattern' => "/^.{3,15}$/", 'message' => 'Mínimo 7 caracteres del correo'],
+            [['Edad'], 'match', 'pattern' => "/^.{2,2}$/", 'message' => 'Debe ser edad correcta'],
 
-            [['Email'], 'match', 'pattern' => "/^.{3,45}$/",  'message' => 'Mínimo 3 caracteres del correo'],
+            [['Email'], 'match', 'pattern' => "/^.{3,45}$/", 'message' => 'Mínimo 3 caracteres del correo'],
             [['Email'], 'email', 'message' => 'Debe de ser un correo válido'],
         ];
     }
@@ -87,7 +87,7 @@ class Cliente extends \yii\db\ActiveRecord
             'Telefono_Celular' => 'Teléfono de Celular',
             'Email' => 'Correo Electrónico',
             'Traslado' => 'Traslado',
-            'Tarjeta_De_Credito' => 'Tarjeta  De  Credito',
+            'Tarjeta_De_Credito' => 'Tipo de Tarjeta',
             'Promotor' => 'Promotor',
             'Local' => 'Local',
             'Observacion' => 'Observacion',
@@ -139,6 +139,27 @@ class Cliente extends \yii\db\ActiveRecord
         return $var;
     }
 
+    public function EstadoCivil($estado)
+    {
+        switch ($estado) {
+            case 0:
+                return 'Soltero/a';
+                break;
+            case 1:
+                return 'Comprometido/a';
+                break;
+            case 2:
+                return 'Casado/a';
+                break;
+            case 3:
+                return 'Divorciado/a';
+                break;
+            case 4:
+                return 'Viudo/a';
+                break;
+        }
+    }
+
     public function getTraslado()
     {
         $var = [
@@ -167,7 +188,7 @@ class Cliente extends \yii\db\ActiveRecord
         return $data;
     }
 
-    public function ActualizarUsuario($id, $fh_delete,$usuario,$estado)
+    public function ActualizarUsuario($id, $fh_delete, $usuario, $estado)
     {
         $db = Yii::$app->db;
         $transaction = $db->beginTransaction();
@@ -178,6 +199,16 @@ class Cliente extends \yii\db\ActiveRecord
                             WHERE Codigo_Cliente = '" . $id . "';")->execute();
         $transaction->commit();
 
+    }
+
+    public function Cliente($codigo)
+    {
+        $query = new Query();
+        $expresion = new Expression("concat(Nombre,' ',Apellido)");
+        $query->select($expresion)->from('cliente')->where("Codigo_Cliente ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
     }
 
 }

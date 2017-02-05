@@ -11,9 +11,6 @@ use dmstr\widgets\Alert;
 </div>
 
 <footer class="main-footer">
-    <div class="pull-right hidden-xs">
-        <b>Version</b> 2.0
-    </div>
     <center>
         <strong>Copyright &copy; <?= date('Y') ?> Desarrollado con <a href="https://www.gaonawebhosting.com"
                                                                       target="_blank">Gaona Web Hosting</a>.</strong>

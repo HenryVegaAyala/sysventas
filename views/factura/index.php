@@ -1,52 +1,116 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\bootstrap\Button;
+use kartik\grid\GridView;
+use yii\widgets\Pjax;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\FacturaSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+/**
+ * @var yii\web\View $this
+ * @var yii\data\ActiveDataProvider $dataProvider
+ * @var app\models\FacturaSearch $searchModel
+ */
 
 $this->title = 'Facturas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<div class="factura-index">
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title">Lista de Usuario</h3>
-    </div>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <h4>
-        <?php
-        echo Button::widget([
-            'label' => " Búsqueda Avanzada",
-            'options' => ['class' => 'btn btn-link fa fa-search', 'id' => 'BtnBuscarAvanzada'],
-        ]);
-        ?>
-    </h4>
+    <p>
+        <?php /* echo Html::a('Create Factura', ['create'], ['class' => 'btn btn-success'])*/ ?>
+    </p>
 
-    <div class="search-form FormularioOculto">
-        <?php echo $this->render('_search', ['model' => $searchModel]); ?>
-    </div>
+    <?php Pjax::begin();
+    echo GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
-    <div class="table-responsive">
-        <?= GridView::widget([
-            'dataProvider' => $dataProvider,
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
-
-                'Codigo_Factura',
-                'Codigo_Cliente',
-                'Fecha_Creado',
-
-                ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute' => 'Codigo_Cliente',
+                'label' => 'Datos Personales',
+                'value' => function ($data) {
+                    $model = new \app\models\Cliente();
+                    $dato = $data->Codigo_Cliente;
+                    $valor = $model->Cliente($dato);
+                    return $valor;
+                }
             ],
-        ]); ?>
-    </div>
+            [
+                'attribute' => 'Fecha_Creado',
+                'label' => 'Fecha Creada',
+                'format' => ['date', 'php:d-m-Y'],
+                'value' => 'Fecha_Creado'
+            ],
+            [
+                'attribute' => 'Estado',
+                'label' => 'Estado',
+                'value' => function ($data) {
+                    if ($data->Estado == 1) {
+                        $data = 'Creado';
+                    } else {
+                        $data = 'Generado';
+                    }
+                    return $data;
+                }
+            ],
+            [
+                'attribute' => 'Codigo_Combo',
+                'label' => 'Pasaporte',
+                'value' => function ($data) {
+                    $model = new \app\models\Producto();
+                    $estado = $data->Codigo_Combo;
+                    $valor = $model->Pasaporte($estado);
+                    return $valor;
+                }
+            ],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}  {update}  {delete} {factura}',
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                            'title' => Yii::t('app', 'Vista Detallada'),]);
+                    }
+                ],
+                'buttons' => [
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                            'title' => Yii::t('app', 'Actualizar Info'),]);
+                    }
+                ],
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model['id']], [
+                            'title' => Yii::t('app', 'Eliminar'), 'data-confirm' => Yii::t('app', '¿Esta Seguro de eliminar este usuario?'), 'data-method' => 'post']);
+                    }
+                ],
+                'buttons' => [
+                    'factura' => function ($url, $model) {
+                        return Html::a('<span class="fa fa-file-pdf-o"></span>', $url, [
+                            'title' => Yii::t('app', 'factura'),
+//                            'target' => '_blank',
+                            'data-confirm' => Yii::t('app', '¿Desea Generar la factura?'),
+                        ]);
+                    },
+                ]
+            ],
+        ],
+        'responsive' => true,
+        'hover' => true,
+        'condensed' => true,
+        'floatHeader' => true,
 
-    <div class="panel-footer container-fluid foo">
-        <?= Html::a("<i class=\"fa fa-refresh\" aria-hidden=\"true\"></i> Refrescar", ['index'], ['class' => 'btn btn-primary']) ?>
-    </div>
+        'panel' => [
+            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',
+            'type' => 'info',
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Venta Nueva', ['create'], ['class' => 'btn btn-success']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Refrescar Lista', ['index'], ['class' => 'btn btn-info']),
+            'showFooter' => false
+        ],
+    ]);
+    Pjax::end(); ?>
+
 </div>

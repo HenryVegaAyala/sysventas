@@ -41,28 +41,28 @@ N° - ')), 1, 'C');
         $this->Ln(1.5);
 
         $this->SetFont('Arial', 'B', 12);
-        $this->Cell(3, 0.7, utf8_decode(strtoupper('cantidad')), 1,'', 'C');
-        $this->Cell(18.5, 0.7, utf8_decode(strtoupper('descripciÓn')), 1,'',  'C');
-        $this->Cell(3, 0.7, utf8_decode(strtoupper('precio')), 1,'',  'C');
-        $this->Cell(3, 0.7, utf8_decode(strtoupper('total')), 1,'',  'C');
+        $this->Cell(3, 0.7, utf8_decode(strtoupper('cantidad')), 1, '', 'C');
+        $this->Cell(18.5, 0.7, utf8_decode(strtoupper('descripciÓn')), 1, '', 'C');
+        $this->Cell(3, 0.7, utf8_decode(strtoupper('precio')), 1, '', 'C');
+        $this->Cell(3, 0.7, utf8_decode(strtoupper('total')), 1, '', 'C');
         $this->Ln();
 
         $this->SetFont('Arial', 'B', 12);
-        $this->Cell(3, 8.5, utf8_decode(strtoupper('')), 1,'', 'C');
-        $this->Cell(18.5, 8.5, utf8_decode(strtoupper('')), 1,'',  'C');
-        $this->Cell(3, 8.5, utf8_decode(strtoupper('')), 1,'',  'C');
-        $this->Cell(3, 8.5, utf8_decode(strtoupper('')), 1,'',  'C');
+        $this->Cell(3, 8.5, utf8_decode(strtoupper('')), 1, '', 'C');
+        $this->Cell(18.5, 8.5, utf8_decode(strtoupper('')), 1, '', 'C');
+        $this->Cell(3, 8.5, utf8_decode(strtoupper('')), 1, '', 'C');
+        $this->Cell(3, 8.5, utf8_decode(strtoupper('')), 1, '', 'C');
         $this->Ln();
 
         $this->SetXY(1.93, 8.1);
-        
+
         $this->SetFont('Arial', 'B', 11);
         $this->Ln();
         $this->Cell(21.5, 0.7, utf8_decode(strtoupper('son: ')), 1, '', 'L');
         $this->Cell(6, 0.7, '', 1, '', 'L');
         $this->Ln();
 
-        $this->Cell(21.5, 1.65,'', 1, '', 'L');
+        $this->Cell(21.5, 1.65, '', 1, '', 'L');
         $this->Cell(3, 0.55, strtoupper('Sub-Total'), 1, '', 'C');
         $this->Cell(3, 0.55, strtoupper(''), 1, '', 'C');
         $this->Ln();

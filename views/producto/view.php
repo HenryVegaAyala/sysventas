@@ -6,42 +6,49 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Producto */
 
-$this->title = $model->Codigo_Producto;
-$this->params['breadcrumbs'][] = ['label' => 'Productos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Vista Detallada del Producto: ' . $model->Nombre;
 ?>
-<div class="producto-view">
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><?= Html::encode($this->title) ?> </h3>
+        </div>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+        <div class="producto-view">
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->Codigo_Producto], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->Codigo_Producto], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'Codigo_Producto',
-            'Nombre',
-            'Precio',
-            'Precio_por_Noche',
-            'Vigencia',
-            'Desc_Afiliado',
-            'Fecha_Creado',
-            'Fecha_Modificado',
-            'Fecha_Eliminado',
-            'Usuario_Creado',
-            'Usuario_Modificado',
-            'Usuario_Eliminado',
-            'Estado',
-        ],
-    ]) ?>
+                    'Nombre',
+                    'Precio',
+                    'Precio_por_Noche',
+                    [
+                        'attribute' => 'Vigencia',
+                        'label' => 'Vigencia',
+                        'value' => function ($data) {
+                            if ($data->Vigencia > 1) {
+                                return $data->Vigencia . ' años';
+                            } else {
+                                return $data->Vigencia . ' año';
+                            }
+                        }
+                    ],
+                    [
+                        'attribute' => 'Desc_Afiliado',
+                        'label' => 'Descuento al Afiliado',
+                        'value' => function ($data) {
+                            return $data->Desc_Afiliado . ' %';
+                        }
+                    ],
+                ],
+            ]) ?>
 
+            <div class="panel-footer container-fluid foo">
+                <p>
+                    <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['index'], ['class' => 'btn btn-primary']) ?>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>

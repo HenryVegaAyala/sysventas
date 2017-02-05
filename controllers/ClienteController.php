@@ -69,7 +69,7 @@ class ClienteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $model->Fecha_Modificado = $this->ZonaHoraria();
-            $model->Usuario_Modificado = Yii::$app->user->identity->Email;
+            $model->Usuario_Modificado = Yii::$app->user->identity->email;
 
             $model->save();
             return $this->redirect(['index']);
@@ -85,7 +85,7 @@ class ClienteController extends Controller
         $model = new Cliente();
         $fh_delete = $this->ZonaHoraria();
         $estado = '0';
-        $usuario = Yii::$app->user->identity->Email;
+        $usuario = Yii::$app->user->identity->email;
         $model->ActualizarUsuario($id,$fh_delete,$usuario,$estado);
         return $this->redirect(['index']);
     }

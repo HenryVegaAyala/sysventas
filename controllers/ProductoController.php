@@ -69,7 +69,7 @@ class ProductoController extends Controller
             $model->Codigo_Producto = $model->getCodigoProducto();
             $model->Fecha_Creado = $this->ZonaHoraria();
             $model->Estado = '1';
-            $model->Usuario_Creado = Yii::$app->user->identity->Email;
+            $model->Usuario_Creado = Yii::$app->user->identity->email;
             $model->save();
             return $this->redirect(['index']);
         } else {
@@ -91,7 +91,7 @@ class ProductoController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->Fecha_Modificado = $this->ZonaHoraria();
-            $model->Usuario_Modificado = Yii::$app->user->identity->Email;
+            $model->Usuario_Modificado = Yii::$app->user->identity->email;
             $model->save();
             return $this->redirect(['index']);
         } else {
@@ -112,7 +112,7 @@ class ProductoController extends Controller
         $model = new Producto();
         $fh_delete = $this->ZonaHoraria();
         $estado = '0';
-        $usuario = Yii::$app->user->identity->Email;
+        $usuario = Yii::$app->user->identity->email;
         $model->ActualizarProducto($id, $fh_delete, $usuario, $estado);
         return $this->redirect(['index']);
     }

@@ -1,49 +1,68 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
-/* @var $this yii\web\View */
-/* @var $model app\models\Usuario */
-/* @var $form yii\widgets\ActiveForm */
+use kartik\widgets\ActiveForm;
+use kartik\builder\Form;
+use kartik\datecontrol\DateControl;
+use yii\helpers\ArrayHelper;
+use app\models\Rol;
+/**
+ * @var yii\web\View $this
+ * @var app\models\Usuario $model
+ * @var yii\widgets\ActiveForm $form
+ */
 ?>
 
-<div class="usuario-form">
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        <h3 class="panel-title"><?= $this->title ?></h3>
+    </div>
+
+    <div class="container-fluid">
+        <p class="note"></p>
+    </div>
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    <div class="fieldset">
+        <div class="container-fluid">
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+            <div class="row">
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'username')->textInput() ?>
+                </div>
 
-    <?= $form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?>
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+                </div>
 
-    <?= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'auth_key')->dropDownList($model->getRoles(Yii::$app->user->identity->Codigo_Rol), ['prompt' => 'Seleccione un Rol', 'class' => 'form-control loginmodal-container-combo']) ?>
+                </div>
+            </div>
 
-    <?= $form->field($model, 'confirmed_at')->textInput() ?>
+            <div class="row">
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'password_hash')->passwordInput() ?>
+                </div>
 
-    <?= $form->field($model, 'unconfirmed_email')->textInput(['maxlength' => true]) ?>
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true]) ?>
+                </div>
 
-    <?= $form->field($model, 'blocked_at')->textInput() ?>
-
-    <?= $form->field($model, 'registration_ip')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'flags')->textInput() ?>
-
-    <?= $form->field($model, 'last_login_at')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'password_reset_token')->textInput(['maxlength' => true]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'status')->dropDownList($model->getEstado(), ['prompt' => 'Seleccione un Estado', 'class' => 'form-control loginmodal-container-combo']) ?>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <div class="panel-footer container-fluid foo">
+        <div class="col-sm-12">
+            <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
+            <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
+        </div>
+    </div>
     <?php ActiveForm::end(); ?>
-
 </div>

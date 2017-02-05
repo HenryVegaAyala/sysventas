@@ -99,8 +99,8 @@ class LoginForm extends Model
             ],
             'rememberMe' => ['rememberMe', 'boolean'],
 
-//            [['login'], 'match', 'pattern' => "/^.{3,45}$/",  'message' => 'Mínimo 3 caracteres del correo'],
-//            [['login'], 'email', 'message' => 'Tiene que ser un correo válido.'],
+            [['login'], 'match', 'pattern' => "/^.{3,45}$/",  'message' => 'Mínimo 3 caracteres del correo'],
+            [['login'], 'email', 'message' => 'Tiene que ser un correo válido.'],
         ];
 
         if (!$this->module->debug) {

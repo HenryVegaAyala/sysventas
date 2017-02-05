@@ -69,7 +69,7 @@ class FolioController extends Controller
 
             $model->Codigo_Folio = $model->getCodigoFolio();
             $model->Fecha_Creada = $this->ZonaHoraria();
-            $model->Usuario_Creado = Yii::$app->user->identity->Email;
+            $model->Usuario_Creado = Yii::$app->user->identity->email;
             $model->Estado = '1';
             $model->save();
 
@@ -94,7 +94,7 @@ class FolioController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $model->Fecha_Modificada = $this->ZonaHoraria();
-            $model->Usuario_Modificado = Yii::$app->user->identity->Email;
+            $model->Usuario_Modificado = Yii::$app->user->identity->email;
 
             $model->save();
             return $this->redirect(['index']);

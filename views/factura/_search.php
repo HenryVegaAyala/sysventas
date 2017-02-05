@@ -3,9 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\FacturaSearch */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var yii\web\View $this
+ * @var app\models\FacturaSearch $model
+ * @var yii\widgets\ActiveForm $form
+ */
 ?>
 
 <div class="factura-search">
@@ -15,7 +17,7 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'Codigo_Factura') ?>
+    <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'Codigo_Cliente') ?>
 
@@ -32,6 +34,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'Usuario_Eliminado') ?>
 
     <?php // echo $form->field($model, 'Estado') ?>
+
+    <?php // echo $form->field($model, 'Codigo_Combo') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -94,7 +94,7 @@ class SecurityController extends Controller
      * @param string $id
      * @param Module $module
      * @param Finder $finder
-     * @param array  $config
+     * @param array $config
      */
     public function __construct($id, $module, Finder $finder, $config = [])
     {
@@ -162,7 +162,7 @@ class SecurityController extends Controller
         }
 
         return $this->render('login', [
-            'model'  => $model,
+            'model' => $model,
             'module' => $this->module,
         ]);
     }
@@ -236,7 +236,7 @@ class SecurityController extends Controller
     {
         /** @var Account $account */
         $account = \Yii::createObject(Account::className());
-        $event   = $this->getAuthEvent($account, $client);
+        $event = $this->getAuthEvent($account, $client);
 
         $this->trigger(self::EVENT_BEFORE_CONNECT, $event);
 

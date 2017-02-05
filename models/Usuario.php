@@ -51,7 +51,7 @@ class Usuario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'email', 'password_hash', 'password_repeat'], 'required'],
+            [['username', 'email', 'password_hash', 'password_repeat', 'auth_key', 'status'], 'required'],
             [['id', 'confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'last_login_at', 'status', 'Codigo_Rol'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificada', 'Fecha_Eliminada', 'Ultima_Sesion'], 'safe'],
             [['username', 'email', 'password_hash', 'unconfirmed_email'], 'string', 'max' => 255],
@@ -70,7 +70,7 @@ class Usuario extends \yii\db\ActiveRecord
 //            ['Email', 'email_existe'],
 
             ['password_hash', 'match', 'pattern' => "/^.{6,255}$/", 'message' => 'Mínimo 6 caracteres para la contraseña'],
-//            ['password_hashpwdDes', 'compare', 'compareAttribute' => 'pwdDes', 'message' => 'Las contraseñas no coinciden.'],
+//            ['password_repeat', 'compare', 'compareAttribute' => 'password_hash', 'message' => 'Las contraseñas no coinciden.'],
 
         ];
     }
@@ -186,7 +186,7 @@ class Usuario extends \yii\db\ActiveRecord
 
         $resultado = ArrayHelper::map(
             Usuario::find()
-                ->orderBy('id desc')
+//                ->orderBy('id desc')
                 ->where($where)->asArray()
                 ->all(), 'Codigo_Rol', 'username');
         return $resultado;
@@ -196,19 +196,19 @@ class Usuario extends \yii\db\ActiveRecord
     {
         switch ($rol) {
             case 2: // supervisor
-                $where = new Expression('status = 1 and Codigo_Rol in (1,3,6)');
+                $where = new Expression('status = 1 and Codigo_Rol in (2)');
                 return $where;
                 break;
-            case 10:
-                $where = new Expression('status = 1');
+            case 10: //jefe de contratos
+                $where = new Expression('status = 1 and Codigo_Rol in (1,2,3)'); //combo de usuarios
                 return $where;
                 break;
             case 11:
                 $where = new Expression('status = 1 and Codigo_Rol in (1,2,3)');
                 return $where;
                 break;
-            case 12:
-                $where = new Expression('status = 1 and Codigo_Rol in (1,2,3)');
+            case 12: // jefe de ventas
+                $where = new Expression('estado = 1 and Codigo_Rol in (1,2,3)');
                 return $where;
                 break;
             case 13:
@@ -233,7 +233,7 @@ class Usuario extends \yii\db\ActiveRecord
                 return $where;
                 break;
             case 10: //jefe de contratos
-                $where = new Expression('status = 1');
+                $where = new Expression('estado = 2 and Codigo_Rol in (1,2,3,6)'); //Filtro de lista de usuarios
                 return $where;
                 break;
             case 11: //jefe de sala
@@ -280,4 +280,90 @@ class Usuario extends \yii\db\ActiveRecord
         $transaction->commit();
 
     }
+
+    public function InsertUsuario($codigo, $usuario, $email, $passEncryt, $Fecha_Crea, $usu_crea, $roles, $estado, $passDes, $status, $rol)
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        $db->createCommand("
+        INSERT INTO user (
+        id, 
+        username, 
+        email, 
+        password_hash, 
+        auth_key, 
+        status,
+        Fecha_Creado, 
+        Usuario_Creado, 
+        Codigo_Rol, 
+        pwdDes, 
+        estado)
+        VALUES (
+        '" . $codigo . "',     
+        '" . $usuario . "',
+        '" . $email . "',
+        '" . $passEncryt . "',
+        '" . $roles . "',
+        '" . $status . "',
+        '" . $Fecha_Crea . "',
+        '" . $usu_crea . "',
+        '" . $rol . "',
+        '" . $passDes . "',
+        '" . $estado . "'
+        );")->execute();
+        $transaction->commit();
+
+    }
+
+    public function EmailValidador($email)
+    {
+        $query = new Query();
+        $expresion = new Expression('id');
+        $query->select($expresion)->from('user')->where('email = ' . "'$email'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+
+        if ($data == true) {
+            return 1;
+        } else
+            return 0;
+
+    }
+
+    public function ActualizarPass($Codigo, $PassDes, $PassEncryt, $Fecha_Modi, $Usu_Modi, $Cod_Rol)
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        $db->createCommand("UPDATE user SET 
+                            password_hash = '" . $PassEncryt . "',
+                            Usuario_Modificado = '" . $Usu_Modi . "',
+                            Fecha_Modificada = '" . $Fecha_Modi . "',
+                            pwdDes = '" . $PassDes . "',
+                            Codigo_Rol = '" . $Cod_Rol . "'
+                            WHERE id = '" . $Codigo . "';")->execute();
+        $transaction->commit();
+
+    }
+
+    public function ActualizarAsignacion($Codigo, $Cod_Rol)
+    {
+        $model = new Usuario();
+
+        $asignacion = $model->getRol($Cod_Rol);
+
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+//        $db->createCommand("UPDATE auth_assignment SET item_name = '" . $asignacion . "' WHERE user_id = '" . $Codigo . "'")->execute();
+        $db->createCommand("INSERT INTO auth_assignment (item_name,user_id) values ('" . $asignacion . "','" . $Codigo . "')")->execute();
+        $transaction->commit();
+    }
+
+    public function EliminarAsignacion($Codigo)
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        $db->createCommand("DELETE FROM auth_assignment WHERE user_id = '" . $Codigo . "'")->execute();
+        $transaction->commit();
+    }
 }
+

@@ -11,8 +11,11 @@ $this->title = 'Actualizar Usuario: ' . ' ' . $model->username;
 ?>
 <div class="usuario-update">
 
-    <?= $this->render('_update', [
-        'model' => $model,
-    ]) ?>
-
+    <?php
+    $rol = Yii::$app->user->identity->Codigo_Rol;
+    if ($rol != 2) { ?>
+        <?= $this->render('_update', ['model' => $model,]) ?>
+    <?php } else { ?>
+        <?= $this->render('_updateP', ['model' => $model,]) ?>
+    <?php } ?>
 </div>

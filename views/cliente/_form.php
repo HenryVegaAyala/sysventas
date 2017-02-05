@@ -81,14 +81,12 @@ use app\models\Cliente;
                 <div class="col-sm-3">
                     <?= $form->field($model, 'Tarjeta_De_Credito')->dropDownList($model->getTarjeta(), ['prompt' => 'Seleccione una Tarjeta', 'class' => 'form-control loginmodal-container-combo']) ?>
                 </div>
-
                 <div class="col-sm-3 uso_normal">
                     <div class="form-group field-cliente-uso_interno">
                         <label class="control-label">Seleccionar si es de uso interno</label>
                         <?= $form->field($model, 'uso_interno')->checkbox(['class' => 'check-selec', 'onchange' => 'valueChanged()']) ?>
                     </div>
                 </div>
-
                 <div class="uso_interno" style="display: none;">
                     <div class="col-sm-3">
                         <?= $form->field($model, 'Promotor')->textInput(['maxlength' => true]) ?>

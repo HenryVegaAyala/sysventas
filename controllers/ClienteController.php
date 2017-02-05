@@ -52,8 +52,8 @@ class ClienteController extends Controller
             $model->Fecha_Creado = $this->ZonaHoraria();
             $model->Estado = '1';
             $model->Usuario_Creado = Yii::$app->user->identity->email;
-
             $model->save();
+            Yii::$app->session->setFlash('success', 'Se ha registrado exitosamente.');
             return $this->redirect(['create']);
         } else {
             return $this->render('create', [

@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 /**
  * @var yii\web\View $this
- * @var app\models\Usuario $model
+ * @var app\models\Reporte $model
  */
 
-$this->title = 'Nuevo Usuario';
+$this->title = 'Reporte General';
 ?>
-<div class="usuario-create">
-
+<div class="reporte-create">
+    
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

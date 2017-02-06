@@ -109,8 +109,8 @@ $config = [
         ],
 
         'urlManager' => [
-            'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enablePrettyUrl' => true,
             'enableStrictParsing' => false,
             'rules' => [
 
@@ -122,7 +122,12 @@ $config = [
 
                 /** Cliente **/
                 ['pattern' => '/cliente', 'route' => '/cliente/create', 'suffix' => '.php'],
-                
+
+                /** Anfitrion **/
+                ['pattern' => '/anfitrion', 'route' => '/anfitrion/anfitrion', 'suffix' => '.pdf'],
+
+                /** Anfitrion Reporte **/
+                ['pattern' => '/anfitrion', 'route' => '/anfitrion/reporte', 'suffix' => '.pdf'],
             ],
         ],
 

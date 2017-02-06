@@ -7,7 +7,7 @@
       <schema-pattern>sis_crm.*</schema-pattern>
       <default-schemas>sis_crm.*</default-schemas>
     </data-source>
-    <data-source name="MySQL - sis_crm@127.0.0.1" uuid="a2b425a5-e036-4229-8c1c-ed8d16b9c7da">
+    <data-source name="MySQL - sis_crm@localhost" uuid="a2b425a5-e036-4229-8c1c-ed8d16b9c7da">
       <user-name>root</user-name>
     </data-source>
   </component>

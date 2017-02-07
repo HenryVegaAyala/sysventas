@@ -3,14 +3,15 @@ header('Content-type: application/pdf');
 
 $Codigo_Contrato = $model->Codigo_Contrato;
 
-class PDF extends FPDF{
+class PDF extends FPDF
+{
     function Impresion($Codigo_Contrato)
     {
 //      $this->Cell(Ancho , Alto , cadena , bordes , posición , alinear , fondo, URL )
         $this->SetFont('Arial', 'B', 11);
 
         $this->Image(Yii::getAlias('@groupgygUrlReporte'), 1, 1, 1.5, 1.5);
-        $this->Cell(19, 0.7, utf8_decode(strtoupper('Formato N° - '.$Codigo_Contrato)), 0, '', 'C');
+        $this->Cell(19, 0.7, utf8_decode(strtoupper('Formato N° - ' . $Codigo_Contrato)), 0, '', 'C');
         $this->Image(Yii::getAlias('@groupgygUrlReporte'), 18.5, 1, 1.5, 1.5);
         $this->Ln();
 

@@ -1,9 +1,11 @@
 <?php
 header('Content-type: application/pdf');
 
+use yii\db\Query;
+
 class PDF extends FPDF
 {
-    function Impresion()
+    function ImpresionCabezara($model)
     {
 //      $this->Cell(Ancho , Alto , cadena , bordes , posición , alinear , fondo, URL )
         $this->SetFont('Arial', 'B', 15);
@@ -13,7 +15,12 @@ class PDF extends FPDF
         $this->Cell(17.5, 3, utf8_decode(''), 0, 'C');
         $this->MultiCell(10, 1, utf8_decode(strtoupper('Rustica Club 
 factura
-N° - ')), 1, 'C');
+N° - '.str_pad($model->id, 10, "0", STR_PAD_LEFT))), 1, 'C');
+
+    }
+
+    function ImpresionCuerpo($model)
+    {
 
         $this->SetFont('Arial', 'B', 15);
         $this->Ln(0.5);
@@ -25,7 +32,7 @@ N° - ')), 1, 'C');
         $this->SetFont('Arial', 'B', 15);
         $this->Cell(5, 1, utf8_decode('Fecha de Emisión:'), 0, 'C');
         $this->SetFont('Arial', '', 13);
-        $this->Cell(8.75, 1, utf8_decode(''), 0, 'R');
+        $this->Cell(8.75, 1, utf8_decode(date('d/m/Y',strtotime($model->Fecha_Creado))), 0, 'R');
         $this->Ln();
 
         $this->SetFont('Arial', 'B', 15);
@@ -54,6 +61,10 @@ N° - ')), 1, 'C');
         $this->Cell(3, 8.5, utf8_decode(strtoupper('')), 1, '', 'C');
         $this->Ln();
 
+    }
+
+    function ImpresionFooter($model)
+    {
         $this->SetXY(1.93, 8.1);
 
         $this->SetFont('Arial', 'B', 11);
@@ -77,13 +88,21 @@ N° - ')), 1, 'C');
         $this->Cell(3, 0.55, strtoupper(''), 1, '', 'C');
         $this->Ln();
     }
+
+    function Impresion($model)
+    {
+
+        $this->ImpresionCabezara($model);
+        $this->ImpresionCuerpo($model);
+        $this->ImpresionFooter($model);
+    }
 }
 
 $pdf = new PDF('L', 'cm', 'A4');
-$Reporte = "Factura.pdf";
+$Reporte = "Factura-".str_pad($model->id, 10, "0", STR_PAD_LEFT).".pdf";
 $pdf->AddPage();
-$pdf->Impresion();
-$pdf->SetTitle("Factura - ");
+$pdf->Impresion($model);
+$pdf->SetTitle("Factura - ".str_pad($model->id, 10, "0", STR_PAD_LEFT));
 $pdf->SetAuthor("Rustica Club");
 $pdf->Output($Reporte, 'I');
 $pdf->Close();

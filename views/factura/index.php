@@ -89,11 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'buttons' => [
                     'factura' => function ($url, $model) {
-                        return Html::a('<span class="fa fa-file-pdf-o"></span>', $url, [
-                            'title' => Yii::t('app', 'factura'),
-//                            'target' => '_blank',
-                            'data-confirm' => Yii::t('app', '¿Desea Generar la factura?'),
-                        ]);
+                        return Html::a('<span class="fa fa-file-pdf-o"></span>', [$url], ['target' => '_blank', "data-pjax" => "0"]);
                     },
                 ]
             ],
@@ -114,3 +110,7 @@ $this->params['breadcrumbs'][] = $this->title;
     Pjax::end(); ?>
 
 </div>
+
+<script>
+    $('#reporte').attr('target', '_BLANK');
+</script>

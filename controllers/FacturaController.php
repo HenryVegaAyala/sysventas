@@ -59,9 +59,10 @@ class FacturaController extends Controller
             $Estado = $model->Estado = '1'; //Activo
             $Usu_Crea = $model->Usuario_Creado = Yii::$app->user->identity->email;
             $Pasaporte = $model->Codigo_Combo;
-            $model->SP_Factura();
+            $model->SP_Factura_AI();
             $model->save();
             DynamicRelations::relate($model, 'dFacturas', Yii::$app->request->post(), 'Dfactura', DFactura::className());
+            $model->SP_Factura($Codigo);
 
             return $this->redirect(['index']);
         } else {
@@ -76,8 +77,13 @@ class FacturaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
+            $Codigo = $model->id;
+//            $model->save();
             DynamicRelations::relate($model, 'dFacturas', Yii::$app->request->post(), 'Dfactura', DFactura::className());
+//            $model->SP_Delete($Codigo);
+//            var_dump('error DynamicRelations ?');exit();
             $model->save();
+
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [

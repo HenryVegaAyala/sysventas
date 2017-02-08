@@ -12,7 +12,8 @@ use yii\db\Query;
  * @property integer $factura
  * @property string $Descripcion
  * @property string $precio
- * @property integer $igv
+ * @property integer $Cantidad
+ * @property string $igv
  * @property string $Subtotal
  * @property string $Total
  * @property string $Fecha_Creado
@@ -22,7 +23,7 @@ use yii\db\Query;
  * @property string $Usuario_Modificado
  * @property string $Usuario_Eliminado
  * @property string $Estado
- * @property integer $Cantidad
+ * @property integer $Pasaporte
  *
  * @property Factura $factura0
  */
@@ -42,11 +43,12 @@ class DFactura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'factura'], 'required'],
-            [['id', 'factura', 'igv', 'Cantidad'], 'integer'],
-            [['precio', 'Subtotal', 'Total'], 'number'],
-            [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'safe'],
+            [['factura'], 'required'],
+            [['factura', 'Cantidad', 'Pasaporte'], 'integer'],
+            [['precio', 'igv', 'Subtotal', 'Total'], 'number'],
+            [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
             [['Descripcion'], 'string', 'max' => 85],
+            [['Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
             [['factura'], 'exist', 'skipOnError' => true, 'targetClass' => Factura::className(), 'targetAttribute' => ['factura' => 'id']],
         ];
@@ -62,6 +64,7 @@ class DFactura extends \yii\db\ActiveRecord
             'factura' => 'Factura',
             'Descripcion' => 'Descripcion',
             'precio' => 'Precio',
+            'Cantidad' => 'Cantidad',
             'igv' => 'Igv',
             'Subtotal' => 'Subtotal',
             'Total' => 'Total',
@@ -72,7 +75,7 @@ class DFactura extends \yii\db\ActiveRecord
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Estado' => 'Estado',
-            'Cantidad' => 'Cantidad',
+            'Pasaporte' => 'Pasaporte',
         ];
     }
 

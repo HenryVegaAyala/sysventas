@@ -33,7 +33,7 @@ use app\models\DFacturaSearch;
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4">
-                    <?= $form->field($model, 'id')->textInput(['maxlength' => true, 'readonly' => true]) ?>
+                    <?= $form->field($model, 'id')->textInput(['maxlength' => true, 'readonly' => true,'value' => $model->id]) ?>
                 </div>
                 <div class="col-sm-4">
                     <?= $form->field($model, 'Codigo_Cliente')->textInput(['maxlength' => true, 'readonly' => true, 'value' => $model->NombreCliente($model->Codigo_Cliente)]) ?>

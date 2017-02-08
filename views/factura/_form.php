@@ -33,7 +33,7 @@ use app\models\DFacturaSearch;
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4">
-                    <?= $form->field($model, 'id')->textInput(['maxlength' => true,'readonly' => true]) ?>
+                    <?= $form->field($model, 'id')->textInput(['maxlength' => true, 'readonly' => true, 'value' => str_pad($model->getCodigoFactura(), 10, "0", STR_PAD_LEFT)]) ?>
                 </div>
                 <div class="col-sm-4">
                     <?= $form->field($model, 'Codigo_Cliente')->widget(\yii\jui\AutoComplete::classname(), [
@@ -55,7 +55,7 @@ use app\models\DFacturaSearch;
                         'title' => 'Productos Adicionales:',
                         'collection' => $model->dFacturas,
                         'viewPath' => '@app/views/dfactura/_form.php',
-                        'collectionType' => new \app\models\dfactura,
+                        'collectionType' => new \app\models\DFactura,
 
                     ]); ?>
                 </div>

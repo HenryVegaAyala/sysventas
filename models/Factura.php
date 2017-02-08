@@ -20,6 +20,7 @@ use yii\helpers\ArrayHelper;
  * @property string $Usuario_Eliminado
  * @property string $Estado
  * @property integer $Codigo_Combo
+ * @property string $direccion
  *
  * @property DFactura[] $dFacturas
  * @property Cliente $codigoCliente
@@ -44,7 +45,7 @@ class Factura extends \yii\db\ActiveRecord
             [['Codigo_Cliente', 'Codigo_Combo'], 'required'],
             [['id', 'Codigo_Combo'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
-            [['Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
+            [['Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado','direccion'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
             [['Codigo_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => Cliente::className(), 'targetAttribute' => ['Codigo_Cliente' => 'Codigo_Cliente']],
             [['Codigo_Combo'], 'exist', 'skipOnError' => true, 'targetClass' => Producto::className(), 'targetAttribute' => ['Codigo_Combo' => 'Codigo_Producto']],
@@ -67,6 +68,7 @@ class Factura extends \yii\db\ActiveRecord
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Estado' => 'Estado',
             'Codigo_Combo' => 'Pasaporte',
+            'direccion' => 'direccion'
         ];
     }
 
@@ -133,10 +135,24 @@ class Factura extends \yii\db\ActiveRecord
         return $data;
     }
 
-    public function SP_Factura()
+    public function SP_Factura_AI()
     {
         $connection = Yii::$app->db;
         $command = $connection->createCommand('call Actualizar_Folio_Factura()');
+        $command->execute();
+    }
+
+    public function SP_Factura($codigo)
+    {
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand("call Factura('".$codigo."')");
+        $command->execute();
+    }
+
+    public function SP_Delete($codigo)
+    {
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand("call Delete_Factura('".$codigo."')");
         $command->execute();
     }
 

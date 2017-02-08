@@ -20,18 +20,25 @@ $uniq = uniqid();
 
 if ($model->primaryKey) {
 
-    $removeAttr = 'data-dynamic-relation-remove-route="' .
-        Url::toRoute(['dFactura/delete', 'id' => $model->primaryKey]) . '"';
+    $removeAttr = 'data-dynamic-relation-remove-route="' . Url::toRoute(['dfactura/delete', 'id' => $model->primaryKey]) . '"';
     $frag = "Dfactura[{$model->primaryKey}]";
 } else {
     $removeAttr = "";
-    $frag = "DFactura[new][$uniq]";
+    $frag = "Dfactura[new][$uniq]";
 }
 ?>
 
 <div class="dfactura-form" <?= $removeAttr; ?> >
 
     <div class="row">
+
+        <div class="col-sm-2">
+            <div class="form-group field-dfactura-Cantidad">
+                <?= Html::input('text', $frag . '[Cantidad]', $model->Cantidad, ['id' => 'dfactura-cantidad', 'class' => 'form-control', 'placeholder' => 'Cantidad']) ?>
+                <div class="help-block"></div>
+            </div>
+        </div>
+
         <div class="col-sm-6">
             <div class="form-group field-dfactura-producto">
                 <?= Html::input('text', $frag . '[Descripcion]', $model->Descripcion, ['id' => 'dfactura-Descripcion', 'class' => 'form-control', 'placeholder' => 'Contenido']) ?>
@@ -48,15 +55,8 @@ if ($model->primaryKey) {
         </div>
 
         <div class="col-sm-2">
-            <div class="form-group field-dfactura-Cantidad">
-                <?= Html::input('text', $frag . '[Cantidad]', $model->Cantidad, ['id' => 'dfactura-cantidad', 'class' => 'form-control', 'placeholder' => 'Cantidad']) ?>
-                <div class="help-block"></div>
-            </div>
-        </div>
-
-        <div class="col-sm-2">
             <div class="form-group field-dfactura-Total">
-                <?= Html::input('text', $frag . '[Total]', $model->Total, ['id' => 'dfactura-Total', 'class' => 'form-control','readonly' => 'true', 'placeholder' => 'Total']) ?>
+                <?= Html::input('text', $frag . '[Total]', $model->Total, ['id' => 'dfactura-Total', 'class' => 'form-control', 'readonly' => 'true', 'placeholder' => 'Total']) ?>
                 <div class="help-block"></div>
             </div>
         </div>

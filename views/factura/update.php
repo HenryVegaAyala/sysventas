@@ -7,7 +7,7 @@ use yii\helpers\Html;
  * @var app\models\Factura $model
  */
 
-$this->title = 'Actualizar Factura: ' . ' ' . $model->id;
+$this->title = 'Actualizar Factura: ' . ' ' . str_pad($model->id, 10, "0", STR_PAD_LEFT);
 ?>
 <div class="factura-update">
 

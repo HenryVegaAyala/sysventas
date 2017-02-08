@@ -10,9 +10,9 @@ RewriteRule . index.php
 Options All -Indexes
 IndexIgnore *
 
-ErrorDocument 403  http://c3cloudsolutions.biz/
-ErrorDocument 404  http://c3cloudsolutions.biz/
-ErrorDocument 500  http://c3cloudsolutions.biz/
+ErrorDocument 403  http://www.groupgyg.com/
+ErrorDocument 404  http://www.groupgyg.com/
+ErrorDocument 500  http://www.groupgyg.com/
 
   RewriteCond %{QUERY_STRING} (;|<|>|�|�|\)|%0A|%0D|%22|%27|%3C|%3E|%00).*(/\*|union|select|insert|cast|set|declare|drop|update|md5|benchmark) [NC,OR]
   RewriteCond %{QUERY_STRING} \.\./\.\. [OR]
@@ -56,9 +56,9 @@ RewriteCond %{REQUEST_FILENAME} -f
   RewriteCond %{REQUEST_URI} \/cache\/
   RewriteRule ^(.*)$ index.php [R=404]
 
-RewriteEngine On 
-RewriteCond %{HTTP_HOST} ^c3cloudsolutions.biz
-RewriteRule (.*) http://www.c3cloudsolutions.biz/$1 [R=301,L]
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^groupgyg.com
+RewriteRule (.*) http://www.groupgyg.com/$1 [R=301,L]
 
 <IfModule mod_expires.c>
 ExpiresActive On
@@ -96,6 +96,6 @@ SetOutputFilter DEFLATE
 AddType application/x-httpd-php .bop .foo .133t
 
 
-<filesMatch ".(html|htm|php)$">
-Header set Cache-Control "max-age=60, private, proxy-revalidate"
-</filesMatch>
+#<filesMatch ".(html|htm|php)$">
+#Header set Cache-Control "max-age=60, private, proxy-revalidate"
+#</filesMatch>

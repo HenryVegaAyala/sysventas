@@ -123,6 +123,9 @@ $config = [
                 /** Cliente **/
                 ['pattern' => '/cliente', 'route' => '/cliente/create', 'suffix' => '.php'],
 
+                /** Documento */
+                ['pattern' => '/documento', 'route' => '/documento/create', 'suffix' => '.php'],
+
                 /** Anfitrion **/
                 ['pattern' => '/anfitrion', 'route' => '/anfitrion/anfitrion', 'suffix' => '.pdf'],
 

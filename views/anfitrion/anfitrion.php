@@ -27,12 +27,7 @@ use kartik\datecontrol\DateControl;
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col-sm-3">
-                    <?= $form->field($model, 'Turno')->dropDownList($model->getTurno(), ['prompt' => 'Seleccionar turno', 'class' => 'form-control loginmodal-container-combo']) ?>
-                </div>
-                <div class="col-sm-3">
-                    <?= $form->field($model, 'Descanso')->dropDownList($model->getDiaDescanso(), ['prompt' => 'Seleccionar dia de descanso', 'class' => 'form-control loginmodal-container-combo']) ?>
-                </div>
+
                 <?php echo Form::widget([
 
                     'model' => $model,

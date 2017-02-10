@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="6772547">
+  <component name="DataSourceManagerImpl" format="xml" hash="1405477241">
     <data-source source="LOCAL" name="Rustica - Amazon" uuid="f5060f63-4ba2-4646-bd8a-02026423723b">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>

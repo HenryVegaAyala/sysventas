@@ -18,7 +18,10 @@ use yii\db\Query;
  * @property string $Distrito
  * @property string $Direccion
  * @property string $Telefono_Casa
+ * @property string $Telefono_Casa2
  * @property string $Telefono_Celular
+ * @property string $Telefono_Celular2
+ * @property string $Telefono_Celular3
  * @property string $Email
  * @property string $Traslado
  * @property integer $Tarjeta_De_Credito
@@ -62,8 +65,8 @@ class Cliente extends \yii\db\ActiveRecord
             [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^.{3,80}$/", 'message' => 'Mínimo 3 caracteres'],
             [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\_\-\/\. ]+$/i", 'message' => 'Sólo se aceptan letras'],
 
-            [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Celular', 'Traslado'], 'integer', 'message' => 'Debe ser númerico.'],
-            [['Telefono_Casa', 'Telefono_Celular'], 'match', 'pattern' => "/^.{3,15}$/", 'message' => 'Mínimo 7 caracteres del correo'],
+            [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3', 'Traslado'], 'integer', 'message' => 'Debe ser númerico.'],
+            [['Telefono_Casa', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3'], 'match', 'pattern' => "/^.{3,15}$/", 'message' => 'Mínimo 7 caracteres del correo'],
             [['Edad'], 'match', 'pattern' => "/^.{2,2}$/", 'message' => 'Debe ser edad correcta'],
 
             [['Email'], 'match', 'pattern' => "/^.{3,45}$/", 'message' => 'Mínimo 3 caracteres del correo'],
@@ -85,8 +88,11 @@ class Cliente extends \yii\db\ActiveRecord
             'Estado_Civil' => 'Estado  Civil',
             'Distrito' => 'Distrito',
             'Direccion' => 'Dirección',
-            'Telefono_Casa' => 'Teléfono de Casa',
-            'Telefono_Celular' => 'Teléfono de Celular',
+            'Telefono_Casa' => 'Teléfono de Casa 1',
+            'Telefono_Casa2' => 'Teléfono de Casa 2',
+            'Telefono_Celular' => 'Teléfono de Celular 1',
+            'Telefono_Celular2' => 'Teléfono de Celular 2',
+            'Telefono_Celular3' => 'Teléfono de Celular 3',
             'Email' => 'Correo Electrónico',
             'Traslado' => 'Traslado',
             'Tarjeta_De_Credito' => 'Tipo de Tarjeta',

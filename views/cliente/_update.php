@@ -74,9 +74,26 @@ use yii\helpers\Url;
                 <div class="col-sm-4">
                     <?= $form->field($model, 'Telefono_Casa')->textInput(['maxlength' => true]) ?>
                 </div>
+
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'Telefono_Casa2')->textInput(['maxlength' => true]) ?>
+                </div>
+
                 <div class="col-sm-4">
                     <?= $form->field($model, 'Telefono_Celular')->textInput(['maxlength' => true]) ?>
                 </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'Telefono_Celular2')->textInput(['maxlength' => true]) ?>
+                </div>
+
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'Telefono_Celular3')->textInput(['maxlength' => true]) ?>
+                </div>
+
                 <div class="col-sm-4">
                     <?= $form->field($model, 'Email')->textInput(['maxlength' => true]) ?>
                 </div>
@@ -123,7 +140,7 @@ use yii\helpers\Url;
     <div class="panel-footer container-fluid foo">
         <div class="col-sm-12">
             <?= Html::submitButton($model->isNewRecord ? "Guardar" : "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar", ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
-           <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>

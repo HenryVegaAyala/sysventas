@@ -4,10 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\jui\Autocomplete;
 use app\models\Cliente;
+use app\models\Beneficiario;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cliente */
 /* @var $form yii\widgets\ActiveForm */
+
+use synatree\dynamicrelations\DynamicRelations;
+use yii\helpers\Url;
+
 ?>
 
 <div class="panel panel-default">
@@ -96,6 +101,19 @@ use app\models\Cliente;
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= DynamicRelations::widget([
+                        'title' => 'Beneficiarios:',
+                        'collection' => $model->beneficiarios,
+                        'viewPath' => '@app/views/beneficiario/_form.php',
+                        'collectionType' => new \app\models\Beneficiario(),
+
+                    ]); ?>
+                </div>
+            </div>
+            
         </div>
     </div>
 

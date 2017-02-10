@@ -33,6 +33,8 @@ use yii\db\Query;
  * @property string $Usuario_Eliminado
  * @property string $Estado
  *
+ * @property AsigTlmkCliente[] $asigTlmkClientes
+ * @property Beneficiario[] $beneficiarios
  * @property Factura[] $facturas
  */
 class Cliente extends \yii\db\ActiveRecord
@@ -51,10 +53,10 @@ class Cliente extends \yii\db\ActiveRecord
             [['Edad'], 'required', 'message' => 'Edad es requerida.'],
             [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito'], 'integer', 'message' => 'Debe ser númerico.'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
-            [['Nombre', 'Apellido', 'Distrito', 'Profesion', 'Local', 'Usuario_Creado'], 'string', 'max' => 100],
+            [['Nombre', 'Apellido', 'Distrito', 'Local', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
+            [['Profesion', 'Email', 'Traslado'], 'string', 'max' => 45],
             [['Estado_Civil', 'Estado'], 'string', 'max' => 1],
             [['Direccion', 'Observacion'], 'string', 'max' => 200],
-//            [['Telefono_Casa', 'Telefono_Celular'], 'integer', 'max' => 15],
             [['Promotor'], 'string', 'max' => 50],
 
             [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^.{3,80}$/", 'message' => 'Mínimo 3 caracteres'],
@@ -99,6 +101,22 @@ class Cliente extends \yii\db\ActiveRecord
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Estado' => 'Estado',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAsigTlmkClientes()
+    {
+        return $this->hasMany(AsigTlmkCliente::className(), ['Codigo_Cliente' => 'Codigo_Cliente']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getBeneficiarios()
+    {
+        return $this->hasMany(Beneficiario::className(), ['Codigo_Cliente' => 'Codigo_Cliente']);
     }
 
     /**
@@ -209,6 +227,13 @@ class Cliente extends \yii\db\ActiveRecord
         $comando = $query->createCommand();
         $data = $comando->queryScalar();
         return $data;
+    }
+
+    public function SP_Delete($codigo)
+    {
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand("call Delete_Beneficiario('".$codigo."')");
+        $command->execute();
     }
 
 }

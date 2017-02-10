@@ -4,6 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\jui\Autocomplete;
 use app\models\Cliente;
+use app\models\Beneficiario;
+
+/* @var $this yii\web\View */
+/* @var $model app\models\Cliente */
+/* @var $form yii\widgets\ActiveForm */
+
+use synatree\dynamicrelations\DynamicRelations;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cliente */
@@ -96,6 +104,17 @@ use app\models\Cliente;
                     <div class="col-sm-3">
                         <?= $form->field($model, 'Local')->textInput(['maxlength' => true]) ?>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= DynamicRelations::widget([
+                        'title' => 'Beneficiarios:',
+                        'collection' => $model->beneficiarios,
+                        'viewPath' => '@app/views/beneficiario/_update.php',
+                        'collectionType' => new \app\models\Beneficiario(),
+
+                    ]); ?>
                 </div>
             </div>
         </div>

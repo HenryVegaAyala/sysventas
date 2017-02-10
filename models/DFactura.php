@@ -3,8 +3,7 @@
 namespace app\models;
 
 use Yii;
-use yii\db\Expression;
-use yii\db\Query;
+
 /**
  * This is the model class for table "d_factura".
  *
@@ -85,15 +84,5 @@ class DFactura extends \yii\db\ActiveRecord
     public function getFactura0()
     {
         return $this->hasOne(Factura::className(), ['id' => 'factura']);
-    }
-
-    public function getCodigoDetFactura()
-    {
-        $query = new Query();
-        $expresion = new Expression('IFNULL(MAX(id), 0) + 1');
-        $query->select($expresion)->from('d_factura');
-        $comando = $query->createCommand();
-        $data = $comando->queryScalar();
-        return $data;
     }
 }

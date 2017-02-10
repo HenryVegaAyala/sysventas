@@ -2,12 +2,14 @@
 
 namespace app\controllers;
 
+use app\models\Beneficiario;
 use Yii;
 use app\models\Cliente;
 use app\models\ClienteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use synatree\dynamicrelations\DynamicRelations;
 
 class ClienteController extends Controller
 {
@@ -53,6 +55,7 @@ class ClienteController extends Controller
             $model->Estado = '1';
             $model->Usuario_Creado = Yii::$app->user->identity->email;
             $model->save();
+            DynamicRelations::relate($model, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());
             Yii::$app->session->setFlash('success', 'Se ha registrado exitosamente.');
             return $this->redirect(['create']);
         } else {
@@ -67,11 +70,12 @@ class ClienteController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
+            $Codigo = $model->Codigo_Cliente;
 
-            $model->Fecha_Modificado = $this->ZonaHoraria();
-            $model->Usuario_Modificado = Yii::$app->user->identity->email;
+            $model->SP_Delete($Codigo);
+            DynamicRelations::relate($model, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());
+//            $model->save();
 
-            $model->save();
             return $this->redirect(['index']);
         } else {
             return $this->render('update', [

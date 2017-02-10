@@ -47,7 +47,7 @@ use app\models\DFacturaSearch;
                     <?= DynamicRelations::widget([
                         'title' => 'Productos Adicionales:',
                         'collection' => $model->dFacturas,
-                        'viewPath' => '@app/views/dfactura/_form.php',
+                        'viewPath' => '@app/views/dfactura/_update.php',
                         'collectionType' => new \app\models\dfactura,
 
                     ]); ?>

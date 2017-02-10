@@ -78,11 +78,10 @@ class FacturaController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $Codigo = $model->id;
-//            $model->save();
+
+            $model->SP_Delete($Codigo);
             DynamicRelations::relate($model, 'dFacturas', Yii::$app->request->post(), 'Dfactura', DFactura::className());
-//            $model->SP_Delete($Codigo);
-//            var_dump('error DynamicRelations ?');exit();
-            $model->save();
+            $model->SP_Factura($Codigo);
 
             return $this->redirect(['index']);
         } else {

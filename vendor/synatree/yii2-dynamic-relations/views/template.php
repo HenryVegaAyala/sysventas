@@ -6,9 +6,10 @@ SynatreeAsset::register($this);
 
 <label class="form-control"><?= $title; ?></label>
 <ul class="list-group" data-related-view="<?= $ajaxAddRoute; ?>">
+
     <li class="list-group-item">
         <a href="#" class="btn btn-success btn-sm add-dynamic-relation">
-            <i class="glyphicon glyphicon-plus"></i> Agregar Productos
+            <i class="glyphicon glyphicon-plus"></i> Agregar
         </a>
     </li>
 
@@ -24,10 +25,10 @@ SynatreeAsset::register($this);
                         <?= $this->renderFile($viewPath, ['model' => $model]); ?>
                     </div>
                 </div>
-                <div class="col-sm-1">
-                    <button type="button" class="btn btn-block btn-default btn-sm  remove-dynamic-relation"
-                            aria-label="Remove"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                </div>
+<!--                <div class="col-sm-1">-->
+<!--                    <button type="button" class="btn btn-block btn-default btn-sm  remove-dynamic-relation"-->
+<!--                            aria-label="Remove"><i class="fa fa-trash-o" aria-hidden="true"></i></button>-->
+<!--                </div>-->
             </div>
         </li>
         <?php

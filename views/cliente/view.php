@@ -22,6 +22,7 @@ $this->title = 'Detalle del Cliente - ' . $model->Nombre . ' ' . $model->Apellid
                 'attributes' => [
                     'Nombre',
                     'Apellido',
+                    'dni',
                     'Profesion',
                     [
                         'label' => 'Edad',
@@ -37,8 +38,12 @@ $this->title = 'Detalle del Cliente - ' . $model->Nombre . ' ' . $model->Apellid
                         }
                     ],
                     'Distrito',
+                    'Direccion',
                     'Telefono_Casa',
+                    'Telefono_Casa2',
                     'Telefono_Celular',
+                    'Telefono_Celular2',
+                    'Telefono_Celular3',
                     'Email:email',
                     [
                         'attribute' => 'Tarjeta_De_Credito',
@@ -51,11 +56,18 @@ $this->title = 'Detalle del Cliente - ' . $model->Nombre . ' ' . $model->Apellid
                             return $data;
                         }
                     ],
+                    'Promotor',
+                    'Super_Promotor',
+                    'Jefe_Promotor',
                 ],
             ]) ?>
             <div class="panel-footer container-fluid foo">
                 <p>
-                    <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['index'], ['class' => 'btn btn-primary']) ?>
+                    <?php if (Yii::$app->user->identity->Codigo_Rol == 3) { ?>
+                        <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['lista'], ['class' => 'btn btn-primary']) ?>
+                    <?php } else { ?>
+                        <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['index'], ['class' => 'btn btn-primary']) ?>
+                    <?php } ?>
                 </p>
             </div>
         </div>

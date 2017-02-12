@@ -143,7 +143,7 @@ class DocumentoController extends Controller
         $fh_delete = $this->ZonaHoraria();
         $estado = '0';
         $usuario = Yii::$app->user->identity->email;
-        $model->ActualizarDocumento($id,$fh_delete,$usuario,$estado);
+        $model->ActualizarDocumento($id, $fh_delete, $usuario, $estado);
         return $this->redirect(['index']);
     }
 
@@ -189,12 +189,48 @@ class DocumentoController extends Controller
             case 'jpg':
                 return "$nombre" . '_' . "$codigo-" . $this->Fecha() . '.' . $extension . "";
                 break;
-            case
-            'png':
+            case 'png':
                 return "$nombre" . '_' . "$codigo-" . $this->Fecha() . '.' . $extension . "";
                 break;
             default:
                 echo "Problema en el formato";
         }
+    }
+
+    public function actionDescarga($id)
+    {
+        $model = new Documento();
+        $archivo = $model->getDocumento($id);
+        $extension = $model->getExtension($id);
+
+        if ($extension == 'jpg' || $extension == 'png') {
+            $ruta = 'documentos/imagen';
+        } else {
+            $ruta = 'documentos/pdf';
+        }
+        $this->downloadFile($ruta, $archivo);
+        exit();
+        return $this->redirect('index');
+
+    }
+
+    private function downloadFile($dir, $file)
+    {
+        if (is_dir($dir)) {
+
+            $path = $dir . '/' . $file;
+
+            if (is_file($path)) {
+                $size = filesize($path);
+                header("Content-Type: application/force-download");
+                header("Content-Disposition: attachment; filename=$file");
+                header("Content-Transfer-Encoding: binary");
+                header("Content-Length: " . $size);
+                // Descargar archivo
+                readfile($path);
+                return true;
+            }
+        }
+        return false;
     }
 }

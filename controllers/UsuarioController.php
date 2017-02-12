@@ -72,8 +72,7 @@ class UsuarioController extends Controller
                 $Fecha_Crea = ($model->Fecha_Creado = $this->ZonaHoraria());
                 $usu_crea = ($model->Usuario_Creado = Yii::$app->user->identity->email);
                 $passDes = ($model->pwdDes = $model->password_repeat);
-                $estado = ($model->estado = '2'); //Son de 2 nivel no privilegiados
-
+                $estado = ($model->estado = 2); //Son de 2 nivel no privilegiados
                 $rol = $model->Codigo_Rol;
                 $valor = $model->getRol($rol);
 //                $model->InsertUsuario($codigo, $usuario, $email, $passEncryt, $Fecha_Crea, $usu_crea, $roles, $estado, $passDes,$status,$rol);

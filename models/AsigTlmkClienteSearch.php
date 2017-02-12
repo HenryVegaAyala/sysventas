@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Documento;
+use app\models\AsigTlmkCliente;
 
 /**
- * DocumentoSearch represents the model behind the search form about `app\models\Documento`.
+ * AsigTlmkClienteSearch represents the model behind the search form of `app\models\AsigTlmkCliente`.
  */
-class DocumentoSearch extends Documento
+class AsigTlmkClienteSearch extends AsigTlmkCliente
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class DocumentoSearch extends Documento
     public function rules()
     {
         return [
-            [['Codigo_Documento'], 'integer'],
-            [['Nombre', 'archivo', 'Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Eliminado', 'Usuario_Modificado', 'Estado'], 'safe'],
+            [['codigo', 'Codigo_telemarketing', 'Codigo_Cliente', 'fecha_asignacion_codigo'], 'integer'],
+            [['Fecha_Creada', 'Fecha_Modificada', 'Fecha_Eliminada', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Fecha_Llamado', 'Estado'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class DocumentoSearch extends Documento
      */
     public function search($params)
     {
-        $query = Documento::find()->where(['Estado' => 1])->orderBy(['Fecha_Creado' => SORT_DESC]);
+        $query = AsigTlmkCliente::find();
 
         // add conditions that should always apply here
 
@@ -59,18 +59,19 @@ class DocumentoSearch extends Documento
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'Codigo_Documento' => $this->Codigo_Documento,
-//            'Fecha_Creado' => $this->Fecha_Creado,
-            'Fecha_Modificado' => $this->Fecha_Modificado,
-            'Fecha_Eliminado' => $this->Fecha_Eliminado,
+            'codigo' => $this->codigo,
+            'Codigo_telemarketing' => $this->Codigo_telemarketing,
+            'Codigo_Cliente' => $this->Codigo_Cliente,
+            'Fecha_Creada' => $this->Fecha_Creada,
+            'Fecha_Modificada' => $this->Fecha_Modificada,
+            'Fecha_Eliminada' => $this->Fecha_Eliminada,
+            'fecha_asignacion_codigo' => $this->fecha_asignacion_codigo,
         ]);
 
-        $query->andFilterWhere(['like', 'Nombre', $this->Nombre])
-            ->andFilterWhere(['like', 'archivo', $this->archivo])
-            ->andFilterWhere(['like', 'Fecha_Creado', $this->Fecha_Creado])
-            ->andFilterWhere(['like', 'Usuario_Creado', $this->Usuario_Creado])
-            ->andFilterWhere(['like', 'Usuario_Eliminado', $this->Usuario_Eliminado])
+        $query->andFilterWhere(['like', 'Usuario_Creado', $this->Usuario_Creado])
             ->andFilterWhere(['like', 'Usuario_Modificado', $this->Usuario_Modificado])
+            ->andFilterWhere(['like', 'Usuario_Eliminado', $this->Usuario_Eliminado])
+            ->andFilterWhere(['like', 'Fecha_Llamado', $this->Fecha_Llamado])
             ->andFilterWhere(['like', 'Estado', $this->Estado]);
 
         return $dataProvider;

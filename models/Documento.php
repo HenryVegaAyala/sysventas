@@ -74,7 +74,7 @@ class Documento extends \yii\db\ActiveRecord
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Estado' => 'Estado',
-            'Fecha_Creado' => 'Fecha',
+            'Fecha_Creado' => 'Fecha Subido',
             'archivo2' => 'Archivo'
         ];
     }
@@ -100,6 +100,24 @@ class Documento extends \yii\db\ActiveRecord
                             WHERE Codigo_Documento = '" . $id . "';")->execute();
         $transaction->commit();
 
+    }
+
+    public function getDocumento($id)
+    {
+        $query = new Query();
+        $query->select('Archivo')->from('documento')->where('Codigo_Documento = '.$id);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function getExtension($id)
+    {
+        $query = new Query();
+        $query->select('extension')->from('documento')->where('Codigo_Documento = '.$id);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
     }
 
 }

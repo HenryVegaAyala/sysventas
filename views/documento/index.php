@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\bootstrap\Button;
+use yii\helpers\Url;
+use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DocumentoSearch */
@@ -21,12 +23,43 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="table-responsive">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     'Nombre',
                     'archivo',
-                    'Fecha_Creado',
-                    ['class' => 'yii\grid\ActionColumn'],
+                    [
+                        'attribute' => 'Fecha_Creado',
+                        'value' => 'Fecha_Creado',
+                        'format' => 'raw',
+                        'options' => ['style' => 'width: 20%;'],
+                        'filter' => DatePicker::widget([
+                            'model' => $searchModel,
+                            'attribute' => 'Fecha_Creado',
+                            'options' => ['placeholder' => ''],
+                            'pluginOptions' => [
+                                'id' => 'Fecha_Creado',
+                                'autoclose'=>true,
+                                'format' => 'yyyy-mm-dd',
+                                'startView' => 'year',
+                            ]
+                        ])
+                    ],
+                    ['class' => 'yii\grid\ActionColumn',
+                        'header' => 'Opciones',
+                        'template' => '{contrato} ',
+                        'headerOptions' => ['class' => 'itemHide'],
+                        'contentOptions' => ['class' => 'itemHide'],
+                        'template' => '{update} {delete} {descarga}',
+                        'buttons' => [
+                            'descarga' => function ($url, $model) {
+                                return Html::a('<span class="fa fa-cloud-download"></span>',
+                                    Yii::$app->urlManager->createUrl(['documento/descarga', 'id' => $model->Codigo_Documento]),
+                                    ['title' => Yii::t('yii', 'descarga'),]
+                                );
+                            }
+                        ],
+                    ],
                 ],
             ]); ?>
         </div>

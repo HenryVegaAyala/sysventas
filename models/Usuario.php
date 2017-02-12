@@ -59,7 +59,7 @@ class Usuario extends \yii\db\ActiveRecord
             [['registration_ip'], 'string', 'max' => 45],
             [['password_reset_token'], 'string', 'max' => 256],
             [['Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 250],
-            [['username'], 'unique'],
+//            [['username'], 'unique'],
             [['email'], 'unique'],
 
             ['username', 'match', 'pattern' => "/^.{3,50}$/", 'message' => 'Mínimo 3 caracteres del Nombre del Usuario'],
@@ -152,6 +152,21 @@ class Usuario extends \yii\db\ActiveRecord
             case 14:
                 return 'Gerente General';
                 break;
+            case 15:
+                return 'Supervisor Promotor';
+                break;
+            case 16:
+                return 'Jefe Promotor';
+                break;
+            case 17:
+                return 'Director de Telemarketing';
+                break;
+            case 18:
+                return 'Director de Planemiento y Administracion';
+                break;
+            case 19:
+                return 'Director Comercial';
+                break;
             case 20:
                 return 'Administrador';
                 break;
@@ -219,8 +234,8 @@ class Usuario extends \yii\db\ActiveRecord
                 $where = new Expression('status = 1');
                 return $where;
                 break;
-            case 20:
-                $where = new Expression('status = 1');
+            case 20: // administrador
+                $where = new Expression('status = 1 and estado = 1');
                 return $where;
         }
     }
@@ -255,6 +270,32 @@ class Usuario extends \yii\db\ActiveRecord
             case 20:
                 $where = new Expression('status = 1');
                 return $where;
+        }
+    }
+
+    public function getComisiones($rol,$id)
+    {
+        switch ($rol) {
+            case 3: // anfitrion
+                $where = new Expression('codigo_anfitrion = "'.$id.'"');
+                return $where;
+                break;
+            case 8: // No access liner
+                $where = new Expression('no_access_liner = "'.$id.'"');
+                return $where;
+                break;
+            case 9: // No access closer
+                $where = new Expression('no_access_closer = "'.$id.'"');
+                return $where;
+                break;
+            case 15: // Supervisor anfitrion
+                $where = new Expression('codigo_supervisor_anfitrion = "'.$id.'"');
+                return $where;
+                break;
+            case 16: // Jefe anfitrion
+                $where = new Expression('codigo_jefe_anfitrion = "'.$id.'"');
+                return $where;
+                break;
         }
     }
 

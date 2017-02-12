@@ -76,9 +76,9 @@ return [
     'There are {totalCount} records. Are you sure you want to display them all?' => 'Hay {totalCount} registros. ¿Esta seguro que desea mostrar todos?',
     'Update' => 'Actualizar',
     'View' => 'Ver',
-    'Yii2 Grid Export (PDF)' => 'Yii2 Exportar cuadrícula (PDF)',
+    'Yii2 Grid Export (PDF)' => 'Exportar cuadrícula (PDF)',
     'export' => 'exportar',
     'grid-export' => 'exportar-cuadrícula',
     'krajee, grid, export, yii2-grid, pdf' => 'krajee, cuadrícula, exportar, yii2-grid, pdf',
-    '© Krajee Yii2 Extensions' => '© Krajee Yii2 Extensions',
+    '© Krajee Yii2 Extensions' =>  'Desarrollado con Gaona Web Hosting. Todos los derechos reservados.',
 ];

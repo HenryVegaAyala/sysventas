@@ -37,7 +37,22 @@ use yii\helpers\Url;
                     <?= $form->field($model, 'Apellido')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-sm-2">
+                    <?= $form->field($model, 'dni')->textInput() ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">
                     <?= $form->field($model, 'Edad')->textInput() ?>
+                </div>
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'Direccion')->textInput() ?>
+                </div>
+                <div class="col-sm-3">
+                    <?= $form->field($model, 'Traslado')->dropDownList($model->getTraslado(), ['prompt' => 'Seleccionar tipo de Traslado', 'class' => 'form-control loginmodal-container-combo']) ?>
+                </div>
+                <div class="col-sm-3">
+                    <?= $form->field($model, 'Tarjeta_De_Credito')->dropDownList($model->getTarjeta(), ['prompt' => 'Seleccione una Tarjeta', 'class' => 'form-control loginmodal-container-combo']) ?>
                 </div>
             </div>
 
@@ -96,22 +111,26 @@ use yii\helpers\Url;
                 </div>
             </div>
 
+            <div>
+                <label class="form-control">Seleccionar si es de uso interno: </label>
+            </div>
+
             <div class="row">
-                <div class="col-sm-3">
-                    <?= $form->field($model, 'Traslado')->dropDownList($model->getTraslado(), ['prompt' => 'Seleccionar tipo de Traslado', 'class' => 'form-control loginmodal-container-combo']) ?>
-                </div>
-                <div class="col-sm-3">
-                    <?= $form->field($model, 'Tarjeta_De_Credito')->dropDownList($model->getTarjeta(), ['prompt' => 'Seleccione una Tarjeta', 'class' => 'form-control loginmodal-container-combo']) ?>
-                </div>
+
                 <div class="col-sm-3 uso_normal">
                     <div class="form-group field-cliente-uso_interno">
-                        <label class="control-label">Seleccionar si es de uso interno</label>
                         <?= $form->field($model, 'uso_interno')->checkbox(['class' => 'check-selec', 'onchange' => 'valueChanged()']) ?>
                     </div>
                 </div>
                 <div class="uso_interno" style="display: none;">
                     <div class="col-sm-3">
                         <?= $form->field($model, 'Promotor')->textInput(['maxlength' => true]) ?>
+                    </div>
+                    <div class="col-sm-3">
+                        <?= $form->field($model, 'Super_Promotor')->textInput(['maxlength' => true]) ?>
+                    </div>
+                    <div class="col-sm-3">
+                        <?= $form->field($model, 'Jefe_Promotor')->textInput(['maxlength' => true]) ?>
                     </div>
                     <div class="col-sm-3">
                         <?= $form->field($model, 'Local')->textInput(['maxlength' => true]) ?>

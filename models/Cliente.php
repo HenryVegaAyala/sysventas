@@ -35,6 +35,9 @@ use yii\db\Query;
  * @property string $Usuario_Modificado
  * @property string $Usuario_Eliminado
  * @property string $Estado
+ * @property integer $dni
+ * @property string $Super_Promotor
+ * @property string $Jefe_Promotor
  *
  * @property AsigTlmkCliente[] $asigTlmkClientes
  * @property Beneficiario[] $beneficiarios
@@ -52,11 +55,11 @@ class Cliente extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Nombre', 'Apellido', 'Estado_Civil', 'Distrito', 'Profesion'], 'required'],
+            [['Nombre', 'Apellido', 'Estado_Civil', 'Distrito', 'Profesion', 'Direccion', 'dni'], 'required'],
             [['Edad'], 'required', 'message' => 'Edad es requerida.'],
             [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito'], 'integer', 'message' => 'Debe ser númerico.'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
-            [['Nombre', 'Apellido', 'Distrito', 'Local', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
+            [['Nombre', 'Apellido', 'Distrito', 'Local', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Super_Promotor', 'Jefe_Promotor'], 'string', 'max' => 100],
             [['Profesion', 'Email', 'Traslado'], 'string', 'max' => 45],
             [['Estado_Civil', 'Estado'], 'string', 'max' => 1],
             [['Direccion', 'Observacion'], 'string', 'max' => 200],
@@ -65,8 +68,9 @@ class Cliente extends \yii\db\ActiveRecord
             [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^.{3,80}$/", 'message' => 'Mínimo 3 caracteres'],
             [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\_\-\/\. ]+$/i", 'message' => 'Sólo se aceptan letras'],
 
-            [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3', 'Traslado'], 'integer', 'message' => 'Debe ser númerico.'],
-            [['Telefono_Casa', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3'], 'match', 'pattern' => "/^.{3,15}$/", 'message' => 'Mínimo 7 caracteres del correo'],
+            [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3', 'Traslado', 'dni'], 'integer', 'message' => 'Debe ser númerico.'],
+            [['Telefono_Casa', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3'], 'match', 'pattern' => "/^.{3,15}$/", 'message' => 'Mínimo 7 caracteres'],
+            [['dni'], 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mínimo 8 caracteres'],
             [['Edad'], 'match', 'pattern' => "/^.{2,2}$/", 'message' => 'Debe ser edad correcta'],
 
             [['Email'], 'match', 'pattern' => "/^.{3,45}$/", 'message' => 'Mínimo 3 caracteres del correo'],
@@ -106,6 +110,9 @@ class Cliente extends \yii\db\ActiveRecord
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Estado' => 'Estado',
+            'dni' => 'DNI',
+            'Super_Promotor' => 'Supervisor del Promotor',
+            'Jefe_Promotor' => 'Jefe del Promotor'
         ];
     }
 
@@ -238,7 +245,7 @@ class Cliente extends \yii\db\ActiveRecord
     public function SP_Delete($codigo)
     {
         $connection = Yii::$app->db;
-        $command = $connection->createCommand("call Delete_Beneficiario('".$codigo."')");
+        $command = $connection->createCommand("call Delete_Beneficiario('" . $codigo . "')");
         $command->execute();
     }
 

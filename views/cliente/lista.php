@@ -20,7 +20,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin();
     echo GridView::widget([
         'dataProvider' => $dataProvider,
-//        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -66,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Detalle',
-                'template' => '{view} {update}  ',
+                'template' => '{view} ',
                 'headerOptions' => ['class' => 'itemHide'],
                 'contentOptions' => ['class' => 'itemHide'],
                 'buttons' => [
@@ -74,14 +73,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
                             Yii::$app->urlManager->createUrl(['cliente/view', 'id' => $model->Codigo_Cliente]),
                             ['title' => Yii::t('yii', 'Ver'),]
-                        );
-                    }
-                ],
-                'buttons' => [
-                    'update' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                            Yii::$app->urlManager->createUrl(['cliente/update', 'id' => $model->Codigo_Cliente]),
-                            ['title' => Yii::t('yii', 'Actualizar'),]
                         );
                     }
                 ],

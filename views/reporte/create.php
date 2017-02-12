@@ -10,9 +10,15 @@ use yii\helpers\Html;
 $this->title = 'Reporte General';
 ?>
 <div class="reporte-create">
-    
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+
+    <?php if (Yii::$app->user->identity->Codigo_Rol == 4) { ?>
+        <?= $this->render('_cliente', [
+            'model' => $model,
+        ]) ?>
+    <?php } else { ?>
+        <?= $this->render('_form', [
+            'model' => $model,
+        ]) ?>
+    <?php } ?>
 
 </div>

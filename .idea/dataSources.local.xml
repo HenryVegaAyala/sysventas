@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="Rustica - Amazon" uuid="f5060f63-4ba2-4646-bd8a-02026423723b">
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <schema-pattern>sis_crm.*</schema-pattern>
-      <default-schemas>sis_crm.*</default-schemas>
-    </data-source>
     <data-source name="MySQL - sis_crm@localhost" uuid="a2b425a5-e036-4229-8c1c-ed8d16b9c7da">
       <user-name>root</user-name>
     </data-source>

@@ -40,7 +40,16 @@ use yii\helpers\Url;
                     <?= $form->field($model, 'Apellido')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-sm-2">
+                    <?= $form->field($model, 'dni')->textInput() ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-2">
                     <?= $form->field($model, 'Edad')->textInput() ?>
+                </div>
+                <div class="col-sm-10">
+                    <?= $form->field($model, 'Direccion')->textInput() ?>
                 </div>
             </div>
 
@@ -74,26 +83,9 @@ use yii\helpers\Url;
                 <div class="col-sm-4">
                     <?= $form->field($model, 'Telefono_Casa')->textInput(['maxlength' => true]) ?>
                 </div>
-
-                <div class="col-sm-4">
-                    <?= $form->field($model, 'Telefono_Casa2')->textInput(['maxlength' => true]) ?>
-                </div>
-
                 <div class="col-sm-4">
                     <?= $form->field($model, 'Telefono_Celular')->textInput(['maxlength' => true]) ?>
                 </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-sm-4">
-                    <?= $form->field($model, 'Telefono_Celular2')->textInput(['maxlength' => true]) ?>
-                </div>
-
-                <div class="col-sm-4">
-                    <?= $form->field($model, 'Telefono_Celular3')->textInput(['maxlength' => true]) ?>
-                </div>
-
                 <div class="col-sm-4">
                     <?= $form->field($model, 'Email')->textInput(['maxlength' => true]) ?>
                 </div>

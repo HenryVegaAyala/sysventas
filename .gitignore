@@ -9,3 +9,5 @@ themes/classic/views/
 
 /.ftpquota
 /vendor/
+.idea/*
+.idea

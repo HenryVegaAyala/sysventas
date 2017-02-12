@@ -31,14 +31,14 @@ use yii\helpers\Url;
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'Fecha_Creada')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'Fecha_Creada')->textInput(['maxlength' => true,'value' => date('d-m-Y'),'readonly' => true]) ?>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-12">
                     <?= DynamicRelations::widget([
-                        'title' => 'Asignar Telemarketing a Clientes:',
+                        'title' => 'Asignar Telemarketing:',
                         'collection' => $model->asigTlmkClientes,
                         'viewPath' => '@app/views/asig-tlmk-cliente/_form.php',
                         'collectionType' => new \app\models\AsigTlmkCliente(),

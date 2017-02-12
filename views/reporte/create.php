@@ -15,10 +15,15 @@ $this->title = 'Reporte General';
         <?= $this->render('_cliente', [
             'model' => $model,
         ]) ?>
+    <?php } elseif(Yii::$app->user->identity->Codigo_Rol == 17) { ?>
+        <?= $this->render('_telemarketing', [
+            'model' => $model,
+        ]) ?>
     <?php } else { ?>
         <?= $this->render('_form', [
             'model' => $model,
         ]) ?>
     <?php } ?>
+    
 
 </div>

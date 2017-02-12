@@ -63,7 +63,7 @@ class ClienteController extends Controller
 
             $model->Codigo_Cliente = $model->getCodigoCliente();
             $model->Fecha_Creado = $this->ZonaHoraria();
-            $model->Estado = '1';
+            $model->Estado = '10';
             $model->Usuario_Creado = Yii::$app->user->identity->email;
             $model->save();
             DynamicRelations::relate($model, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());

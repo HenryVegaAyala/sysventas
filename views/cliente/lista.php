@@ -5,6 +5,7 @@ use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use yii\bootstrap\Button;
 use app\models\Cliente;
+use yii\helpers\ArrayHelper;
 
 /**
  * @var yii\web\View $this
@@ -18,8 +19,10 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="cliente-index">
 
     <?php Pjax::begin();
+    $model = new Cliente();
     echo GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -41,6 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'Estado_Civil',
                 'label' => 'Estado Civil',
+                'filter' => $model->getEstadoCivil(),
                 'value' => function ($data) {
                     $model = new Cliente();
                     $estado = $data->Estado_Civil;
@@ -53,6 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'Tarjeta_De_Credito',
                 'label' => 'Tipo de tarjeta',
+                'filter' => $model->getTarjeta(),
                 'value' => function ($data) {
                     if ($data->Tarjeta_De_Credito == 0) {
                         $data = 'Tarjeta de Crédito';

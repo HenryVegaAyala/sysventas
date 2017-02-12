@@ -68,9 +68,13 @@ class FechaAsignacionController extends Controller
         $model = new FechaAsignacion();
 
         if ($model->load(Yii::$app->request->post())) {
+            $codigo = $model->codigo_asig = $model->getCodigo();
+            $model->Fecha_Creada = substr($model->Fecha_Creada, 6, 4) . '/' . substr($model->Fecha_Creada, 3, 2) . '/' . substr($model->Fecha_Creada, 0, 2); //'2016-06-09' ;
             $model->save();
             DynamicRelations::relate($model, 'asigTlmkClientes', Yii::$app->request->post(), 'AsigTlmkCliente', AsigTlmkCliente::className());
-            return $this->redirect(['view', 'id' => $model->codigo]);
+            $model->SP_Estado($codigo);
+            Yii::$app->session->setFlash('success', 'Se asignó correctamente el cliente.');
+            return $this->redirect(['create']);
         } else {
             return $this->render('create', [
                 'model' => $model,

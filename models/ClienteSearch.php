@@ -41,7 +41,8 @@ class ClienteSearch extends Cliente
      */
     public function search($params)
     {
-        $query = Cliente::find()->where(['Estado' => 1])->orderBy(['Fecha_Creado' => SORT_DESC]);;
+//        $query = Cliente::find()->where(['Estado' => 1])->orderBy(['Fecha_Creado' => SORT_DESC]);;
+        $query = Cliente::find()->orderBy(['Fecha_Creado' => SORT_DESC]);;
 
         // add conditions that should always apply here
 

@@ -6,12 +6,12 @@ use Yii;
 use yii\db\Query;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
-
 /**
  * This is the model class for table "asig_tlmk_cliente".
  *
- * @property integer $codigo
- * @property integer $Codigo_telemarketing
+ * @property integer $codigo_asig
+ * @property integer $codigo_tlmk_cliente
+ * @property integer $Codigo_Usuario
  * @property integer $Codigo_Cliente
  * @property string $Fecha_Creada
  * @property string $Fecha_Modificada
@@ -21,11 +21,10 @@ use yii\helpers\ArrayHelper;
  * @property string $Usuario_Eliminado
  * @property string $Fecha_Llamado
  * @property string $Estado
- * @property integer $fecha_asignacion_codigo
  *
  * @property Cliente $codigoCliente
- * @property Telemarketing $codigoTelemarketing
- * @property FechaAsignacion $fechaAsignacionCodigo
+ * @property FechaAsignacion $codigoAsig
+ * @property User $codigoUsuario
  */
 class AsigTlmkCliente extends \yii\db\ActiveRecord
 {
@@ -43,13 +42,13 @@ class AsigTlmkCliente extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['codigo', 'Codigo_telemarketing', 'Codigo_Cliente', 'fecha_asignacion_codigo'], 'required'],
-            [['codigo', 'Codigo_telemarketing', 'Codigo_Cliente', 'fecha_asignacion_codigo'], 'integer'],
+            [['codigo_asig', 'codigo_tlmk_cliente', 'Codigo_Usuario', 'Codigo_Cliente'], 'required'],
+            [['codigo_asig', 'codigo_tlmk_cliente', 'Codigo_Usuario', 'Codigo_Cliente'], 'integer'],
             [['Fecha_Creada', 'Fecha_Modificada', 'Fecha_Eliminada'], 'safe'],
             [['Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Fecha_Llamado', 'Estado'], 'string', 'max' => 45],
             [['Codigo_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => Cliente::className(), 'targetAttribute' => ['Codigo_Cliente' => 'Codigo_Cliente']],
-            [['Codigo_telemarketing'], 'exist', 'skipOnError' => true, 'targetClass' => Telemarketing::className(), 'targetAttribute' => ['Codigo_telemarketing' => 'Codigo']],
-            [['fecha_asignacion_codigo'], 'exist', 'skipOnError' => true, 'targetClass' => FechaAsignacion::className(), 'targetAttribute' => ['fecha_asignacion_codigo' => 'codigo']],
+            [['codigo_asig'], 'exist', 'skipOnError' => true, 'targetClass' => FechaAsignacion::className(), 'targetAttribute' => ['codigo_asig' => 'codigo_asig']],
+            [['Codigo_Usuario'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['Codigo_Usuario' => 'id']],
         ];
     }
 
@@ -59,8 +58,9 @@ class AsigTlmkCliente extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'codigo' => 'Codigo',
-            'Codigo_telemarketing' => 'Codigo Telemarketing',
+            'codigo_asig' => 'Codigo Asig',
+            'codigo_tlmk_cliente' => 'Codigo Tlmk Cliente',
+            'Codigo_Usuario' => 'Codigo  Usuario',
             'Codigo_Cliente' => 'Codigo  Cliente',
             'Fecha_Creada' => 'Fecha  Creada',
             'Fecha_Modificada' => 'Fecha  Modificada',
@@ -70,7 +70,6 @@ class AsigTlmkCliente extends \yii\db\ActiveRecord
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Fecha_Llamado' => 'Fecha  Llamado',
             'Estado' => 'Estado',
-            'fecha_asignacion_codigo' => 'Fecha Asignacion Codigo',
         ];
     }
 
@@ -85,27 +84,36 @@ class AsigTlmkCliente extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCodigoTelemarketing()
+    public function getCodigoAsig()
     {
-        return $this->hasOne(Telemarketing::className(), ['Codigo' => 'Codigo_telemarketing']);
+        return $this->hasOne(FechaAsignacion::className(), ['codigo_asig' => 'codigo_asig']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFechaAsignacionCodigo()
+    public function getCodigoUsuario()
     {
-        return $this->hasOne(FechaAsignacion::className(), ['codigo' => 'fecha_asignacion_codigo']);
+        return $this->hasOne(User::className(), ['id' => 'Codigo_Usuario']);
     }
 
     public function getTelemarking()
     {
-
         $resultado = ArrayHelper::map(
-            Telemarketing::find()
-                ->where('Estado = 1')->asArray()
-                ->all(), 'Codigo', 'nombre');
+            Usuario::find()
+                ->where('auth_key = 5 and status = 1 and estado = 2 ')->asArray()
+                ->all(), 'id', 'username');
         return $resultado;
     }
 
+    public function getCliente()
+    {
+
+        $resultado = ArrayHelper::map(
+            Cliente::find()
+                ->select(['Codigo_Cliente' => 'Codigo_Cliente', 'fullname' => "concat(Nombre,' ',Apellido)"])
+                ->where('Estado in(3,7,8,10)')->asArray()
+                ->all(), 'Codigo_Cliente', 'fullname');
+        return $resultado;
+    }
 }

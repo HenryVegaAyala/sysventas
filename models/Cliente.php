@@ -61,7 +61,7 @@ class Cliente extends \yii\db\ActiveRecord
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
             [['Nombre', 'Apellido', 'Distrito', 'Local', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Super_Promotor', 'Jefe_Promotor'], 'string', 'max' => 100],
             [['Profesion', 'Email', 'Traslado'], 'string', 'max' => 45],
-            [['Estado_Civil', 'Estado'], 'string', 'max' => 1],
+            [['Estado_Civil', 'Estado'], 'string', 'max' => 2],
             [['Direccion', 'Observacion'], 'string', 'max' => 200],
             [['Promotor'], 'string', 'max' => 50],
 

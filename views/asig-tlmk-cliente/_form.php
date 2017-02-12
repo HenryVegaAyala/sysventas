@@ -27,14 +27,14 @@ if ($model->primaryKey) {
 
         <div class="col-sm-6">
             <div class="form-group field-beneficiario-Codigo_telemarketing">
-                <?= Html::dropDownList($frag . '[Codigo_Cliente]', $model->Codigo_telemarketing, $model->getTelemarking(), ["id" => "Beneficiario-Estado_Civil", 'class' => 'form-control', 'prompt' => 'Seleccionar Beneficiario']) ?>
+                <?= Html::dropDownList($frag . '[Codigo_Usuario]', $model->Codigo_Usuario, $model->getTelemarking(), ["id" => "Beneficiario-Estado_Civil", 'class' => 'form-control', 'prompt' => 'Seleccionar Telemarketing']) ?>
                 <div class="help-block"></div>
             </div>
         </div>
 
         <div class="col-sm-6">
             <div class="form-group field-beneficiario-Codigo_Cliente">
-                <?= Html::input('text', $frag . '[Codigo_Cliente]', $model->Codigo_Cliente, ['id' => 'Beneficiario-Codigo_Cliente', 'class' => 'form-control']) ?>
+                <?= Html::dropDownList($frag . '[Codigo_Cliente]', $model->Codigo_Cliente, $model->getCliente(), ["id" => "Beneficiario-Estado_Civil", 'class' => 'form-control', 'prompt' => 'Seleccionar Cliente']) ?>
                 <div class="help-block"></div>
             </div>
         </div>

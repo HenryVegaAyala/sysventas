@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\AsigTlmkCliente */
 
-$this->title = $model->codigo;
+$this->title = $model->codigo_tlmk_cliente;
 $this->params['breadcrumbs'][] = ['label' => 'Asig Tlmk Clientes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->codigo], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->codigo], [
+        <?= Html::a('Update', ['update', 'id' => $model->codigo_tlmk_cliente], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->codigo_tlmk_cliente], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,8 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'codigo',
-            'Codigo_telemarketing',
+            'codigo_asig',
+            'codigo_tlmk_cliente',
+            'Codigo_Usuario',
             'Codigo_Cliente',
             'Fecha_Creada',
             'Fecha_Modificada',
@@ -39,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'Usuario_Eliminado',
             'Fecha_Llamado',
             'Estado',
-            'fecha_asignacion_codigo',
         ],
     ]) ?>
 

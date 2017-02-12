@@ -3,9 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\AsigTlmkClienteSearch */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var yii\web\View $this
+ * @var app\models\AsigTlmkClienteSearch $model
+ * @var yii\widgets\ActiveForm $form
+ */
 ?>
 
 <div class="asig-tlmk-cliente-search">
@@ -15,15 +17,17 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'codigo') ?>
+    <?= $form->field($model, 'codigo_asig') ?>
 
-    <?= $form->field($model, 'Codigo_telemarketing') ?>
+    <?= $form->field($model, 'codigo_tlmk_cliente') ?>
+
+    <?= $form->field($model, 'Codigo_Usuario') ?>
 
     <?= $form->field($model, 'Codigo_Cliente') ?>
 
     <?= $form->field($model, 'Fecha_Creada') ?>
 
-    <?= $form->field($model, 'Fecha_Modificada') ?>
+    <?php // echo $form->field($model, 'Fecha_Modificada') ?>
 
     <?php // echo $form->field($model, 'Fecha_Eliminada') ?>
 
@@ -36,8 +40,6 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'Fecha_Llamado') ?>
 
     <?php // echo $form->field($model, 'Estado') ?>
-
-    <?php // echo $form->field($model, 'fecha_asignacion_codigo') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

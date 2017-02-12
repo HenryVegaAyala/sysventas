@@ -6,7 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\AsigTlmkCliente;
-
+use yii\db\Expression;
 /**
  * AsigTlmkClienteSearch represents the model behind the search form about `app\models\AsigTlmkCliente`.
  */
@@ -28,7 +28,9 @@ class AsigTlmkClienteSearch extends AsigTlmkCliente
 
     public function search($params)
     {
-        $query = AsigTlmkCliente::find();
+        $model = new Usuario();
+        $where = new Expression($model->getFiltros(Yii::$app->user->identity->Codigo_Rol,Yii::$app->user->identity->id));
+        $query = AsigTlmkCliente::find()->where($where);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

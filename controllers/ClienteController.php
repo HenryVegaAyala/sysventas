@@ -55,6 +55,13 @@ class ClienteController extends Controller
         ]);
     }
 
+    public function actionVista($id)
+    {
+        return $this->render('vista', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
     public function actionCreate()
     {
         $model = new Cliente();
@@ -82,7 +89,6 @@ class ClienteController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $Codigo = $model->Codigo_Cliente;
-
             $model->SP_Delete($Codigo);
             DynamicRelations::relate($model, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());
 //            $model->save();
@@ -95,13 +101,34 @@ class ClienteController extends Controller
         }
     }
 
+    public function actionAgendar($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $Codigo = $model->Codigo_Cliente;
+            $estado = $model->Estado;
+            $fecha = $model->Agendado;
+//            var_dump($Codigo,$estado,$fecha);exit();
+            $model->Agendar($fecha,$estado,$Codigo);
+//            var_dump( $model->Agendado.':20');exit();
+//            $model->save();
+            return $this->redirect(['asig-tlmk-cliente/index']);
+        } else {
+            return $this->render('agendar', [
+                'model' => $model,
+            ]);
+        }
+    }
+
     public function actionDelete($id)
     {
         $model = new Cliente();
         $fh_delete = $this->ZonaHoraria();
         $estado = '0';
         $usuario = Yii::$app->user->identity->email;
-        $model->ActualizarUsuario($id,$fh_delete,$usuario,$estado);
+        $model->ActualizarUsuario($id, $fh_delete, $usuario, $estado);
         return $this->redirect(['index']);
     }
 

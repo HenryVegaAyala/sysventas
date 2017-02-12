@@ -35,6 +35,7 @@ use yii\db\Query;
  * @property string $Usuario_Modificado
  * @property string $Usuario_Eliminado
  * @property string $Estado
+ * @property string $Agendado
  * @property integer $dni
  * @property string $Super_Promotor
  * @property string $Jefe_Promotor
@@ -58,7 +59,7 @@ class Cliente extends \yii\db\ActiveRecord
             [['Nombre', 'Apellido', 'Estado_Civil', 'Distrito', 'Profesion', 'Direccion', 'dni'], 'required'],
             [['Edad'], 'required', 'message' => 'Edad es requerida.'],
             [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito'], 'integer', 'message' => 'Debe ser númerico.'],
-            [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
+            [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Agendado'], 'safe'],
             [['Nombre', 'Apellido', 'Distrito', 'Local', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Super_Promotor', 'Jefe_Promotor'], 'string', 'max' => 100],
             [['Profesion', 'Email', 'Traslado'], 'string', 'max' => 45],
             [['Estado_Civil', 'Estado'], 'string', 'max' => 2],
@@ -110,6 +111,7 @@ class Cliente extends \yii\db\ActiveRecord
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Estado' => 'Estado',
+            'Agendado' => 'Agendado',
             'dni' => 'DNI',
             'Super_Promotor' => 'Supervisor del Promotor',
             'Jefe_Promotor' => 'Jefe del Promotor'
@@ -232,6 +234,19 @@ class Cliente extends \yii\db\ActiveRecord
 
     }
 
+    public function Agendar($fh_Agendado, $estado, $codigo)
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        $db->createCommand("UPDATE cliente SET 
+                            Agendado = '" . $fh_Agendado . "',
+                            Estado = '" . $estado . "'
+                            WHERE Codigo_Cliente = '" . $codigo . "';")->execute();
+        $transaction->commit();
+
+    }
+
+
     public function Cliente($codigo)
     {
         $query = new Query();
@@ -247,6 +262,43 @@ class Cliente extends \yii\db\ActiveRecord
         $connection = Yii::$app->db;
         $command = $connection->createCommand("call Delete_Beneficiario('" . $codigo . "')");
         $command->execute();
+    }
+
+    public function Datoscliente($codigo, $valor)
+    {
+        $query = new Query();
+        $model = new Cliente();
+        $expresion = $model->Valor($valor);
+        $query->select($expresion)->from('cliente')->where("Codigo_Cliente ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function Valor($valor)
+    {
+        switch ($valor) {
+            case 0:
+                $expresion = new Expression("Edad");
+                return $expresion;
+                break;
+            case 1:
+                $expresion = new Expression("Estado_Civil");
+                return $expresion;
+                break;
+            case 2:
+                $expresion = new Expression("Telefono_Casa");
+                return $expresion;
+                break;
+            case 3:
+                return $expresion = new Expression("Telefono_Celular");
+                return $expresion;
+                break;
+            case 4:
+                $expresion = new Expression("Email");
+                return $expresion;
+                break;
+        }
     }
 
 }

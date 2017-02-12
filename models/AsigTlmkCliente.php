@@ -6,6 +6,8 @@ use Yii;
 use yii\db\Query;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
+use app\models\Cliente;
+
 /**
  * This is the model class for table "asig_tlmk_cliente".
  *
@@ -116,4 +118,5 @@ class AsigTlmkCliente extends \yii\db\ActiveRecord
                 ->all(), 'Codigo_Cliente', 'fullname');
         return $resultado;
     }
+    
 }

@@ -111,7 +111,7 @@ class ClienteController extends Controller
             $estado = $model->Estado;
             $fecha = $model->Agendado;
 //            var_dump($Codigo,$estado,$fecha);exit();
-            $model->Agendar($fecha,$estado,$Codigo);
+            $model->Agendar($fecha, $estado, $Codigo);
 //            var_dump( $model->Agendado.':20');exit();
 //            $model->save();
             return $this->redirect(['asig-tlmk-cliente/index']);
@@ -120,6 +120,31 @@ class ClienteController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionConfirmador()
+    {
+        $searchModel = new ClienteSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+
+        return $this->render('confirmador', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionConfirmar($id)
+    {
+        $model = $this->findModel($id);
+        $Codigo = $model->Codigo_Cliente;
+        $model->SP_Confirmar($Codigo);
+        return $this->redirect('confirmador');
+    }
+
+    public function actionDesafiliar($id)
+    {
+        $model = $this->findModel($id);
+        return $this->redirect('confirmador');
     }
 
     public function actionDelete($id)

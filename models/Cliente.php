@@ -264,6 +264,13 @@ class Cliente extends \yii\db\ActiveRecord
         $command->execute();
     }
 
+    public function SP_Confirmar($codigo)
+    {
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand("call Confirmar('" . $codigo . "')");
+        $command->execute();
+    }
+
     public function Datoscliente($codigo, $valor)
     {
         $query = new Query();

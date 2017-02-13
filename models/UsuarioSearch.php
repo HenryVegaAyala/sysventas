@@ -30,7 +30,7 @@ class UsuarioSearch extends Usuario
     public function search($params)
     {
         $model = new Usuario();
-        $where = new Expression($model->getFiltros(Yii::$app->user->identity->Codigo_Rol));
+        $where = new Expression($model->getFiltros(Yii::$app->user->identity->Codigo_Rol,Yii::$app->user->identity->id));
 //
         $query = Usuario::find()->where($where);
 

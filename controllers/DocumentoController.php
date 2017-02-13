@@ -209,7 +209,7 @@ class DocumentoController extends Controller
             $ruta = 'documentos/pdf';
         }
         $this->downloadFile($ruta, $archivo);
-        exit();
+//        exit();
         return $this->redirect('index');
 
     }

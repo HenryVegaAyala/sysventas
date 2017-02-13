@@ -63,10 +63,12 @@ $this->title = 'Detalle del Cliente - ' . $model->Nombre . ' ' . $model->Apellid
             ]) ?>
             <div class="panel-footer container-fluid foo">
                 <p>
-                    <?php if (Yii::$app->user->identity->Codigo_Rol == 3 ) { ?>
+                    <?php if (Yii::$app->user->identity->Codigo_Rol == 3) { ?>
                         <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['cliente/lista'], ['class' => 'btn btn-primary']) ?>
                     <?php } elseif (Yii::$app->user->identity->Codigo_Rol == 5) { ?>
                         <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['cliente/lista'], ['class' => 'btn btn-primary']) ?>
+                    <?php } elseif (Yii::$app->user->identity->Codigo_Rol == 6) { ?>
+                        <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['confirmador'], ['class' => 'btn btn-primary']) ?>
                     <?php } else { ?>
                         <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['index'], ['class' => 'btn btn-primary']) ?>
                     <?php } ?>

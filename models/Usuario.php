@@ -251,6 +251,10 @@ class Usuario extends \yii\db\ActiveRecord
                 $where = new Expression('Codigo_Usuario = '.$id );
                 return $where;
                 break;
+            case 6: //Confirmador
+                $where = new Expression('estado in (2,11)' );
+                return $where;
+                break;
             case 10: //jefe de contratos
                 $where = new Expression('estado = 2 and Codigo_Rol in (1,2,3,6)'); //Filtro de lista de usuarios
                 return $where;

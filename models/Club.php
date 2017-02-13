@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use yii\db\Expression;
+use yii\db\Query;
 /**
  * This is the model class for table "club".
  *
@@ -40,7 +41,7 @@ class Club extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo_club'], 'required'],
+            [['Vigencia','Precio', 'Precio_por_Noche', 'Desc_Afiliado','Nombre'], 'required'],
             [['Codigo_club', 'Vigencia', 'Codigo_certificado'], 'integer'],
             [['Precio', 'Precio_por_Noche', 'Desc_Afiliado'], 'number'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
@@ -61,7 +62,7 @@ class Club extends \yii\db\ActiveRecord
             'Precio' => 'Precio',
             'Precio_por_Noche' => 'Precio Por  Noche',
             'Vigencia' => 'Vigencia',
-            'Desc_Afiliado' => 'Desc  Afiliado',
+            'Desc_Afiliado' => 'Descuento de Afiliado',
             'Codigo_certificado' => 'Codigo Certificado',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',
@@ -79,5 +80,15 @@ class Club extends \yii\db\ActiveRecord
     public function getCodigoCertificado()
     {
         return $this->hasOne(Certificado::className(), ['Codigo_certificado' => 'Codigo_certificado']);
+    }
+
+    public function getCodigo()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(Codigo_club), 0) + 1');
+        $query->select($expresion)->from('club');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
     }
 }

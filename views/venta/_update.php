@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Club */
+/* @var $model app\models\Venta */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -25,35 +25,38 @@ use yii\widgets\ActiveForm;
 
             <div class="row">
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'Nombre')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'Codigo_pasaporte')->textInput() ?>
                 </div>
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'Precio')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'Codigo_Cliente')->textInput() ?>
                 </div>
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'Precio_por_Noche')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'medio_pago')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'Vigencia')->textInput() ?>
+                    <?= $form->field($model, 'Estado_pago')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'Desc_Afiliado')->textInput() ?>
+                    <?= $form->field($model, 'porcentaje_pagado')->textInput() ?>
                 </div>
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'Codigo_certificado')->textInput() ?>
+                    <?= $form->field($model, 'cod_barra_pasaporte')->textInput(['maxlength' => true]) ?>
+                </div>
+                <div class="col-sm-3">
+                    <?= $form->field($model, 'cod_barra_pasaporte_manual')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
         </div>
 
         <div class="panel-footer container-fluid foo">
             <div class="col-sm-12">
-                <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
+                <?= Html::submitButton($model->isNewRecord ? "Guardar" : "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar", ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
                 <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Limpiar", ['create'], ['class' => 'btn btn-primary']) ?>
                 <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
-            </div>
+                </div>
             <?php ActiveForm::end(); ?>
         </div>
     </div>

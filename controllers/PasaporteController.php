@@ -65,8 +65,11 @@ class PasaporteController extends Controller
     {
         $model = new Pasaporte();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Codigo_pasaporte]);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->Codigo_pasaporte = $model->getCodigo();
+            $model->Estado = '1';
+            $model->save();
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,

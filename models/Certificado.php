@@ -3,7 +3,8 @@
 namespace app\models;
 
 use Yii;
-
+use yii\db\Expression;
+use yii\db\Query;
 /**
  * This is the model class for table "certificado".
  *
@@ -47,6 +48,13 @@ class Certificado extends \yii\db\ActiveRecord
             [['Nombre', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
             [['Codigo_pasaporte_afiliado'], 'exist', 'skipOnError' => true, 'targetClass' => Pasaporte::className(), 'targetAttribute' => ['Codigo_pasaporte_afiliado' => 'Codigo_pasaporte']],
+
+            [['Nombre'], 'match', 'pattern' => "/^.{3,80}$/", 'message' => 'Mínimo 3 caracteres'],
+            [['Nombre'], 'match', 'pattern' => "/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\_\-\/\. ]+$/i", 'message' => 'Sólo se aceptan letras'],
+
+            [['Vigencia', 'Stock', 'Codigo_pasaporte_afiliado'], 'integer', 'message' => 'Debe ser númerico.'],
+            [['Precio'], 'number', 'message' => 'Debe ser númerico.'],
+
         ];
     }
 
@@ -61,7 +69,7 @@ class Certificado extends \yii\db\ActiveRecord
             'Vigencia' => 'Vigencia',
             'Precio' => 'Precio',
             'Stock' => 'Stock',
-            'Codigo_pasaporte_afiliado' => 'Codigo Pasaporte Afiliado',
+            'Codigo_pasaporte_afiliado' => 'Pasaporte Afiliado',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',
             'Fecha_Eliminado' => 'Fecha  Eliminado',
@@ -87,4 +95,15 @@ class Certificado extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Club::className(), ['Codigo_certificado' => 'Codigo_certificado']);
     }
+
+    public function getCodigo()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(Codigo_certificado), 0) + 1');
+        $query->select($expresion)->from('certificado');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
 }

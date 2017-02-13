@@ -32,11 +32,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
+                'header' => 'Detalle',
+                'template' => '{view} {update}  ',
+                'headerOptions' => ['class' => 'itemHide'],
+                'contentOptions' => ['class' => 'itemHide'],
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                            Yii::$app->urlManager->createUrl(['venta/view', 'id' => $model->Codigo_venta, 'edit' => 't']),
-                            ['title' => Yii::t('yii', 'Edit'),]
+                            Yii::$app->urlManager->createUrl(['venta/update', 'id' => $model->Codigo_pasaporte]),
+                            ['title' => Yii::t('yii', 'Actualizar'),]
                         );
                     }
                 ],
@@ -49,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
-            'type' => 'info',
+//            'type' => 'info',
 //            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Actualizar Lista', ['index'], ['class' => 'btn btn-primary']),
             'showFooter' => false

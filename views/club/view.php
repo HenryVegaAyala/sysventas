@@ -6,43 +6,34 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Club */
 
-$this->title = $model->Codigo_club;
+$this->title = 'Detalle del Club : ' . $model->Nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Clubs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="club-view">
+<div class="cliente-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?= Html::encode($this->title) ?> </h3>
+            </div>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->Codigo_club], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->Codigo_club], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'Codigo_club',
-            'Nombre',
-            'Precio',
-            'Precio_por_Noche',
-            'Vigencia',
-            'Desc_Afiliado',
-            'Codigo_certificado',
-            'Fecha_Creado',
-            'Fecha_Modificado',
-            'Fecha_Eliminado',
-            'Usuario_Creado',
-            'Usuario_Modificado',
-            'Usuario_Eliminado',
-            'Estado',
-        ],
-    ]) ?>
-
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'Nombre',
+                    'Precio',
+                    'Precio_por_Noche',
+                    'Vigencia',
+                    'Desc_Afiliado',
+                    'Codigo_certificado',
+                ],
+            ]) ?>
+            <div class="panel-footer container-fluid foo">
+                <p>
+                    <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['index'], ['class' => 'btn btn-primary']) ?>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>

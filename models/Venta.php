@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
+use yii\db\Query;
 
 /**
  * This is the model class for table "venta".
@@ -61,13 +63,13 @@ class Venta extends \yii\db\ActiveRecord
     {
         return [
             'Codigo_venta' => 'Codigo Venta',
-            'Codigo_pasaporte' => 'Codigo Pasaporte',
-            'Codigo_Cliente' => 'Codigo  Cliente',
+            'Codigo_pasaporte' => 'Pasaporte',
+            'Codigo_Cliente' => 'Cliente',
             'medio_pago' => 'Medio Pago',
             'Estado_pago' => 'Estado Pago',
             'porcentaje_pagado' => 'Porcentaje Pagado',
-            'cod_barra_pasaporte' => 'Cod Barra Pasaporte',
-            'cod_barra_pasaporte_manual' => 'Cod Barra Pasaporte Manual',
+            'cod_barra_pasaporte' => 'Codigo de Barra',
+            'cod_barra_pasaporte_manual' => 'Codigo de Barra Manual',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',
             'Fecha_Eliminado' => 'Fecha  Eliminado',
@@ -92,5 +94,15 @@ class Venta extends \yii\db\ActiveRecord
     public function getCodigoPasaporte()
     {
         return $this->hasOne(Pasaporte::className(), ['Codigo_pasaporte' => 'Codigo_pasaporte']);
+    }
+
+    public function getCodigo()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(Codigo_venta), 0) + 1');
+        $query->select($expresion)->from('venta');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
     }
 }

@@ -6,39 +6,30 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Pasaporte */
 
-$this->title = $model->Codigo_pasaporte;
+$this->title = 'Detalle del Pasaporte : ' . $model->Nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Pasaportes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="pasaporte-view">
+<div class="cliente-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?= Html::encode($this->title) ?> </h3>
+            </div>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->Codigo_pasaporte], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->Codigo_pasaporte], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'Codigo_pasaporte',
-            'Nombre',
-            'Stock',
-            'Fecha_Creado',
-            'Fecha_Modificado',
-            'Fecha_Eliminado',
-            'Usuario_Creado',
-            'Usuario_Modificado',
-            'Usuario_Eliminado',
-            'Estado',
-        ],
-    ]) ?>
-
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'Nombre',
+                    'Stock',
+                ],
+            ]) ?>
+            <div class="panel-footer container-fluid foo">
+                <p>
+                    <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['index'], ['class' => 'btn btn-primary']) ?>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>

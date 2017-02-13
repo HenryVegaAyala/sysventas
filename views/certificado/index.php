@@ -30,11 +30,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
+                'header' => 'Detalle',
+                'template' => '{view} {update}  ',
+                'headerOptions' => ['class' => 'itemHide'],
+                'contentOptions' => ['class' => 'itemHide'],
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
-                            Yii::$app->urlManager->createUrl(['certificado/view', 'id' => $model->Codigo_certificado, 'edit' => 't']),
-                            ['title' => Yii::t('yii', 'Edit'),]
+                            Yii::$app->urlManager->createUrl(['certificado/update', 'id' => $model->Codigo_certificado]),
+                            ['title' => Yii::t('yii', 'Actualizar'),]
                         );
                     }
                 ],

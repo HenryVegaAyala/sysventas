@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
+use yii\db\Query;
 
 /**
  * This is the model class for table "pasaporte".
@@ -79,4 +81,15 @@ class Pasaporte extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Venta::className(), ['Codigo_pasaporte' => 'Codigo_pasaporte']);
     }
+
+    public function getCodigo()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(Codigo_pasaporte), 0) + 1');
+        $query->select($expresion)->from('pasaporte');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
 }

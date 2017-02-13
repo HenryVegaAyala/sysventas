@@ -276,7 +276,7 @@ class Usuario extends \yii\db\ActiveRecord
                 return $where;
                 break;
             case 20:
-                $where = new Expression('status = 1');
+                $where = new Expression('estado = 2');
                 return $where;
         }
     }

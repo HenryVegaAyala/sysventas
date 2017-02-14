@@ -59,9 +59,9 @@ class Club extends \yii\db\ActiveRecord
         return [
             'Codigo_club' => 'Codigo Club',
             'Nombre' => 'Nombre',
-            'Precio' => 'Precio',
+            'Precio' => 'Precio Soles inc. IGV',
             'Precio_por_Noche' => 'Precio Por  Noche',
-            'Vigencia' => 'Vigencia',
+            'Vigencia' => 'Vigencia en años',
             'Desc_Afiliado' => 'Descuento de Afiliado',
             'Codigo_certificado' => 'Codigo Certificado',
             'Fecha_Creado' => 'Fecha  Creado',

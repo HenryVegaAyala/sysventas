@@ -71,7 +71,7 @@ class Cliente extends \yii\db\ActiveRecord
 
             [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3', 'Traslado', 'dni'], 'integer', 'message' => 'Debe ser númerico.'],
             [['Telefono_Casa', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3'], 'match', 'pattern' => "/^.{3,15}$/", 'message' => 'Mínimo 7 caracteres'],
-            [['dni'], 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mínimo 8 caracteres'],
+            [['dni'], 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Mínimo 8 digitos'],
             [['Edad'], 'match', 'pattern' => "/^.{2,2}$/", 'message' => 'Debe ser edad correcta'],
 
             [['Email'], 'match', 'pattern' => "/^.{3,45}$/", 'message' => 'Mínimo 3 caracteres del correo'],
@@ -306,6 +306,27 @@ class Cliente extends \yii\db\ActiveRecord
                 return $expresion;
                 break;
         }
+    }
+
+    public function NombreValidador($nombre)
+    {
+        $query = new Query();
+        $codigo = new Expression('Codigo_Cliente');
+        $where = new Expression("trim(concat(Nombre,' ',Apellido)) = ". "'$nombre'");
+        $query->select($codigo)->from('cliente')->where($where);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+
+        if ($data == true) {
+            return 1;
+        } else
+            return 0;
+
+    }
+
+    public function getfullName()
+    {
+        return $this->Nombre.' '.$this->Apellido;
     }
 
 }

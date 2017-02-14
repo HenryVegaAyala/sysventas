@@ -42,9 +42,6 @@ use yii\widgets\ActiveForm;
                 <div class="col-sm-3">
                     <?= $form->field($model, 'Desc_Afiliado')->textInput() ?>
                 </div>
-                <div class="col-sm-3">
-                    <?= $form->field($model, 'Codigo_certificado')->textInput() ?>
-                </div>
             </div>
         </div>
 

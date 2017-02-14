@@ -70,12 +70,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'Estado',
                 'label' => 'Estado',
-                'filter' => array("1" => "Confirmado", "2" => "No Confirmado"),
+                'filter' => array("1" => "Confirmado", "2" => "Por Confirmado"),
                 'value' => function ($data) {
                     if ($data->Estado == 11) {
                         $data = 'Confirmado';
                     } else {
-                        $data = '';
+                        $data = 'Por Confirmado';
                     }
                     return $data;
                 }
@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Detalles',
-                'template' => '{view} {confirmar}  {desafiliar} ',
+                'template' => '{view}',
                 'headerOptions' => ['class' => 'itemHide'],
                 'contentOptions' => ['class' => 'itemHide'],
                 'buttons' => [
@@ -94,14 +94,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         );
                     }
                 ],
-                'buttons' => [
-                    'confirmar' => function ($url, $model) {
-                        return Html::a('<span class="fa fa-check-square"></span>',
-                            Yii::$app->urlManager->createUrl(['cliente/confirmar', 'id' => $model->Codigo_Cliente]),
-                            ['title' => Yii::t('yii', 'Confirmar Asistencia'),]
-                        );
-                    }
-                ],
+//                'buttons' => [
+//                    'confirmar' => function ($url, $model) {
+//                        return Html::a('<span class="fa fa-check-square"></span>',
+//                            Yii::$app->urlManager->createUrl(['cliente/confirmar', 'id' => $model->Codigo_Cliente]),
+//                            ['title' => Yii::t('yii', 'Confirmar Asistencia'),]
+//                        );
+//                    }
+//                ],
 //                'buttons' => [
 //                    'desafiliar' => function ($url, $model) {
 //                        return Html::a('<span class="fa fa-times"></span>',

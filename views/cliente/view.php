@@ -67,7 +67,14 @@ $this->title = 'Detalle del Cliente - ' . $model->Nombre . ' ' . $model->Apellid
                         <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['cliente/lista'], ['class' => 'btn btn-primary']) ?>
                     <?php } elseif (Yii::$app->user->identity->Codigo_Rol == 5) { ?>
                         <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['cliente/lista'], ['class' => 'btn btn-primary']) ?>
-                    <?php } elseif (Yii::$app->user->identity->Codigo_Rol == 6) { ?>
+                    <?php } elseif (Yii::$app->user->identity->Codigo_Rol == 6 || Yii::$app->user->identity->Codigo_Rol == 10) { ?>
+                        <?= Html::a("<i class=\"fa fa-check-square\" aria-hidden=\"true\"></i> Confirmado", ['confirmar', 'id' => $model->Codigo_Cliente], [
+                            'class' => 'btn btn-success',
+                            'data' => [
+                                'confirm' => '¿Confirmar Asistencia?',
+                                'method' => 'post',
+                            ],
+                        ]) ?>
                         <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['confirmador'], ['class' => 'btn btn-primary']) ?>
                     <?php } else { ?>
                         <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['index'], ['class' => 'btn btn-primary']) ?>

@@ -37,13 +37,13 @@ use yii\helpers\Url;
                     <?= $form->field($model, 'Apellido')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'dni')->textInput() ?>
+                    <?= $form->field($model, 'dni')->textInput(['maxlength' => 8]) ?>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'Edad')->textInput() ?>
+                    <?= $form->field($model, 'Edad')->textInput(['maxlength' => 2]) ?>
                 </div>
                 <div class="col-sm-4">
                     <?= $form->field($model, 'Direccion')->textInput() ?>

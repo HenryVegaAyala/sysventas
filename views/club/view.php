@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'Precio_por_Noche',
                     'Vigencia',
                     'Desc_Afiliado',
-                    'Codigo_certificado',
+//                    'Codigo_certificado',
                 ],
             ]) ?>
             <div class="panel-footer container-fluid foo">

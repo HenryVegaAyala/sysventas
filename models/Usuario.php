@@ -243,8 +243,16 @@ class Usuario extends \yii\db\ActiveRecord
     public function getFiltros($rol,$id)
     {
         switch ($rol) {
+            case 1: // supervisor
+                $where = new Expression('estado = 10');
+                return $where;
+                break;
             case 2: // supervisor
                 $where = new Expression('estado = 2 and Codigo_Rol in (1,3,6)');
+                return $where;
+                break;
+            case 4: //  Director de Telemarkeing
+                $where = new Expression('estado = 11');
                 return $where;
                 break;
             case 5: //Telemarketing
@@ -256,7 +264,7 @@ class Usuario extends \yii\db\ActiveRecord
                 return $where;
                 break;
             case 10: //jefe de contratos
-                $where = new Expression('estado = 2 and Codigo_Rol in (1,2,3,6)'); //Filtro de lista de usuarios
+                $where = new Expression('estado = 10'); //Filtro de lista de usuarios
                 return $where;
                 break;
             case 11: //jefe de sala
@@ -278,6 +286,16 @@ class Usuario extends \yii\db\ActiveRecord
             case 20:
                 $where = new Expression('estado = 2');
                 return $where;
+        }
+    }
+
+    public function getSubFiltros($rol)
+    {
+        switch ($rol) {
+            case 10: //jefe de contratos
+                $where = new Expression('estado = 11'); //Filtro de lista de usuarios
+                return $where;
+                break;
         }
     }
 

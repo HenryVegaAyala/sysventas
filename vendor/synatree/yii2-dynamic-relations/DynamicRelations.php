@@ -55,7 +55,8 @@ class DynamicRelations extends Widget
 
 	public static function relate($model, $attr, $request, $name, $clsname)
 	{
-		if($request[$name])
+		
+		if(!empty($request[$name]))
 		{
 			if($new = $request[$name]['new'])
 			{
@@ -73,6 +74,8 @@ class DynamicRelations extends Widget
 				$existingmodel->load([$name=>$relatedattr]);
 				$existingmodel->save();
 			}
+		}else{
+			return true;
 		}
 	}
 

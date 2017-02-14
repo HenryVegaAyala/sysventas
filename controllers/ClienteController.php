@@ -68,14 +68,23 @@ class ClienteController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $model->Codigo_Cliente = $model->getCodigoCliente();
-            $model->Fecha_Creado = $this->ZonaHoraria();
-            $model->Estado = '10';
-            $model->Usuario_Creado = Yii::$app->user->identity->email;
-            $model->save();
-            DynamicRelations::relate($model, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());
-            Yii::$app->session->setFlash('success', 'Se ha registrado exitosamente.');
-            return $this->redirect(['create']);
+            $nombre = $model->Nombre;
+            $apellido = $model->Apellido;
+            $dato = $nombre . ' ' . $apellido;
+            $datoValidado = $model->NombreValidador($dato);
+            if ($datoValidado == 1) {
+                Yii::$app->session->setFlash('error', 'Este Cliente ya fue registrado anteriormente.');
+                return $this->render('create', ['model' => $model,]);
+            } else {
+                $model->Codigo_Cliente = $model->getCodigoCliente();
+                $model->Fecha_Creado = $this->ZonaHoraria();
+                $model->Estado = '10';
+                $model->Usuario_Creado = Yii::$app->user->identity->email;
+                $model->save();
+                DynamicRelations::relate($model, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());
+                Yii::$app->session->setFlash('success', 'Se ha registrado exitosamente.');
+                return $this->redirect(['create']);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -125,8 +134,11 @@ class ClienteController extends Controller
     public function actionConfirmador()
     {
         $searchModel = new ClienteSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-
+        if (Yii::$app->user->identity->Codigo_Rol = 10) {
+            $dataProvider = $searchModel->search2(Yii::$app->request->getQueryParams());
+        } else {
+            $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+        }
         return $this->render('confirmador', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

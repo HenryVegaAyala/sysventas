@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Cliente;
 use Yii;
 use app\models\Usuario;
 use app\models\UsuarioSearch;
@@ -51,8 +52,10 @@ class UsuarioController extends Controller
     {
         $model = new Usuario;
         $mensaje = null;
+        
         if ($model->load(Yii::$app->request->post())) {
 
+            
             $correo = $model->email;
             $correoValidado = $model->EmailValidador($correo);
 

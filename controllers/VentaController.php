@@ -2,21 +2,19 @@
 
 namespace app\controllers;
 
+use app\models\Pasaporte;
 use Yii;
 use app\models\Venta;
 use app\models\VentaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\Expression;
+use yii\db\Query;
 
-/**
- * VentaController implements the CRUD actions for Venta model.
- */
 class VentaController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
+
     public function behaviors()
     {
         return [
@@ -29,10 +27,6 @@ class VentaController extends Controller
         ];
     }
 
-    /**
-     * Lists all Venta models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $searchModel = new VentaSearch();
@@ -44,11 +38,6 @@ class VentaController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Venta model.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -56,11 +45,6 @@ class VentaController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Venta model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
     public function actionCreate()
     {
         $model = new Venta();
@@ -68,6 +52,14 @@ class VentaController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->Codigo_venta = $model->getCodigo();
             $model->Estado = '1';
+
+            var_dump(
+                $model->Codigo_Cliente,
+                $model->medio_pago,
+                $model->Estado_pago,
+                $model->porcentaje_pagado,
+                $model->Codigo_pasaporte);
+            exit();
             $model->save();
             return $this->redirect(['create']);
         } else {
@@ -77,12 +69,20 @@ class VentaController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Venta model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
+    public function actionReporte()
+    {
+        $model = new Venta();
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            return $this->redirect(['cliente/update', 'id' => $model->Codigo_Cliente]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -96,12 +96,6 @@ class VentaController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Venta model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -109,13 +103,6 @@ class VentaController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Venta model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Venta the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = Venta::findOne($id)) !== null) {

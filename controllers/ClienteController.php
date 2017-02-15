@@ -104,11 +104,11 @@ class ClienteController extends Controller
             } else {
                 $model->Codigo_Cliente = $model->getCodigoCliente();
                 $model->Fecha_Creado = $this->ZonaHoraria();
-                $model->Estado = '1';
+                $model->Estado = '1'; // estado clientes creado
                 $model->Usuario_Creado = Yii::$app->user->identity->email;
                 $model->save();
                 DynamicRelations::relate($model, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());
-                Yii::$app->session->setFlash('success', 'Se ha registrado exitosamente.');
+                Yii::$app->session->setFlash('success', 'Se ha registrado exitosamente al Cliente.');
                 return $this->redirect(['lista']);
             }
         } else {
@@ -143,7 +143,7 @@ class ClienteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
 
             $Codigo = $model->Codigo_Cliente;
-            $estado = $model->Estado;
+            $estado = $model->Estado; //Estado 3 Cita Pendiente y pasa a agendar
             $fecha = $model->Agendado;
 
             $model->Agendar($fecha, $estado, $Codigo);
@@ -188,7 +188,7 @@ class ClienteController extends Controller
     {
         $model = new Cliente();
         $fh_delete = $this->ZonaHoraria();
-        $estado = '0';
+        $estado = '0'; // Estado Eliminado
         $usuario = Yii::$app->user->identity->email;
         $model->ActualizarUsuario($id, $fh_delete, $usuario, $estado);
         return $this->redirect(['index']);

@@ -59,16 +59,10 @@ class Usuario extends \yii\db\ActiveRecord
             [['registration_ip'], 'string', 'max' => 45],
             [['password_reset_token'], 'string', 'max' => 256],
             [['Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 250],
-//            [['username'], 'unique'],
             [['email'], 'unique'],
-
             ['username', 'match', 'pattern' => "/^.{3,50}$/", 'message' => 'Mínimo 3 caracteres del Nombre del Usuario'],
-//            ['Nombre', 'username_existe'],
-
             ['email', 'match', 'pattern' => "/^.{5,80}$/", 'message' => 'Mínimo 5 y máximo 80 caracteres'],
             ['email', 'email', 'message' => 'Formato de correo no válido'],
-//            ['Email', 'email_existe'],
-
             ['password_hash', 'match', 'pattern' => "/^.{6,255}$/", 'message' => 'Mínimo 6 caracteres para la contraseña'],
 //            ['password_repeat', 'compare', 'compareAttribute' => 'password_hash', 'message' => 'Las contraseñas no coinciden.'],
 
@@ -240,11 +234,19 @@ class Usuario extends \yii\db\ActiveRecord
         }
     }
 
-    public function getFiltros($rol,$id)
+    // Ayuda a filtrar la lista de clientes
+    /**
+     * @param $CodigoRol            Codigo Rol del Usuario
+     * @param $CodigoUsuario        Codigo Usuario del Usuario
+     * @return Expression           return un where
+     *
+     * case 1: Digitador estado a mostrar todos
+     */
+    public function getFiltros($CodigoRol, $CodigoUsuario)
     {
-        switch ($rol) {
-            case 1: // supervisor
-                $where = new Expression('estado = 10');
+        switch ($CodigoRol) {
+            case 1: // Digitador
+                $where = new Expression('estado in (1,2,3,4,5,6,7,8,9,10,11,12,13)');
                 return $where;
                 break;
             case 2: // supervisor
@@ -256,11 +258,11 @@ class Usuario extends \yii\db\ActiveRecord
                 return $where;
                 break;
             case 5: //Telemarketing
-                $where = new Expression('Codigo_Usuario = '.$id );
+                $where = new Expression('Codigo_Usuario = ' . $CodigoUsuario);
                 return $where;
                 break;
             case 6: //Confirmador
-                $where = new Expression('estado in (2,11)' );
+                $where = new Expression('estado in (2,11)');
                 return $where;
                 break;
             case 10: //jefe de contratos
@@ -299,27 +301,27 @@ class Usuario extends \yii\db\ActiveRecord
         }
     }
 
-    public function getComisiones($rol,$id)
+    public function getComisiones($rol, $id)
     {
         switch ($rol) {
             case 3: // anfitrion
-                $where = new Expression('codigo_anfitrion = "'.$id.'"');
+                $where = new Expression('codigo_anfitrion = "' . $id . '"');
                 return $where;
                 break;
             case 8: // No access liner
-                $where = new Expression('no_access_liner = "'.$id.'"');
+                $where = new Expression('no_access_liner = "' . $id . '"');
                 return $where;
                 break;
             case 9: // No access closer
-                $where = new Expression('no_access_closer = "'.$id.'"');
+                $where = new Expression('no_access_closer = "' . $id . '"');
                 return $where;
                 break;
             case 15: // Supervisor anfitrion
-                $where = new Expression('codigo_supervisor_anfitrion = "'.$id.'"');
+                $where = new Expression('codigo_supervisor_anfitrion = "' . $id . '"');
                 return $where;
                 break;
             case 16: // Jefe anfitrion
-                $where = new Expression('codigo_jefe_anfitrion = "'.$id.'"');
+                $where = new Expression('codigo_jefe_anfitrion = "' . $id . '"');
                 return $where;
                 break;
         }

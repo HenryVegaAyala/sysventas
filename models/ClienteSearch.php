@@ -33,20 +33,16 @@ class ClienteSearch extends Cliente
         return Model::scenarios();
     }
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
+
     public function search($params)
     {
         $model = new Usuario();
-        $where = new Expression($model->getFiltros(Yii::$app->user->identity->Codigo_Rol,Yii::$app->user->identity->id));
-        $query = Cliente::find()->where($where)->orderBy(['Fecha_Creado' => SORT_DESC]);
 
-        // add conditions that should always apply here
+        $CodigoRol = Yii::$app->user->identity->Codigo_Rol;
+        $CodigoUsuario = Yii::$app->user->identity->id;
+
+        $where = new Expression($model->getFiltros($CodigoRol,$CodigoUsuario));
+        $query = Cliente::find()->where($where)->orderBy(['Fecha_Creado' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -55,12 +51,10 @@ class ClienteSearch extends Cliente
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'Codigo_Cliente' => $this->Codigo_Cliente,
             'Edad' => $this->Edad,
@@ -97,8 +91,6 @@ class ClienteSearch extends Cliente
         $where = new Expression($model->getSubFiltros(Yii::$app->user->identity->Codigo_Rol));
         $query = Cliente::find()->where($where)->orderBy(['Fecha_Creado' => SORT_DESC]);
 
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -106,12 +98,10 @@ class ClienteSearch extends Cliente
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'Codigo_Cliente' => $this->Codigo_Cliente,
             'Edad' => $this->Edad,

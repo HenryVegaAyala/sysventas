@@ -26,6 +26,12 @@ class ClienteController extends Controller
         ];
     }
 
+
+    /**
+     * @decripcion Lista de Clientes perzonalizada por filtros de ClienteSearch
+     * @primer filtro trae: 'Lista de todos los clientes menos los eliminados'
+     *
+     */
     public function actionIndex()
     {
         $searchModel = new ClienteSearch();
@@ -37,6 +43,11 @@ class ClienteController extends Controller
         ]);
     }
 
+    /**
+     * @decripcion Lista de Clientes perzonalizada por filtros de ClienteSearch
+     * @primer filtro trae: 'Lista de todos los clientes menos los eliminados'
+     *
+     */
     public function actionLista()
     {
         $searchModel = new ClienteSearch();
@@ -48,6 +59,10 @@ class ClienteController extends Controller
         ]);
     }
 
+    /**
+     * @decripcion Vista Detallada de cliente
+     *
+     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -55,6 +70,10 @@ class ClienteController extends Controller
         ]);
     }
 
+    /**
+     * @decripcion Vista Detallada de cliente
+     *
+     */
     public function actionVista($id)
     {
         return $this->render('vista', [
@@ -62,6 +81,10 @@ class ClienteController extends Controller
         ]);
     }
 
+    /**
+     * @decripcion Agregar Nuevo Cliente
+     *
+     */
     public function actionCreate()
     {
         $model = new Cliente();
@@ -70,20 +93,23 @@ class ClienteController extends Controller
 
             $nombre = $model->Nombre;
             $apellido = $model->Apellido;
+
             $dato = $nombre . ' ' . $apellido;
+
             $datoValidado = $model->NombreValidador($dato);
+
             if ($datoValidado == 1) {
                 Yii::$app->session->setFlash('error', 'Este Cliente ya fue registrado anteriormente.');
                 return $this->render('create', ['model' => $model,]);
             } else {
                 $model->Codigo_Cliente = $model->getCodigoCliente();
                 $model->Fecha_Creado = $this->ZonaHoraria();
-                $model->Estado = '10';
+                $model->Estado = '1';
                 $model->Usuario_Creado = Yii::$app->user->identity->email;
                 $model->save();
                 DynamicRelations::relate($model, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());
                 Yii::$app->session->setFlash('success', 'Se ha registrado exitosamente.');
-                return $this->redirect(['inde']);
+                return $this->redirect(['lista']);
             }
         } else {
             return $this->render('create', [
@@ -119,10 +145,9 @@ class ClienteController extends Controller
             $Codigo = $model->Codigo_Cliente;
             $estado = $model->Estado;
             $fecha = $model->Agendado;
-//            var_dump($Codigo,$estado,$fecha);exit();
+
             $model->Agendar($fecha, $estado, $Codigo);
-//            var_dump( $model->Agendado.':20');exit();
-//            $model->save();
+
             return $this->redirect(['asig-tlmk-cliente/index']);
         } else {
             return $this->render('agendar', [

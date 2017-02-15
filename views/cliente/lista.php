@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
  * @var app\models\ClienteSearch $searchModel
  */
 
-$this->title = 'Clientes';
+$this->title = 'Lista de Clientes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cliente-index">

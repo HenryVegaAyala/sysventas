@@ -11,3 +11,5 @@ themes/classic/views/
 /vendor/
 .idea/*
 .idea
+runtime/*
+runtime

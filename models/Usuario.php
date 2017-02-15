@@ -59,7 +59,7 @@ class Usuario extends \yii\db\ActiveRecord
             [['registration_ip'], 'string', 'max' => 45],
             [['password_reset_token'], 'string', 'max' => 256],
             [['Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 250],
-            [['email'], 'unique'],
+//            [['email'], 'unique'],
             ['username', 'match', 'pattern' => "/^.{3,50}$/", 'message' => 'Mínimo 3 caracteres del Nombre del Usuario'],
             ['email', 'match', 'pattern' => "/^.{5,80}$/", 'message' => 'Mínimo 5 y máximo 80 caracteres'],
             ['email', 'email', 'message' => 'Formato de correo no válido'],
@@ -188,6 +188,11 @@ class Usuario extends \yii\db\ActiveRecord
         return $var;
     }
 
+    // Aqui hace un filtro de de roles en el dropdownlist
+    /**
+     * @param $IdRol                Este es Codigo_Rol que pertenece a cada jefe
+     * @return array
+     */
     public function getRoles($IdRol)
     {
 
@@ -195,12 +200,18 @@ class Usuario extends \yii\db\ActiveRecord
 
         $resultado = ArrayHelper::map(
             Usuario::find()
-//                ->orderBy('id desc')
                 ->where($where)->asArray()
                 ->all(), 'Codigo_Rol', 'username');
         return $resultado;
     }
 
+    // Aqui son los filtros del privilegios
+    /**
+     * @param $rol              Codigo_Rol director
+     * @return Expression       return un where
+     *
+     * case 17: Director de Telemarketing
+     */
     public function getPrivilegios($rol)
     {
         switch ($rol) {
@@ -228,6 +239,10 @@ class Usuario extends \yii\db\ActiveRecord
                 $where = new Expression('status = 1');
                 return $where;
                 break;
+            case 17: // Director de Telemarketing
+                $where = new Expression('Codigo_Rol in (5,7) and status = 1 and estado = 1');
+                return $where;
+                break;
             case 20: // administrador
                 $where = new Expression('status = 1 and estado = 1');
                 return $where;
@@ -241,11 +256,13 @@ class Usuario extends \yii\db\ActiveRecord
      * @return Expression           return un where
      *
      * case 1: Digitador estado a mostrar todos
+     * case 17: Director de Telemarketing mostrar 5,7
      */
     public function getFiltros($CodigoRol, $CodigoUsuario)
     {
         switch ($CodigoRol) {
-            case 1: // Digitador
+            case 1:
+                // Digitador
                 $where = new Expression('estado in (1,2,3,4,5,6,7,8,9,10,11,12,13)');
                 return $where;
                 break;
@@ -283,6 +300,10 @@ class Usuario extends \yii\db\ActiveRecord
                 break;
             case 14: //Director General
                 $where = new Expression('status = 1');
+                return $where;
+                break;
+            case 17: // Director de Telemarketing
+                $where = new Expression('Codigo_Rol in (5,7) and status = 1 and estado = 2');
                 return $where;
                 break;
             case 20:
@@ -388,7 +409,7 @@ class Usuario extends \yii\db\ActiveRecord
     {
         $query = new Query();
         $expresion = new Expression('id');
-        $query->select($expresion)->from('user')->where('email = ' . "'$email'");
+        $query->select($expresion)->from('user')->where('email = ' . "'$email'".'and estado = 1');
         $comando = $query->createCommand();
         $data = $comando->queryScalar();
 

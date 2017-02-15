@@ -50,7 +50,7 @@ class FechaAsignacion extends \yii\db\ActiveRecord
     {
         return [
             'codigo_asig' => 'Codigo Asig',
-            'Fecha_Creada' => 'Fecha  Creada',
+            'Fecha_Creada' => 'Fecha  Asiganada',
             'Fecha_Modificada' => 'Fecha  Modificada',
             'Fecha_Eliminada' => 'Fecha  Eliminada',
             'Usuario_Creado' => 'Usuario  Creado',

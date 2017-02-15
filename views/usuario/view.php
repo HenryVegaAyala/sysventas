@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\Usuario;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Producto */
@@ -23,9 +24,28 @@ $this->title = 'Usuario Detallado de: ' . $model->username;
                 'attributes' => [
                     'username',
                     'email:email',
-                    'status',
                     'Fecha_Creado',
-                    'Codigo_Rol'
+                    [
+                        'attribute' => 'status',
+                        'label' => 'Estado',
+                        'value' => function ($data) {
+                            if ($data->status = 1) {
+                                $data = 'Activo';
+                            } else {
+                                $data = 'Inactivo';
+                            }
+                            return $data;
+                        }
+                    ],
+                    ['attribute' => 'Codigo_Rol',
+                        'label' => 'Rol',
+                        'value' => function ($data) {
+                            $model = new Usuario();
+                            $rol = $data->Codigo_Rol;
+                            $valor = $model->getRol($rol);
+                            return $valor;
+                        }
+                    ],
                 ],
             ]) ?>
 

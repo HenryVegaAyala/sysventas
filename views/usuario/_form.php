@@ -6,6 +6,7 @@ use kartik\builder\Form;
 use kartik\datecontrol\DateControl;
 use yii\helpers\ArrayHelper;
 use app\models\Rol;
+
 /**
  * @var yii\web\View $this
  * @var app\models\Usuario $model

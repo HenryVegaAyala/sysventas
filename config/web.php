@@ -133,6 +133,14 @@ $config = [
 
                 /** Anfitrion Reporte **/
                 ['pattern' => '/anfitrion', 'route' => '/anfitrion/reporte', 'suffix' => '.pdf'],
+
+                /** Director de Telemarketing **/
+                ['pattern' => '/asignar', 'route' => '/fecha-asignacion/create', 'suffix' => '.php'],
+                ['pattern' => '/reporteGeneral', 'route' => '/reporte/create', 'suffix' => '.php'],
+                ['pattern' => '/nuevoUsuario', 'route' => '/usuario/create', 'suffix' => '.php'],
+                ['pattern' => '/listaUsuario', 'route' => '/usuario/index', 'suffix' => '.php'],
+                ['pattern' => '/actualizar/<id:\d+>', 'route' => '/usuario/update'],
+
             ],
         ],
 

@@ -99,6 +99,11 @@ class AsigTlmkCliente extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'Codigo_Usuario']);
     }
 
+    // Enlista a todos usuarios de telemarketing
+    /**
+     * @return array
+     * @descripcion         status 1 cuando el cliente es nuevo y estado 2 cuando es de segunda categoria
+     */
     public function getTelemarking()
     {
         $resultado = ArrayHelper::map(
@@ -108,15 +113,19 @@ class AsigTlmkCliente extends \yii\db\ActiveRecord
         return $resultado;
     }
 
+    // Enlista a todos los clientes con estado Cita pendiente, N/C, Apagado,Nuevo
+    /**
+     * @return array
+     */
     public function getCliente()
     {
 
         $resultado = ArrayHelper::map(
             Cliente::find()
                 ->select(['Codigo_Cliente' => 'Codigo_Cliente', 'fullname' => "concat(Nombre,' ',Apellido)"])
-                ->where('Estado in(3,7,8,10)')->asArray()
+                ->where('Estado in(3,7,8,1)')->asArray()
                 ->all(), 'Codigo_Cliente', 'fullname');
         return $resultado;
     }
-    
+
 }

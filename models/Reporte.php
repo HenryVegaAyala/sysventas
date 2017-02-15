@@ -47,6 +47,10 @@ class Reporte extends \yii\db\ActiveRecord
         ];
     }
 
+    // Enlista los estados de Telemarketing
+    /**
+     * @return array
+     */
     public function getEstado()
     {
         $var = [
@@ -62,9 +66,14 @@ class Reporte extends \yii\db\ActiveRecord
         return $var;
     }
 
-    public function getEstadoNombre($rol)
+    // retorna los estados de Telemarketing por parametros
+    /**
+     * @param $Estado
+     * @return string
+     */
+    public function getEstadoNombre($Estado)
     {
-        switch ($rol) {
+        switch ($Estado) {
             case 2:
                 return 'Cita Concretada';
                 break;

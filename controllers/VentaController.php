@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Cliente;
 use app\models\Pasaporte;
 use Yii;
 use app\models\Venta;
@@ -50,18 +51,18 @@ class VentaController extends Controller
         $model = new Venta();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->Codigo_venta = $model->getCodigo();
-            $model->Estado = '1';
-
-            var_dump(
-                $model->Codigo_Cliente,
+            $dato = $model->Codigo_Cliente;
+            $model->InsertVenta(
+                $model->Codigo_venta = $model->getCodigo(),
+                $model->Estado = 1,
+                $model->Codigo_Cliente = $model->CodigoCliente($dato),
                 $model->medio_pago,
                 $model->Estado_pago,
                 $model->porcentaje_pagado,
-                $model->Codigo_pasaporte);
-            exit();
-            $model->save();
-            return $this->redirect(['create']);
+                $model->Codigo_club,
+                $model->Codigo_pasaporte
+            );
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -69,7 +70,7 @@ class VentaController extends Controller
         }
     }
 
-    public function actionReporte()
+    public function actionCliente()
     {
         $model = new Venta();
 
@@ -101,6 +102,50 @@ class VentaController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionContrato($id)
+    {
+        $model = $this->findModel($id);
+        $Cliente = new Cliente();
+
+        $Nombre = $Cliente->Cliente($model->Codigo_Cliente);
+        $DNI = $Cliente->DataCliente($model->Codigo_Cliente,1);
+        $Direccion = $Cliente->DataCliente($model->Codigo_Cliente,2);
+        $Beneficiario = $Cliente->Beneficiario($model->Codigo_Cliente);
+
+        return $this->render('contrato', [
+            'model' => $model,
+            'Nombre' => $Nombre,
+            'DNI' => $DNI,
+            'Direccion' => $Direccion,
+            'Beneficiario' => $Beneficiario,
+        ]);
+    }
+
+    public function actionFactura($id)
+    {
+        $model = $this->findModel($id);
+        $Cliente = new Cliente();
+        
+        $Nombre = $Cliente->Cliente($model->Codigo_Cliente);
+        $DNI = $Cliente->DataCliente($model->Codigo_Cliente,1);
+        $Direccion = $Cliente->DataCliente($model->Codigo_Cliente,2);
+        $Beneficiario = $Cliente->Beneficiario($model->Codigo_Cliente);
+
+        return $this->render('factura', [
+            'model' => $model,
+            'Nombre' => $Nombre,
+            'DNI' => $DNI,
+            'Direccion' => $Direccion,
+            'Beneficiario' => $Beneficiario,
+        ]);
+    }
+
+    public function actionArchivo($id)
+    {
+        die("facutra");
+        exit();
     }
 
     protected function findModel($id)

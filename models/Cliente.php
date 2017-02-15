@@ -246,7 +246,6 @@ class Cliente extends \yii\db\ActiveRecord
 
     }
 
-
     public function Cliente($codigo)
     {
         $query = new Query();
@@ -254,6 +253,28 @@ class Cliente extends \yii\db\ActiveRecord
         $query->select($expresion)->from('cliente')->where("Codigo_Cliente ='" . $codigo . "'");
         $comando = $query->createCommand();
         $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function DataCliente($codigo, $estado)
+    {
+        $query = new Query();
+
+        if ($estado == 1) {
+            $expresion = new Expression("dni");
+        } elseif ($estado == 2) {
+            $expresion = new Expression("concat(Direccion,' ','-',' ',Distrito)");
+        }
+        $query->select($expresion)->from('cliente')->where("Codigo_Cliente ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function Beneficiario($codigo)
+    {
+        $expresion = new Expression("concat(Nombre,' ',Apellido) as dato");
+        $data = Beneficiario::find()->select($expresion)->where("Codigo_Cliente ='" . $codigo . "'")->asArray()->all();
         return $data;
     }
 
@@ -312,7 +333,7 @@ class Cliente extends \yii\db\ActiveRecord
     {
         $query = new Query();
         $codigo = new Expression('Codigo_Cliente');
-        $where = new Expression("trim(concat(Nombre,' ',Apellido)) = ". "'$nombre'");
+        $where = new Expression("trim(concat(Nombre,' ',Apellido)) = " . "'$nombre'");
         $query->select($codigo)->from('cliente')->where($where);
         $comando = $query->createCommand();
         $data = $comando->queryScalar();
@@ -326,7 +347,7 @@ class Cliente extends \yii\db\ActiveRecord
 
     public function getfullName()
     {
-        return $this->Nombre.' '.$this->Apellido;
+        return $this->Nombre . ' ' . $this->Apellido;
     }
 
 }

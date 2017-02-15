@@ -46,7 +46,7 @@ if ($model->primaryKey) {
         <div class="col-sm-2">
             <label class="control-label" for="cliente-nombre">Edad</label>
             <div class="form-group field-beneficiario-Edad">
-                <?= Html::input('text', $frag . '[Edad]', $model->Edad, ['id' => 'Beneficiario-Edad', 'class' => 'form-control']) ?>
+                <?= Html::input('text', $frag . '[Edad]', $model->Edad, ['id' => 'Beneficiario-Edad', 'class' => 'form-control','maxlength' => 2]) ?>
                 <div class="help-block"></div>
             </div>
         </div>

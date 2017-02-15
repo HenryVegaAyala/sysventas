@@ -83,7 +83,7 @@ class ClienteController extends Controller
                 $model->save();
                 DynamicRelations::relate($model, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());
                 Yii::$app->session->setFlash('success', 'Se ha registrado exitosamente.');
-                return $this->redirect(['create']);
+                return $this->redirect(['inde']);
             }
         } else {
             return $this->render('create', [

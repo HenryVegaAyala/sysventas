@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="cliente-index">
 
     <?php Pjax::begin();
+    $model = new Cliente();
     echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -41,6 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'Estado_Civil',
+                'filter' => $model->getEstadoCivil(),
                 'label' => 'Estado Civil',
                 'value' => function ($data) {
                     $model = new Cliente();
@@ -53,14 +55,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'Email:email',
             [
                 'attribute' => 'Tarjeta_De_Credito',
+                'filter' => $model->getTarjeta(),
                 'label' => 'Tipo de tarjeta',
                 'value' => function ($data) {
-                    if ($data->Tarjeta_De_Credito == 0) {
-                        $data = 'Tarjeta de Crédito';
-                    } else {
-                        $data = 'Tarjeta de Débito';
-                    }
-                    return $data;
+                    $model = new Cliente();
+                    $estado = $data->Tarjeta_De_Credito;
+                    $valor = $model->Tarjeta($estado);
+                    return $valor;
                 }
             ],
             [
@@ -90,7 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'responsive' => true,
         'hover' => true,
         'condensed' => true,
-        'floatHeader' => true,
+//        'floatHeader' => true,
 
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',

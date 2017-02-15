@@ -122,6 +122,8 @@ $config = [
 
                 /** Cliente **/
                 ['pattern' => '/cliente', 'route' => '/cliente/create', 'suffix' => '.php'],
+                ['pattern' => '/lista', 'route' => '/cliente/lista', 'suffix' => '.php'],
+                ['pattern' => '/detalle/<id:\d+>', 'route' => '/cliente/view'],
 
                 /** Documento */
                 ['pattern' => '/documento', 'route' => '/documento/create', 'suffix' => '.php'],

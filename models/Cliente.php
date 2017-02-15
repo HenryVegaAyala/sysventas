@@ -329,6 +329,18 @@ class Cliente extends \yii\db\ActiveRecord
         }
     }
 
+    public function Tarjeta($valor)
+    {
+        switch ($valor) {
+            case 0:
+                return 'Tarjeta de Crédito';
+                break;
+            case 1:
+                return 'Tarjeta de Débito';
+                break;
+        }
+    }
+
     public function NombreValidador($nombre)
     {
         $query = new Query();

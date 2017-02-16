@@ -40,8 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     $model = new Cliente();
                     $estado = $data->Codigo_Cliente;
-                    $valor = $model->Datoscliente($estado,0);
-                    return $valor.' años';
+                    $valor = $model->Datoscliente($estado, 0);
+                    return $valor . ' años';
                 }
             ],
 
@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     $model = new Cliente();
                     $estado = $data->Codigo_Cliente;
-                    $valor = $model->Datoscliente($estado,1);
+                    $valor = $model->Datoscliente($estado, 1);
                     $estado1 = $model->EstadoCivil($valor);
                     return $estado1;
                 }
@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     $model = new Cliente();
                     $estado = $data->Codigo_Cliente;
-                    $valor = $model->Datoscliente($estado,2);
+                    $valor = $model->Datoscliente($estado, 2);
                     return $valor;
                 }
             ],
@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     $model = new Cliente();
                     $estado = $data->Codigo_Cliente;
-                    $valor = $model->Datoscliente($estado,3);
+                    $valor = $model->Datoscliente($estado, 3);
                     return $valor;
                 }
             ],
@@ -85,8 +85,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     $model = new Cliente();
                     $estado = $data->Codigo_Cliente;
-                    $valor = $model->Datoscliente($estado,4);
+                    $valor = $model->Datoscliente($estado, 4);
                     return $valor;
+                }
+            ],
+            [
+                'attribute' => 'Codigo_Cliente',
+                'label' => 'Estado',
+                'value' => function ($data) {
+                    $model = new Cliente();
+                    $modelo = new \app\models\Reporte();
+                    $estado = $data->Codigo_Cliente;
+                    $valor = $model->Datoscliente($estado, 5);
+                    $Estado = $modelo->getEstadoNombre($valor);
+                    return $Estado;
                 }
             ],
 
@@ -98,10 +110,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['class' => 'itemHide'],
                 'buttons' => [
                     'view' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
-                            Yii::$app->urlManager->createUrl(['cliente/vista', 'id' => $model->Codigo_Cliente]),
-                            ['title' => Yii::t('yii', 'Ver'),]
-                        );
+                        $cliente = new Cliente();
+                        $modelo = new \app\models\Reporte();
+                        $estado = $model->Codigo_Cliente;
+                        $valor = $cliente->Datoscliente($estado, 5);
+                        if ($valor == 11){
+                            return '';
+                        }else{
+                            return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
+                                Yii::$app->urlManager->createUrl(['cliente/vista', 'id' => $model->Codigo_Cliente]),
+                                ['title' => Yii::t('yii', 'Ver'),]
+                            );
+                        }
                     }
                 ],
             ],
@@ -109,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'responsive' => true,
         'hover' => true,
         'condensed' => true,
-        'floatHeader' => true,
+//        'floatHeader' => true,
 
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',

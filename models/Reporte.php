@@ -95,6 +95,12 @@ class Reporte extends \yii\db\ActiveRecord
             case 8:
                 return 'Apagado';
                 break;
+            case 9:
+                return 'Asignado';
+                break;
+            case 11:
+                return 'Confirmado';
+                break;
             default:
                 return 'Sin permiso';
         }

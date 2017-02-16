@@ -63,7 +63,7 @@ $this->title = 'Detalle del Cliente - ' . $model->Nombre . ' ' . $model->Apellid
             ]) ?>
             <div class="panel-footer container-fluid foo">
                 <p>
-                    <?php if (Yii::$app->user->identity->Codigo_Rol == 1 || Yii::$app->user->identity->Codigo_Rol == 3 || Yii::$app->user->identity->Codigo_Rol == 4) { ?>
+                    <?php if (Yii::$app->user->identity->Codigo_Rol == 1 || Yii::$app->user->identity->Codigo_Rol == 3) { ?>
                         <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['cliente/lista'], ['class' => 'btn btn-primary']) ?>
                     <?php } elseif (Yii::$app->user->identity->Codigo_Rol == 6 || Yii::$app->user->identity->Codigo_Rol == 10) { ?>
                         <?= Html::a("<i class=\"fa fa-check-square\" aria-hidden=\"true\"></i> Confirmado", ['confirmar', 'id' => $model->Codigo_Cliente], [

@@ -72,7 +72,7 @@ class FechaAsignacionController extends Controller
             $model->Fecha_Creada = substr($model->Fecha_Creada, 6, 4) . '/' . substr($model->Fecha_Creada, 3, 2) . '/' . substr($model->Fecha_Creada, 0, 2); //'2016-06-09' ;
             $model->save();
             DynamicRelations::relate($model, 'asigTlmkClientes', Yii::$app->request->post(), 'AsigTlmkCliente', AsigTlmkCliente::className());
-            $model->SP_Estado($codigo);
+            $model->SP_Estado($codigo); // Estado cambia a 9 que es Asignado 
             Yii::$app->session->setFlash('success', 'Se asignó correctamente el cliente.');
             return $this->redirect(['create']);
         } else {

@@ -1,6 +1,7 @@
 <?php
 header('Content-type: application/pdf');
 use yii\db\Query;
+
 $fechaIni;
 $fechaFin;
 $estado;

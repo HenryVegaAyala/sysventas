@@ -104,8 +104,9 @@ class UsuarioController extends Controller
             $Fecha_Modi = $model->Fecha_Modificada = $this->ZonaHoraria();
             $Usu_Modi = $model->Usuario_Modificado = Yii::$app->user->identity->email;
             $Cod_Rol = $model->auth_key;
+            $id_personal = $model->id_personal;
 
-            $model->ActualizarPass($Codigo, $PassDes, $PassEncryt, $Fecha_Modi, $Usu_Modi, $Cod_Rol);
+            $model->ActualizarPass($Codigo, $PassDes, $PassEncryt, $Fecha_Modi, $Usu_Modi, $Cod_Rol,$id_personal);
             $model->EliminarAsignacion($Codigo);
             $model->ActualizarAsignacion($Codigo,$Cod_Rol);
 //            $model->save();

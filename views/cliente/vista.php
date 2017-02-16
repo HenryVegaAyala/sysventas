@@ -63,11 +63,21 @@ $this->title = 'Detalle del Cliente - ' . $model->Nombre . ' ' . $model->Apellid
             ]) ?>
             <div class="panel-footer container-fluid foo">
                 <p>
-                    <?php if (Yii::$app->user->identity->Codigo_Rol == 3 ) { ?>
+                    <?php
+                    $cliente = new Cliente();
+                    $modelo = new \app\models\Reporte();
+                    $estado = $model->Codigo_Cliente;
+                    $valor = $cliente->Datoscliente($estado, 5);
+                    ?>
+                    <?php if (Yii::$app->user->identity->Codigo_Rol == 3) { ?>
                         <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['cliente/lista'], ['class' => 'btn btn-primary']) ?>
                     <?php } elseif (Yii::$app->user->identity->Codigo_Rol == 5) { ?>
-                        <?= Html::a("<i class=\"fa fa-address-book-o\" aria-hidden=\"true\"></i> Agendar", ['agendar', 'id' => $model->Codigo_Cliente], ['class' => 'btn btn-primary']) ?>
-                        <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['cliente/lista'], ['class' => 'btn btn-primary']) ?>
+                        <?php if ($valor == 11) { ?>
+                             <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['asig-tlmk-cliente/index'], ['class' => 'btn btn-primary']) ?>
+                        <?php } else { ?>
+                            <?= Html::a("<i class=\"fa fa-address-book-o\" aria-hidden=\"true\"></i> Agendar", ['agendar', 'id' => $model->Codigo_Cliente], ['class' => 'btn btn-primary']) ?>
+                            <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['asig-tlmk-cliente/index'], ['class' => 'btn btn-primary']) ?>
+                        <?php } ?>
                     <?php } else { ?>
                         <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Regresar", ['index'], ['class' => 'btn btn-primary']) ?>
                     <?php } ?>

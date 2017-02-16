@@ -6,7 +6,7 @@ use yii\widgets\Pjax;
 use yii\bootstrap\Button;
 use app\models\Cliente;
 use yii\helpers\ArrayHelper;
-
+use app\models\Reporte;
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php Pjax::begin();
     $model = new Cliente();
+    $modelo = new Reporte();
     echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -86,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'responsive' => true,
         'hover' => true,
         'condensed' => true,
-        'floatHeader' => true,
+//        'floatHeader' => true,
 
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',

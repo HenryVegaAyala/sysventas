@@ -312,6 +312,8 @@ class Cliente extends \yii\db\ActiveRecord
             $expresion = new Expression("dni");
         } elseif ($tipo == 2) {
             $expresion = new Expression("concat(Direccion,' ','-',' ',Distrito)");
+        } elseif ($tipo == 3) {
+            $expresion = new Expression("estado");
         }
         $query->select($expresion)->from('cliente')->where("Codigo_Cliente ='" . $codigo . "'");
         $comando = $query->createCommand();
@@ -398,6 +400,10 @@ class Cliente extends \yii\db\ActiveRecord
                 break;
             case 4:
                 $expresion = new Expression("Email");
+                return $expresion;
+                break;
+            case 5:
+                $expresion = new Expression("estado");
                 return $expresion;
                 break;
         }

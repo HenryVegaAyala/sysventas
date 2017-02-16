@@ -44,16 +44,20 @@ use app\models\Rol;
             </div>
 
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <?= $form->field($model, 'password_hash')->passwordInput() ?>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => true]) ?>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <?= $form->field($model, 'status')->dropDownList($model->getEstado(), ['prompt' => 'Seleccione un Estado', 'class' => 'form-control loginmodal-container-combo']) ?>
+                </div>
+
+                <div class="col-sm-3">
+                    <?= $form->field($model, 'id_personal')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
         </div>

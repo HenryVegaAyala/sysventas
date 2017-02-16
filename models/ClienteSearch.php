@@ -85,10 +85,65 @@ class ClienteSearch extends Cliente
         return $dataProvider;
     }
 
-    public function search2($params)
+    public function searchAsignacion($params)
     {
         $model = new Usuario();
-        $where = new Expression($model->getSubFiltros(Yii::$app->user->identity->Codigo_Rol));
+
+        $CodigoRol = Yii::$app->user->identity->Codigo_Rol;
+        $CodigoUsuario = Yii::$app->user->identity->id;
+
+        $where = new Expression($model->getFiltros($CodigoRol,$CodigoUsuario));
+        $query = AsigTlmkCliente::find()->where($where)->orderBy(['Fecha_Creada' => SORT_DESC]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'Codigo_Cliente' => $this->Codigo_Cliente,
+            'Edad' => $this->Edad,
+            'Tarjeta_De_Credito' => $this->Tarjeta_De_Credito,
+            'Fecha_Creado' => $this->Fecha_Creado,
+            'Fecha_Modificado' => $this->Fecha_Modificado,
+            'Fecha_Eliminado' => $this->Fecha_Eliminado,
+            'Usuario_Creado' => $this->Usuario_Creado,
+            'Usuario_Modificado' => $this->Usuario_Modificado,
+            'Usuario_Eliminado' => $this->Usuario_Eliminado,
+        ]);
+
+        $query->andFilterWhere(['like', 'Nombre', $this->Nombre])
+            ->andFilterWhere(['like', 'Apellido', $this->Apellido])
+            ->andFilterWhere(['like', 'Profesion', $this->Profesion])
+            ->andFilterWhere(['like', 'Estado_Civil', $this->Estado_Civil])
+            ->andFilterWhere(['like', 'Distrito', $this->Distrito])
+            ->andFilterWhere(['like', 'Direccion', $this->Direccion])
+            ->andFilterWhere(['like', 'Telefono_Casa', $this->Telefono_Casa])
+            ->andFilterWhere(['like', 'Telefono_Celular', $this->Telefono_Celular])
+            ->andFilterWhere(['like', 'Email', $this->Email])
+            ->andFilterWhere(['like', 'Traslado', $this->Traslado])
+            ->andFilterWhere(['like', 'Promotor', $this->Promotor])
+            ->andFilterWhere(['like', 'Local', $this->Local])
+            ->andFilterWhere(['like', 'Observacion', $this->Observacion])
+            ->andFilterWhere(['like', 'Estado', $this->Estado]);
+
+        return $dataProvider;
+    }
+
+    public function searchCargo($params)
+    {
+        $model = new Usuario();
+
+        $CodigoRol = Yii::$app->user->identity->Codigo_Rol;
+        $CodigoUsuario = Yii::$app->user->identity->id;
+
+        $where = new Expression($model->getSubFiltros($CodigoRol,$CodigoUsuario));
         $query = Cliente::find()->where($where)->orderBy(['Fecha_Creado' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([

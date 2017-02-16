@@ -34,9 +34,13 @@ class ClienteController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new ClienteSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $searchModel = new ClienteSearch();
+        if (Yii::$app->user->identity->Codigo_Rol == 4) {
+            $dataProvider = $searchModel->searchCargo(Yii::$app->request->queryParams);
+        } else {
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -159,11 +163,8 @@ class ClienteController extends Controller
     public function actionConfirmador()
     {
         $searchModel = new ClienteSearch();
-        if (Yii::$app->user->identity->Codigo_Rol = 10) {
-            $dataProvider = $searchModel->search2(Yii::$app->request->getQueryParams());
-        } else {
-            $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
-        }
+        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams());
+
         return $this->render('confirmador', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -174,7 +175,7 @@ class ClienteController extends Controller
     {
         $model = $this->findModel($id);
         $Codigo = $model->Codigo_Cliente;
-        $model->SP_Confirmar($Codigo);
+        $model->SP_Confirmar($Codigo); // Cambia el estado a 11 que es Confirmado
         return $this->redirect('confirmador');
     }
 

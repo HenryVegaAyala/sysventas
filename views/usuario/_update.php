@@ -42,16 +42,20 @@ use kartik\datecontrol\DateControl;
             </div>
 
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <?= $form->field($model, 'password_hash')->passwordInput(['value' => $model->pwdDes]) ?>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <?= $form->field($model, 'password_repeat')->passwordInput(['value' => $model->pwdDes]) ?>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <?= $form->field($model, 'status')->dropDownList($model->getEstado(), ['prompt' => 'Seleccione un Estado', 'class' => 'form-control loginmodal-container-combo']) ?>
+                </div>
+
+                <div class="col-sm-3">
+                    <?= $form->field($model, 'id_personal')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
         </div>
@@ -60,6 +64,7 @@ use kartik\datecontrol\DateControl;
     <div class="panel-footer container-fluid foo">
         <div class="col-sm-12">
             <?= Html::submitButton($model->isNewRecord ? "Guardar" : "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar", ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
+            <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
         </div>
     </div>
     <?php ActiveForm::end(); ?>

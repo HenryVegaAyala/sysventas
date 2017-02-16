@@ -29,7 +29,7 @@ class AsigTlmkClienteSearch extends AsigTlmkCliente
     public function search($params)
     {
         $model = new Usuario();
-        $where = new Expression($model->getFiltros(Yii::$app->user->identity->Codigo_Rol,Yii::$app->user->identity->id));
+        $where = new Expression($model->getSubFiltros(Yii::$app->user->identity->Codigo_Rol,Yii::$app->user->identity->id));
         $query = AsigTlmkCliente::find()->where($where);
 
         $dataProvider = new ActiveDataProvider([

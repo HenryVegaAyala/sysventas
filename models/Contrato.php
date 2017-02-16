@@ -37,6 +37,9 @@ use Yii;
  */
 class Contrato extends \yii\db\ActiveRecord
 {
+
+    public $archivo;
+
     /**
      * @inheritdoc
      */
@@ -57,6 +60,8 @@ class Contrato extends \yii\db\ActiveRecord
             [['Codigo_Contrato', 'Dni_1'], 'integer', 'message' => 'Debe ser númerico.'],
             [['Dni_1'], 'match', 'pattern' => "/^.{6,8}$/", 'message' => 'DNI debe ser correcto'],
 
+            [['contrato'],'required'],
+            [['contrato'],'file','extensions'=>'csv','maxSize'=>1024 * 1024 * 5],
         ];
     }
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
   <data-source name="MySQL - sis_crm@localhost" uuid="a2b425a5-e036-4229-8c1c-ed8d16b9c7da">
-    <database-info product="MySQL" version="5.7.14" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+    <database-info product="MySQL" version="5.6.32-1+deb.sury.org~xenial+0.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
-    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
     <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
       <schema id="1" name="sis_crm"/>
       <table id="2" parent="1" name="anfitrion"/>
@@ -35,1238 +35,1594 @@
       <table id="26" parent="1" name="tbl_dynagrid_dtl"/>
       <table id="27" parent="1" name="telemarketing"/>
       <table id="28" parent="1" name="user"/>
-      <routine id="29" parent="1" name="Actualizar_Folio_Factura">
+      <table id="29" parent="1" name="certificado"/>
+      <table id="30" parent="1" name="club"/>
+      <table id="31" parent="1" name="pasaporte"/>
+      <table id="32" parent="1" name="venta"/>
+      <routine id="33" parent="1" name="Actualizar_Folio_Factura">
         <routine-kind>PROCEDURE</routine-kind>
       </routine>
-      <routine id="30" parent="1" name="Delete_Beneficiario">
+      <routine id="34" parent="1" name="Delete_Beneficiario">
         <routine-kind>PROCEDURE</routine-kind>
       </routine>
-      <routine id="31" parent="1" name="Delete_Factura">
+      <routine id="35" parent="1" name="Delete_Factura">
         <routine-kind>PROCEDURE</routine-kind>
       </routine>
-      <routine id="32" parent="1" name="Factura">
+      <routine id="36" parent="1" name="Factura">
         <routine-kind>PROCEDURE</routine-kind>
       </routine>
-      <column id="33" parent="2" name="Codigo">
+      <routine id="37" parent="1" name="Asignar_Codigo_Barra">
+        <routine-kind>PROCEDURE</routine-kind>
+      </routine>
+      <routine id="38" parent="1" name="Confirmar">
+        <routine-kind>PROCEDURE</routine-kind>
+      </routine>
+      <routine id="39" parent="1" name="Estado_Cliente">
+        <routine-kind>PROCEDURE</routine-kind>
+      </routine>
+      <routine id="40" parent="1" name="Asignar_AU_CLI">
+        <routine-kind>PROCEDURE</routine-kind>
+      </routine>
+      <routine id="41" parent="1" name="Asignar_AU_USU">
+        <routine-kind>PROCEDURE</routine-kind>
+      </routine>
+      <column id="42" parent="2" name="Codigo">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="34" parent="2" name="Nombre">
+      <column id="43" parent="2" name="Nombre">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="35" parent="2" name="Apellido">
+      <column id="44" parent="2" name="Apellido">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="36" parent="2" name="DNI">
+      <column id="45" parent="2" name="DNI">
         <data-type>int(8)</data-type>
       </column>
-      <column id="37" parent="2" name="Edad">
+      <column id="46" parent="2" name="Edad">
         <data-type>int(2)</data-type>
       </column>
-      <column id="38" parent="2" name="Cargo">
+      <column id="47" parent="2" name="Cargo">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="39" parent="2" name="Telefono_Casa">
+      <column id="48" parent="2" name="Telefono_Casa">
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="40" parent="2" name="Telefono_Celular">
+      <column id="49" parent="2" name="Telefono_Celular">
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="41" parent="2" name="Turno">
+      <column id="50" parent="2" name="Turno">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="42" parent="2" name="Descanso">
+      <column id="51" parent="2" name="Descanso">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="43" parent="2" name="Encargado">
+      <column id="52" parent="2" name="Encargado">
         <data-type>char(1)</data-type>
         <default-expression>&apos;0&apos;</default-expression>
       </column>
-      <column id="44" parent="2" name="Fecha_Modificado">
+      <column id="53" parent="2" name="Fecha_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="45" parent="2" name="Fecha_Eliminado">
+      <column id="54" parent="2" name="Fecha_Eliminado">
         <data-type>datetime</data-type>
       </column>
-      <column id="46" parent="2" name="Usuario_Creado">
+      <column id="55" parent="2" name="Usuario_Creado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="47" parent="2" name="Usuario_Modificado">
+      <column id="56" parent="2" name="Usuario_Modificado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="48" parent="2" name="Usuario_Eliminado">
+      <column id="57" parent="2" name="Usuario_Eliminado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="49" parent="2" name="Estado">
+      <column id="58" parent="2" name="Estado">
         <data-type>char(1)</data-type>
       </column>
-      <column id="50" parent="2" name="Fecha_Creado">
+      <column id="59" parent="2" name="Fecha_Creado">
         <data-type>datetime</data-type>
       </column>
-      <key id="51" parent="2" name="PRIMARY">
+      <key id="60" parent="2" name="PRIMARY">
         <columns>Codigo</columns>
         <primary>1</primary>
       </key>
-      <column id="52" parent="3" name="codigo">
+      <column id="61" parent="3" name="codigo_asig">
         <mandatory>1</mandatory>
         <data-type>int(255)</data-type>
       </column>
-      <column id="53" parent="3" name="Codigo_telemarketing">
+      <column id="62" parent="3" name="codigo_tlmk_cliente">
         <mandatory>1</mandatory>
         <data-type>int(255)</data-type>
+        <sequence-identity>1</sequence-identity>
       </column>
-      <column id="54" parent="3" name="Codigo_Cliente">
-        <mandatory>1</mandatory>
+      <column id="63" parent="3" name="Codigo_Usuario">
         <data-type>int(11)</data-type>
       </column>
-      <column id="55" parent="3" name="Fecha_Creada">
+      <column id="64" parent="3" name="Codigo_Cliente">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="65" parent="3" name="Fecha_Creada">
         <data-type>datetime</data-type>
       </column>
-      <column id="56" parent="3" name="Fecha_Modificada">
+      <column id="66" parent="3" name="Fecha_Modificada">
         <data-type>datetime</data-type>
       </column>
-      <column id="57" parent="3" name="Fecha_Eliminada">
+      <column id="67" parent="3" name="Fecha_Eliminada">
         <data-type>datetime</data-type>
       </column>
-      <column id="58" parent="3" name="Usuario_Creado">
+      <column id="68" parent="3" name="Usuario_Creado">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="59" parent="3" name="Usuario_Modificado">
+      <column id="69" parent="3" name="Usuario_Modificado">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="60" parent="3" name="Usuario_Eliminado">
+      <column id="70" parent="3" name="Usuario_Eliminado">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="61" parent="3" name="Fecha_Llamado">
+      <column id="71" parent="3" name="Fecha_Llamado">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="62" parent="3" name="Estado">
+      <column id="72" parent="3" name="Estado">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="63" parent="3" name="fecha_asignacion_codigo">
-        <mandatory>1</mandatory>
-        <data-type>int(255)</data-type>
-      </column>
-      <index id="64" parent="3" name="fk_Asig_Tlmk_Cliente_cliente1_idx">
+      <index id="73" parent="3" name="fk_Asig_Tlmk_Cliente_cliente1_idx">
         <columns>Codigo_Cliente</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="65" parent="3" name="fk_asig_tlmk_cliente_fecha_asignacion1_idx">
-        <columns>fecha_asignacion_codigo</columns>
+      <index id="74" parent="3" name="fk_asig_tlmk_cliente_fecha_asignacion1_idx">
+        <columns>codigo_asig</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="66" parent="3" name="fk_Asig_Tlmk_Cliente_telemarketing_idx">
-        <columns>Codigo_telemarketing</columns>
+      <index id="75" parent="3" name="fk_asig_tlmk_cliente_user1_idx">
+        <columns>Codigo_Usuario</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="67" parent="3" name="PRIMARY">
-        <columns>codigo</columns>
+      <key id="76" parent="3" name="PRIMARY">
+        <columns>codigo_tlmk_cliente</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="68" parent="3" name="fk_Asig_Tlmk_Cliente_cliente1">
+      <foreign-key id="77" parent="3" name="fk_Asig_Tlmk_Cliente_cliente1">
         <columns>Codigo_Cliente</columns>
         <ref-key>~.cliente.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="69" parent="3" name="fk_asig_tlmk_cliente_fecha_asignacion1">
-        <columns>fecha_asignacion_codigo</columns>
+      <foreign-key id="78" parent="3" name="fk_asig_tlmk_cliente_fecha_asignacion1">
+        <columns>codigo_asig</columns>
         <ref-key>~.fecha_asignacion.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="70" parent="3" name="fk_Asig_Tlmk_Cliente_telemarketing">
-        <columns>Codigo_telemarketing</columns>
-        <ref-key>~.telemarketing.PRIMARY</ref-key>
+      <foreign-key id="79" parent="3" name="fk_asig_tlmk_cliente_user1">
+        <columns>Codigo_Usuario</columns>
+        <ref-key>~.user.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="71" parent="4" name="item_name">
+      <column id="80" parent="4" name="item_name">
         <mandatory>1</mandatory>
         <data-type>varchar(64)</data-type>
       </column>
-      <column id="72" parent="4" name="user_id">
+      <column id="81" parent="4" name="user_id">
         <mandatory>1</mandatory>
         <data-type>varchar(64)</data-type>
       </column>
-      <column id="73" parent="4" name="created_at">
+      <column id="82" parent="4" name="created_at">
         <data-type>int(11)</data-type>
       </column>
-      <key id="74" parent="4" name="PRIMARY">
+      <key id="83" parent="4" name="PRIMARY">
         <columns>item_name
 user_id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="75" parent="4" name="auth_assignment_ibfk_1">
+      <foreign-key id="84" parent="4" name="auth_assignment_ibfk_1">
         <columns>item_name</columns>
         <ref-key>~.auth_item.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="76" parent="5" name="name">
+      <column id="85" parent="5" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(64)</data-type>
       </column>
-      <column id="77" parent="5" name="type">
+      <column id="86" parent="5" name="type">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="78" parent="5" name="description">
+      <column id="87" parent="5" name="description">
         <data-type>text</data-type>
       </column>
-      <column id="79" parent="5" name="rule_name">
+      <column id="88" parent="5" name="rule_name">
         <data-type>varchar(64)</data-type>
       </column>
-      <column id="80" parent="5" name="data">
+      <column id="89" parent="5" name="data">
         <data-type>text</data-type>
       </column>
-      <column id="81" parent="5" name="created_at">
+      <column id="90" parent="5" name="created_at">
         <data-type>int(11)</data-type>
       </column>
-      <column id="82" parent="5" name="updated_at">
+      <column id="91" parent="5" name="updated_at">
         <data-type>int(11)</data-type>
       </column>
-      <index id="83" parent="5" name="rule_name">
+      <index id="92" parent="5" name="rule_name">
         <columns>rule_name</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="84" parent="5" name="type">
+      <index id="93" parent="5" name="type">
         <columns>type</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="85" parent="5" name="PRIMARY">
+      <key id="94" parent="5" name="PRIMARY">
         <columns>name</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="86" parent="5" name="auth_item_ibfk_1">
+      <foreign-key id="95" parent="5" name="auth_item_ibfk_1">
         <columns>rule_name</columns>
         <ref-key>~.auth_rule.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="87" parent="6" name="parent">
+      <column id="96" parent="6" name="parent">
         <mandatory>1</mandatory>
         <data-type>varchar(64)</data-type>
       </column>
-      <column id="88" parent="6" name="child">
+      <column id="97" parent="6" name="child">
         <mandatory>1</mandatory>
         <data-type>varchar(64)</data-type>
       </column>
-      <index id="89" parent="6" name="child">
+      <index id="98" parent="6" name="child">
         <columns>child</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="90" parent="6" name="PRIMARY">
+      <key id="99" parent="6" name="PRIMARY">
         <columns>parent
 child</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="91" parent="6" name="auth_item_child_ibfk_1">
+      <foreign-key id="100" parent="6" name="auth_item_child_ibfk_1">
         <columns>parent</columns>
         <ref-key>~.auth_item.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="92" parent="6" name="auth_item_child_ibfk_2">
+      <foreign-key id="101" parent="6" name="auth_item_child_ibfk_2">
         <columns>child</columns>
         <ref-key>~.auth_item.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="93" parent="7" name="name">
+      <column id="102" parent="7" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(64)</data-type>
       </column>
-      <column id="94" parent="7" name="data">
+      <column id="103" parent="7" name="data">
         <data-type>text</data-type>
       </column>
-      <column id="95" parent="7" name="created_at">
+      <column id="104" parent="7" name="created_at">
         <data-type>int(11)</data-type>
       </column>
-      <column id="96" parent="7" name="updated_at">
+      <column id="105" parent="7" name="updated_at">
         <data-type>int(11)</data-type>
       </column>
-      <key id="97" parent="7" name="PRIMARY">
+      <key id="106" parent="7" name="PRIMARY">
         <columns>name</columns>
         <primary>1</primary>
       </key>
-      <column id="98" parent="8" name="Codigo_Cliente">
+      <column id="107" parent="8" name="Codigo_Cliente">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="99" parent="8" name="Codigo_Beneficiario">
+      <column id="108" parent="8" name="Codigo_Beneficiario">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="100" parent="8" name="Nombre">
+      <column id="109" parent="8" name="Nombre">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="101" parent="8" name="Apellido">
+      <column id="110" parent="8" name="Apellido">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="102" parent="8" name="Profesion">
+      <column id="111" parent="8" name="Profesion">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="103" parent="8" name="Edad">
+      <column id="112" parent="8" name="Edad">
         <data-type>int(2)</data-type>
       </column>
-      <column id="104" parent="8" name="Estado_Civil">
+      <column id="113" parent="8" name="Estado_Civil">
         <data-type>char(1)</data-type>
       </column>
-      <column id="105" parent="8" name="Distrito">
+      <column id="114" parent="8" name="Distrito">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="106" parent="8" name="Direccion">
+      <column id="115" parent="8" name="Direccion">
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="107" parent="8" name="Telefono_Casa">
+      <column id="116" parent="8" name="Telefono_Casa">
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="108" parent="8" name="Telefono_Celular">
+      <column id="117" parent="8" name="Telefono_Celular">
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="109" parent="8" name="Email">
+      <column id="118" parent="8" name="Email">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="110" parent="8" name="Traslado">
+      <column id="119" parent="8" name="Traslado">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="111" parent="8" name="Tarjeta_De_Credito">
+      <column id="120" parent="8" name="Tarjeta_De_Credito">
         <data-type>int(1)</data-type>
       </column>
-      <column id="112" parent="8" name="Promotor">
+      <column id="121" parent="8" name="Promotor">
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="113" parent="8" name="Local">
+      <column id="122" parent="8" name="Local">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="114" parent="8" name="Observacion">
+      <column id="123" parent="8" name="Observacion">
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="115" parent="8" name="Fecha_Creado">
+      <column id="124" parent="8" name="Fecha_Creado">
         <data-type>datetime</data-type>
       </column>
-      <column id="116" parent="8" name="Fecha_Modificado">
+      <column id="125" parent="8" name="Fecha_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="117" parent="8" name="Fecha_Eliminado">
+      <column id="126" parent="8" name="Fecha_Eliminado">
         <data-type>datetime</data-type>
       </column>
-      <column id="118" parent="8" name="Usuario_Creado">
+      <column id="127" parent="8" name="Usuario_Creado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="119" parent="8" name="Usuario_Modificado">
+      <column id="128" parent="8" name="Usuario_Modificado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="120" parent="8" name="Usuario_Eliminado">
+      <column id="129" parent="8" name="Usuario_Eliminado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="121" parent="8" name="Estado">
+      <column id="130" parent="8" name="Estado">
         <data-type>char(1)</data-type>
       </column>
-      <index id="122" parent="8" name="fk_beneficiario_cliente1_idx">
+      <index id="131" parent="8" name="fk_beneficiario_cliente1_idx">
         <columns>Codigo_Cliente</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="123" parent="8" name="PRIMARY">
+      <key id="132" parent="8" name="PRIMARY">
         <columns>Codigo_Beneficiario</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="124" parent="8" name="fk_beneficiario_cliente1">
+      <foreign-key id="133" parent="8" name="fk_beneficiario_cliente1">
         <columns>Codigo_Cliente</columns>
         <ref-key>~.cliente.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="125" parent="9" name="codigo">
+      <column id="134" parent="9" name="codigo">
         <data-type>int(3)</data-type>
       </column>
-      <column id="126" parent="9" name="Nombre">
+      <column id="135" parent="9" name="Nombre">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="127" parent="10" name="Codigo_Cliente">
+      <column id="136" parent="10" name="Codigo_Cliente">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="128" parent="10" name="Nombre">
+      <column id="137" parent="10" name="Nombre">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="129" parent="10" name="Apellido">
+      <column id="138" parent="10" name="Apellido">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="130" parent="10" name="Profesion">
+      <column id="139" parent="10" name="Profesion">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="131" parent="10" name="Edad">
+      <column id="140" parent="10" name="Edad">
         <data-type>int(2)</data-type>
       </column>
-      <column id="132" parent="10" name="Estado_Civil">
+      <column id="141" parent="10" name="Estado_Civil">
         <data-type>char(1)</data-type>
       </column>
-      <column id="133" parent="10" name="Distrito">
+      <column id="142" parent="10" name="Distrito">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="134" parent="10" name="Direccion">
+      <column id="143" parent="10" name="Direccion">
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="135" parent="10" name="Telefono_Casa">
+      <column id="144" parent="10" name="Telefono_Casa">
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="136" parent="10" name="Telefono_Celular">
+      <column id="145" parent="10" name="Telefono_Celular">
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="137" parent="10" name="Email">
+      <column id="146" parent="10" name="Email">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="138" parent="10" name="Traslado">
+      <column id="147" parent="10" name="Traslado">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="139" parent="10" name="Tarjeta_De_Credito">
+      <column id="148" parent="10" name="Tarjeta_De_Credito">
         <data-type>int(1)</data-type>
       </column>
-      <column id="140" parent="10" name="Promotor">
+      <column id="149" parent="10" name="Promotor">
         <data-type>varchar(50)</data-type>
       </column>
-      <column id="141" parent="10" name="Local">
+      <column id="150" parent="10" name="Local">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="142" parent="10" name="Observacion">
+      <column id="151" parent="10" name="Observacion">
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="143" parent="10" name="Fecha_Creado">
+      <column id="152" parent="10" name="Fecha_Creado">
         <data-type>datetime</data-type>
       </column>
-      <column id="144" parent="10" name="Fecha_Modificado">
+      <column id="153" parent="10" name="Fecha_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="145" parent="10" name="Fecha_Eliminado">
+      <column id="154" parent="10" name="Fecha_Eliminado">
         <data-type>datetime</data-type>
       </column>
-      <column id="146" parent="10" name="Usuario_Creado">
+      <column id="155" parent="10" name="Usuario_Creado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="147" parent="10" name="Usuario_Modificado">
+      <column id="156" parent="10" name="Usuario_Modificado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="148" parent="10" name="Usuario_Eliminado">
+      <column id="157" parent="10" name="Usuario_Eliminado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="149" parent="10" name="Estado">
-        <data-type>char(1)</data-type>
+      <column id="158" parent="10" name="Estado">
+        <comment>Estados
+0 = Inactivo
+1 = Activo
+2 = Cita Concretada
+3 = Cita Pendiente
+4 = N/Q
+5 = N/I
+6 = D/F
+7 = N/C
+8 = Apagado
+--------------------
+9  = Asignado
+10 = No Asignado
+11 = Confirmado
+12 = No Confirmado
+13 = Venta Efectuada
+--------------------
+Agendado
+3 - 7 - 8 - 10
+ 
+</comment>
+        <data-type>char(2)</data-type>
       </column>
-      <column id="150" parent="10" name="Telefono_Casa2">
+      <column id="159" parent="10" name="Agendado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="160" parent="10" name="Telefono_Casa2">
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="151" parent="10" name="Telefono_Celular2">
+      <column id="161" parent="10" name="Telefono_Celular2">
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="152" parent="10" name="Telefono_Celular3">
+      <column id="162" parent="10" name="Telefono_Celular3">
         <data-type>varchar(15)</data-type>
       </column>
-      <column id="153" parent="10" name="dni">
+      <column id="163" parent="10" name="dni">
         <data-type>int(8)</data-type>
       </column>
-      <column id="154" parent="10" name="Super_Promotor">
+      <column id="164" parent="10" name="Super_Promotor">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="155" parent="10" name="Jefe_Promotor">
+      <column id="165" parent="10" name="Jefe_Promotor">
         <data-type>varchar(100)</data-type>
       </column>
-      <key id="156" parent="10" name="PRIMARY">
+      <key id="166" parent="10" name="PRIMARY">
         <columns>Codigo_Cliente</columns>
         <primary>1</primary>
       </key>
-      <column id="157" parent="11" name="Codigo_Combo">
+      <column id="167" parent="11" name="Codigo_Combo">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="158" parent="11" name="Nombre">
+      <column id="168" parent="11" name="Nombre">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="159" parent="11" name="Precio">
+      <column id="169" parent="11" name="Precio">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="160" parent="11" name="Fecha_Creado">
+      <column id="170" parent="11" name="Fecha_Creado">
         <data-type>datetime</data-type>
       </column>
-      <column id="161" parent="11" name="Fecha_Modificado">
+      <column id="171" parent="11" name="Fecha_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="162" parent="11" name="Fecha_Eliminado">
+      <column id="172" parent="11" name="Fecha_Eliminado">
         <data-type>datetime</data-type>
       </column>
-      <column id="163" parent="11" name="Usuario_Creado">
+      <column id="173" parent="11" name="Usuario_Creado">
         <data-type>datetime</data-type>
       </column>
-      <column id="164" parent="11" name="Usuario_Modificado">
+      <column id="174" parent="11" name="Usuario_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="165" parent="11" name="Usuario_Eliminado">
+      <column id="175" parent="11" name="Usuario_Eliminado">
         <data-type>datetime</data-type>
       </column>
-      <column id="166" parent="11" name="Estado">
+      <column id="176" parent="11" name="Estado">
         <data-type>char(1)</data-type>
       </column>
-      <key id="167" parent="11" name="PRIMARY">
+      <key id="177" parent="11" name="PRIMARY">
         <columns>Codigo_Combo</columns>
         <primary>1</primary>
       </key>
-      <column id="168" parent="12" name="Codigo">
+      <column id="178" parent="12" name="Codigo">
         <mandatory>1</mandatory>
         <data-type>int(255)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="169" parent="12" name="Nombre">
+      <column id="179" parent="12" name="Nombre">
         <data-type>varchar(11)</data-type>
       </column>
-      <column id="170" parent="12" name="monto">
+      <column id="180" parent="12" name="monto">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="171" parent="12" name="porcentaje">
+      <column id="181" parent="12" name="porcentaje">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="172" parent="12" name="Fecha_Creado">
+      <column id="182" parent="12" name="Fecha_Creado">
         <data-type>datetime</data-type>
       </column>
-      <column id="173" parent="12" name="Fecha_Modificado">
+      <column id="183" parent="12" name="Fecha_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="174" parent="12" name="Usuario_Creado">
+      <column id="184" parent="12" name="Usuario_Creado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="175" parent="12" name="Usuario_Modificado">
+      <column id="185" parent="12" name="Usuario_Modificado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="176" parent="12" name="Estado">
+      <column id="186" parent="12" name="Estado">
         <data-type>char(1)</data-type>
       </column>
-      <column id="177" parent="12" name="codigo_anfitrion">
+      <column id="187" parent="12" name="codigo_anfitrion">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="178" parent="12" name="codigo_supervisor_anfitrion">
+      <column id="188" parent="12" name="codigo_supervisor_anfitrion">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="179" parent="12" name="codigo_jefe_anfitrion">
+      <column id="189" parent="12" name="codigo_jefe_anfitrion">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="180" parent="12" name="no_access_closer">
+      <column id="190" parent="12" name="no_access_closer">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="181" parent="12" name="no_access_liner">
+      <column id="191" parent="12" name="no_access_liner">
         <data-type>varchar(100)</data-type>
       </column>
-      <key id="182" parent="12" name="PRIMARY">
+      <key id="192" parent="12" name="PRIMARY">
         <columns>Codigo</columns>
         <primary>1</primary>
       </key>
-      <column id="183" parent="13" name="Codigo_Contrato">
+      <column id="193" parent="13" name="Codigo_Contrato">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="184" parent="13" name="Nombre">
+      <column id="194" parent="13" name="Nombre">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="185" parent="13" name="Apellidos">
+      <column id="195" parent="13" name="Apellidos">
         <data-type>varchar(150)</data-type>
       </column>
-      <column id="186" parent="13" name="Titular">
+      <column id="196" parent="13" name="Titular">
         <data-type>varchar(150)</data-type>
       </column>
-      <column id="187" parent="13" name="Esposo">
+      <column id="197" parent="13" name="Esposo">
         <data-type>varchar(150)</data-type>
       </column>
-      <column id="188" parent="13" name="Dni_1">
+      <column id="198" parent="13" name="Dni_1">
         <data-type>int(8)</data-type>
       </column>
-      <column id="189" parent="13" name="Dni_2">
+      <column id="199" parent="13" name="Dni_2">
         <data-type>int(8)</data-type>
       </column>
-      <column id="190" parent="13" name="Estado_Civil_1">
+      <column id="200" parent="13" name="Estado_Civil_1">
         <data-type>char(1)</data-type>
       </column>
-      <column id="191" parent="13" name="Estado_Civil_2">
+      <column id="201" parent="13" name="Estado_Civil_2">
         <data-type>char(1)</data-type>
       </column>
-      <column id="192" parent="13" name="Domicilio_1">
+      <column id="202" parent="13" name="Domicilio_1">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="193" parent="13" name="Domicilio_2">
+      <column id="203" parent="13" name="Domicilio_2">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="194" parent="13" name="Ocupacion_1">
+      <column id="204" parent="13" name="Ocupacion_1">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="195" parent="13" name="Ocupacion_2">
+      <column id="205" parent="13" name="Ocupacion_2">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="196" parent="13" name="Monto_Pagado">
+      <column id="206" parent="13" name="Monto_Pagado">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="197" parent="13" name="Saldos">
+      <column id="207" parent="13" name="Saldos">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="198" parent="13" name="N_cuotas">
+      <column id="208" parent="13" name="N_cuotas">
         <data-type>int(8)</data-type>
       </column>
-      <column id="199" parent="13" name="causas">
+      <column id="209" parent="13" name="causas">
         <data-type>varchar(150)</data-type>
       </column>
-      <column id="200" parent="13" name="Penalizacion">
+      <column id="210" parent="13" name="Penalizacion">
         <data-type>decimal(8,2)</data-type>
       </column>
-      <column id="201" parent="13" name="Formas">
+      <column id="211" parent="13" name="Formas">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="202" parent="13" name="Monto_devol">
+      <column id="212" parent="13" name="Monto_devol">
         <data-type>decimal(8,2)</data-type>
       </column>
-      <column id="203" parent="13" name="Fecha_Creado">
+      <column id="213" parent="13" name="Fecha_Creado">
         <data-type>datetime</data-type>
       </column>
-      <column id="204" parent="13" name="Fecha_Modificado">
+      <column id="214" parent="13" name="Fecha_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="205" parent="13" name="Fecha_Eliminado">
+      <column id="215" parent="13" name="Fecha_Eliminado">
         <data-type>datetime</data-type>
       </column>
-      <column id="206" parent="13" name="Usuario_Creado">
+      <column id="216" parent="13" name="Usuario_Creado">
         <data-type>datetime</data-type>
       </column>
-      <column id="207" parent="13" name="Usuario_Modificado">
+      <column id="217" parent="13" name="Usuario_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="208" parent="13" name="Usuario_Eliminado">
+      <column id="218" parent="13" name="Usuario_Eliminado">
         <data-type>datetime</data-type>
       </column>
-      <column id="209" parent="13" name="Estado">
+      <column id="219" parent="13" name="Estado">
         <data-type>char(1)</data-type>
       </column>
-      <key id="210" parent="13" name="PRIMARY">
+      <column id="220" parent="13" name="Codigo_venta">
+        <mandatory>1</mandatory>
+        <data-type>int(255)</data-type>
+      </column>
+      <index id="221" parent="13" name="fk_contrato_venta1_idx">
+        <columns>Codigo_venta</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="222" parent="13" name="PRIMARY">
         <columns>Codigo_Contrato</columns>
         <primary>1</primary>
       </key>
-      <column id="211" parent="14" name="id">
+      <foreign-key id="223" parent="13" name="fk_contrato_venta1">
+        <columns>Codigo_venta</columns>
+        <ref-key>~.venta.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="224" parent="14" name="id">
         <mandatory>1</mandatory>
         <data-type>int(222)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="212" parent="14" name="factura">
+      <column id="225" parent="14" name="factura">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="213" parent="14" name="Descripcion">
+      <column id="226" parent="14" name="Descripcion">
         <data-type>varchar(85)</data-type>
       </column>
-      <column id="214" parent="14" name="precio">
+      <column id="227" parent="14" name="precio">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="215" parent="14" name="Cantidad">
+      <column id="228" parent="14" name="Cantidad">
         <data-type>int(5)</data-type>
       </column>
-      <column id="216" parent="14" name="igv">
+      <column id="229" parent="14" name="igv">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="217" parent="14" name="Subtotal">
+      <column id="230" parent="14" name="Subtotal">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="218" parent="14" name="Total">
+      <column id="231" parent="14" name="Total">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="219" parent="14" name="Fecha_Creado">
+      <column id="232" parent="14" name="Fecha_Creado">
         <data-type>datetime</data-type>
       </column>
-      <column id="220" parent="14" name="Fecha_Modificado">
+      <column id="233" parent="14" name="Fecha_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="221" parent="14" name="Fecha_Eliminado">
+      <column id="234" parent="14" name="Fecha_Eliminado">
         <data-type>datetime</data-type>
       </column>
-      <column id="222" parent="14" name="Usuario_Creado">
+      <column id="235" parent="14" name="Usuario_Creado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="223" parent="14" name="Usuario_Modificado">
+      <column id="236" parent="14" name="Usuario_Modificado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="224" parent="14" name="Usuario_Eliminado">
+      <column id="237" parent="14" name="Usuario_Eliminado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="225" parent="14" name="Estado">
+      <column id="238" parent="14" name="Estado">
         <data-type>char(1)</data-type>
       </column>
-      <column id="226" parent="14" name="Pasaporte">
+      <column id="239" parent="14" name="Pasaporte">
         <data-type>int(11)</data-type>
       </column>
-      <index id="227" parent="14" name="fk_detalle_factura_factura1_idx">
+      <index id="240" parent="14" name="fk_detalle_factura_factura1_idx">
         <columns>factura</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="228" parent="14" name="PRIMARY">
+      <key id="241" parent="14" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="229" parent="14" name="fk_detalle_factura_factura1">
+      <foreign-key id="242" parent="14" name="fk_detalle_factura_factura1">
         <columns>factura</columns>
         <ref-key>~.factura.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="230" parent="15" name="codigo">
+      <column id="243" parent="15" name="codigo">
         <data-type>int(3)</data-type>
       </column>
-      <column id="231" parent="15" name="descripcion">
+      <column id="244" parent="15" name="descripcion">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="232" parent="16" name="Codigo_Documento">
+      <column id="245" parent="16" name="Codigo_Documento">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="233" parent="16" name="Nombre">
+      <column id="246" parent="16" name="Codigo_venta">
+        <mandatory>1</mandatory>
+        <data-type>int(255)</data-type>
+      </column>
+      <column id="247" parent="16" name="Nombre">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="234" parent="16" name="archivo">
+      <column id="248" parent="16" name="archivo">
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="235" parent="16" name="extension">
+      <column id="249" parent="16" name="extension">
         <data-type>varchar(4)</data-type>
       </column>
-      <column id="236" parent="16" name="Fecha_Modificado">
+      <column id="250" parent="16" name="Fecha_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="237" parent="16" name="Fecha_Eliminado">
+      <column id="251" parent="16" name="Fecha_Eliminado">
         <data-type>datetime</data-type>
       </column>
-      <column id="238" parent="16" name="Usuario_Creado">
+      <column id="252" parent="16" name="Usuario_Creado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="239" parent="16" name="Usuario_Eliminado">
+      <column id="253" parent="16" name="Usuario_Eliminado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="240" parent="16" name="Usuario_Modificado">
+      <column id="254" parent="16" name="Usuario_Modificado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="241" parent="16" name="Estado">
+      <column id="255" parent="16" name="Estado">
         <data-type>char(1)</data-type>
       </column>
-      <column id="242" parent="16" name="Fecha_Creado">
+      <column id="256" parent="16" name="Fecha_Creado">
         <data-type>datetime</data-type>
       </column>
-      <key id="243" parent="16" name="PRIMARY">
+      <index id="257" parent="16" name="fk_documento_venta1_idx">
+        <columns>Codigo_venta</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="258" parent="16" name="PRIMARY">
         <columns>Codigo_Documento</columns>
         <primary>1</primary>
       </key>
-      <column id="244" parent="17" name="id">
+      <foreign-key id="259" parent="16" name="fk_documento_venta1">
+        <columns>Codigo_venta</columns>
+        <ref-key>~.venta.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="260" parent="17" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="245" parent="17" name="Codigo_Cliente">
+      <column id="261" parent="17" name="Codigo_Cliente">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="246" parent="17" name="direccion">
+      <column id="262" parent="17" name="direccion">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="247" parent="17" name="Fecha_Modificado">
+      <column id="263" parent="17" name="Fecha_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="248" parent="17" name="Fecha_Eliminado">
+      <column id="264" parent="17" name="Fecha_Eliminado">
         <data-type>datetime</data-type>
       </column>
-      <column id="249" parent="17" name="Usuario_Creado">
+      <column id="265" parent="17" name="Usuario_Creado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="250" parent="17" name="Usuario_Modificado">
+      <column id="266" parent="17" name="Usuario_Modificado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="251" parent="17" name="Usuario_Eliminado">
+      <column id="267" parent="17" name="Usuario_Eliminado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="252" parent="17" name="Estado">
+      <column id="268" parent="17" name="Estado">
         <data-type>char(1)</data-type>
       </column>
-      <column id="253" parent="17" name="Codigo_Combo">
+      <column id="269" parent="17" name="Codigo_Combo">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="254" parent="17" name="Fecha_Creado">
+      <column id="270" parent="17" name="Fecha_Creado">
         <data-type>datetime</data-type>
       </column>
-      <column id="255" parent="17" name="Subtotal">
+      <column id="271" parent="17" name="Subtotal">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="256" parent="17" name="igv">
+      <column id="272" parent="17" name="igv">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="257" parent="17" name="Total">
+      <column id="273" parent="17" name="Total">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <index id="258" parent="17" name="fk_factura_cliente1_idx">
+      <index id="274" parent="17" name="fk_factura_cliente1_idx">
         <columns>Codigo_Cliente</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="259" parent="17" name="fk_factura_producto1_idx">
+      <index id="275" parent="17" name="fk_factura_producto1_idx">
         <columns>Codigo_Combo</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="260" parent="17" name="PRIMARY">
+      <key id="276" parent="17" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="261" parent="17" name="fk_factura_cliente1">
+      <foreign-key id="277" parent="17" name="fk_factura_cliente1">
         <columns>Codigo_Cliente</columns>
         <ref-key>~.cliente.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="262" parent="17" name="fk_factura_producto1">
+      <foreign-key id="278" parent="17" name="fk_factura_producto1">
         <columns>Codigo_Combo</columns>
         <ref-key>~.producto.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="263" parent="18" name="codigo">
+      <column id="279" parent="18" name="codigo_asig">
         <mandatory>1</mandatory>
         <data-type>int(255)</data-type>
-        <sequence-identity>1</sequence-identity>
       </column>
-      <column id="264" parent="18" name="Fecha_Creada">
+      <column id="280" parent="18" name="Fecha_Creada">
         <data-type>datetime</data-type>
       </column>
-      <column id="265" parent="18" name="Fecha_Modificada">
+      <column id="281" parent="18" name="Fecha_Modificada">
         <data-type>datetime</data-type>
       </column>
-      <column id="266" parent="18" name="Fecha_Eliminada">
+      <column id="282" parent="18" name="Fecha_Eliminada">
         <data-type>datetime</data-type>
       </column>
-      <column id="267" parent="18" name="Usuario_Creado">
+      <column id="283" parent="18" name="Usuario_Creado">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="268" parent="18" name="Usuario_Modificado">
+      <column id="284" parent="18" name="Usuario_Modificado">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="269" parent="18" name="Usuario_Eliminado">
+      <column id="285" parent="18" name="Usuario_Eliminado">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="270" parent="18" name="Fecha_Llamado">
+      <column id="286" parent="18" name="Fecha_Llamado">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="271" parent="18" name="Estado">
+      <column id="287" parent="18" name="Estado">
         <data-type>varchar(45)</data-type>
       </column>
-      <key id="272" parent="18" name="PRIMARY">
-        <columns>codigo</columns>
+      <key id="288" parent="18" name="PRIMARY">
+        <columns>codigo_asig</columns>
         <primary>1</primary>
       </key>
-      <column id="273" parent="19" name="Codigo_Folio">
+      <column id="289" parent="19" name="Codigo_Folio">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="274" parent="19" name="Valor">
+      <column id="290" parent="19" name="Valor">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="275" parent="19" name="Descripcion">
+      <column id="291" parent="19" name="Descripcion">
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="276" parent="19" name="Estado">
+      <column id="292" parent="19" name="Estado">
         <data-type>char(1)</data-type>
       </column>
-      <column id="277" parent="19" name="Usuario_Creado">
+      <column id="293" parent="19" name="Usuario_Creado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="278" parent="19" name="Usuario_Modificado">
+      <column id="294" parent="19" name="Usuario_Modificado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="279" parent="19" name="Fecha_Creada">
+      <column id="295" parent="19" name="Fecha_Creada">
         <data-type>datetime</data-type>
       </column>
-      <column id="280" parent="19" name="Fecha_Modificada">
+      <column id="296" parent="19" name="Fecha_Modificada">
         <data-type>datetime</data-type>
       </column>
-      <key id="281" parent="19" name="PRIMARY">
+      <key id="297" parent="19" name="PRIMARY">
         <columns>Codigo_Folio</columns>
         <primary>1</primary>
       </key>
-      <column id="282" parent="20" name="id">
+      <column id="298" parent="20" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="283" parent="20" name="userId">
+      <column id="299" parent="20" name="userId">
         <data-type>int(11)</data-type>
       </column>
-      <column id="284" parent="20" name="title">
+      <column id="300" parent="20" name="title">
         <mandatory>1</mandatory>
         <data-type>varchar(128)</data-type>
       </column>
-      <column id="285" parent="20" name="filename">
+      <column id="301" parent="20" name="filename">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="286" parent="20" name="fileori">
+      <column id="302" parent="20" name="fileori">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="287" parent="20" name="params">
+      <column id="303" parent="20" name="params">
         <data-type>longblob</data-type>
       </column>
-      <column id="288" parent="20" name="values">
+      <column id="304" parent="20" name="values">
         <data-type>longblob</data-type>
       </column>
-      <column id="289" parent="20" name="warning">
+      <column id="305" parent="20" name="warning">
         <data-type>longblob</data-type>
       </column>
-      <column id="290" parent="20" name="keys">
+      <column id="306" parent="20" name="keys">
         <data-type>text</data-type>
       </column>
-      <column id="291" parent="20" name="type">
+      <column id="307" parent="20" name="type">
         <data-type>tinyint(1)</data-type>
       </column>
-      <column id="292" parent="20" name="userCreate">
+      <column id="308" parent="20" name="userCreate">
         <data-type>int(11)</data-type>
       </column>
-      <column id="293" parent="20" name="userUpdate">
+      <column id="309" parent="20" name="userUpdate">
         <data-type>int(11)</data-type>
       </column>
-      <column id="294" parent="20" name="updateDate">
+      <column id="310" parent="20" name="updateDate">
         <mandatory>1</mandatory>
         <data-type>timestamp</data-type>
         <default-expression>&apos;CURRENT_TIMESTAMP&apos;</default-expression>
       </column>
-      <column id="295" parent="20" name="createDate">
+      <column id="311" parent="20" name="createDate">
         <data-type>datetime</data-type>
       </column>
-      <key id="296" parent="20" name="PRIMARY">
+      <key id="312" parent="20" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="297" parent="21" name="id">
+      <column id="313" parent="21" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="298" parent="21" name="name">
+      <column id="314" parent="21" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(128)</data-type>
       </column>
-      <column id="299" parent="21" name="parent">
+      <column id="315" parent="21" name="parent">
         <data-type>int(11)</data-type>
       </column>
-      <column id="300" parent="21" name="route">
+      <column id="316" parent="21" name="route">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="301" parent="21" name="order">
+      <column id="317" parent="21" name="order">
         <data-type>int(11)</data-type>
       </column>
-      <column id="302" parent="21" name="data">
+      <column id="318" parent="21" name="data">
         <data-type>blob</data-type>
       </column>
-      <index id="303" parent="21" name="parent">
+      <index id="319" parent="21" name="parent">
         <columns>parent</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="304" parent="21" name="PRIMARY">
+      <key id="320" parent="21" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="305" parent="21" name="menu_ibfk_1">
+      <foreign-key id="321" parent="21" name="menu_ibfk_1">
         <columns>parent</columns>
         <ref-key>PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="306" parent="22" name="version">
+      <column id="322" parent="22" name="version">
         <mandatory>1</mandatory>
         <data-type>varchar(180)</data-type>
       </column>
-      <column id="307" parent="22" name="apply_time">
+      <column id="323" parent="22" name="apply_time">
         <data-type>int(11)</data-type>
       </column>
-      <key id="308" parent="22" name="PRIMARY">
+      <key id="324" parent="22" name="PRIMARY">
         <columns>version</columns>
         <primary>1</primary>
       </key>
-      <column id="309" parent="23" name="Codigo_Producto">
+      <column id="325" parent="23" name="Codigo_Producto">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="310" parent="23" name="Nombre">
+      <column id="326" parent="23" name="Nombre">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="311" parent="23" name="Precio">
+      <column id="327" parent="23" name="Precio">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="312" parent="23" name="Precio_por_Noche">
+      <column id="328" parent="23" name="Precio_por_Noche">
         <data-type>decimal(10,2)</data-type>
       </column>
-      <column id="313" parent="23" name="Vigencia">
+      <column id="329" parent="23" name="Vigencia">
         <data-type>int(2)</data-type>
       </column>
-      <column id="314" parent="23" name="Desc_Afiliado">
+      <column id="330" parent="23" name="Desc_Afiliado">
         <data-type>float</data-type>
       </column>
-      <column id="315" parent="23" name="Fecha_Creado">
+      <column id="331" parent="23" name="Fecha_Creado">
         <data-type>datetime</data-type>
       </column>
-      <column id="316" parent="23" name="Fecha_Modificado">
+      <column id="332" parent="23" name="Fecha_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="317" parent="23" name="Fecha_Eliminado">
+      <column id="333" parent="23" name="Fecha_Eliminado">
         <data-type>datetime</data-type>
       </column>
-      <column id="318" parent="23" name="Usuario_Creado">
+      <column id="334" parent="23" name="Usuario_Creado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="319" parent="23" name="Usuario_Modificado">
+      <column id="335" parent="23" name="Usuario_Modificado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="320" parent="23" name="Usuario_Eliminado">
+      <column id="336" parent="23" name="Usuario_Eliminado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="321" parent="23" name="Estado">
+      <column id="337" parent="23" name="Estado">
         <data-type>char(1)</data-type>
       </column>
-      <key id="322" parent="23" name="PRIMARY">
+      <key id="338" parent="23" name="PRIMARY">
         <columns>Codigo_Producto</columns>
         <primary>1</primary>
       </key>
-      <column id="323" parent="24" name="id">
+      <column id="339" parent="24" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="324" parent="24" name="fecha_final">
+      <column id="340" parent="24" name="fecha_final">
         <data-type>date</data-type>
       </column>
-      <column id="325" parent="24" name="fecha_inicio">
+      <column id="341" parent="24" name="fecha_inicio">
         <data-type>date</data-type>
       </column>
-      <key id="326" parent="24" name="PRIMARY">
+      <column id="342" parent="24" name="estado">
+        <data-type>int(11)</data-type>
+      </column>
+      <key id="343" parent="24" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="327" parent="25" name="id">
+      <column id="344" parent="25" name="id">
         <comment>Unique dynagrid setting identifier</comment>
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="328" parent="25" name="filter_id">
+      <column id="345" parent="25" name="filter_id">
         <comment>Filter setting identifier</comment>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="329" parent="25" name="sort_id">
+      <column id="346" parent="25" name="sort_id">
         <comment>Sort setting identifier</comment>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="330" parent="25" name="data">
+      <column id="347" parent="25" name="data">
         <comment>Json encoded data for the dynagrid configuration</comment>
         <data-type>varchar(5000)</data-type>
       </column>
-      <index id="331" parent="25" name="tbl_dynagrid_FK1">
+      <index id="348" parent="25" name="tbl_dynagrid_FK1">
         <columns>filter_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="332" parent="25" name="tbl_dynagrid_FK2">
+      <index id="349" parent="25" name="tbl_dynagrid_FK2">
         <columns>sort_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="333" parent="25" name="PRIMARY">
+      <key id="350" parent="25" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="334" parent="26" name="id">
+      <column id="351" parent="26" name="id">
         <comment>Unique dynagrid detail setting identifier</comment>
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="335" parent="26" name="category">
+      <column id="352" parent="26" name="category">
         <comment>Dynagrid detail setting category &quot;filter&quot; or &quot;sort&quot;</comment>
         <mandatory>1</mandatory>
         <data-type>varchar(10)</data-type>
       </column>
-      <column id="336" parent="26" name="name">
+      <column id="353" parent="26" name="name">
         <comment>Name to identify the dynagrid detail setting</comment>
         <mandatory>1</mandatory>
         <data-type>varchar(150)</data-type>
       </column>
-      <column id="337" parent="26" name="data">
+      <column id="354" parent="26" name="data">
         <comment>Json encoded data for the dynagrid detail configuration</comment>
         <data-type>varchar(5000)</data-type>
       </column>
-      <column id="338" parent="26" name="dynagrid_id">
+      <column id="355" parent="26" name="dynagrid_id">
         <comment>Related dynagrid identifier</comment>
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
       </column>
-      <index id="339" parent="26" name="tbl_dynagrid_dtl_UK1">
+      <index id="356" parent="26" name="tbl_dynagrid_dtl_UK1">
         <columns>name
 category
 dynagrid_id</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="340" parent="26" name="PRIMARY">
+      <key id="357" parent="26" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="341" parent="26" name="tbl_dynagrid_dtl_UK1">
+      <key id="358" parent="26" name="tbl_dynagrid_dtl_UK1">
         <columns>name
 category
 dynagrid_id</columns>
         <underlying-index>tbl_dynagrid_dtl_UK1</underlying-index>
       </key>
-      <column id="342" parent="27" name="Codigo">
+      <column id="359" parent="27" name="Codigo">
         <mandatory>1</mandatory>
         <data-type>int(255)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="343" parent="27" name="item">
+      <column id="360" parent="27" name="item">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="344" parent="27" name="nombre">
+      <column id="361" parent="27" name="nombre">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="345" parent="27" name="apellido">
+      <column id="362" parent="27" name="apellido">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="346" parent="27" name="profesion">
+      <column id="363" parent="27" name="profesion">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="347" parent="27" name="direccion">
+      <column id="364" parent="27" name="direccion">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="348" parent="27" name="telefono">
+      <column id="365" parent="27" name="telefono">
         <data-type>int(8)</data-type>
       </column>
-      <column id="349" parent="27" name="CodOPC">
+      <column id="366" parent="27" name="CodOPC">
         <data-type>int(11)</data-type>
       </column>
-      <column id="350" parent="27" name="codTLMK">
+      <column id="367" parent="27" name="codTLMK">
         <data-type>int(11)</data-type>
       </column>
-      <column id="351" parent="27" name="observacion">
+      <column id="368" parent="27" name="observacion">
         <data-type>varchar(180)</data-type>
       </column>
-      <column id="352" parent="27" name="Fecha_Creado">
+      <column id="369" parent="27" name="Fecha_Creado">
         <data-type>datetime</data-type>
       </column>
-      <column id="353" parent="27" name="Fecha_Modificado">
+      <column id="370" parent="27" name="Fecha_Modificado">
         <data-type>datetime</data-type>
       </column>
-      <column id="354" parent="27" name="Fecha_Eliminado">
+      <column id="371" parent="27" name="Fecha_Eliminado">
         <data-type>datetime</data-type>
       </column>
-      <column id="355" parent="27" name="Usuario_Creado">
+      <column id="372" parent="27" name="Usuario_Creado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="356" parent="27" name="Usuario_Modificado">
+      <column id="373" parent="27" name="Usuario_Modificado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="357" parent="27" name="Usuario_Eliminado">
+      <column id="374" parent="27" name="Usuario_Eliminado">
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="358" parent="27" name="Estado">
+      <column id="375" parent="27" name="Estado">
         <data-type>char(1)</data-type>
       </column>
-      <key id="359" parent="27" name="PRIMARY">
+      <key id="376" parent="27" name="PRIMARY">
         <columns>Codigo</columns>
         <primary>1</primary>
       </key>
-      <column id="360" parent="28" name="id">
+      <column id="377" parent="28" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="361" parent="28" name="username">
+      <column id="378" parent="28" name="username">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="362" parent="28" name="email">
+      <column id="379" parent="28" name="email">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="363" parent="28" name="password_hash">
+      <column id="380" parent="28" name="password_hash">
         <mandatory>1</mandatory>
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="364" parent="28" name="auth_key">
+      <column id="381" parent="28" name="auth_key">
         <data-type>varchar(32)</data-type>
       </column>
-      <column id="365" parent="28" name="confirmed_at">
+      <column id="382" parent="28" name="confirmed_at">
         <data-type>int(11)</data-type>
       </column>
-      <column id="366" parent="28" name="unconfirmed_email">
+      <column id="383" parent="28" name="unconfirmed_email">
         <data-type>varchar(255)</data-type>
       </column>
-      <column id="367" parent="28" name="blocked_at">
+      <column id="384" parent="28" name="blocked_at">
         <data-type>int(11)</data-type>
       </column>
-      <column id="368" parent="28" name="registration_ip">
+      <column id="385" parent="28" name="registration_ip">
         <data-type>varchar(45)</data-type>
       </column>
-      <column id="369" parent="28" name="created_at">
+      <column id="386" parent="28" name="created_at">
         <data-type>int(11)</data-type>
       </column>
-      <column id="370" parent="28" name="updated_at">
+      <column id="387" parent="28" name="updated_at">
         <data-type>int(11)</data-type>
       </column>
-      <column id="371" parent="28" name="last_login_at">
+      <column id="388" parent="28" name="last_login_at">
         <data-type>int(11)</data-type>
       </column>
-      <column id="372" parent="28" name="status">
+      <column id="389" parent="28" name="status">
         <data-type>int(11)</data-type>
       </column>
-      <column id="373" parent="28" name="password_reset_token">
+      <column id="390" parent="28" name="password_reset_token">
         <data-type>varchar(256)</data-type>
       </column>
-      <column id="374" parent="28" name="Fecha_Creado">
+      <column id="391" parent="28" name="Fecha_Creado">
         <data-type>datetime</data-type>
       </column>
-      <column id="375" parent="28" name="Fecha_Modificada">
+      <column id="392" parent="28" name="Fecha_Modificada">
         <data-type>datetime</data-type>
       </column>
-      <column id="376" parent="28" name="Fecha_Eliminada">
+      <column id="393" parent="28" name="Fecha_Eliminada">
         <data-type>datetime</data-type>
       </column>
-      <column id="377" parent="28" name="Usuario_Creado">
+      <column id="394" parent="28" name="Usuario_Creado">
         <data-type>varchar(250)</data-type>
       </column>
-      <column id="378" parent="28" name="Usuario_Modificado">
+      <column id="395" parent="28" name="Usuario_Modificado">
         <data-type>varchar(250)</data-type>
       </column>
-      <column id="379" parent="28" name="Usuario_Eliminado">
+      <column id="396" parent="28" name="Usuario_Eliminado">
         <data-type>varchar(250)</data-type>
       </column>
-      <column id="380" parent="28" name="Ultima_Sesion">
+      <column id="397" parent="28" name="Ultima_Sesion">
         <data-type>datetime</data-type>
       </column>
-      <column id="381" parent="28" name="Codigo_Rol">
+      <column id="398" parent="28" name="Codigo_Rol">
         <data-type>int(11)</data-type>
       </column>
-      <column id="382" parent="28" name="pwdDes">
+      <column id="399" parent="28" name="pwdDes">
         <data-type>varchar(250)</data-type>
       </column>
-      <column id="383" parent="28" name="estado">
+      <column id="400" parent="28" name="estado">
         <data-type>int(11)</data-type>
       </column>
-      <index id="384" parent="28" name="user_unique_email">
-        <columns>email</columns>
-        <desc-columns></desc-columns>
-        <unique>1</unique>
-      </index>
-      <key id="385" parent="28" name="PRIMARY">
+      <column id="401" parent="28" name="id_personal">
+        <data-type>varchar(20)</data-type>
+      </column>
+      <key id="402" parent="28" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <key id="386" parent="28" name="user_unique_email">
-        <columns>email</columns>
-        <underlying-index>user_unique_email</underlying-index>
+      <column id="403" parent="29" name="Codigo_certificado">
+        <mandatory>1</mandatory>
+        <data-type>int(255)</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="404" parent="29" name="Nombre">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="405" parent="29" name="Vigencia">
+        <data-type>int(2)</data-type>
+      </column>
+      <column id="406" parent="29" name="Precio">
+        <data-type>decimal(10,2)</data-type>
+      </column>
+      <column id="407" parent="29" name="Stock">
+        <data-type>int(2)</data-type>
+      </column>
+      <column id="408" parent="29" name="Fecha_Creado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="409" parent="29" name="Fecha_Modificado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="410" parent="29" name="Fecha_Eliminado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="411" parent="29" name="Usuario_Creado">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="412" parent="29" name="Usuario_Modificado">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="413" parent="29" name="Usuario_Eliminado">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="414" parent="29" name="Estado">
+        <data-type>char(1)</data-type>
+      </column>
+      <column id="415" parent="29" name="pasaporte_Codigo_pasaporte">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="416" parent="29" name="club_Codigo_club">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="417" parent="29" name="pasaporte_Codigo_pasaporte1">
+        <data-type>int(255)</data-type>
+      </column>
+      <column id="418" parent="29" name="club_Codigo_club1">
+        <data-type>int(255)</data-type>
+      </column>
+      <column id="419" parent="29" name="Codigo_Correlativo">
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="420" parent="29" name="Codigo_Cliente">
+        <data-type>int(255)</data-type>
+      </column>
+      <index id="421" parent="29" name="fk_certificado_club1_idx">
+        <columns>club_Codigo_club</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="422" parent="29" name="fk_certificado_club1_idx1">
+        <columns>club_Codigo_club1</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="423" parent="29" name="fk_certificado_pasaporte1_idx">
+        <columns>pasaporte_Codigo_pasaporte1</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="424" parent="29" name="fk_certificado_pasaporte1_idx1">
+        <columns>pasaporte_Codigo_pasaporte</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="425" parent="29" name="PRIMARY">
+        <columns>Codigo_certificado</columns>
+        <primary>1</primary>
       </key>
-      <argument id="387" parent="30" name="Codigo">
+      <foreign-key id="426" parent="29" name="fk_certificado_club1">
+        <columns>club_Codigo_club1</columns>
+        <ref-key>~.club.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="427" parent="29" name="fk_certificado_pasaporte1">
+        <columns>pasaporte_Codigo_pasaporte1</columns>
+        <ref-key>~.pasaporte.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <column id="428" parent="30" name="Codigo_club">
+        <mandatory>1</mandatory>
+        <data-type>int(255)</data-type>
+      </column>
+      <column id="429" parent="30" name="Nombre">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="430" parent="30" name="Precio">
+        <data-type>decimal(10,2)</data-type>
+      </column>
+      <column id="431" parent="30" name="Precio_por_Noche">
+        <data-type>decimal(10,2)</data-type>
+      </column>
+      <column id="432" parent="30" name="Vigencia">
+        <data-type>int(2)</data-type>
+      </column>
+      <column id="433" parent="30" name="Desc_Afiliado">
+        <data-type>float</data-type>
+      </column>
+      <column id="434" parent="30" name="Fecha_Creado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="435" parent="30" name="Fecha_Modificado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="436" parent="30" name="Fecha_Eliminado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="437" parent="30" name="Usuario_Creado">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="438" parent="30" name="Usuario_Modificado">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="439" parent="30" name="Usuario_Eliminado">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="440" parent="30" name="Estado">
+        <data-type>char(1)</data-type>
+      </column>
+      <key id="441" parent="30" name="PRIMARY">
+        <columns>Codigo_club</columns>
+        <primary>1</primary>
+      </key>
+      <column id="442" parent="31" name="Codigo_pasaporte">
+        <mandatory>1</mandatory>
+        <data-type>int(255)</data-type>
+      </column>
+      <column id="443" parent="31" name="Nombre">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="444" parent="31" name="Stock">
+        <data-type>int(255)</data-type>
+      </column>
+      <column id="445" parent="31" name="Fecha_Creado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="446" parent="31" name="Fecha_Modificado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="447" parent="31" name="Fecha_Eliminado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="448" parent="31" name="Usuario_Creado">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="449" parent="31" name="Usuario_Modificado">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="450" parent="31" name="Usuario_Eliminado">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="451" parent="31" name="Estado">
+        <data-type>char(1)</data-type>
+      </column>
+      <key id="452" parent="31" name="PRIMARY">
+        <columns>Codigo_pasaporte</columns>
+        <primary>1</primary>
+      </key>
+      <column id="453" parent="32" name="Codigo_venta">
+        <mandatory>1</mandatory>
+        <data-type>int(255)</data-type>
+      </column>
+      <column id="454" parent="32" name="Codigo_club">
+        <mandatory>1</mandatory>
+        <data-type>int(255)</data-type>
+      </column>
+      <column id="455" parent="32" name="Codigo_Cliente">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="456" parent="32" name="medio_pago">
+        <data-type>int(1)</data-type>
+      </column>
+      <column id="457" parent="32" name="Estado_pago">
+        <data-type>int(1)</data-type>
+      </column>
+      <column id="458" parent="32" name="porcentaje_pagado">
+        <data-type>int(3)</data-type>
+      </column>
+      <column id="459" parent="32" name="cod_barra_pasaporte">
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="460" parent="32" name="cod_barra_pasaporte_manual">
+        <data-type>varchar(45)</data-type>
+      </column>
+      <column id="461" parent="32" name="Fecha_Creado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="462" parent="32" name="Fecha_Modificado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="463" parent="32" name="Fecha_Eliminado">
+        <data-type>datetime</data-type>
+      </column>
+      <column id="464" parent="32" name="Usuario_Creado">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="465" parent="32" name="Usuario_Modificado">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="466" parent="32" name="Usuario_Eliminado">
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="467" parent="32" name="Estado">
+        <data-type>int(1)</data-type>
+      </column>
+      <column id="468" parent="32" name="Factura_emitida">
+        <data-type>int(1)</data-type>
+      </column>
+      <column id="469" parent="32" name="Codigo_pasaporte">
+        <data-type>int(255)</data-type>
+      </column>
+      <column id="470" parent="32" name="Cod_certificado">
+        <mandatory>1</mandatory>
+        <data-type>int(255)</data-type>
+      </column>
+      <column id="471" parent="32" name="cantidad_certificado">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="472" parent="32" name="descripcion">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="473" parent="32" name="ruta_archivo">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="474" parent="32" name="n_cuota">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="475" parent="32" name="interes">
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="476" parent="32" name="extension">
+        <data-type>varchar(10)</data-type>
+      </column>
+      <index id="477" parent="32" name="fk_venta_cliente1_idx">
+        <columns>Codigo_Cliente</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <index id="478" parent="32" name="fk_venta_club1_idx">
+        <columns>Codigo_club</columns>
+        <desc-columns></desc-columns>
+      </index>
+      <key id="479" parent="32" name="PRIMARY">
+        <columns>Codigo_venta</columns>
+        <primary>1</primary>
+      </key>
+      <foreign-key id="480" parent="32" name="fk_venta_cliente1">
+        <columns>Codigo_Cliente</columns>
+        <ref-key>~.cliente.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <foreign-key id="481" parent="32" name="fk_venta_club1">
+        <columns>Codigo_club</columns>
+        <ref-key>~.club.PRIMARY</ref-key>
+        <cascade-update-rule>restrict</cascade-update-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
+      </foreign-key>
+      <argument id="482" parent="34" name="Codigo">
         <direction>IN</direction>
         <data-type>int(11)</data-type>
       </argument>
-      <argument id="388" parent="31" name="Codigo">
+      <argument id="483" parent="35" name="Codigo">
         <direction>IN</direction>
         <data-type>int(11)</data-type>
       </argument>
-      <argument id="389" parent="32" name="Codigo">
+      <argument id="484" parent="36" name="Codigo">
+        <direction>IN</direction>
+        <data-type>int(11)</data-type>
+      </argument>
+      <argument id="485" parent="37" name="Club">
+        <direction>IN</direction>
+        <data-type>int(255)</data-type>
+      </argument>
+      <argument id="486" parent="37" name="Pasaporte">
+        <direction>IN</direction>
+        <data-type>int(255)</data-type>
+      </argument>
+      <argument id="487" parent="37" name="Cliente">
+        <direction>IN</direction>
+        <data-type>int(255)</data-type>
+      </argument>
+      <argument id="488" parent="38" name="Codigo">
+        <direction>IN</direction>
+        <data-type>int(11)</data-type>
+      </argument>
+      <argument id="489" parent="39" name="Codigo">
         <direction>IN</direction>
         <data-type>int(11)</data-type>
       </argument>

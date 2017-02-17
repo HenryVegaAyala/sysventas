@@ -119,11 +119,11 @@ class AsigTlmkCliente extends \yii\db\ActiveRecord
      */
     public function getCliente()
     {
-
         $resultado = ArrayHelper::map(
             Cliente::find()
-                ->select(['Codigo_Cliente' => 'Codigo_Cliente', 'fullname' => "concat(Nombre,' ',Apellido)"])
-                ->where('Estado in(3,7,8,1)')->asArray()
+//                ->select(['Codigo_Cliente' => 'Codigo_Cliente', 'fullname' => "concat(Nombre,' ',Apellido)"])
+                ->select(['Codigo_Cliente' => 'Codigo_Cliente', 'fullname' => "concat(Nombre)"])
+                ->where('Estado in(3,7,8,1)')->limit(100)->asArray()
                 ->all(), 'Codigo_Cliente', 'fullname');
         return $resultado;
     }

@@ -38,7 +38,9 @@ class ClienteController extends Controller
         $searchModel = new ClienteSearch();
         if (Yii::$app->user->identity->Codigo_Rol == 4) {
             $dataProvider = $searchModel->searchCargo(Yii::$app->request->queryParams);
-        } else {
+        } elseif (Yii::$app->user->identity->Codigo_Rol == 10) {
+            $dataProvider = $searchModel->searchCargo(Yii::$app->request->queryParams);
+        }else{
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         }
         return $this->render('index', [

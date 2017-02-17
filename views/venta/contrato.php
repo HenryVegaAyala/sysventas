@@ -14,12 +14,13 @@ $Codigo_Cliente = $model->Codigo_Cliente;
 //
 //while ($row = $resultado->read()) {
 //    $cadena = $row['Dato'];
-foreach ($Beneficiario as $Beneficiario):
-   $dato =  $Beneficiario['dato'];
-    $html = "<div><p class='datos'>LOS BENEFICIARIOS:  $dato </p></div>";
+foreach ($Beneficiario as $Beneficiarios):
+    $dato = $Beneficiarios['dato'];
+//    $pagina1 = "<div><p class='datos'>LOS BENEFICIARIOS:  $dato </p></div>";
 endforeach;
 //}
 //
+
 
 $pagina1 = "
 <style>
@@ -79,7 +80,7 @@ $pagina1 = "
     <p class='datos'>Dirección: $Direccion</p>
 </div>
 
-$html
+<div><p class='datos'>LOS BENEFICIARIOS:   </p></div>
 
 <div>
     <p class='documento'>Cada una de las siguientes palabras o frases, cuando sea empleada en el Contrato, tendrán los

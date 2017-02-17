@@ -273,10 +273,17 @@ class Cliente extends \yii\db\ActiveRecord
      */
     public function Agendar($fh_Agendado, $estado, $codigo)
     {
+        if($fh_Agendado == null){
+            $fhCreado = 'now()';
+        }else{
+            $fhCreado = $fh_Agendado;
+        }
+
+
         $db = Yii::$app->db;
         $transaction = $db->beginTransaction();
         $db->createCommand("UPDATE cliente SET 
-                            Agendado = '" . $fh_Agendado . "',
+                            Fecha_Creado = " . $fhCreado . ",
                             Estado = '" . $estado . "'
                             WHERE Codigo_Cliente = '" . $codigo . "';")->execute();
         $transaction->commit();

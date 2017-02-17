@@ -27,6 +27,8 @@ use yii\helpers\ArrayHelper;
  * @property integer $Estado
  * @property integer $Factura_emitida
  * @property integer $Codigo_pasaporte
+ * @property integer $Cod_certificado
+ * @property integer $n_cuota
  *
  * @property Contrato[] $contratos
  * @property Documento[] $documentos
@@ -52,7 +54,7 @@ class Venta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo_venta', 'Codigo_club', 'Codigo_Cliente', 'medio_pago', 'Estado_pago', 'porcentaje_pagado', 'Codigo_pasaporte'], 'required'],
+            [['Codigo_venta', 'Codigo_club', 'Codigo_Cliente', 'medio_pago', 'Estado_pago', 'Codigo_pasaporte'], 'required'],
             [['Codigo_venta', 'Codigo_club', 'Codigo_pasaporte'], 'integer'],
             [['porcentaje_pagado'], 'number'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
@@ -68,6 +70,8 @@ class Venta extends \yii\db\ActiveRecord
             [['porcentaje_pagado'], 'integer', 'message' => 'Debe ser númerico.'],
             [['porcentaje_pagado', 'cod_barra_pasaporte'], 'match', 'pattern' => "/^.{1,15}$/", 'message' => 'Mínimo 1 caracteres'],
 
+//            [['porcentaje_pagado'], 'required', 'message' => '% Pagado es requerido.'],
+
         ];
     }
 
@@ -80,8 +84,8 @@ class Venta extends \yii\db\ActiveRecord
             'Codigo_venta' => 'Codigo Venta',
             'Codigo_club' => 'Tipo de Club',
             'Codigo_Cliente' => 'Datos del Cliente',
-            'medio_pago' => 'Medio Pago',
-            'Estado_pago' => 'Estado Pago',
+            'medio_pago' => 'Medio de Pago',
+            'Estado_pago' => 'Estado de Pago',
             'porcentaje_pagado' => 'Porcentaje Pagado',
             'cod_barra_pasaporte' => 'Codigo de Barra',
             'cod_barra_pasaporte_manual' => 'Codigo de Barra Manual',
@@ -94,7 +98,9 @@ class Venta extends \yii\db\ActiveRecord
             'Estado' => 'Estado',
             'Factura_emitida' => 'Factura Emitida',
             'Codigo_pasaporte' => 'Pasaporte',
-            'uso_interno' => 'Seleccionar si no tiene codigo de barras',
+            'uso_interno' => 'Ingresar Codigo de barras manual',
+            'Cod_certificado' => 'Certificados',
+            'n_cuota' => 'N° de cuotas',
         ];
     }
 
@@ -144,7 +150,7 @@ class Venta extends \yii\db\ActiveRecord
     {
         $data = Cliente::find()
             ->select(["concat(Nombre ,' ', Apellido) as value", "concat(Nombre ,' ', Apellido) as label"])
-            ->where('estado = 10')
+            ->where('estado = 11')
             ->asArray()
             ->all();
         return $data;
@@ -265,5 +271,12 @@ class Venta extends \yii\db\ActiveRecord
         $comando = $query->createCommand();
         $data = $comando->queryScalar();
         return $data;
+    }
+
+    public function SP_Certificado($club,$pasaporte,$cliente)
+    {
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand("call Asignar_Codigo_Barra('" . $club . "','" . $pasaporte . "','" . $cliente . "')");
+        $command->execute();
     }
 }

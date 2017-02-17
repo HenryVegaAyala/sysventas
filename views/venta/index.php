@@ -97,7 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => 'Opciones de Venta',
                 'buttonOptions' => ['class' => 'btn btn-default'],
                 'template' => '<div class="btn-group btn-group-sm text-center" role="group">{view} {contrato} {factura} {archivo}</div>',
-                'options' => ['style' => 'width:150px;'],
+                'options' => ['style' => 'width:130px;'],
                 'headerOptions' => ['class' => 'itemHide'],
                 'contentOptions' => ['class' => 'itemHide'],
                 'buttons' => [
@@ -105,12 +105,13 @@ $this->params['breadcrumbs'][] = $this->title;
 //                        return Html::a('<i class="fa fa-cogs"></i>', $url, ['title' => Yii::t('app', 'Eliminar'), 'class' => 'btn btn-default', 'data-confirm' => "Your confirmation message?", 'data-pjax' => '0']);
                         return Html::a('<span class="fa fa-cogs"></span>', $url, ['title' => Yii::t('app', 'Generar Contrato'),'target' => '_blank', 'class' => 'btn btn-default', 'data' => ['pjax' => 0]]);
                     },
-                    'factura' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-file-pdf-o"></i>', $url, ['title' => Yii::t('app', 'Generar Factura'),'target' => '_blank', 'class' => 'btn btn-default', 'data' => ['pjax' => 0]]);
-                    },
+//                    'factura' => function ($url, $model, $key) {
+//                        return Html::a('<i class="fa fa-file-pdf-o"></i>', $url, ['title' => Yii::t('app', 'Generar Factura'),'target' => '_blank', 'class' => 'btn btn-default', 'data' => ['pjax' => 0]]);
+//                    },
 
-                    'archivo' => function ($url, $model, $key) {
-                        return Html::a('<i class="fa fa-cloud-upload"></i>', $url, ['title' => Yii::t('app', 'Subir Archivo'), 'class' => 'btn btn-default']);
+                    'archivo' => function ($url, $model) {
+//                        return Html::a('<i class="fa fa-cloud-upload"></i>', ['archivo', 'id' => $model['Codigo_venta']], ['title' => Yii::t('app', 'Subir Archivo'), 'class' => 'btn btn-default', 'data' => ['pjax' => 0]]);
+                        return Html::a('<i class="fa fa-cloud-upload"></i>', $url, ['title' => Yii::t('app', 'Subir Archivo'), 'class' => 'btn btn-default', 'data' => ['pjax' => 0]]);
                     },
 
                 ],

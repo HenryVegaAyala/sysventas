@@ -51,7 +51,7 @@ class VentaController extends Controller
     {
 //        echo "<script src=".Yii::$app->getUrlManager()->getBaseUrl()."/js/angular.min.js"."></script>";
 //        echo "<script src=".Yii::$app->getUrlManager()->getBaseUrl()."/js/app.js"."></script>";
-        echo "<script src=\"/dolibar/js/JsBarcode.all.min.js\"></script>";
+        echo "<script src=" . Yii::$app->getUrlManager()->getBaseUrl() . "/js/JsBarcode.all.min.js" . "></script>";
 
         $model = new Venta();
 
@@ -149,8 +149,22 @@ class VentaController extends Controller
 
     public function actionArchivo($id)
     {
-        die("facutra");
-        exit();
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            var_dump(
+            $model->extension,
+            $model->descripcion
+        );exit();
+
+            $model->save();
+            return $this->redirect(['index']);
+        } else {
+            return $this->render('archivo', [
+                'model' => $model,
+            ]);
+        }
     }
 
     public function actionPreproceso()

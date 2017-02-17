@@ -29,6 +29,9 @@ use yii\helpers\ArrayHelper;
  * @property integer $Codigo_pasaporte
  * @property integer $Cod_certificado
  * @property integer $n_cuota
+ * @property string $extension
+ * @property string $descripcion
+ * @property string $ruta_archivo
  *
  * @property Contrato[] $contratos
  * @property Documento[] $documentos
@@ -54,12 +57,13 @@ class Venta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo_venta', 'Codigo_club', 'Codigo_Cliente', 'medio_pago', 'Estado_pago', 'Codigo_pasaporte'], 'required'],
+            [['Codigo_venta', 'Codigo_club', 'Codigo_Cliente', 'medio_pago', 'Estado_pago', 'Codigo_pasaporte','ruta_archivo','descripcion'], 'required'],
             [['Codigo_venta', 'Codigo_club', 'Codigo_pasaporte'], 'integer'],
             [['porcentaje_pagado'], 'number'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
             [['medio_pago', 'Estado_pago', 'Estado', 'Factura_emitida'], 'string', 'max' => 1],
             [['cod_barra_pasaporte', 'cod_barra_pasaporte_manual'], 'string', 'max' => 45],
+            [['ruta_archivo','descripcion'], 'string', 'max' => 255],
             [['Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
             [['Codigo_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => Cliente::className(), 'targetAttribute' => ['Codigo_Cliente' => 'Codigo_Cliente']],
             [['Codigo_club'], 'exist', 'skipOnError' => true, 'targetClass' => Club::className(), 'targetAttribute' => ['Codigo_club' => 'Codigo_club']],
@@ -71,6 +75,19 @@ class Venta extends \yii\db\ActiveRecord
             [['porcentaje_pagado', 'cod_barra_pasaporte'], 'match', 'pattern' => "/^.{1,15}$/", 'message' => 'Mínimo 1 caracteres'],
 
 //            [['porcentaje_pagado'], 'required', 'message' => '% Pagado es requerido.'],
+
+            ['ruta_archivo', 'file',
+//                'skipOnEmpty' => false,
+                'uploadRequired' => 'No has seleccionado ningún archivo', //Error
+                'maxSize' => 1024 * 1024 * 2, //1 MB
+                'tooBig' => 'El tamaño máximo permitido es 2MB', //Error
+                'minSize' => 10, //10 Bytes
+                'tooSmall' => 'El tamaño mínimo permitido son 10 BYTES', //Error
+                'extensions' => 'pdf, jpg, png',
+                'wrongExtension' => 'El archivo {file} no contiene una extensión permitida {extensions}', //Error
+                'maxFiles' => 4,
+                'tooMany' => 'El máximo de archivos permitidos son {limit}', //Error
+            ]
 
         ];
     }
@@ -101,6 +118,8 @@ class Venta extends \yii\db\ActiveRecord
             'uso_interno' => 'Ingresar Codigo de barras manual',
             'Cod_certificado' => 'Certificados',
             'n_cuota' => 'N° de cuotas',
+            'archivo' => 'Factura',
+            'descripcion' => 'Comentario',
         ];
     }
 
@@ -258,7 +277,7 @@ class Venta extends \yii\db\ActiveRecord
     public function Club($codigo)
     {
         $query = new Query();
-        $query->select('Nombre')->from('Club')->where("Codigo_Club ='" . $codigo . "'");
+        $query->select('Nombre')->from('club')->where("Codigo_Club ='" . $codigo . "'");
         $comando = $query->createCommand();
         $data = $comando->queryScalar();
         return $data;
@@ -267,7 +286,7 @@ class Venta extends \yii\db\ActiveRecord
     public function Pasaporte($codigo)
     {
         $query = new Query();
-        $query->select('Nombre')->from('Pasaporte')->where("Codigo_pasaporte ='" . $codigo . "'");
+        $query->select('Nombre')->from('pasaporte')->where("Codigo_pasaporte ='" . $codigo . "'");
         $comando = $query->createCommand();
         $data = $comando->queryScalar();
         return $data;

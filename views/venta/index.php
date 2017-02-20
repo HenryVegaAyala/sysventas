@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            'Codigo_venta',
             [
                 'attribute' => 'Codigo_Cliente',
                 'label' => 'Datos Personales',
@@ -48,49 +49,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     $model = new \app\models\Venta();
                     $estado = $data->Codigo_pasaporte;
-                    $valor = $model->Pasaporte($estado);
-                    return $valor;
+//                    $valor = $model->Pasaporte($estado);
+//                    return $valor;
                 }
             ],
-            [
-                'attribute' => 'medio_pago',
-                'label' => 'Medio de Pago',
-                'value' => function ($data) {
-                    $model = new \app\models\Venta();
-                    $estado = $data->medio_pago;
-                    $valor = $model->MedioDePago($estado);
-                    return $valor;
-                }
-            ],
-            [
-                'attribute' => 'Estado_pago',
-                'label' => 'Estado de Pago',
-                'value' => function ($data) {
-                    $model = new \app\models\Venta();
-                    $estado = $data->Estado_pago;
-                    $valor = $model->EstadoDePago($estado);
-                    return $valor;
-                }
-            ],
-            [
-                'attribute' => 'porcentaje_pagado',
-                'label' => 'Porcentaje Pagado',
-                'value' => function ($data) {
-                    return $data->porcentaje_pagado . ' %';
-                }
-            ],
-            [
-                'attribute' => 'Factura_emitida',
-                'label' => 'Factura Emitida',
-                'value' => function ($data) {
-                    if ($data->Factura_emitida == 1) {
-                        $data = 'Generado';
-                    } else {
-                        $data = 'No Generado';
-                    }
-                    return $data;
-                }
-            ],
+            'numero_contrato',
+            'Estado',
 
             [
                 'class' => 'yii\grid\ActionColumn',
@@ -103,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'buttons' => [
                     'contrato' => function ($url, $model) {
 //                        return Html::a('<i class="fa fa-cogs"></i>', $url, ['title' => Yii::t('app', 'Eliminar'), 'class' => 'btn btn-default', 'data-confirm' => "Your confirmation message?", 'data-pjax' => '0']);
-                        return Html::a('<span class="fa fa-cogs"></span>', $url, ['title' => Yii::t('app', 'Generar Contrato'),'target' => '_blank', 'class' => 'btn btn-default', 'data' => ['pjax' => 0]]);
+                        return Html::a('<span class="fa fa-cogs"></span>', $url, ['title' => Yii::t('app', 'Generar Contrato'), 'target' => '_blank', 'class' => 'btn btn-default', 'data' => ['pjax' => 0]]);
                     },
 //                    'factura' => function ($url, $model, $key) {
 //                        return Html::a('<i class="fa fa-file-pdf-o"></i>', $url, ['title' => Yii::t('app', 'Generar Factura'),'target' => '_blank', 'class' => 'btn btn-default', 'data' => ['pjax' => 0]]);

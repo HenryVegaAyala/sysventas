@@ -22,12 +22,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            'Codigo_venta',
+            'Codigo_pasaporte',
+            'codigo_barra',
             'Nombre',
             'Vigencia',
             'Precio',
             'Stock',
-            'Codigo_pasaporte_afiliado',
-
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Detalle',
@@ -47,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'responsive' => true,
         'hover' => true,
         'condensed' => true,
-        'floatHeader' => true,
+//        'floatHeader' => true,
 
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',

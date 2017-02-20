@@ -3,9 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\ClubSearch */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var yii\web\View $this
+ * @var app\models\ClubSearch $model
+ * @var yii\widgets\ActiveForm $form
+ */
 ?>
 
 <div class="club-search">
@@ -26,8 +28,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'Vigencia') ?>
 
     <?php // echo $form->field($model, 'Desc_Afiliado') ?>
-
-    <?php // echo $form->field($model, 'Codigo_certificado') ?>
 
     <?php // echo $form->field($model, 'Fecha_Creado') ?>
 

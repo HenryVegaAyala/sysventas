@@ -7,6 +7,7 @@ use yii\bootstrap\Button;
 use app\models\Cliente;
 use yii\helpers\ArrayHelper;
 use app\models\Reporte;
+
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
@@ -62,8 +63,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     if ($data->Tarjeta_De_Credito == 0) {
                         $data = 'Tarjeta de Crédito';
-                    } else {
+                    } elseif ($data->Tarjeta_De_Credito == 1) {
                         $data = 'Tarjeta de Débito';
+                    }else{
+                        $data = '';
                     }
                     return $data;
                 }

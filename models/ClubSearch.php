@@ -18,7 +18,7 @@ class ClubSearch extends Club
     public function rules()
     {
         return [
-            [['Codigo_club', 'Vigencia', 'Codigo_certificado'], 'integer'],
+            [['Codigo_club', 'Vigencia'], 'integer'],
             [['Nombre', 'Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Estado'], 'safe'],
             [['Precio', 'Precio_por_Noche', 'Desc_Afiliado'], 'number'],
         ];
@@ -65,7 +65,6 @@ class ClubSearch extends Club
             'Precio_por_Noche' => $this->Precio_por_Noche,
             'Vigencia' => $this->Vigencia,
             'Desc_Afiliado' => $this->Desc_Afiliado,
-            'Codigo_certificado' => $this->Codigo_certificado,
             'Fecha_Creado' => $this->Fecha_Creado,
             'Fecha_Modificado' => $this->Fecha_Modificado,
             'Fecha_Eliminado' => $this->Fecha_Eliminado,

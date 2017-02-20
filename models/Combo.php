@@ -8,8 +8,11 @@ use Yii;
  * This is the model class for table "combo".
  *
  * @property integer $Codigo_Combo
- * @property string $Nombre
- * @property string $Precio
+ * @property integer $Codigo_venta
+ * @property string $convetidor1
+ * @property string $convetidor2
+ * @property string $Observacion
+ * @property string $Regalos
  * @property string $Fecha_Creado
  * @property string $Fecha_Modificado
  * @property string $Fecha_Eliminado
@@ -18,7 +21,7 @@ use Yii;
  * @property string $Usuario_Eliminado
  * @property string $Estado
  *
- * @property Factura[] $facturas
+ * @property Venta $codigoVenta
  */
 class Combo extends \yii\db\ActiveRecord
 {
@@ -36,12 +39,14 @@ class Combo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo_Combo'], 'required'],
-            [['Codigo_Combo'], 'integer'],
-            [['Precio'], 'number'],
-            [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'safe'],
-            [['Nombre'], 'string', 'max' => 100],
+            [['Codigo_venta'], 'required'],
+            [['Codigo_venta'], 'integer'],
+            [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
+            [['convetidor1'], 'string', 'max' => 250],
+            [['convetidor2', 'Observacion', 'Regalos'], 'string', 'max' => 255],
+            [['Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 200],
             [['Estado'], 'string', 'max' => 1],
+            [['Codigo_venta'], 'exist', 'skipOnError' => true, 'targetClass' => Venta::className(), 'targetAttribute' => ['Codigo_venta' => 'Codigo_venta']],
         ];
     }
 
@@ -52,8 +57,11 @@ class Combo extends \yii\db\ActiveRecord
     {
         return [
             'Codigo_Combo' => 'Codigo  Combo',
-            'Nombre' => 'Nombre',
-            'Precio' => 'Precio',
+            'Codigo_venta' => 'Codigo Venta',
+            'convetidor1' => 'Convetidor1',
+            'convetidor2' => 'Convetidor2',
+            'Observacion' => 'Observacion',
+            'Regalos' => 'Regalos',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',
             'Fecha_Eliminado' => 'Fecha  Eliminado',
@@ -67,8 +75,8 @@ class Combo extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getFacturas()
+    public function getCodigoVenta()
     {
-        return $this->hasMany(Factura::className(), ['Codigo_Combo' => 'Codigo_Combo']);
+        return $this->hasOne(Venta::className(), ['Codigo_venta' => 'Codigo_venta']);
     }
 }

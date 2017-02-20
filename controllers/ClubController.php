@@ -65,11 +65,8 @@ class ClubController extends Controller
     {
         $model = new Club();
 
-        if ($model->load(Yii::$app->request->post())){
-            $model->Codigo_club = $model->getCodigo();
-            $model->Estado = '1';
-            $model->save();
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->Codigo_club]);
         } else {
             return $this->render('create', [
                 'model' => $model,

@@ -21,11 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= DetailView::widget([
                 'model' => $model,
                 'attributes' => [
+                    'Codigo_venta',
+                    'Codigo_pasaporte',
+                    'codigo_barra',
                     'Nombre',
                     'Vigencia',
                     'Precio',
                     'Stock',
-                    'Codigo_pasaporte_afiliado',
                 ],
             ]) ?>
             <div class="panel-footer container-fluid foo">

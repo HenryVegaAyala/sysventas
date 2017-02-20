@@ -3,8 +3,6 @@
 namespace app\models;
 
 use Yii;
-use yii\db\Expression;
-use yii\db\Query;
 
 /**
  * This is the model class for table "pasaporte".
@@ -20,7 +18,7 @@ use yii\db\Query;
  * @property string $Usuario_Eliminado
  * @property string $Estado
  *
- * @property Certificado[] $certificados
+ * @property DetallePasaporte[] $detallePasaportes
  * @property Venta[] $ventas
  */
 class Pasaporte extends \yii\db\ActiveRecord
@@ -39,8 +37,7 @@ class Pasaporte extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo_pasaporte'], 'required'],
-            [['Codigo_pasaporte', 'Stock'], 'integer'],
+            [['Stock'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
             [['Nombre', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
@@ -69,9 +66,9 @@ class Pasaporte extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCertificados()
+    public function getDetallePasaportes()
     {
-        return $this->hasMany(Certificado::className(), ['Codigo_pasaporte_afiliado' => 'Codigo_pasaporte']);
+        return $this->hasMany(DetallePasaporte::className(), ['Codigo_pasaporte' => 'Codigo_pasaporte']);
     }
 
     /**

@@ -42,7 +42,7 @@ class ClienteSearch extends Cliente
         $CodigoUsuario = Yii::$app->user->identity->id;
 
         $where = new Expression($model->getFiltros($CodigoRol,$CodigoUsuario));
-        $query = Cliente::find()->where($where)->orderBy(['Fecha_Creado' => SORT_DESC]);
+        $query = Cliente::find()->where($where)->orderBy(['Codigo_Cliente' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

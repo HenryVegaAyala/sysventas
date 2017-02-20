@@ -65,11 +65,8 @@ class CertificadoController extends Controller
     {
         $model = new Certificado();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->Codigo_certificado = $model->getCodigo();
-            $model->Estado = '1';
-            $model->save();
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->Codigo_certificado]);
         } else {
             return $this->render('create', [
                 'model' => $model,

@@ -18,8 +18,8 @@ class CertificadoSearch extends Certificado
     public function rules()
     {
         return [
-            [['Codigo_certificado', 'Vigencia', 'Stock', 'Codigo_pasaporte_afiliado'], 'integer'],
-            [['Nombre', 'Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Estado'], 'safe'],
+            [['Codigo_certificado', 'Codigo_venta', 'Vigencia', 'Stock'], 'integer'],
+            [['Codigo_pasaporte', 'Nombre', 'codigo_barra', 'Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Estado'], 'safe'],
             [['Precio'], 'number'],
         ];
     }
@@ -61,16 +61,18 @@ class CertificadoSearch extends Certificado
         // grid filtering conditions
         $query->andFilterWhere([
             'Codigo_certificado' => $this->Codigo_certificado,
+            'Codigo_venta' => $this->Codigo_venta,
             'Vigencia' => $this->Vigencia,
             'Precio' => $this->Precio,
             'Stock' => $this->Stock,
-            'Codigo_pasaporte_afiliado' => $this->Codigo_pasaporte_afiliado,
             'Fecha_Creado' => $this->Fecha_Creado,
             'Fecha_Modificado' => $this->Fecha_Modificado,
             'Fecha_Eliminado' => $this->Fecha_Eliminado,
         ]);
 
-        $query->andFilterWhere(['like', 'Nombre', $this->Nombre])
+        $query->andFilterWhere(['like', 'Codigo_pasaporte', $this->Codigo_pasaporte])
+            ->andFilterWhere(['like', 'Nombre', $this->Nombre])
+            ->andFilterWhere(['like', 'codigo_barra', $this->codigo_barra])
             ->andFilterWhere(['like', 'Usuario_Creado', $this->Usuario_Creado])
             ->andFilterWhere(['like', 'Usuario_Modificado', $this->Usuario_Modificado])
             ->andFilterWhere(['like', 'Usuario_Eliminado', $this->Usuario_Eliminado])

@@ -8,19 +8,16 @@ use Yii;
  * This is the model class for table "comision".
  *
  * @property integer $Codigo
- * @property string $Nombre
+ * @property integer $Codigo_venta
+ * @property string $Codigo_usuario
  * @property string $monto
- * @property string $porcentaje
  * @property string $Fecha_Creado
  * @property string $Fecha_Modificado
  * @property string $Usuario_Creado
  * @property string $Usuario_Modificado
  * @property string $Estado
- * @property string $codigo_anfitrion
- * @property string $codigo_supervisor_anfitrion
- * @property string $codigo_jefe_anfitrion
- * @property string $no_access_closer
- * @property string $no_access_liner
+ *
+ * @property Venta $codigoVenta
  */
 class Comision extends \yii\db\ActiveRecord
 {
@@ -38,13 +35,14 @@ class Comision extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo'], 'required'],
-            [['Codigo'], 'integer'],
-            [['monto', 'porcentaje'], 'number'],
+            [['Codigo_venta'], 'required'],
+            [['Codigo_venta'], 'integer'],
+            [['monto'], 'number'],
             [['Fecha_Creado', 'Fecha_Modificado'], 'safe'],
-            [['Nombre'], 'string', 'max' => 11],
-            [['Usuario_Creado', 'Usuario_Modificado', 'codigo_anfitrion', 'codigo_supervisor_anfitrion', 'codigo_jefe_anfitrion', 'no_access_closer', 'no_access_liner'], 'string', 'max' => 100],
+            [['Codigo_usuario'], 'string', 'max' => 255],
+            [['Usuario_Creado', 'Usuario_Modificado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
+            [['Codigo_venta'], 'exist', 'skipOnError' => true, 'targetClass' => Venta::className(), 'targetAttribute' => ['Codigo_venta' => 'Codigo_venta']],
         ];
     }
 
@@ -55,19 +53,22 @@ class Comision extends \yii\db\ActiveRecord
     {
         return [
             'Codigo' => 'Codigo',
-            'Nombre' => 'Nombre',
+            'Codigo_venta' => 'Codigo Venta',
+            'Codigo_usuario' => 'Codigo Usuario',
             'monto' => 'Monto',
-            'porcentaje' => 'Porcentaje',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',
             'Usuario_Creado' => 'Usuario  Creado',
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Estado' => 'Estado',
-            'codigo_anfitrion' => 'Codigo Anfitrion',
-            'codigo_supervisor_anfitrion' => 'Codigo Supervisor Anfitrion',
-            'codigo_jefe_anfitrion' => 'Codigo Jefe Anfitrion',
-            'no_access_closer' => 'No Access Closer',
-            'no_access_liner' => 'No Access Liner',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCodigoVenta()
+    {
+        return $this->hasOne(Venta::className(), ['Codigo_venta' => 'Codigo_venta']);
     }
 }

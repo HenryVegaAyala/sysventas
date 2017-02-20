@@ -27,12 +27,15 @@ use yii\widgets\ActiveForm;
                 <div class="col-sm-3">
                     <?= $form->field($model, 'Nombre')->textInput(['maxlength' => true]) ?>
                 </div>
+
                 <div class="col-sm-3">
                     <?= $form->field($model, 'Precio')->textInput(['maxlength' => true]) ?>
                 </div>
+
                 <div class="col-sm-3">
                     <?= $form->field($model, 'Precio_por_Noche')->textInput(['maxlength' => true]) ?>
                 </div>
+
                 <div class="col-sm-3">
                     <?= $form->field($model, 'Vigencia')->textInput() ?>
                 </div>
@@ -44,14 +47,14 @@ use yii\widgets\ActiveForm;
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="panel-footer container-fluid foo">
-            <div class="col-sm-12">
-                <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
-                <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Limpiar", ['create'], ['class' => 'btn btn-primary']) ?>
-                <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
-            </div>
-            <?php ActiveForm::end(); ?>
+    <div class="panel-footer container-fluid foo">
+        <div class="col-sm-12">
+            <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
+            <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Limpiar", ['create'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
         </div>
+        <?php ActiveForm::end(); ?>
     </div>
 </div>

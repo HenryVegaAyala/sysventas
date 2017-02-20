@@ -147,9 +147,9 @@ $config = [
                 ['pattern' => '/ClienteAgendar/<id:\d+>', 'route' => '/cliente/agendar'],
 
                 /**Confirmador**/
-                    ['pattern' => '/listaConfirmada', 'route' => '/cliente/confirmador', 'suffix' => '.php'],
-                    ['pattern' => '/listaClientes', 'route' => 'cliente/index', 'suffix' => '.php'],
-                    ['pattern' => '/actualizarCliente/<id:\d+>', 'route' => '/cliente/update'],
+                ['pattern' => '/listaConfirmada', 'route' => '/cliente/confirmador', 'suffix' => '.php'],
+                ['pattern' => '/listaClientes', 'route' => 'cliente/index', 'suffix' => '.php'],
+                ['pattern' => '/actualizarCliente/<id:\d+>', 'route' => '/cliente/update'],
 
 
             ],

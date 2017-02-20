@@ -3,17 +3,18 @@
 namespace app\models;
 
 use Yii;
-use yii\db\Expression;
-use yii\db\Query;
+
 /**
  * This is the model class for table "certificado".
  *
  * @property integer $Codigo_certificado
+ * @property integer $Codigo_venta
+ * @property string $Codigo_pasaporte
  * @property string $Nombre
  * @property integer $Vigencia
  * @property string $Precio
  * @property integer $Stock
- * @property integer $Codigo_pasaporte_afiliado
+ * @property string $codigo_barra
  * @property string $Fecha_Creado
  * @property string $Fecha_Modificado
  * @property string $Fecha_Eliminado
@@ -22,8 +23,7 @@ use yii\db\Query;
  * @property string $Usuario_Eliminado
  * @property string $Estado
  *
- * @property Pasaporte $codigoPasaporteAfiliado
- * @property Club[] $clubs
+ * @property Venta $codigoVenta
  */
 class Certificado extends \yii\db\ActiveRecord
 {
@@ -41,20 +41,17 @@ class Certificado extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Nombre'], 'required'],
-            [['Codigo_certificado', 'Vigencia', 'Stock', 'Codigo_pasaporte_afiliado'], 'integer'],
+            [['Codigo_venta', 'Vigencia', 'Stock'], 'integer'],
+            [['Vigencia', 'Stock','Nombre'], 'required'],
             [['Precio'], 'number'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
+            [['Codigo_pasaporte', 'codigo_barra'], 'string', 'max' => 255],
             [['Nombre', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
-            [['Codigo_pasaporte_afiliado'], 'exist', 'skipOnError' => true, 'targetClass' => Pasaporte::className(), 'targetAttribute' => ['Codigo_pasaporte_afiliado' => 'Codigo_pasaporte']],
+            [['Codigo_venta'], 'exist', 'skipOnError' => true, 'targetClass' => Venta::className(), 'targetAttribute' => ['Codigo_venta' => 'Codigo_venta']],
 
-            [['Nombre'], 'match', 'pattern' => "/^.{3,80}$/", 'message' => 'Mínimo 3 caracteres'],
-            [['Nombre'], 'match', 'pattern' => "/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\_\-\/\. ]+$/i", 'message' => 'Sólo se aceptan letras'],
-
-            [['Vigencia', 'Stock', 'Codigo_pasaporte_afiliado'], 'integer', 'message' => 'Debe ser númerico.'],
-            [['Precio'], 'number', 'message' => 'Debe ser númerico.'],
-
+            [['codigo_barra'], 'match', 'pattern' => "/^.{9,9}$/", 'message' => 'Debe tener 9 digitos'],
+            [['codigo_barra'], 'required', 'message' => 'El codigo pasaporte es requerido.'],
         ];
     }
 
@@ -65,11 +62,13 @@ class Certificado extends \yii\db\ActiveRecord
     {
         return [
             'Codigo_certificado' => 'Codigo Certificado',
+            'Codigo_venta' => 'Codigo Venta',
+            'Codigo_pasaporte' => 'Codigo Pasaporte',
             'Nombre' => 'Nombre',
             'Vigencia' => 'Vigencia',
             'Precio' => 'Precio',
             'Stock' => 'Stock',
-            'Codigo_pasaporte_afiliado' => 'Pasaporte Afiliado',
+            'codigo_barra' => 'Ingresar Codigo Certificado',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',
             'Fecha_Eliminado' => 'Fecha  Eliminado',
@@ -83,27 +82,8 @@ class Certificado extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCodigoPasaporteAfiliado()
+    public function getCodigoVenta()
     {
-        return $this->hasOne(Pasaporte::className(), ['Codigo_pasaporte' => 'Codigo_pasaporte_afiliado']);
+        return $this->hasOne(Venta::className(), ['Codigo_venta' => 'Codigo_venta']);
     }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getClubs()
-    {
-        return $this->hasMany(Club::className(), ['Codigo_certificado' => 'Codigo_certificado']);
-    }
-
-    public function getCodigo()
-    {
-        $query = new Query();
-        $expresion = new Expression('IFNULL(MAX(Codigo_certificado), 0) + 1');
-        $query->select($expresion)->from('certificado');
-        $comando = $query->createCommand();
-        $data = $comando->queryScalar();
-        return $data;
-    }
-
 }

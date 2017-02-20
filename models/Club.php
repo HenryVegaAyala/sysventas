@@ -3,8 +3,7 @@
 namespace app\models;
 
 use Yii;
-use yii\db\Expression;
-use yii\db\Query;
+
 /**
  * This is the model class for table "club".
  *
@@ -14,7 +13,6 @@ use yii\db\Query;
  * @property string $Precio_por_Noche
  * @property integer $Vigencia
  * @property double $Desc_Afiliado
- * @property integer $Codigo_certificado
  * @property string $Fecha_Creado
  * @property string $Fecha_Modificado
  * @property string $Fecha_Eliminado
@@ -23,7 +21,7 @@ use yii\db\Query;
  * @property string $Usuario_Eliminado
  * @property string $Estado
  *
- * @property Certificado $codigoCertificado
+ * @property Venta[] $ventas
  */
 class Club extends \yii\db\ActiveRecord
 {
@@ -41,13 +39,11 @@ class Club extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Vigencia','Precio', 'Precio_por_Noche', 'Desc_Afiliado','Nombre'], 'required'],
-            [['Codigo_club', 'Vigencia', 'Codigo_certificado'], 'integer'],
             [['Precio', 'Precio_por_Noche', 'Desc_Afiliado'], 'number'],
+            [['Vigencia'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
             [['Nombre', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
-            [['Codigo_certificado'], 'exist', 'skipOnError' => true, 'targetClass' => Certificado::className(), 'targetAttribute' => ['Codigo_certificado' => 'Codigo_certificado']],
         ];
     }
 
@@ -59,11 +55,10 @@ class Club extends \yii\db\ActiveRecord
         return [
             'Codigo_club' => 'Codigo Club',
             'Nombre' => 'Nombre',
-            'Precio' => 'Precio Soles inc. IGV',
+            'Precio' => 'Precio',
             'Precio_por_Noche' => 'Precio Por  Noche',
-            'Vigencia' => 'Vigencia en años',
-            'Desc_Afiliado' => 'Descuento de Afiliado',
-            'Codigo_certificado' => 'Codigo Certificado',
+            'Vigencia' => 'Vigencia',
+            'Desc_Afiliado' => 'Desc  Afiliado',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',
             'Fecha_Eliminado' => 'Fecha  Eliminado',
@@ -77,18 +72,8 @@ class Club extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCodigoCertificado()
+    public function getVentas()
     {
-        return $this->hasOne(Certificado::className(), ['Codigo_certificado' => 'Codigo_certificado']);
-    }
-
-    public function getCodigo()
-    {
-        $query = new Query();
-        $expresion = new Expression('IFNULL(MAX(Codigo_club), 0) + 1');
-        $query->select($expresion)->from('club');
-        $comando = $query->createCommand();
-        $data = $comando->queryScalar();
-        return $data;
+        return $this->hasMany(Venta::className(), ['Codigo_club' => 'Codigo_club']);
     }
 }

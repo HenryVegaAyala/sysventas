@@ -3,9 +3,11 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\CertificadoSearch */
-/* @var $form yii\widgets\ActiveForm */
+/**
+ * @var yii\web\View $this
+ * @var app\models\CertificadoSearch $model
+ * @var yii\widgets\ActiveForm $form
+ */
 ?>
 
 <div class="certificado-search">
@@ -17,15 +19,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Codigo_certificado') ?>
 
+    <?= $form->field($model, 'Codigo_venta') ?>
+
+    <?= $form->field($model, 'Codigo_pasaporte') ?>
+
     <?= $form->field($model, 'Nombre') ?>
 
     <?= $form->field($model, 'Vigencia') ?>
 
-    <?= $form->field($model, 'Precio') ?>
+    <?php // echo $form->field($model, 'Precio') ?>
 
-    <?= $form->field($model, 'Stock') ?>
+    <?php // echo $form->field($model, 'Stock') ?>
 
-    <?php // echo $form->field($model, 'Codigo_pasaporte_afiliado') ?>
+    <?php // echo $form->field($model, 'codigo_barra') ?>
 
     <?php // echo $form->field($model, 'Fecha_Creado') ?>
 

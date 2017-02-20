@@ -2,16 +2,22 @@
 
 namespace app\controllers;
 
-use app\models\Cliente;
-use app\models\Pasaporte;
+use app\models\Certificado;
+use app\models\Combo;
+use app\models\Comision;
+use app\models\FormasPago;
+use app\models\Pago;
 use Yii;
 use app\models\Venta;
+use app\models\Cliente;
+use app\models\Beneficiario;
 use app\models\VentaSearch;
+use yii\db\Expression;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\db\Expression;
-use yii\db\Query;
+use synatree\dynamicrelations\DynamicRelations;
 
 class VentaController extends Controller
 {
@@ -30,7 +36,6 @@ class VentaController extends Controller
 
     public function actionIndex()
     {
-
         $searchModel = new VentaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -49,42 +54,147 @@ class VentaController extends Controller
 
     public function actionCreate()
     {
-//        echo "<script src=".Yii::$app->getUrlManager()->getBaseUrl()."/js/angular.min.js"."></script>";
-//        echo "<script src=".Yii::$app->getUrlManager()->getBaseUrl()."/js/app.js"."></script>";
-        echo "<script src=" . Yii::$app->getUrlManager()->getBaseUrl() . "/js/JsBarcode.all.min.js" . "></script>";
-
         $model = new Venta();
+        $cliente = new Cliente();
+        $certificado = new Certificado();
+        $incentivos = new Combo();
+        $pago = new Pago();
+        $formaPago = new FormasPago();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $dato = $model->Codigo_Cliente;
-            $model->InsertVenta(
-                $model->Codigo_venta = $model->getCodigo(),
-                $model->Estado = 1,
-                $model->Codigo_Cliente = $model->CodigoCliente($dato),
-                $model->medio_pago,
-                $model->Estado_pago,
-                $model->porcentaje_pagado,
-                $model->Codigo_club,
-                $model->Codigo_pasaporte
-            );
+        if ($model->load(Yii::$app->request->post()) && $cliente->load(Yii::$app->request->post()) && $certificado->load(Yii::$app->request->post()) && $incentivos->load(Yii::$app->request->post()) && $pago->load(Yii::$app->request->post()) && $formaPago->load(Yii::$app->request->post())) {
+
+            $CodigoCliente = $cliente->Codigo_Cliente;
+            $transaction = Yii::$app->db;
+            $transaction->createCommand()
+                ->update('cliente',
+                    ['Nombre' => $cliente->Nombre,
+                        'Apellido' => $cliente->Apellido,
+                        'dni' => $cliente->dni,
+                        'Edad' => $cliente->Edad,
+                        'Direccion' => $cliente->Direccion,
+                        'Distrito' => $cliente->Distrito,
+                        'Traslado' => $cliente->Traslado,
+                        'Tarjeta_De_Credito' => $cliente->Tarjeta_De_Credito,
+                        'Estado_Civil' => $cliente->Estado_Civil,
+                        'Profesion' => $cliente->Profesion,
+                        'Telefono_Casa' => $cliente->Telefono_Casa,
+                        'Telefono_Casa2' => $cliente->Telefono_Casa2,
+                        'Telefono_Celular' => $cliente->Telefono_Celular,
+                        'Telefono_Celular2' => $cliente->Telefono_Celular2,
+                        'Telefono_Celular3' => $cliente->Telefono_Celular3,
+                        'Email' => $cliente->Email,
+                        'Fecha_Modificado' => $this->ZonaHoraria(),
+                        'Usuario_Modificado' => Yii::$app->user->identity->email,
+                    ],
+                    'Codigo_Cliente = ' . $CodigoCliente)
+                ->execute();
+
+            $model->Codigo_venta = $model->getCodigoVenta(); // pertenecer a venta
+            $model->Codigo_club; // pertenecer a venta
+            $model->Codigo_pasaporte; // pertenecer a venta
+            $model->Codigo_Cliente = $cliente->Codigo_Cliente; // pertenecer a venta
+            $model->numero_contrato; // pertenecer a venta
+            $model->numero_pasaporte; // pertenecer a venta
+            $model->Fecha_Creado = $this->ZonaHoraria(); // pertenecer a venta
+            $model->Usuario_Creado = Yii::$app->user->identity->email; // pertenecer a venta
+            $model->Estado = 1; //creado pertenecer a venta
+            $model->save();
+
+            $command = Yii::$app->db->createCommand(
+                "INSERT INTO combo (Codigo_venta,convetidor1,convetidor2,Regalos,Observacion,Fecha_Creado,Usuario_Creado,Estado)
+                VALUES (:Codigo_venta,:convetidor1,:convetidor2,:Regalos,:Observacion,:Fecha_Creado,:Usuario_Creado,:Estado)");
+            $command->bindValue(':Codigo_venta', $model->Codigo_venta);
+            $command->bindValue(':convetidor1', $incentivos->convetidor1);
+            $command->bindValue(':convetidor2', $incentivos->convetidor2);
+            $command->bindValue(':Regalos', $incentivos->Regalos);
+            $command->bindValue(':Observacion', $incentivos->Observacion);
+            $command->bindValue(':Fecha_Creado', $this->ZonaHoraria());
+            $command->bindValue(':Usuario_Creado', Yii::$app->user->identity->email);
+            $command->bindValue(':Estado', "1");
+            $command->execute();
+
+//            var_dump(
+//                $pago->Codigo_venta = $model->Codigo_venta,
+//                $pago->codigo_pago = $model->getCodigoPago(),
+//                $pago->tipo_pago,
+//                $pago->estado_pago,
+//                $pago->monto_pagado = $model->montoTotal,
+//                $pago->monto_ingresado,
+//                $pago->monto_restante,
+//                $pago->Fecha_Creado = $this->ZonaHoraria(),
+//                $pago->Usuario_Creado = Yii::$app->user->identity->email,
+//                $pago->Estado = 1,
+//
+//                $formaPago->Codigo_TipoPago = $model->getCodigoFormaPago(),
+//                $formaPago->codigo_pago = $pago->codigo_pago,
+//                $formaPago->fecha_pago."----",
+//                $formaPago->monto,
+//                $formaPago->Fecha_Creado = $this->ZonaHoraria(),
+//                $formaPago->Usuario_Creado = Yii::$app->user->identity->email,
+//                $formaPago->Estado = 1
+//
+//            );
+//            exit();
+
+            $command = Yii::$app->db->createCommand(
+                "INSERT INTO pago (Codigo_venta,codigo_pago,tipo_pago,estado_pago,monto_pagado,monto_ingresado,monto_restante,Fecha_Creado,Usuario_Creado,Estado)
+                VALUES (:Codigo_venta,:codigo_pago,:tipo_pago,:estado_pago,:monto_pagado,:monto_ingresado,:monto_restante,:Fecha_Creado,:Usuario_Creado,:Estado)");
+            $command->bindValue(':Codigo_venta', $model->Codigo_venta);
+            $command->bindValue(':codigo_pago', $model->getCodigoPago());
+            $command->bindValue(':tipo_pago', $pago->tipo_pago);
+            $command->bindValue(':estado_pago', $pago->estado_pago);
+            $command->bindValue(':monto_pagado', $model->montoTotal);
+            $command->bindValue(':monto_ingresado', $pago->monto_ingresado);
+            $command->bindValue(':monto_restante', $pago->monto_restante);
+            $command->bindValue(':Fecha_Creado', $this->ZonaHoraria());
+            $command->bindValue(':Usuario_Creado', Yii::$app->user->identity->email);
+            $command->bindValue(':Estado', "1");
+            $command->execute();
+
+            $command = Yii::$app->db->createCommand(
+                "INSERT INTO formas_pago (Codigo_TipoPago,codigo_pago,fecha_pago,monto,Fecha_Creado,Usuario_Creado,Estado)
+                VALUES (:Codigo_TipoPago,:codigo_pago,:fecha_pago,:monto,:Fecha_Creado,:Usuario_Creado,:Estado)");
+            $command->bindValue(':Codigo_TipoPago', $model->getCodigoFormaPago());
+            $command->bindValue(':codigo_pago', $pago->codigo_pago);
+            $command->bindValue(':fecha_pago', $formaPago->fecha_pago);
+            $command->bindValue(':monto', $formaPago->monto);
+            $command->bindValue(':Fecha_Creado', $this->ZonaHoraria());
+            $command->bindValue(':Usuario_Creado', Yii::$app->user->identity->email);
+            $command->bindValue(':Estado', "1");
+            $command->execute();
+
+            Yii::$app->db->createCommand()
+                ->batchInsert('comision', ['Codigo', 'Codigo_venta', 'Codigo_usuario', 'Fecha_Creado', 'Usuario_Creado', 'Estado'],
+                    [
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision1, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision2, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision3, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision4, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision5, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision6, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision7, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision8, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision9, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision10, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision11, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision12, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision13, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                    ])
+                ->execute();
+
+            $formaPago->save();
+
+            DynamicRelations::relate($cliente, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
-            ]);
-        }
-    }
+                'cliente' => $cliente,
+                'certificado' => $certificado,
+                'incentivos' => $incentivos,
+                'pago' => $pago,
+                'formaPago' => $formaPago,
 
-    public function actionCliente()
-    {
-        $model = new Venta();
-
-        if ($model->load(Yii::$app->request->post())) {
-
-            return $this->redirect(['cliente/update', 'id' => $model->Codigo_Cliente]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
             ]);
         }
     }
@@ -109,165 +219,206 @@ class VentaController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionContrato($id)
-    {
-        $model = $this->findModel($id);
-        $Cliente = new Cliente();
-
-        $Nombre = $Cliente->Cliente($model->Codigo_Cliente);
-        $DNI = $Cliente->DataCliente($model->Codigo_Cliente, 1);
-        $Direccion = $Cliente->DataCliente($model->Codigo_Cliente, 2);
-        $Beneficiario = $Cliente->Beneficiario($model->Codigo_Cliente);
-
-        return $this->render('contrato', [
-            'model' => $model,
-            'Nombre' => $Nombre,
-            'DNI' => $DNI,
-            'Direccion' => $Direccion,
-            'Beneficiario' => $Beneficiario,
-        ]);
-    }
-
-    public function actionFactura($id)
-    {
-        $model = $this->findModel($id);
-        $Cliente = new Cliente();
-
-        $Nombre = $Cliente->Cliente($model->Codigo_Cliente);
-        $DNI = $Cliente->DataCliente($model->Codigo_Cliente, 1);
-        $Direccion = $Cliente->DataCliente($model->Codigo_Cliente, 2);
-        $Beneficiario = $Cliente->Beneficiario($model->Codigo_Cliente);
-
-        return $this->render('factura', [
-            'model' => $model,
-            'Nombre' => $Nombre,
-            'DNI' => $DNI,
-            'Direccion' => $Direccion,
-            'Beneficiario' => $Beneficiario,
-        ]);
-    }
-
-    public function actionArchivo($id)
-    {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post())) {
-
-            var_dump(
-            $model->extension,
-            $model->descripcion
-        );exit();
-
-            $model->save();
-            return $this->redirect(['index']);
-        } else {
-            return $this->render('archivo', [
-                'model' => $model,
-            ]);
-        }
-    }
-
-    public function actionPreproceso()
+    public function actionBusqueda()
     {
         $model = new Venta();
 
-        if (Empty($_POST['valorCaja1'])) {
-            echo "Debe seleccionar Club";
+        $Cliente = $_POST['cliente'];
+        $CodCliente = $model->CodigoCliente($Cliente);
+        $estado = "11";
+        $connection = Yii::$app->db;
+        $sqlStatement = " SELECT * FROM cliente WHERE Codigo_Cliente = '" . $CodCliente . "' and Estado = '" . $estado . "'";
+        $comando = $connection->createCommand($sqlStatement);
+        $resultado = $comando->query();
+
+        while ($row = $resultado->read()) {
+            echo $row['Codigo_Cliente'];
+            echo "/";
+            echo $row['Nombre'];
+            echo "/";
+            echo $row['Apellido'];
+            echo "/";
+            echo $row['Profesion'];
+            echo "/";
+            echo $row['Edad'];
+            echo "/";
+            echo $row['Estado_Civil'];
+            echo "/";
+            echo $row['Distrito'];
+            echo "/";
+            echo $row['Direccion'];
+            echo "/";
+            echo $row['Telefono_Casa'];
+            echo "/";
+            echo $row['Telefono_Casa2'];
+            echo "/";
+            echo $row['Telefono_Celular'];
+            echo "/";
+            echo $row['Telefono_Celular2'];
+            echo "/";
+            echo $row['Telefono_Celular3'];
+            echo "/";
+            echo $row['Email'];
+            echo "/";
+            echo $row['Traslado'];
+            echo "/";
+            echo $row['Tarjeta_De_Credito'];
+            echo "/";
+            echo $row['Promotor'];
+            echo "/";
+            echo $row['Local'];
+            echo "/";
+            echo $row['dni'];
+            echo "/";
+            echo $row['Super_Promotor'];
+            echo "/";
+            echo $row['Jefe_Promotor'];
+            echo "/";
+        }
+    }
+
+    public function actionValidarpasaporte()
+    {
+
+        if (Empty($_POST['tipopasaporte'])) {
+            echo "<i class=\"fa fa-spinner fa-spin fa-2x fa-fw\"></i> Debe seleccionar un Pasaporte.";
             exit();
-        } elseif (Empty($_POST['valorCaja2'])) {
-            echo "Debe seleccionar Pasaporte";
-            exit();
-        } elseif (Empty($_POST['valorCaja3'])) {
-            echo "Debe seleccionar Cliente";
+        } elseif (Empty($_POST['codigobarra'])) {
+            echo "<i class=\"fa fa-spinner fa-spin fa-2x fa-fw\"></i> Debe ingresar el codigo de barra.";
             exit();
         } else {
-            $Club = $_POST['valorCaja1'];
-            $Pasaporte = $_POST['valorCaja2'];
-            $Cliente = $_POST['valorCaja3'];
+            $TipoPasaporte = $_POST['tipopasaporte'];
+            $CodigoBarra = $_POST['codigobarra'];
         }
 
-        $CodCliente = $model->CodigoCliente($Cliente);
-        $model->SP_Certificado($Club, $Pasaporte, $CodCliente);
-        echo "Se genero Correctamente el codigo de barras";
+        $query = new Query();
+        $select = new Expression("Estado");
+        $where = new Expression("Codigo_pasaporte = $TipoPasaporte and codigo_barra = '" . $CodigoBarra . "'");
+        $query->select($select)->from('detalle_pasaporte')->where($where)->limit(1);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
 
+        if ($data == 1) {
+            echo "<i class=\"fa fa-font-awesome fa-2x  text-success\" aria-hidden=\"true\"></i> Este codigo puede usarse. ";
+        } elseif ($data == 2) {
+            echo "<i class=\"fa fa-font-awesome fa-2x  text-yellow\" aria-hidden=\"true\"></i> Este codigo ha sido solicitado. ";
+        } elseif ($data == 3) {
+            echo "<i class=\"fa fa-font-awesome fa-2x  text-danger\" aria-hidden=\"true\"></i> Este codigo ha sido usado. ";
+        } elseif ($data == null) {
+            echo "<i class=\"fa fa-wrench fa-2x  text-danger\" aria-hidden=\"true\"></i></i> No existe ese codigo. ";
+        }
     }
 
-    public function actionListado()
+    public function actionInsertcodigobarra()
     {
-        $model = new Venta();
 
-//        if (Empty($_POST['Club'])) {
-//            echo "Debe seleccionar Club";
-//            exit();
-//        } elseif (Empty($_POST['Pasaporte'])) {
-//            echo "Debe seleccionar Pasaporte";
-//            exit();
-//        } elseif (Empty($_POST['Cliente'])) {
-//            echo "Debe seleccionar Cliente";
-//            exit();
-//        } else {
-        $Club = $_POST['Club'];
-        $Pasaporte = $_POST['Pasaporte'];
-        $Cliente = $_POST['Cliente'];
-        $CodCliente = $model->CodigoCliente($Cliente);
-//        echo "$Club" . "$Pasaporte" . "$CodCliente";
-//        }
-//        $CodCliente = $model->CodigoCliente($Cliente);
-
-//        $connection = Yii::$app->db;
-//        $sqlStatement = "
-//        SELECT Codigo_Correlativo
-//        FROM certificado
-//        WHERE Codigo_Cliente = '" . $CodCliente . "' and club_Codigo_club = '" . $Club . "' and pasaporte_Codigo_pasaporte = '" . $Pasaporte . "';
-//        ";
-//        $comando = $connection->createCommand($sqlStatement);
-//        $resultado = $comando->query();
-//
-//        while ($row = $resultado->read()) {
-////            echo '<tr>';
-//            echo '<td>' . $resultado['Codigo_Correlativo'] . '</td>';
-////            echo '</tr>';
-//        }
-
-        $con = mysqli_connect('localhost', 'root', '');
-//        $con2 = mysqli_connect('localhost', 'groupg12_rustica', 'root2017');
-        if (!$con) {
-            die('Could not connect: ' . mysqli_error($con));
+        if (Empty($_POST['codigobarra'])) {
+            echo "<i class=\"fa fa-spinner fa-spin fa-2x fa-fw\"></i> Debe Ingresar Codigo Certificado.";
+            exit();
+        } elseif (Empty($_POST['totalnoches'])) {
+            echo "<i class=\"fa fa-spinner fa-spin fa-2x fa-fw\"></i> Debe Seleccionar tipo Club.";
+            exit();
+        } elseif (Empty($_POST['codigopasaporte'])) {
+            echo "<i class=\"fa fa-spinner fa-spin fa-2x fa-fw\"></i> Debes tener un pasaporte activo.";
+            exit();
+        } else {
+            $CodigoBarra = $_POST['codigobarra'];
+            $TotalNoches = $_POST['totalnoches'];
+            $codigopasaporte = $_POST['codigopasaporte'];
         }
 
-        mysqli_select_db($con, "sis_crm");
-//        mysqli_select_db($con, "groupg12_rustica");
-        $sql = "
-        SELECT Codigo_Correlativo
-        FROM certificado
-        WHERE Codigo_Cliente = '" . $CodCliente . "' and club_Codigo_club = '" . $Club . "' and pasaporte_Codigo_pasaporte = '" . $Pasaporte . "';
-        ";
-        $result = mysqli_query($con, $sql);
+        $query = new Query();
+        $select = new Expression("Estado");
+        $where = new Expression("codigo_barra = '" . $CodigoBarra . "'");
+        $query->select($select)->from('certificado')->where($where)->limit(1);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
 
-        $cantidad = mysqli_num_rows(($result));
+        if ($data == 1) {
+            echo "<i class=\"fa fa-font-awesome fa-2x  text-success\" aria-hidden=\"true\"></i> Este codigo puede usarse. ";
+            $connection = Yii::$app->db;
+            $command = $connection->createCommand("call ProcesarCertificado('" . $CodigoBarra . "','" . $codigopasaporte . "')");
+            $command->execute();
 
-        for ($i = 0; $i < $cantidad;) {
-
-            while ($row = mysqli_fetch_array($result)) {
-                echo "<svg id='barcode$i'></svg>";
-                echo "<script> JsBarcode('#barcode$i', " . $row['Codigo_Correlativo'] . ");</script>";
-
-                $i++;
-            }
+        } elseif ($data == 2) {
+            echo "<i class=\"fa fa-font-awesome fa-2x  text-yellow\" aria-hidden=\"true\"></i> Este codigo ha sido solicitado. ";
+        } elseif ($data == 3) {
+            echo "<i class=\"fa fa-font-awesome fa-2x  text-danger\" aria-hidden=\"true\"></i> Este codigo ha sido usado. ";
+        } elseif ($data == null) {
+            echo "<i class=\"fa fa-wrench fa-2x  text-danger\" aria-hidden=\"true\"></i></i> No existe ese codigo. ";
         }
-
-        mysqli_close($con);
-
     }
 
+    public function actionCargardata()
+    {
+        if (Empty($_POST['codigopasaporte'])) {
+            exit();
+        } else {
+            $codigopasaporte = $_POST['codigopasaporte'];
+        }
 
-    protected
-    function findModel($id)
+        $connection = Yii::$app->db;
+        $sqlStatement = "SELECT codigo_barra FROM certificado WHERE Codigo_pasaporte = '" . $codigopasaporte . "'";
+        $comando = $connection->createCommand($sqlStatement);
+        $resultado = $comando->query();
+
+        $count = $resultado->rowCount;
+
+        while ($row = $resultado->read()) {
+            echo $row['codigo_barra'];
+            echo " - ";
+        }
+
+//        echo $count;
+    }
+
+    public function actionCount()
+    {
+        if (Empty($_POST['codigopasaporte'])) {
+            exit();
+        } else {
+            $codigopasaporte = $_POST['codigopasaporte'];
+        }
+
+        $connection = Yii::$app->db;
+        $sqlStatement = "SELECT codigo_barra FROM certificado WHERE Codigo_pasaporte = '" . $codigopasaporte . "'";
+        $comando = $connection->createCommand($sqlStatement);
+        $resultado = $comando->query();
+
+        $count = $resultado->rowCount;
+        echo $count;
+    }
+
+    public function actionCosto()
+    {
+        if (Empty($_POST['codigo'])) {
+            exit();
+        } else {
+            $codigo = $_POST['codigo'];
+        }
+        $query = new Query();
+        $select = new Expression("precio");
+        $where = new Expression("Codigo_club = '" . $codigo . "'");
+        $query->select($select)->from('club')->where($where)->limit(1);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+
+        echo $data;
+    }
+
+    protected function findModel($id)
     {
         if (($model = Venta::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function ZonaHoraria()
+    {
+        date_default_timezone_set('America/Lima');
+        $Fecha_Hora = date('Y-m-d h:i:s', time());
+        return $Fecha_Hora;
     }
 }

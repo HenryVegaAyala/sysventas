@@ -12,12 +12,9 @@ use yii\helpers\ArrayHelper;
  *
  * @property integer $Codigo_venta
  * @property integer $Codigo_club
+ * @property integer $Codigo_pasaporte
  * @property integer $Codigo_Cliente
- * @property integer $medio_pago
- * @property integer $Estado_pago
- * @property integer $porcentaje_pagado
- * @property string $cod_barra_pasaporte
- * @property string $cod_barra_pasaporte_manual
+ * @property string $numero_contrato
  * @property string $Fecha_Creado
  * @property string $Fecha_Modificado
  * @property string $Fecha_Eliminado
@@ -25,23 +22,62 @@ use yii\helpers\ArrayHelper;
  * @property string $Usuario_Modificado
  * @property string $Usuario_Eliminado
  * @property integer $Estado
- * @property integer $Factura_emitida
- * @property integer $Codigo_pasaporte
- * @property integer $Cod_certificado
- * @property integer $n_cuota
- * @property string $extension
- * @property string $descripcion
- * @property string $ruta_archivo
  *
- * @property Contrato[] $contratos
+ * @property string $uso_interno
+ * @property string $numero_pasaporte
+ * @property integer $numero_escaneado
+ * @property integer $numero_total
+ * @property double $montoTotal
+ * @property integer $restante
+ *
+ * @property string $codigo_comision1;
+ * @property string $codigo_comision2;
+ * @property string $codigo_comision3;
+ * @property string $codigo_comision4;
+ * @property string $codigo_comision5;
+ * @property string $codigo_comision6;
+ * @property string $codigo_comision7;
+ * @property string $codigo_comision8;
+ * @property string $codigo_comision9;
+ * @property string $codigo_comision10;
+ * @property string $codigo_comision11;
+ * @property string $codigo_comision12;
+ * @property string $codigo_comision13;
+ * @property string $Codigo_venta_Comision;
+ * @property string $CodigoComision;
+ *
+ * @property Certificado[] $certificados
+ * @property Combo[] $combos
+ * @property Comision[] $comisions
  * @property Documento[] $documentos
+ * @property Pago[] $pagos
  * @property Cliente $codigoCliente
  * @property Club $codigoClub
+ * @property Pasaporte $codigoPasaporte
  */
 class Venta extends \yii\db\ActiveRecord
 {
-
     public $uso_interno;
+    public $numero_escaneado;
+    public $numero_total;
+    public $montoTotal;
+    public $restante;
+
+    public $CodigoComision;
+    public $Codigo_venta_Comision;
+    public $codigo_comision1;
+    public $codigo_comision2;
+    public $codigo_comision3;
+    public $codigo_comision4;
+    public $codigo_comision5;
+    public $codigo_comision6;
+    public $codigo_comision7;
+    public $codigo_comision8;
+    public $codigo_comision9;
+    public $codigo_comision10;
+    public $codigo_comision11;
+    public $codigo_comision12;
+    public $codigo_comision13;
 
     /**
      * @inheritdoc
@@ -57,38 +93,19 @@ class Venta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo_venta', 'Codigo_club', 'Codigo_Cliente', 'medio_pago', 'Estado_pago', 'Codigo_pasaporte','ruta_archivo','descripcion'], 'required'],
-            [['Codigo_venta', 'Codigo_club', 'Codigo_pasaporte'], 'integer'],
-            [['porcentaje_pagado'], 'number'],
+            [['Codigo_club', 'Codigo_pasaporte', 'Codigo_Cliente','numero_contrato','uso_interno'], 'required'],
+            [['Codigo_club', 'Codigo_pasaporte', 'Codigo_Cliente', 'Estado'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
-            [['medio_pago', 'Estado_pago', 'Estado', 'Factura_emitida'], 'string', 'max' => 1],
-            [['cod_barra_pasaporte', 'cod_barra_pasaporte_manual'], 'string', 'max' => 45],
-            [['ruta_archivo','descripcion'], 'string', 'max' => 255],
-            [['Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
+            [['numero_contrato', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
             [['Codigo_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => Cliente::className(), 'targetAttribute' => ['Codigo_Cliente' => 'Codigo_Cliente']],
             [['Codigo_club'], 'exist', 'skipOnError' => true, 'targetClass' => Club::className(), 'targetAttribute' => ['Codigo_club' => 'Codigo_club']],
+            [['Codigo_pasaporte'], 'exist', 'skipOnError' => true, 'targetClass' => Pasaporte::className(), 'targetAttribute' => ['Codigo_pasaporte' => 'Codigo_pasaporte']],
 
-            [['Codigo_Cliente'], 'match', 'pattern' => "/^.{3,80}$/", 'message' => 'Mínimo 3 caracteres'],
-            [['Codigo_Cliente'], 'match', 'pattern' => "/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\_\-\/\. ]+$/i", 'message' => 'Sólo se aceptan letras'],
-
-            [['porcentaje_pagado'], 'integer', 'message' => 'Debe ser númerico.'],
-            [['porcentaje_pagado', 'cod_barra_pasaporte'], 'match', 'pattern' => "/^.{1,15}$/", 'message' => 'Mínimo 1 caracteres'],
-
-//            [['porcentaje_pagado'], 'required', 'message' => '% Pagado es requerido.'],
-
-            ['ruta_archivo', 'file',
-//                'skipOnEmpty' => false,
-                'uploadRequired' => 'No has seleccionado ningún archivo', //Error
-                'maxSize' => 1024 * 1024 * 2, //1 MB
-                'tooBig' => 'El tamaño máximo permitido es 2MB', //Error
-                'minSize' => 10, //10 Bytes
-                'tooSmall' => 'El tamaño mínimo permitido son 10 BYTES', //Error
-                'extensions' => 'pdf, jpg, png',
-                'wrongExtension' => 'El archivo {file} no contiene una extensión permitida {extensions}', //Error
-                'maxFiles' => 4,
-                'tooMany' => 'El máximo de archivos permitidos son {limit}', //Error
-            ]
-
+            [['uso_interno'], 'string'],
+            [['numero_pasaporte'], 'match', 'pattern' => "/^.{9,9}$/", 'message' => 'Debe tener 9 digitos'],
+            [['numero_pasaporte'], 'required', 'message' => 'El codigo pasaporte es requerido.'],
+            [['numero_escaneado', 'numero_total', 'montoTotal', 'restante'], 'double'],
+            [['Codigo_venta_Comision','CodigoComision','codigo_comision1', 'codigo_comision2', 'codigo_comision3', 'codigo_comision4', 'codigo_comision5', 'codigo_comision6','codigo_comision7', 'codigo_comision8', 'codigo_comision9', 'codigo_comision10', 'codigo_comision11', 'codigo_comision12', 'codigo_comision13'], 'string'],
         ];
     }
 
@@ -100,12 +117,9 @@ class Venta extends \yii\db\ActiveRecord
         return [
             'Codigo_venta' => 'Codigo Venta',
             'Codigo_club' => 'Tipo de Club',
-            'Codigo_Cliente' => 'Datos del Cliente',
-            'medio_pago' => 'Medio de Pago',
-            'Estado_pago' => 'Estado de Pago',
-            'porcentaje_pagado' => 'Porcentaje Pagado',
-            'cod_barra_pasaporte' => 'Codigo de Barra',
-            'cod_barra_pasaporte_manual' => 'Codigo de Barra Manual',
+            'Codigo_pasaporte' => 'Tipo de Pasaporte',
+            'Codigo_Cliente' => 'Codigo  Cliente',
+            'numero_contrato' => 'Numero Contrato',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',
             'Fecha_Eliminado' => 'Fecha  Eliminado',
@@ -113,22 +127,52 @@ class Venta extends \yii\db\ActiveRecord
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Estado' => 'Estado',
-            'Factura_emitida' => 'Factura Emitida',
-            'Codigo_pasaporte' => 'Pasaporte',
-            'uso_interno' => 'Ingresar Codigo de barras manual',
-            'Cod_certificado' => 'Certificados',
-            'n_cuota' => 'N° de cuotas',
-            'archivo' => 'Factura',
-            'descripcion' => 'Comentario',
+            'numero_pasaporte' => 'Ingresar Código de Pasaporte',
+            'numero_escaneado' => 'Escaneados',
+            'numero_total' => 'Total Noches',
+            'uso_interno' => 'Buscar Clientes',
+
+            'codigo_comision1' => 'Digitador',
+            'codigo_comision2' => 'OPC',
+            'codigo_comision3' => 'Supervisor Promotor',
+            'codigo_comision4' => 'Supervior General OPC',
+            'codigo_comision5' => 'Director de Mercadero',
+            'codigo_comision6' => 'TLMK',
+            'codigo_comision7' => 'Confirmadora',
+            'codigo_comision8' => 'Director de TLMK',
+            'codigo_comision9' => 'Liner',
+            'codigo_comision10' => 'Closer',
+            'codigo_comision11' => 'Jefe de Sala',
+            'codigo_comision12' => 'Director de Ventas',
+            'codigo_comision13' => 'Director de Proyectos',
+
+
+
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getContratos()
+    public function getCertificados()
     {
-        return $this->hasMany(Contrato::className(), ['Codigo_venta' => 'Codigo_venta']);
+        return $this->hasMany(Certificado::className(), ['Codigo_venta' => 'Codigo_venta']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCombos()
+    {
+        return $this->hasMany(Combo::className(), ['Codigo_venta' => 'Codigo_venta']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getComisions()
+    {
+        return $this->hasMany(Comision::className(), ['Codigo_venta' => 'Codigo_venta']);
     }
 
     /**
@@ -137,6 +181,14 @@ class Venta extends \yii\db\ActiveRecord
     public function getDocumentos()
     {
         return $this->hasMany(Documento::className(), ['Codigo_venta' => 'Codigo_venta']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPagos()
+    {
+        return $this->hasMany(Pago::className(), ['Codigo_venta' => 'Codigo_venta']);
     }
 
     /**
@@ -155,25 +207,14 @@ class Venta extends \yii\db\ActiveRecord
         return $this->hasOne(Club::className(), ['Codigo_club' => 'Codigo_club']);
     }
 
-    public function getCodigo()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCodigoPasaporte()
     {
-        $query = new Query();
-        $expresion = new Expression('IFNULL(MAX(Codigo_venta), 0) + 1');
-        $query->select($expresion)->from('venta');
-        $comando = $query->createCommand();
-        $data = $comando->queryScalar();
-        return $data;
+        return $this->hasOne(Pasaporte::className(), ['Codigo_pasaporte' => 'Codigo_pasaporte']);
     }
 
-    public function getCliente()
-    {
-        $data = Cliente::find()
-            ->select(["concat(Nombre ,' ', Apellido) as value", "concat(Nombre ,' ', Apellido) as label"])
-            ->where('estado = 11')
-            ->asArray()
-            ->all();
-        return $data;
-    }
 
     public function getPasaporte()
     {
@@ -183,56 +224,6 @@ class Venta extends \yii\db\ActiveRecord
                 ->asArray()
                 ->all(), 'Codigo_pasaporte', 'Nombre');
         return $resultado;
-    }
-
-    public function getMedioDePago()
-    {
-        $var = [
-            0 => 'Tarjeta de Credito',
-            1 => 'Tarjeta de Debito',
-            2 => 'Efectivo',
-        ];
-        return $var;
-    }
-
-    public function MedioDePago($codigo)
-    {
-        switch ($codigo) {
-            case 0:
-                return 'Tarjeta de Credito';
-                break;
-            case 1:
-                return 'Tarjeta de Debito';
-                break;
-            case 2:
-                return 'Efectivo';
-                break;
-        }
-    }
-
-    public function getEstadoDePago()
-    {
-        $var = [
-            0 => 'Adelanto',
-            1 => 'Anulado',
-            2 => 'Cancelado',
-        ];
-        return $var;
-    }
-
-    public function EstadoDePago($codigo)
-    {
-        switch ($codigo) {
-            case 0:
-                return 'Adelanto';
-                break;
-            case 1:
-                return 'Anulado';
-                break;
-            case 2:
-                return 'Cancelado';
-                break;
-        }
     }
 
     public function getClub()
@@ -256,22 +247,96 @@ class Venta extends \yii\db\ActiveRecord
         return $data;
     }
 
-    public function InsertVenta($CodVen, $Est, $CodCli, $MedP, $EstPag, $PorPag, $CodClu, $CodPas)
+    public function getCliente()
     {
-        $db = Yii::$app->db;
-        $transaction = $db->beginTransaction();
-        $db->createCommand()
-            ->insert('venta', [
-                'Codigo_venta' => $CodVen,
-                'Estado' => $Est,
-                'Codigo_Cliente' => $CodCli,
-                'medio_pago' => $MedP,
-                'Estado_pago' => $EstPag,
-                'porcentaje_pagado' => $PorPag,
-                'Codigo_club' => $CodClu,
-                'Codigo_pasaporte' => $CodPas])
-            ->execute();
-        $transaction->commit();
+        $data = Cliente::find()
+            ->select(["concat(Nombre ,' ', Apellido) as value", "concat(Nombre ,' ', Apellido) as label"])
+            ->where('estado in (11)')
+            ->asArray()
+            ->all();
+        return $data;
+    }
+
+    public function getCodigoCertificado()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(Codigo_certificado), 0) + 1');
+        $query->select($expresion)->from('certificado');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function getCodigoPago()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(codigo_pago), 0) + 1');
+        $query->select($expresion)->from('pago');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function getCodigoFormaPago()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(Codigo_TipoPago), 0) + 1');
+        $query->select($expresion)->from('formas_pago');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function getCodigoVenta()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(Codigo_venta), 0) + 1');
+        $query->select($expresion)->from('venta');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function getCodigoCombo()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(Codigo_Combo), 0) + 1');
+        $query->select($expresion)->from('combo');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function getCodigoComision()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(codigo), 0) + 1');
+        $query->select($expresion)->from('comision');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function getMedioDePago()
+    {
+        $var = [
+            0 => 'Tarjeta de Credito',
+            1 => 'Tarjeta de Debito',
+            2 => 'Plazo',
+            3 => 'Letras',
+            4 => 'Cash',
+        ];
+        return $var;
+    }
+
+    public function getEstadoDePago()
+    {
+        $var = [
+            0 => 'Adelanto',
+            1 => 'Pendiente',
+            2 => 'Cancelado',
+        ];
+        return $var;
     }
 
     public function Club($codigo)
@@ -283,19 +348,4 @@ class Venta extends \yii\db\ActiveRecord
         return $data;
     }
 
-    public function Pasaporte($codigo)
-    {
-        $query = new Query();
-        $query->select('Nombre')->from('pasaporte')->where("Codigo_pasaporte ='" . $codigo . "'");
-        $comando = $query->createCommand();
-        $data = $comando->queryScalar();
-        return $data;
-    }
-
-    public function SP_Certificado($club,$pasaporte,$cliente)
-    {
-        $connection = Yii::$app->db;
-        $command = $connection->createCommand("call Asignar_Codigo_Barra('" . $club . "','" . $pasaporte . "','" . $cliente . "')");
-        $command->execute();
-    }
 }

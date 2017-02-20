@@ -116,29 +116,6 @@ class VentaController extends Controller
             $command->bindValue(':Estado', "1");
             $command->execute();
 
-//            var_dump(
-//                $pago->Codigo_venta = $model->Codigo_venta,
-//                $pago->codigo_pago = $model->getCodigoPago(),
-//                $pago->tipo_pago,
-//                $pago->estado_pago,
-//                $pago->monto_pagado = $model->montoTotal,
-//                $pago->monto_ingresado,
-//                $pago->monto_restante,
-//                $pago->Fecha_Creado = $this->ZonaHoraria(),
-//                $pago->Usuario_Creado = Yii::$app->user->identity->email,
-//                $pago->Estado = 1,
-//
-//                $formaPago->Codigo_TipoPago = $model->getCodigoFormaPago(),
-//                $formaPago->codigo_pago = $pago->codigo_pago,
-//                $formaPago->fecha_pago."----",
-//                $formaPago->monto,
-//                $formaPago->Fecha_Creado = $this->ZonaHoraria(),
-//                $formaPago->Usuario_Creado = Yii::$app->user->identity->email,
-//                $formaPago->Estado = 1
-//
-//            );
-//            exit();
-
             $command = Yii::$app->db->createCommand(
                 "INSERT INTO pago (Codigo_venta,codigo_pago,tipo_pago,estado_pago,monto_pagado,monto_ingresado,monto_restante,Fecha_Creado,Usuario_Creado,Estado)
                 VALUES (:Codigo_venta,:codigo_pago,:tipo_pago,:estado_pago,:monto_pagado,:monto_ingresado,:monto_restante,:Fecha_Creado,:Usuario_Creado,:Estado)");
@@ -342,7 +319,6 @@ class VentaController extends Controller
             $connection = Yii::$app->db;
             $command = $connection->createCommand("call ProcesarCertificado('" . $CodigoBarra . "','" . $codigopasaporte . "')");
             $command->execute();
-
         } elseif ($data == 2) {
             echo "<i class=\"fa fa-font-awesome fa-2x  text-yellow\" aria-hidden=\"true\"></i> Este codigo ha sido solicitado. ";
         } elseif ($data == 3) {

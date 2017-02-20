@@ -43,6 +43,7 @@ function busqueda(cliente) {
             $("#FormaPago").show();
             $("#Comisiones").show();
             $("#Ncontrato").show();
+            $("#Selectsalas").show();
             $("#Busqueda").hide();
             $("#btnBotones").show();
         },

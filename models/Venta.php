@@ -22,6 +22,10 @@ use yii\helpers\ArrayHelper;
  * @property string $Usuario_Modificado
  * @property string $Usuario_Eliminado
  * @property integer $Estado
+ * @property string $numero_comprobante
+ * @property string $serie_comprobante
+ * @property integer $salas
+ *
  *
  * @property string $uso_interno
  * @property string $numero_pasaporte
@@ -93,13 +97,22 @@ class Venta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo_club', 'Codigo_pasaporte', 'Codigo_Cliente','numero_contrato','uso_interno'], 'required'],
+            [['Codigo_club', 'Codigo_pasaporte', 'Codigo_Cliente','uso_interno'], 'required'],
             [['Codigo_club', 'Codigo_pasaporte', 'Codigo_Cliente', 'Estado'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
             [['numero_contrato', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
             [['Codigo_Cliente'], 'exist', 'skipOnError' => true, 'targetClass' => Cliente::className(), 'targetAttribute' => ['Codigo_Cliente' => 'Codigo_Cliente']],
             [['Codigo_club'], 'exist', 'skipOnError' => true, 'targetClass' => Club::className(), 'targetAttribute' => ['Codigo_club' => 'Codigo_club']],
             [['Codigo_pasaporte'], 'exist', 'skipOnError' => true, 'targetClass' => Pasaporte::className(), 'targetAttribute' => ['Codigo_pasaporte' => 'Codigo_pasaporte']],
+
+            [['serie_comprobante'], 'string'],
+            [['numero_comprobante'], 'string'],
+            [['salas'], 'string'],
+
+            [['numero_contrato'], 'required', 'message' => 'N° de Contrato es necesario.'],
+            [['serie_comprobante'], 'required', 'message' => 'Se requiere la Serie.'],
+            [['numero_comprobante'], 'required', 'message' => 'Se requiere N° de Comprobante.'],
+            [['salas'], 'required', 'message' => 'Se requiere seleccionar una sala.'],
 
             [['uso_interno'], 'string'],
             [['numero_pasaporte'], 'match', 'pattern' => "/^.{9,9}$/", 'message' => 'Debe tener 9 digitos'],
@@ -131,6 +144,8 @@ class Venta extends \yii\db\ActiveRecord
             'numero_escaneado' => 'Escaneados',
             'numero_total' => 'Total Noches',
             'uso_interno' => 'Buscar Clientes',
+            'serie_comprobante' => 'Serie del Comprobante',
+            'numero_comprobante' => 'Número del Comprobante',
 
             'codigo_comision1' => 'Digitador',
             'codigo_comision2' => 'OPC',
@@ -251,7 +266,7 @@ class Venta extends \yii\db\ActiveRecord
     {
         $data = Cliente::find()
             ->select(["concat(Nombre ,' ', Apellido) as value", "concat(Nombre ,' ', Apellido) as label"])
-            ->where('estado in (11)')
+            ->where('estado in (1,2,3,4,5,6,7,8,9,10,11,12,13)')
             ->asArray()
             ->all();
         return $data;
@@ -335,6 +350,16 @@ class Venta extends \yii\db\ActiveRecord
             0 => 'Adelanto',
             1 => 'Pendiente',
             2 => 'Cancelado',
+        ];
+        return $var;
+    }
+
+    public function getSalas()
+    {
+        $var = [
+            0 => 'Pachacamac',
+            1 => 'Costa Verde',
+            2 => 'Vichayito.',
         ];
         return $var;
     }

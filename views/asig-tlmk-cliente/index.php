@@ -16,6 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="asig-tlmk-cliente-index">
 
+    <?//= $this->render('_search', ['model' => $searchModel]); ?>
+
     <?php Pjax::begin();
     echo GridView::widget([
         'dataProvider' => $dataProvider,
@@ -114,9 +116,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         $modelo = new \app\models\Reporte();
                         $estado = $model->Codigo_Cliente;
                         $valor = $cliente->Datoscliente($estado, 5);
-                        if ($valor == 11){
+                        if ($valor == 11) {
                             return '';
-                        }else{
+                        } else {
                             return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
                                 Yii::$app->urlManager->createUrl(['cliente/vista', 'id' => $model->Codigo_Cliente]),
                                 ['title' => Yii::t('yii', 'Ver'),]

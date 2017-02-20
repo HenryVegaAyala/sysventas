@@ -63,9 +63,10 @@ class Cliente extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Nombre', 'Apellido', 'Estado_Civil', 'Distrito', 'Profesion', 'Direccion', 'dni'], 'required'],
+//            [['Nombre', 'Apellido', 'Estado_Civil', 'Distrito', 'Profesion', 'Direccion', 'dni'], 'required'],
+            [['Nombre', 'Estado_Civil', 'Distrito', 'Profesion', 'Direccion'], 'required'],
             [['Edad'], 'required', 'message' => 'Edad es requerida.'],
-            [['dni'], 'required', 'message' => 'DNI es requerido.'],
+//            [['dni'], 'required', 'message' => 'DNI es requerido.'],
             [['Codigo_Cliente', 'Edad', 'Tarjeta_De_Credito'], 'integer', 'message' => 'Debe ser númerico.'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado', 'Agendado'], 'safe'],
             [['Nombre', 'Apellido', 'Distrito', 'Local', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado', 'Super_Promotor', 'Jefe_Promotor'], 'string', 'max' => 100],

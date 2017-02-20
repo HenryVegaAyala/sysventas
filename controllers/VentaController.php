@@ -98,6 +98,9 @@ class VentaController extends Controller
             $model->Fecha_Creado = $this->ZonaHoraria(); // pertenecer a venta
             $model->Usuario_Creado = Yii::$app->user->identity->email; // pertenecer a venta
             $model->Estado = 1; //creado pertenecer a venta
+            $model->numero_comprobante; // pertenecer a venta
+            $model->serie_comprobante; // pertenecer a venta
+            $model->salas; // pertenecer a venta
             $model->save();
 
             $command = Yii::$app->db->createCommand(
@@ -227,7 +230,7 @@ class VentaController extends Controller
         $CodCliente = $model->CodigoCliente($Cliente);
         $estado = "11";
         $connection = Yii::$app->db;
-        $sqlStatement = " SELECT * FROM cliente WHERE Codigo_Cliente = '" . $CodCliente . "' and Estado = '" . $estado . "'";
+        $sqlStatement = " SELECT * FROM cliente WHERE Codigo_Cliente = '" . $CodCliente . "'";
         $comando = $connection->createCommand($sqlStatement);
         $resultado = $comando->query();
 

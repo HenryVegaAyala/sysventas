@@ -60,6 +60,12 @@ use yii\helpers\Url;
             <div class="col-sm-3" style="float: right ">
                 <?= $form->field($model, 'numero_contrato')->textInput(['autofocus' => 'autofocus', 'placeholder' => "N° de Contrato",'maxlength' => 12])->label(false) ?>
             </div>
+            <div class="col-sm-2" style="float: right ">
+                <?= $form->field($model, 'serie_comprobante')->textInput(['placeholder' => "N° de Serie",'maxlength' => 12])->label(false) ?>
+            </div>
+            <div class="col-sm-3" style="float: right ">
+                <?= $form->field($model, 'numero_comprobante')->textInput(['placeholder' => "N° de Comprobante",'maxlength' => 12])->label(false) ?>
+            </div>
         </div>
     </div>
 
@@ -354,6 +360,18 @@ use yii\helpers\Url;
                 </div>
             </div>
         </fieldset>
+
+    <fieldset id="Selectsalas" style="display: none;">
+        <legend style="padding-left:5px ">Salas:</legend>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'salas')->dropDownList($model->getSalas(), ['prompt' => 'Seleccione un Sala', 'class' => 'form-control loginmodal-container-combo']) ?>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
 
     <div class="panel-footer container-fluid foo">
         <div class="col-sm-12" id="btnBotones" style="display: none">

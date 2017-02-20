@@ -421,4 +421,24 @@ class VentaController extends Controller
         $Fecha_Hora = date('Y-m-d h:i:s', time());
         return $Fecha_Hora;
     }
+
+    public function actionContrato($id)
+    {
+        $model = $this->findModel($id);
+        $Cliente = new Cliente();
+
+        $Nombre = $Cliente->Cliente($model->Codigo_Cliente);
+        $DNI = $Cliente->DataCliente($model->Codigo_Cliente, 1);
+        $Direccion = $Cliente->DataCliente($model->Codigo_Cliente, 2);
+        $Beneficiario = $Cliente->Beneficiario($model->Codigo_Cliente);
+
+        return $this->render('contrato', [
+            'model' => $model,
+            'Nombre' => $Nombre,
+            'DNI' => $DNI,
+            'Direccion' => $Direccion,
+            'Beneficiario' => $Beneficiario,
+        ]);
+    }
+
 }

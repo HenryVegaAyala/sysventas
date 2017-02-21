@@ -50,7 +50,7 @@ use yii\helpers\Url;
             <div class="col-sm-3">
                 <label style="color: transparent">boton</label>
                 <br>
-                <?= Html::button('<i class="fa fa-search" aria-hidden="true"></i> Buscar Cliente', ['id'=>'btnbusqueda','class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "busqueda($('#venta-uso_interno').val());return false;",'disabled'=>true]) ?>
+                <?= Html::button('<i class="fa fa-search" aria-hidden="true"></i> Buscar Cliente', ['id' => 'btnbusqueda', 'class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "busqueda($('#venta-uso_interno').val());return false;", 'disabled' => true]) ?>
             </div>
         </div>
     </div>
@@ -58,13 +58,13 @@ use yii\helpers\Url;
     <div class="container-fluid" id="Ncontrato" style="display: none;">
         <div class="row">
             <div class="col-sm-3" style="float: right ">
-                <?= $form->field($model, 'numero_contrato')->textInput(['autofocus' => 'autofocus', 'placeholder' => "N° de Contrato",'maxlength' => 12])->label(false) ?>
+                <?= $form->field($model, 'numero_comprobante')->textInput(['placeholder' => "N° de Comprobante", 'maxlength' => 12])->label(false) ?>
             </div>
             <div class="col-sm-2" style="float: right ">
-                <?= $form->field($model, 'serie_comprobante')->textInput(['placeholder' => "N° de Serie",'maxlength' => 12])->label(false) ?>
+                <?= $form->field($model, 'serie_comprobante')->textInput(['placeholder' => "N° de Serie", 'maxlength' => 12])->label(false) ?>
             </div>
             <div class="col-sm-3" style="float: right ">
-                <?= $form->field($model, 'numero_comprobante')->textInput(['placeholder' => "N° de Comprobante",'maxlength' => 12])->label(false) ?>
+                <?= $form->field($model, 'numero_contrato')->textInput(['autofocus' => 'autofocus', 'placeholder' => "N° de Contrato", 'maxlength' => 12])->label(false) ?>
             </div>
         </div>
     </div>
@@ -213,11 +213,11 @@ use yii\helpers\Url;
             </div>
 
             <div class="col-sm-1">
-                <?= $form->field($model, 'numero_escaneado')->textInput(['maxlength' => 2, 'readonly' => 'true']) ?>
+                <?= $form->field($model, 'numero_escaneado')->textInput(['maxlength' => 2, 'readonly' => 'true', 'value' => '0']) ?>
             </div>
             <div class="col-sm-1">
                 <label style="color: transparent">boton</label>
-                <?= Html::button('<i class="fa fa-arrow-up" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "contador($('#venta-numero_pasaporte').val());return false;", 'onmousedown' => "escaneado($('#venta-numero_pasaporte').val());return false;"]) ?>
+                <?= Html::button('<i class="fa fa-arrow-up" aria-hidden="true"></i>', ['id'=>'btnScan','class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "contador($('#venta-numero_pasaporte').val());return false;", 'onmousedown' => "escaneado($('#venta-numero_pasaporte').val());return false;"]) ?>
             </div>
             <div class="col-sm-2">
                 <?= $form->field($model, 'numero_total')->textInput(['maxlength' => 2, 'readonly' => 'true']) ?>
@@ -300,66 +300,66 @@ use yii\helpers\Url;
         </div>
     </fieldset>
 
-        <fieldset id="Comisiones" style="display: none;">
-            <legend style="padding-left:5px ">Comisiones:</legend>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision1')->textInput(['maxlength' => true]) ?>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision2')->textInput(['maxlength' => 250]) ?>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision3')->textInput(['maxlength' => 250]) ?>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision4')->textInput(['maxlength' => 250]) ?>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision5')->textInput(['maxlength' => 250]) ?>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision6')->textInput(['maxlength' => 250]) ?>
-                    </div>
+    <fieldset id="Comisiones" style="display: none;">
+        <legend style="padding-left:5px ">Comisiones:</legend>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision1')->textInput(['maxlength' => true]) ?>
                 </div>
-                <div class="row">
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision7')->textInput(['maxlength' => 250]) ?>
-                    </div>
 
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision8')->textInput(['maxlength' => 250]) ?>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision9')->textInput(['maxlength' => 250]) ?>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision10')->textInput(['maxlength' => 250]) ?>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision11')->textInput(['maxlength' => 250]) ?>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision12')->textInput(['maxlength' => 250]) ?>
-                    </div>
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision2')->textInput(['maxlength' => 250]) ?>
                 </div>
-                <div class="row">
-                    <div class="col-sm-2">
-                        <?= $form->field($model, 'codigo_comision13')->textInput(['maxlength' => 250]) ?>
-                    </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision3')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision4')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision5')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision6')->textInput(['maxlength' => 250]) ?>
                 </div>
             </div>
-        </fieldset>
+            <div class="row">
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision7')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision8')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision9')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision10')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision11')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision12')->textInput(['maxlength' => 250]) ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision13')->textInput(['maxlength' => 250]) ?>
+                </div>
+            </div>
+        </div>
+    </fieldset>
 
     <fieldset id="Selectsalas" style="display: none;">
         <legend style="padding-left:5px ">Salas:</legend>

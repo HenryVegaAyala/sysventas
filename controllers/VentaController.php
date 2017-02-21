@@ -89,19 +89,23 @@ class VentaController extends Controller
                     'Codigo_Cliente = ' . $CodigoCliente)
                 ->execute();
 
-            $model->Codigo_venta = $model->getCodigoVenta(); // pertenecer a venta
-            $model->Codigo_club; // pertenecer a venta
-            $model->Codigo_pasaporte; // pertenecer a venta
-            $model->Codigo_Cliente = $cliente->Codigo_Cliente; // pertenecer a venta
-            $model->numero_contrato; // pertenecer a venta
-            $model->numero_pasaporte; // pertenecer a venta
-            $model->Fecha_Creado = $this->ZonaHoraria(); // pertenecer a venta
-            $model->Usuario_Creado = Yii::$app->user->identity->email; // pertenecer a venta
-            $model->Estado = 1; //creado pertenecer a venta
-            $model->numero_comprobante; // pertenecer a venta
-            $model->serie_comprobante; // pertenecer a venta
-            $model->salas; // pertenecer a venta
-            $model->save();
+            $model->Codigo_venta = $model->getCodigoVenta();
+
+            $command = Yii::$app->db->createCommand(
+                "INSERT INTO venta (Codigo_club, Codigo_pasaporte, Codigo_Cliente, numero_contrato, numero_pasaporte, Fecha_Creado,Usuario_Creado, Estado,numero_comprobante,serie_comprobante,salas)
+                VALUES (:Codigo_club,:Codigo_pasaporte,:Codigo_Cliente,:numero_contrato,:numero_pasaporte,:Fecha_Creado,:Usuario_Creado,:Estado,:numero_comprobante,:serie_comprobante,:salas)");
+            $command->bindValue(':Codigo_club', $model->Codigo_club);
+            $command->bindValue(':Codigo_pasaporte', $model->Codigo_pasaporte);
+            $command->bindValue(':Codigo_Cliente', $cliente->Codigo_Cliente);
+            $command->bindValue(':numero_contrato', $model->numero_contrato);
+            $command->bindValue(':numero_pasaporte', $model->numero_pasaporte);
+            $command->bindValue(':Fecha_Creado', $this->ZonaHoraria());
+            $command->bindValue(':Usuario_Creado', Yii::$app->user->identity->email);
+            $command->bindValue(':Estado', 1);
+            $command->bindValue(':numero_comprobante', $model->numero_comprobante);
+            $command->bindValue(':serie_comprobante', $model->serie_comprobante);
+            $command->bindValue(':salas', $model->salas);
+            $command->execute();
 
             $command = Yii::$app->db->createCommand(
                 "INSERT INTO combo (Codigo_venta,convetidor1,convetidor2,Regalos,Observacion,Fecha_Creado,Usuario_Creado,Estado)
@@ -116,11 +120,13 @@ class VentaController extends Controller
             $command->bindValue(':Estado', "1");
             $command->execute();
 
+            $pago->codigo_pago = $model->getCodigoPago();
+
             $command = Yii::$app->db->createCommand(
                 "INSERT INTO pago (Codigo_venta,codigo_pago,tipo_pago,estado_pago,monto_pagado,monto_ingresado,monto_restante,Fecha_Creado,Usuario_Creado,Estado)
                 VALUES (:Codigo_venta,:codigo_pago,:tipo_pago,:estado_pago,:monto_pagado,:monto_ingresado,:monto_restante,:Fecha_Creado,:Usuario_Creado,:Estado)");
             $command->bindValue(':Codigo_venta', $model->Codigo_venta);
-            $command->bindValue(':codigo_pago', $model->getCodigoPago());
+            $command->bindValue(':codigo_pago', $pago->codigo_pago);
             $command->bindValue(':tipo_pago', $pago->tipo_pago);
             $command->bindValue(':estado_pago', $pago->estado_pago);
             $command->bindValue(':monto_pagado', $model->montoTotal);
@@ -162,9 +168,31 @@ class VentaController extends Controller
                     ])
                 ->execute();
 
-            $formaPago->save();
-
             DynamicRelations::relate($cliente, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());
+
+            $transaction = Yii::$app->db;
+            $transaction->createCommand()
+                ->update('certificado',
+                    [
+                        'Codigo_Venta' => $model->Codigo_venta,
+                        'Estado' => 3,
+                        'Fecha_Modificado' =>  $this->ZonaHoraria(),
+                        'Usuario_Modificado' => Yii::$app->user->identity->email,
+                    ],
+                    'Codigo_pasaporte = "'.$model->numero_pasaporte.'"')
+                ->execute();
+
+            $transaction = Yii::$app->db;
+            $transaction->createCommand()
+                ->update('detalle_pasaporte',
+                    [
+                        'Fecha_Modificado' =>  $this->ZonaHoraria(),
+                        'Usuario_Modificado' => Yii::$app->user->identity->email,
+                        'Estado' => 3,
+                    ],
+                    'Codigo_pasaporte = "'.$model->numero_pasaporte.'"')
+                ->execute();
+            
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
@@ -336,12 +364,19 @@ class VentaController extends Controller
             $codigopasaporte = $_POST['codigopasaporte'];
         }
 
+        $transaction = Yii::$app->db;
+        $transaction->createCommand()
+            ->update('detalle_pasaporte',
+                ['Estado' => 2],
+                'codigo_barra = "' . $codigopasaporte . '"')
+            ->execute();
+
         $connection = Yii::$app->db;
         $sqlStatement = "SELECT codigo_barra FROM certificado WHERE Codigo_pasaporte = '" . $codigopasaporte . "'";
         $comando = $connection->createCommand($sqlStatement);
         $resultado = $comando->query();
 
-        $count = $resultado->rowCount;
+//        $count = $resultado->rowCount;
 
         while ($row = $resultado->read()) {
             echo $row['codigo_barra'];

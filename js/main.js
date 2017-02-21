@@ -135,6 +135,16 @@ function IngresarCertificado(codigobarra, totalnoches, codigopasaporte) {
         "codigopasaporte": codigopasaporte,
     };
 
+    var codigopasaporte;
+
+    codigopasaporte =  document.getElementById('venta-numero_pasaporte').value;
+
+    if(codigopasaporte !== ''){
+        document.getElementById('venta-numero_pasaporte').disabled = true;
+    }else{
+        document.getElementById('venta-numero_pasaporte').disabled = false;
+    }
+
     $.ajax({
         data: parametros,
         url: 'insertcodigobarra',
@@ -154,7 +164,18 @@ function contador(codigopasaporte) {
         "codigopasaporte": codigopasaporte,
     };
 
-    // alert(codigopasaporte);
+    var escaneado,total,nTotal;
+    escaneado = document.getElementById('venta-numero_escaneado').value;
+    total = document.getElementById('venta-numero_total').value;
+
+    nTotal = total-1;
+
+    if(nTotal <= escaneado){
+        document.getElementById('btnScan').disabled = true;
+    }else{
+        document.getElementById('btnScan').disabled = false;
+    }
+
 
     $.ajax({
         data: parametros,
@@ -162,6 +183,9 @@ function contador(codigopasaporte) {
         type: 'post',
         beforeSend: function () {
             $("#Grilla").html("Procesando, espere por favor...");
+
+
+
         },
 
         success: function (response) {

@@ -286,15 +286,22 @@ use yii\helpers\Url;
             <br>
             <div class="row">
                 <div class="col-sm-4">
-                    <?= $form->field($formaPago, 'fecha_pago')->textInput(['maxlength' => 250]) ?>
+                    <?php
+                    echo $form->field($formaPago, 'fecha_pago')->widget(\kartik\widgets\DateTimePicker::classname(), [
+                        'options' => ['placeholder' => 'Fecha'],
+                        'pluginOptions' => [
+                            'autoclose' => true,
+                            'format' => 'yyyy-mm-dd'
+                        ]
+                    ]);?>
                 </div>
 
-                <div class="col-sm-3">
-                    <?= $form->field($formaPago, 'monto')->textInput(['maxlength' => 250]) ?>
+                <div class="col-sm-4">
+                    <?= $form->field($formaPago, 'monto')->textInput(['maxlength' => 8]) ?>
                 </div>
 
-                <div class="col-sm-3">
-                    <?= $form->field($model, 'restante')->textInput(['maxlength' => 250]) ?>
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'restante')->textInput(['maxlength' => 8]) ?>
                 </div>
             </div>
         </div>

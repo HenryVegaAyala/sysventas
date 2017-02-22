@@ -41,20 +41,16 @@ class AsigTlmkClienteSearch extends AsigTlmkCliente
         }
 
         $query->andFilterWhere([
-            'codigo_asig' => $this->codigo_asig,
-            'codigo_tlmk_cliente' => $this->codigo_tlmk_cliente,
-            'Codigo_Usuario' => $this->Codigo_Usuario,
+//            'codigo_asig' => $this->codigo_asig,
+//            'codigo_tlmk_cliente' => $this->codigo_tlmk_cliente,
+//            'Codigo_Usuario' => $this->Codigo_Usuario,
             'Codigo_Cliente' => $this->Codigo_Cliente,
-            'Fecha_Creada' => $this->Fecha_Creada,
-            'Fecha_Modificada' => $this->Fecha_Modificada,
-            'Fecha_Eliminada' => $this->Fecha_Eliminada,
+//            'Fecha_Creada' => $this->Fecha_Creada,
+//            'Fecha_Modificada' => $this->Fecha_Modificada,
+//            'Fecha_Eliminada' => $this->Fecha_Eliminada,
         ]);
 
-        $query->andFilterWhere(['like', 'Usuario_Creado', $this->Usuario_Creado])
-            ->andFilterWhere(['like', 'Usuario_Modificado', $this->Usuario_Modificado])
-            ->andFilterWhere(['like', 'Usuario_Eliminado', $this->Usuario_Eliminado])
-            ->andFilterWhere(['like', 'Fecha_Llamado', $this->Fecha_Llamado])
-            ->andFilterWhere(['like', 'Estado', $this->Estado]);
+        $query->andFilterWhere(['like', 'Codigo_Cliente', $this->Codigo_Cliente]);
 
         return $dataProvider;
     }

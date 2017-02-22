@@ -128,4 +128,16 @@ class AsigTlmkCliente extends \yii\db\ActiveRecord
         return $resultado;
     }
 
+    public function getListaClientes()
+    {
+        $resultado = ArrayHelper::map(
+            Cliente::find()
+//                ->select(['Codigo_Cliente' => 'Codigo_Cliente', 'fullname' => "concat(Nombre,' ',Apellido)"])
+                ->select(['Codigo_Cliente' => 'Codigo_Cliente', 'fullname' => "concat(Nombre)"])
+                ->limit(5000)->asArray()
+                ->all(), 'Codigo_Cliente', 'fullname');
+        return $resultado;
+    }
+
+
 }

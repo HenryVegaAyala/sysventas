@@ -92,8 +92,9 @@ class VentaController extends Controller
             $model->Codigo_venta = $model->getCodigoVenta();
 
             $command = Yii::$app->db->createCommand(
-                "INSERT INTO venta (Codigo_club, Codigo_pasaporte, Codigo_Cliente, numero_contrato, numero_pasaporte, Fecha_Creado,Usuario_Creado, Estado,numero_comprobante,serie_comprobante,salas)
-                VALUES (:Codigo_club,:Codigo_pasaporte,:Codigo_Cliente,:numero_contrato,:numero_pasaporte,:Fecha_Creado,:Usuario_Creado,:Estado,:numero_comprobante,:serie_comprobante,:salas)");
+                "INSERT INTO venta (Codigo_venta,Codigo_club, Codigo_pasaporte, Codigo_Cliente, numero_contrato, numero_pasaporte, Fecha_Creado,Usuario_Creado, Estado,numero_comprobante,serie_comprobante,salas)
+                VALUES (:Codigo_venta,:Codigo_club,:Codigo_pasaporte,:Codigo_Cliente,:numero_contrato,:numero_pasaporte,:Fecha_Creado,:Usuario_Creado,:Estado,:numero_comprobante,:serie_comprobante,:salas)");
+            $command->bindValue(':Codigo_venta', $model->getCodigoVenta());
             $command->bindValue(':Codigo_club', $model->Codigo_club);
             $command->bindValue(':Codigo_pasaporte', $model->Codigo_pasaporte);
             $command->bindValue(':Codigo_Cliente', $cliente->Codigo_Cliente);
@@ -176,23 +177,23 @@ class VentaController extends Controller
                     [
                         'Codigo_Venta' => $model->Codigo_venta,
                         'Estado' => 3,
-                        'Fecha_Modificado' =>  $this->ZonaHoraria(),
+                        'Fecha_Modificado' => $this->ZonaHoraria(),
                         'Usuario_Modificado' => Yii::$app->user->identity->email,
                     ],
-                    'Codigo_pasaporte = "'.$model->numero_pasaporte.'"')
+                    'Codigo_pasaporte = "' . $model->numero_pasaporte . '"')
                 ->execute();
 
             $transaction = Yii::$app->db;
             $transaction->createCommand()
                 ->update('detalle_pasaporte',
                     [
-                        'Fecha_Modificado' =>  $this->ZonaHoraria(),
+                        'Fecha_Modificado' => $this->ZonaHoraria(),
                         'Usuario_Modificado' => Yii::$app->user->identity->email,
                         'Estado' => 3,
                     ],
-                    'Codigo_pasaporte = "'.$model->numero_pasaporte.'"')
+                    'Codigo_pasaporte = "' . $model->numero_pasaporte . '"')
                 ->execute();
-            
+
             return $this->redirect(['index']);
         } else {
             return $this->render('create', [
@@ -454,5 +455,35 @@ class VentaController extends Controller
             'Beneficiario' => $Beneficiario,
         ]);
     }
+
+    public function actionVenta()
+    {
+        $model = new Venta();
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $fechaIni = substr($model->Fecha_Creado, 6, 4) . '/' . substr($model->Fecha_Creado, 3, 2) . '/' . substr($model->Fecha_Creado, 0, 2); //'2016-06-09' ;
+            $fechaFin = substr($model->Fecha_Eliminado, 6, 4) . '/' . substr($model->Fecha_Eliminado, 3, 2) . '/' . substr($model->Fecha_Eliminado, 0, 2); //'2016-06-09' ;
+            $codigoClub = $model->Codigo_club;
+            $codigoPasaporte = $model->Codigo_pasaporte;
+            $codigoCliente = $model->Codigo_Cliente;
+            $CodigoVenta = $model->Codigo_venta;
+
+            return $this->render('reporteventa', [
+                'fechaIni' => $fechaIni,
+                'fechaFin' => $fechaFin,
+                'codigoClub' => $codigoClub,
+                'codigoPasaporte' => $codigoPasaporte,
+                'codigoCliente' => $codigoCliente,
+                'CodigoVenta' => $CodigoVenta
+            ]);
+            
+        } else {
+            return $this->render('venta', [
+                'model' => $model,
+            ]);
+        }
+    }
+
 
 }

@@ -16,8 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="asig-tlmk-cliente-index">
 
-    <?//= $this->render('_search', ['model' => $searchModel]); ?>
-
     <?php Pjax::begin();
     echo GridView::widget([
         'dataProvider' => $dataProvider,
@@ -136,7 +134,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',
 //            'type' => 'info',
-//            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
+//            'before' => $this->render('_search', ['model' => $searchModel]),
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Actualizar Lista', ['index'], ['class' => 'btn btn-primary']),
             'showFooter' => false
         ],
@@ -144,4 +142,3 @@ $this->params['breadcrumbs'][] = $this->title;
     Pjax::end(); ?>
 
 </div>
-

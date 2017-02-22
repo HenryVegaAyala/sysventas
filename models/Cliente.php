@@ -464,4 +464,72 @@ class Cliente extends \yii\db\ActiveRecord
         return $this->Nombre . ' ' . $this->Apellido;
     }
 
+    public function Nombre($codigo)
+    {
+        $query = new Query();
+        $expresion = new Expression("Nombre");
+        $query->select($expresion)->from('cliente')->where("Codigo_Cliente ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function Apellido($codigo)
+    {
+        $query = new Query();
+        $expresion = new Expression("Apellido");
+        $query->select($expresion)->from('cliente')->where("Codigo_Cliente ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function Ocupacion($codigo)
+    {
+        $query = new Query();
+        $expresion = new Expression("Profesion");
+        $query->select($expresion)->from('cliente')->where("Codigo_Cliente ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function DNI($codigo)
+    {
+        $query = new Query();
+        $expresion = new Expression("dni");
+        $query->select($expresion)->from('cliente')->where("Codigo_Cliente ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+
+    public function EDAD($codigo)
+    {
+        $query = new Query();
+        $expresion = new Expression("Edad");
+        $query->select($expresion)->from('cliente')->where("Codigo_Cliente ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+
+    public function TelefonoCliente($codigo)
+    {
+        $query = new Query();
+        $expresion = new Expression("Telefono_Celular");
+        $query->select($expresion)->from('cliente')->where("Codigo_Cliente ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+
+
+
+
+
+
 }

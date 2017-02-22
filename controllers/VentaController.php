@@ -94,7 +94,7 @@ class VentaController extends Controller
             $command = Yii::$app->db->createCommand(
                 "INSERT INTO venta (Codigo_venta,Codigo_club, Codigo_pasaporte, Codigo_Cliente, numero_contrato, numero_pasaporte, Fecha_Creado,Usuario_Creado, Estado,numero_comprobante,serie_comprobante,salas)
                 VALUES (:Codigo_venta,:Codigo_club,:Codigo_pasaporte,:Codigo_Cliente,:numero_contrato,:numero_pasaporte,:Fecha_Creado,:Usuario_Creado,:Estado,:numero_comprobante,:serie_comprobante,:salas)");
-            $command->bindValue(':Codigo_venta', $model->getCodigoVenta());
+            $command->bindValue(':Codigo_venta', $model->Codigo_venta);
             $command->bindValue(':Codigo_club', $model->Codigo_club);
             $command->bindValue(':Codigo_pasaporte', $model->Codigo_pasaporte);
             $command->bindValue(':Codigo_Cliente', $cliente->Codigo_Cliente);

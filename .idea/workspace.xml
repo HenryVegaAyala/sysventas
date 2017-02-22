@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="859410c4-7edb-49bf-b3d3-397238c5893d" name="Default" comment="sysventas">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/angular.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/VentaController.php" afterPath="$PROJECT_DIR$/controllers/VentaController.php" />
     </list>
     <ignored path="dolibar.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,11 +68,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="VentaController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/controllers/VentaController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
+            <state relative-caret-position="197">
+              <caret line="97" column="68" selection-start-line="97" selection-start-column="68" selection-end-line="97" selection-end-column="68" />
+              <folding>
+                <marker date="1487795889857" expanded="true" signature="3317:3715" ph="INSERT INTO venta... " />
+                <marker date="1487795889857" expanded="true" signature="4710:4946" ph="INSERT INTO combo... " />
+                <marker date="1487795889857" expanded="true" signature="5684:5989" ph="INSERT INTO pago... " />
+                <marker date="1487795889857" expanded="true" signature="6801:7018" ph="INSERT INTO formas_pago... " />
+                <marker date="1487795889857" expanded="true" signature="12186:12252" ph="SELECT * FRO... cliente" />
+                <marker date="1487795889857" expanded="true" signature="17609:17697" ph="SELECT codig... certificado" />
+                <marker date="1487795889857" expanded="true" signature="18249:18337" ph="SELECT codig... certificado" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/console.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="46" selection-start-line="1" selection-start-column="46" selection-end-line="1" selection-end-column="46" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Venta.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/models/Venta.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="140">
+              <caret line="304" column="20" selection-start-line="304" selection-start-column="20" selection-end-line="304" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -99,7 +126,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/views/factura/factura.php" />
         <option value="$PROJECT_DIR$/views/factura/_form.php" />
         <option value="dbroutine:/491d053a/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Factura" />
         <option value="$PROJECT_DIR$/views/factura/update.php" />
@@ -143,13 +169,14 @@
         <option value="dbroutine:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Estado_Cliente" />
         <option value="dbroutine:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Asignar_AU_CLI" />
         <option value="dbroutine:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Asignar_AU_USU" />
-        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/console.sql" />
         <option value="$PROJECT_DIR$/views/venta/archivo.php" />
         <option value="$PROJECT_DIR$/views/documento/_form.php" />
-        <option value="$PROJECT_DIR$/controllers/VentaController.php" />
         <option value="$PROJECT_DIR$/models/Venta.php" />
         <option value="$PROJECT_DIR$/views/venta/_archivo.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="dbroutine:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Confirmar" />
+        <option value="$APPLICATION_CONFIG_DIR$/consoles/db/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/console.sql" />
+        <option value="$PROJECT_DIR$/controllers/VentaController.php" />
       </list>
     </option>
   </component>
@@ -202,7 +229,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="Scope" currentSubView="Project Files" proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -242,22 +269,9 @@
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="sysventas">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT=".idea">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -266,33 +280,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sysventas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sysventas" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sysventas" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="sysventas" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -300,7 +289,7 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="assignment&#9;null&#9;null&#10;SECU&#9;null&#9;null&#10;Fac&#9;FILE&#9;file://C:/wamp64/www/dolibar/models/Factura.php&#10;SECURITY&#9;null&#9;null&#10;secu&#9;null&#9;null&#10;Module.php&#9;FILE&#9;file://C:/wamp64/www/dolibar/vendor/kartik-v/yii2-krajee-base/Module.php&#10;autoload_static.php:&#9;FILE&#9;file://C:/wamp64/www/dolibar/vendor/composer/autoload_static.php&#10;autoload_classmap.php&#9;FILE&#9;file://C:/wamp64/www/dolibar/vendor/composer/autoload_classmap.php&#10;main&#9;FILE&#9;file://C:/wamp64/www/dolibar/js/main.js&#10;log&#9;FILE&#9;file://C:/wamp64/www/dolibar/app/runtime/logs/app.log&#10;si&#9;FILE&#9;file://C:/wamp64/www/dolibar/public_html/css/site.css" />
+    <property name="SearchEverywhereHistoryKey" value="ventaC&#9;FILE&#9;file:///var/www/html/sysventas/controllers/VentaController.php&#10;assignment&#9;null&#9;null&#10;SECU&#9;null&#9;null&#10;Fac&#9;FILE&#9;file://C:/wamp64/www/dolibar/models/Factura.php&#10;SECURITY&#9;null&#9;null&#10;secu&#9;null&#9;null&#10;Module.php&#9;FILE&#9;file://C:/wamp64/www/dolibar/vendor/kartik-v/yii2-krajee-base/Module.php&#10;autoload_static.php:&#9;FILE&#9;file://C:/wamp64/www/dolibar/vendor/composer/autoload_static.php&#10;autoload_classmap.php&#9;FILE&#9;file://C:/wamp64/www/dolibar/vendor/composer/autoload_classmap.php&#10;main&#9;FILE&#9;file://C:/wamp64/www/dolibar/js/main.js&#10;log&#9;FILE&#9;file://C:/wamp64/www/dolibar/app/runtime/logs/app.log&#10;si&#9;FILE&#9;file://C:/wamp64/www/dolibar/public_html/css/site.css" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
@@ -430,6 +419,7 @@
       <workItem from="1486855282983" duration="20342000" />
       <workItem from="1487363751984" duration="2920000" />
       <workItem from="1487369422231" duration="4069000" />
+      <workItem from="1487794397000" duration="1894000" />
     </task>
     <task id="LOCAL-00001" summary="sysventas">
       <created>1485143968295</created>
@@ -736,7 +726,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="468298000" />
+    <option name="totallyTimeSpent" value="470192000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -749,25 +739,25 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32733223" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30555555" sideWeight="0.53386456" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32098764" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32561728" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31944445" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40123457" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32561728" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32561728" sideWeight="0.49402392" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3003984" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30555555" sideWeight="0.46613547" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19521913" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19521913" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="ReST Console" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32828686" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Compare Directories" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24780877" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="BPMNPalette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39966834" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39966834" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Plugins" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32988048" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -843,26 +833,14 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -870,7 +848,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="43" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -882,14 +859,14 @@
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
@@ -901,86 +878,86 @@
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
     <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
@@ -988,61 +965,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="dbDummy://dbroutine:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Asignar_AU_USU">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbroutine:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Asignar_AU_USU">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="40" column="35" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbroutine:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Asignar_AU_USU">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="40" column="35" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbroutine:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Asignar_AU_USU">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="40" column="35" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-      <provider editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
@@ -1052,7 +979,51 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
           <caret line="40" column="35" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbroutine:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Asignar_AU_USU">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="40" column="35" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbroutine:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Asignar_AU_USU">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="40" column="35" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.asig_tlmk_cliente">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbroutine:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Asignar_AU_USU">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="40" column="35" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -1060,7 +1031,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1068,14 +1038,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1083,7 +1045,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1091,9 +1052,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-180">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1487167922692" expanded="true" signature="2237:2458" ph="SELECT df.Ca... factura" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1101,25 +1059,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="34" selection-start-line="0" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/venta/archivo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/views/venta/archivo.php" />
     <entry file="file://$PROJECT_DIR$/views/venta/_update.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
-          <folding>
-            <marker date="1487167922692" expanded="true" signature="692:710" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1127,47 +1074,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="309">
           <caret line="34" column="117" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="117" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/venta/_archivo.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/views/venta/_archivo.php" />
     <entry file="file://$PROJECT_DIR$/models/Documento.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-586">
           <caret line="45" column="21" selection-start-line="45" selection-start-column="14" selection-end-line="45" selection-end-column="21" />
-          <folding>
-            <marker date="1487101390154" expanded="true" signature="3047:3327" ph="UPDATE docum... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Venta.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="121" column="32" selection-start-line="121" selection-start-column="32" selection-end-line="121" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/VentaController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="154" column="0" selection-start-line="157" selection-start-column="20" selection-end-line="157" selection-end-column="31" />
-          <folding>
-            <element signature="e#2826#2956#0#PHP" expanded="false" />
-            <element signature="e#2962#3584#0#PHP" expanded="false" />
-            <element signature="e#3590#4210#0#PHP" expanded="false" />
-            <element signature="e#4669#5423#0#PHP" expanded="false" />
-            <marker date="1487372712683" expanded="true" signature="7093:7289" ph="SELECT Codig... certificado" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1175,16 +1089,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding>
-            <element signature="e#2713#4308#0#PHP" expanded="false" />
-            <element signature="e#4314#4629#0#PHP" expanded="false" />
-            <element signature="e#4635#4876#0#PHP" expanded="false" />
-            <element signature="e#4882#5053#0#PHP" expanded="false" />
-            <element signature="e#5059#5218#0#PHP" expanded="false" />
-            <element signature="e#5224#6107#0#PHP" expanded="false" />
-            <element signature="e#6113#6559#0#PHP" expanded="false" />
-            <element signature="e#6565#7165#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1208,7 +1112,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1216,7 +1119,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1224,7 +1126,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1248,7 +1149,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1313,6 +1213,46 @@
         <state relative-caret-position="145">
           <caret line="24" column="17" selection-start-line="24" selection-start-column="17" selection-end-line="24" selection-end-column="17" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbroutine:/94b58d9f/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/sis_crm.Confirmar">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="33" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Venta.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="304" column="20" selection-start-line="304" selection-start-column="20" selection-end-line="304" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/a2b425a5-e036-4229-8c1c-ed8d16b9c7da/console.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="46" selection-start-line="1" selection-start-column="46" selection-end-line="1" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/VentaController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="97" column="68" selection-start-line="97" selection-start-column="68" selection-end-line="97" selection-end-column="68" />
+          <folding>
+            <marker date="1487795889857" expanded="true" signature="3317:3715" ph="INSERT INTO venta... " />
+            <marker date="1487795889857" expanded="true" signature="4710:4946" ph="INSERT INTO combo... " />
+            <marker date="1487795889857" expanded="true" signature="5684:5989" ph="INSERT INTO pago... " />
+            <marker date="1487795889857" expanded="true" signature="6801:7018" ph="INSERT INTO formas_pago... " />
+            <marker date="1487795889857" expanded="true" signature="12186:12252" ph="SELECT * FRO... cliente" />
+            <marker date="1487795889857" expanded="true" signature="17609:17697" ph="SELECT codig... certificado" />
+            <marker date="1487795889857" expanded="true" signature="18249:18337" ph="SELECT codig... certificado" />
+          </folding>
         </state>
       </provider>
     </entry>

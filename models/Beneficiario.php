@@ -109,6 +109,8 @@ class Beneficiario extends \yii\db\ActiveRecord
         $var = [
             0 => 'Esposo(a)',
             1 => 'Hijo(a)',
+            2 => 'Padre',
+            3 => 'Co-Titular',
         ];
         return $var;
     }

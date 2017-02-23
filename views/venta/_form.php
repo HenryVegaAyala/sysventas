@@ -66,6 +66,9 @@ use yii\helpers\Url;
             <div class="col-sm-3" style="float: right ">
                 <?= $form->field($model, 'numero_contrato')->textInput(['autofocus' => 'autofocus', 'placeholder' => "N° de Contrato", 'maxlength' => 12])->label(false) ?>
             </div>
+            <div class="col-sm-4" style="float: right ">
+                <?= $form->field($model, 'razon_social')->textInput(['placeholder' => "Razon Social", 'maxlength' => 100])->label(false) ?>
+            </div>
         </div>
     </div>
 
@@ -320,6 +323,10 @@ use yii\helpers\Url;
                 </div>
 
                 <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision15')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
                     <?= $form->field($model, 'codigo_comision3')->textInput(['maxlength' => 250]) ?>
                 </div>
 
@@ -331,13 +338,22 @@ use yii\helpers\Url;
                     <?= $form->field($model, 'codigo_comision5')->textInput(['maxlength' => 250]) ?>
                 </div>
 
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision6')->textInput(['maxlength' => 250]) ?>
-                </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision6')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision17')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
                     <?= $form->field($model, 'codigo_comision7')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision17')->textInput(['maxlength' => 250]) ?>
                 </div>
 
                 <div class="col-sm-2">
@@ -348,8 +364,15 @@ use yii\helpers\Url;
                     <?= $form->field($model, 'codigo_comision9')->textInput(['maxlength' => 250]) ?>
                 </div>
 
+            </div>
+            <div class="row">
+
                 <div class="col-sm-2">
                     <?= $form->field($model, 'codigo_comision10')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision16')->textInput(['maxlength' => 250]) ?>
                 </div>
 
                 <div class="col-sm-2">
@@ -359,10 +382,13 @@ use yii\helpers\Url;
                 <div class="col-sm-2">
                     <?= $form->field($model, 'codigo_comision12')->textInput(['maxlength' => 250]) ?>
                 </div>
-            </div>
-            <div class="row">
+
                 <div class="col-sm-2">
                     <?= $form->field($model, 'codigo_comision13')->textInput(['maxlength' => 250]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($model, 'codigo_comision14')->textInput(['maxlength' => 250]) ?>
                 </div>
             </div>
         </div>

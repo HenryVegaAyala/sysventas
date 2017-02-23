@@ -166,6 +166,10 @@ class VentaController extends Controller
                         [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision11, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
                         [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision12, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
                         [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision13, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision14, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision15, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision16, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
+                        [$model->getCodigoComision(), $model->Codigo_venta, $model->codigo_comision17, $this->ZonaHoraria(), Yii::$app->user->identity->email, 1],
                     ])
                 ->execute();
 

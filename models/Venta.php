@@ -25,6 +25,7 @@ use yii\helpers\ArrayHelper;
  * @property string $numero_comprobante
  * @property string $serie_comprobante
  * @property integer $salas
+ * @property string $razon_social
  *
  *
  * @property string $uso_interno
@@ -47,6 +48,10 @@ use yii\helpers\ArrayHelper;
  * @property string $codigo_comision11;
  * @property string $codigo_comision12;
  * @property string $codigo_comision13;
+ * @property string $codigo_comision14;
+ * @property string $codigo_comision15;
+ * @property string $codigo_comision16;
+ *
  * @property string $Codigo_venta_Comision;
  * @property string $CodigoComision;
  *
@@ -82,6 +87,10 @@ class Venta extends \yii\db\ActiveRecord
     public $codigo_comision11;
     public $codigo_comision12;
     public $codigo_comision13;
+    public $codigo_comision14;
+    public $codigo_comision15;
+    public $codigo_comision16;
+    public $codigo_comision17;
 
     /**
      * @inheritdoc
@@ -97,7 +106,7 @@ class Venta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo_club', 'Codigo_pasaporte', 'Codigo_Cliente','uso_interno'], 'required'],
+//            [['Codigo_club', 'Codigo_pasaporte', 'Codigo_Cliente','uso_interno'], 'required'],
             [['Codigo_club', 'Codigo_pasaporte', 'Codigo_Cliente', 'Estado'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
             [['numero_contrato', 'Usuario_Creado', 'Usuario_Modificado', 'Usuario_Eliminado'], 'string', 'max' => 100],
@@ -110,13 +119,15 @@ class Venta extends \yii\db\ActiveRecord
             [['salas'], 'string'],
 
             [['numero_contrato'], 'required', 'message' => 'N° de Contrato es necesario.'],
+            [['razon_social'], 'required', 'message' => 'Razon Social es necesario.'],
+
             [['serie_comprobante'], 'required', 'message' => 'Se requiere la Serie.'],
             [['numero_comprobante'], 'required', 'message' => 'Se requiere N° de Comprobante.'],
             [['salas'], 'required', 'message' => 'Se requiere seleccionar una sala.'],
 
             [['uso_interno'], 'string'],
             [['numero_pasaporte'], 'match', 'pattern' => "/^.{9,9}$/", 'message' => 'Debe tener 9 digitos'],
-            [['numero_pasaporte'], 'required', 'message' => 'El codigo pasaporte es requerido.'],
+//            [['numero_pasaporte'], 'required', 'message' => 'El codigo pasaporte es requerido.'],
             [['numero_escaneado', 'numero_total', 'montoTotal', 'restante'], 'double'],
             [['Codigo_venta_Comision','CodigoComision','codigo_comision1', 'codigo_comision2', 'codigo_comision3', 'codigo_comision4', 'codigo_comision5', 'codigo_comision6','codigo_comision7', 'codigo_comision8', 'codigo_comision9', 'codigo_comision10', 'codigo_comision11', 'codigo_comision12', 'codigo_comision13'], 'string'],
         ];
@@ -146,6 +157,7 @@ class Venta extends \yii\db\ActiveRecord
             'uso_interno' => 'Buscar Clientes',
             'serie_comprobante' => 'Serie del Comprobante',
             'numero_comprobante' => 'Número del Comprobante',
+            'razon_social' => 'Razón Social',
 
             'codigo_comision1' => 'Digitador',
             'codigo_comision2' => 'OPC',
@@ -160,6 +172,10 @@ class Venta extends \yii\db\ActiveRecord
             'codigo_comision11' => 'Jefe de Sala',
             'codigo_comision12' => 'Director de Ventas',
             'codigo_comision13' => 'Director de Proyectos',
+            'codigo_comision14' => 'Generencia General',
+            'codigo_comision15' => 'Tienda',
+            'codigo_comision16' => 'Closer 2',
+            'codigo_comision17' => 'Supervisor de TLMK',
 
 
 

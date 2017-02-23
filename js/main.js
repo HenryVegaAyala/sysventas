@@ -251,7 +251,7 @@ function precio(codigo) {
 function resta(montoTotal, MontoIngresa) {
 
     if (parseFloat(MontoIngresa) > parseFloat(montoTotal)) {
-        alert("El monto ingresado no debe ser mayor al total");
+        alert("El monto ingresado no debe ser igual al Total.");
         document.getElementById('pago-monto_ingresado').value = "";
     } else {
         document.getElementById('pago-monto_restante').value = parseFloat(montoTotal - MontoIngresa);
@@ -268,3 +268,5 @@ function validar(nombre) {
     }
 
 }
+
+

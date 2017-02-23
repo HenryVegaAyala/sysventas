@@ -353,23 +353,19 @@ use yii\helpers\Url;
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision17')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-                <div class="col-sm-2">
                     <?= $form->field($model, 'codigo_comision8')->textInput(['maxlength' => 250]) ?>
                 </div>
 
                 <div class="col-sm-2">
                     <?= $form->field($model, 'codigo_comision9')->textInput(['maxlength' => 250]) ?>
                 </div>
-
-            </div>
-            <div class="row">
-
+                
                 <div class="col-sm-2">
                     <?= $form->field($model, 'codigo_comision10')->textInput(['maxlength' => 250]) ?>
                 </div>
+
+            </div>
+            <div class="row">
 
                 <div class="col-sm-2">
                     <?= $form->field($model, 'codigo_comision16')->textInput(['maxlength' => 250]) ?>

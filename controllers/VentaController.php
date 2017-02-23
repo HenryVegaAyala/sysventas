@@ -462,8 +462,8 @@ class VentaController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $fechaIni = substr($model->Fecha_Creado, 6, 4) . '/' . substr($model->Fecha_Creado, 3, 2) . '/' . substr($model->Fecha_Creado, 0, 2); //'2016-06-09' ;
-            $fechaFin = substr($model->Fecha_Eliminado, 6, 4) . '/' . substr($model->Fecha_Eliminado, 3, 2) . '/' . substr($model->Fecha_Eliminado, 0, 2); //'2016-06-09' ;
+            $fechaIni = substr($model->Fecha_Creado, 6, 4) . '-' . substr($model->Fecha_Creado, 3, 2) . '-' . substr($model->Fecha_Creado, 0, 2); //'2016-06-09' ;
+            $fechaFin = substr($model->Fecha_Eliminado, 6, 4) . '-' . substr($model->Fecha_Eliminado, 3, 2) . '-' . substr($model->Fecha_Eliminado, 0, 2); //'2016-06-09' ;
             $codigoClub = $model->Codigo_club;
             $codigoPasaporte = $model->Codigo_pasaporte;
             $codigoCliente = $model->Codigo_Cliente;

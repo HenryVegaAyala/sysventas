@@ -287,7 +287,7 @@ use yii\helpers\Url;
             <div class="row">
                 <div class="col-sm-4">
                     <?php
-                    echo $form->field($formaPago, 'fecha_pago')->widget(\kartik\widgets\DateTimePicker::classname(), [
+                    echo $form->field($formaPago, 'fecha_pago')->widget(\kartik\widgets\DatePicker::classname(), [
                         'options' => ['placeholder' => 'Fecha'],
                         'pluginOptions' => [
                             'autoclose' => true,

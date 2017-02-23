@@ -485,5 +485,14 @@ class Usuario extends \yii\db\ActiveRecord
         $db->createCommand("DELETE FROM auth_assignment WHERE user_id = '" . $Codigo . "'")->execute();
         $transaction->commit();
     }
+    
+    public function NombreUsuario($codigo){
+        $query = new Query();
+        $expresion = new Expression('username');
+        $query->select($expresion)->from('user')->where('id_personal = "'.$codigo.'"');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
 }
 

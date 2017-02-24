@@ -52,7 +52,26 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('AD1', 'Estado de Pago')
     ->setCellValue('AE1', 'Monto')
     ->setCellValue('AF1', 'Monto Ingresado')
-    ->setCellValue('AG1', 'Monto Restante');
+    ->setCellValue('AG1', 'Monto Restante')
+
+    ->setCellValue('AH1', 'Digitador')
+    ->setCellValue('AI1', 'OPC')
+    ->setCellValue('AJ1', 'Tienda')
+    ->setCellValue('AM1', 'Supervisor Promotor')
+    ->setCellValue('AN1', 'Supervior General OPC')
+    ->setCellValue('AO1', 'Director de Mercadero')
+    ->setCellValue('AP1', 'TLMK')
+    ->setCellValue('AK1', 'Supervisor de TLMK')
+    ->setCellValue('AR1', 'Confirmadora')
+    ->setCellValue('AS1', 'Director de TLMK')
+    ->setCellValue('AT1', 'Liner')
+    ->setCellValue('AU1', 'Closer')
+    ->setCellValue('AV1', 'Closer 2')
+    ->setCellValue('AW1', 'Jefe de Sala')
+    ->setCellValue('AX1', 'Director de Ventas')
+    ->setCellValue('AY1', 'Director de Proyectos')
+    ->setCellValue('AZ1', 'Generencia General');
+
 
 $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('A2', '')

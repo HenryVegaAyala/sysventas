@@ -469,22 +469,32 @@ class VentaController extends Controller
             $fechaIni = substr($model->Fecha_Creado, 6, 4) . '-' . substr($model->Fecha_Creado, 3, 2) . '-' . substr($model->Fecha_Creado, 0, 2); //'2016-06-09' ;
             $fechaFin = substr($model->Fecha_Eliminado, 6, 4) . '-' . substr($model->Fecha_Eliminado, 3, 2) . '-' . substr($model->Fecha_Eliminado, 0, 2); //'2016-06-09' ;
 
-//            $combo = $model->combo;
-//            $estadoPago = $model->estado_pago;
-//            $sala = $model->sala;
-//            $codigoClub = $model->Codigo_club;
-//            $usuario = $model->usuario;
+            $combo = $model->combo;
+            $estadoPago = $model->estado_pago;
+            $sala = $model->sala;
+            $codigoClub = $model->Codigo_club;
+            $usuario = $model->usuario;
             $reporte = $model->reporte;
 
             if ($reporte == 0) { // excel
                  return $this->render('reporteventaexcel', [
                     'fechaIni' => $fechaIni,
                     'fechaFin' => $fechaFin,
+                    'combo' => $combo,
+                    'estadoPago' => $estadoPago,
+                    'sala' => $sala,
+                    'codigoClub' => $codigoClub,
+                    'usuario' => $usuario,
                 ]);
-            } else {
+            } else { // PDF
                 return $this->render('reporteventa', [
                     'fechaIni' => $fechaIni,
                     'fechaFin' => $fechaFin,
+                    'combo' => $combo,
+                    'estadoPago' => $estadoPago,
+                    'sala' => $sala,
+                    'codigoClub' => $codigoClub,
+                    'usuario' => $usuario,
                 ]);
             }
 

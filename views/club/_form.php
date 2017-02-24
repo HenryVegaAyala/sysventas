@@ -29,16 +29,17 @@ use yii\widgets\ActiveForm;
                 </div>
 
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'Precio')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'Precio')->textInput(['maxlength' => true, 'id' => 'precio']) ?>
+                </div>
+
+                <div class="col-sm-3">
+                    <?= $form->field($model, 'Vigencia')->textInput(['onchange' => "OperacionClub($('#precio').val(),this.value);return false;"]) ?>
                 </div>
 
                 <div class="col-sm-3">
                     <?= $form->field($model, 'Precio_por_Noche')->textInput(['maxlength' => true]) ?>
                 </div>
 
-                <div class="col-sm-3">
-                    <?= $form->field($model, 'Vigencia')->textInput() ?>
-                </div>
             </div>
 
             <div class="row">

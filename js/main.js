@@ -300,5 +300,12 @@ function Combo(estado) {
 
 }
 
+function OperacionClub(precio,vigencia) {
+
+    var total;
+    total = parseFloat(precio/vigencia);
+
+    Telefono_Casa = document.getElementById('club-precio_por_noche').value = total
+}
 
 

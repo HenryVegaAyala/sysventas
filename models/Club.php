@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
+use yii\db\Query;
 
 /**
  * This is the model class for table "club".
@@ -76,4 +78,15 @@ class Club extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Venta::className(), ['Codigo_club' => 'Codigo_club']);
     }
+
+    public function getCodigo()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(Codigo_club), 0) + 1');
+        $query->select($expresion)->from('club');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
 }

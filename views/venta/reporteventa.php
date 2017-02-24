@@ -5,12 +5,17 @@ use yii\db\Query;
 
 $fechaIni;
 $fechaFin;
+$combo;
+$estadoPago;
+$sala;
+$codigoClub;
+$usuario;
+$reporte;
 
 class PDF extends FPDF
 {
 
-
-    function Impresion($fechaIni, $fechaFin)
+    function Impresion($fechaIni, $fechaFin, $combo, $estadoPago, $sala, $codigoClub, $usuario, $reporte)
     {
         $model = new \app\models\Usuario();
         $cliente = new \app\models\Cliente();
@@ -161,9 +166,9 @@ class PDF extends FPDF
               INNER JOIN pago pa ON v.Codigo_venta = pa.Codigo_venta
               INNER JOIN formas_pago fpa ON pa.codigo_pago = fpa.codigo_pago
               INNER JOIN comision com ON v.Codigo_venta = com.Codigo_venta
-            INNER JOIN beneficiario ben ON c.Codigo_Cliente = ben.Codigo_Cliente
-        WHERE date(v.Fecha_Creado)  BETWEEN "' . $fechaIni . '" and "' . $fechaFin . '";
-        ';
+            INNER JOIN beneficiario ben ON c.Codigo_Cliente = ben.Codigo_Cliente';
+       $sqlStatement .= 'WHERE date(v.Fecha_Creado)  BETWEEN "' . $fechaIni . '" and "' . $fechaFin . '"';
+
         $comando = $connection->createCommand($sqlStatement);
         $resultado = $comando->query();
 
@@ -207,60 +212,12 @@ class PDF extends FPDF
 
     }
 
-//    function Comision($fechaIni, $fechaFin)
-//    {
-//        $model = new \app\models\Usuario();
-//        $cliente = new \app\models\Cliente();
-//
-////      $this->Cell(Ancho , Alto , cadena , bordes , posición , alinear , fondo, URL )
-//        $this->SetFont('Arial', 'B', 18);
-//
-////      $this->Image('ruta de imagen', horizontal, vertical, ancho, alto);
-////        $this->Image(Yii::getAlias('@groupgygUrlReporte'), 1, 1, 1.5, 1.5);
-//        $this->Cell(78.5, 1, utf8_decode('Lista de Comisiones'), 0, 'C', 'C');
-//        $this->Ln(2);
-//
-//        $this->SetFont('Arial', 'B', 11);
-//        $this->SetFillColor(150, 54, 52); // establece el color del fondo de la celda.
-//        $this->SetDrawColor(150, 54, 52);     // establece el color del contorno de la celda.
-//        $this->SetTextColor(255, 255, 255);  // Establece el color del texto.
-//        $this->Cell(0.2, 0.2, utf8_decode(''), 0, 0, 'C', True);
-//        $this->Cell(75.1, 0.2, utf8_decode(''), 1, 0, 'C', True);
-//        $this->Cell(0.2, 0.2, utf8_decode(''), 0, 0, 'C', True);
-//        $this->Ln(0.6);
-//
-//
-//        $this->Cell(5, 0.7, utf8_decode(strtoupper('Datos del Usuario')), 1, '', 'C');
-//        $this->Cell(5, 0.7, utf8_decode(strtoupper('Monto')), 1, '', 'C');
-//        $this->Cell(5, 0.7, utf8_decode(strtoupper('Fecha')), 1, '', 'C');
-//        $this->Ln();
-//
-//        $connection = \Yii::$app->db;
-//        $sqlStatement = '
-//         SELECT * from comision
-//        WHERE date(Fecha_Creado)  BETWEEN "' . $fechaIni . '" and "' . $fechaFin . '";
-//        ';
-//        $comando = $connection->createCommand($sqlStatement);
-//        $resultado = $comando->query();
-//
-//        while ($row = $resultado->read()) {
-//
-//            $this->Cell(5, 0.7, utf8_decode(strtoupper($model->NombreUsuario($row['Codigo_usuario']))), 1, '', 'C');
-//            $this->Cell(5, 0.7, utf8_decode(strtoupper($row['monto'])), 1, '', 'C');
-//            $this->Cell(5, 0.7, utf8_decode(strtoupper($row['Fecha_Creado'])), 1, '', 'C');
-//
-//            $this->Ln();
-//        }
-//
-//    }
 }
 
 $pdf = new PDF('L', 'cm', array(22, 78.5));
 $Reporte = "Reporte_de_Venta.pdf";
 $pdf->AddPage();
-$pdf->Impresion($fechaIni, $fechaFin);
-//$pdf->AddPage();
-//$pdf->Comision($fechaIni, $fechaFin);
+$pdf->Impresion($fechaIni, $fechaFin, $combo, $estadoPago, $sala, $codigoClub, $usuario, $reporte);
 $pdf->SetTitle("Reporte de Ventas");
 $pdf->SetAuthor("Rustica Club");
 $pdf->Output($Reporte, 'I');

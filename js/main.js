@@ -269,4 +269,36 @@ function validar(nombre) {
 
 }
 
+function Combo(estado) {
+
+    if (estado == 0) {
+        document.getElementById('estadopago').style.display = 'block';
+        document.getElementById('sala').style.display = 'none';
+        document.getElementById('club').style.display = 'none';
+        document.getElementById('usuario').style.display = 'none';
+    }else if (estado == 1){
+        document.getElementById('sala').style.display = 'block';
+        document.getElementById('estadopago').style.display = 'none';
+        document.getElementById('club').style.display = 'none';
+        document.getElementById('usuario').style.display = 'none';
+    }else if (estado == 2){
+        document.getElementById('club').style.display = 'block';
+        document.getElementById('estadopago').style.display = 'none';
+        document.getElementById('sala').style.display = 'none';
+        document.getElementById('usuario').style.display = 'none';
+    }else if (estado == 3){
+        document.getElementById('usuario').style.display = 'block';
+        document.getElementById('estadopago').style.display = 'none';
+        document.getElementById('sala').style.display = 'none';
+        document.getElementById('club').style.display = 'none';
+    }else if (estado == null || estado == ''){
+        document.getElementById('estadopago').style.display = 'none';
+        document.getElementById('sala').style.display = 'none';
+        document.getElementById('club').style.display = 'none';
+        document.getElementById('usuario').style.display = 'none';
+    }
+
+}
+
+
 

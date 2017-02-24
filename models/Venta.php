@@ -52,6 +52,11 @@ use yii\helpers\ArrayHelper;
  * @property string $codigo_comision15;
  * @property string $codigo_comision16;
  *
+ * @property integer $combo;
+ * @property integer $estado_pago;
+ * @property string $usuario;
+ * @property string $reporte;
+ *
  * @property string $Codigo_venta_Comision;
  * @property string $CodigoComision;
  *
@@ -91,6 +96,12 @@ class Venta extends \yii\db\ActiveRecord
     public $codigo_comision15;
     public $codigo_comision16;
     public $codigo_comision17;
+    
+    public $combo;
+    public $estado_pago;
+    public $usuario;
+    public $sala;
+    public $reporte;
 
     /**
      * @inheritdoc
@@ -124,6 +135,7 @@ class Venta extends \yii\db\ActiveRecord
             [['serie_comprobante'], 'required', 'message' => 'Se requiere la Serie.'],
             [['numero_comprobante'], 'required', 'message' => 'Se requiere N° de Comprobante.'],
             [['salas'], 'required', 'message' => 'Se requiere seleccionar una sala.'],
+            [['reporte'], 'required', 'message' => 'Se requiere seleccionar un Formato.'],
 
             [['uso_interno'], 'string'],
             [['numero_pasaporte'], 'match', 'pattern' => "/^.{9,9}$/", 'message' => 'Debe tener 9 digitos'],
@@ -177,7 +189,11 @@ class Venta extends \yii\db\ActiveRecord
             'codigo_comision16' => 'Closer 2',
             'codigo_comision17' => 'Supervisor de TLMK',
 
-
+            'combo' => 'Opciones',
+            'estado_pago' => 'Estado de Pago',
+            'usuario' => 'usuario',
+            'sala' => 'Sala de venta',
+            'reporte' => 'Seleccionar Reporte',
 
         ];
     }
@@ -387,6 +403,26 @@ class Venta extends \yii\db\ActiveRecord
         $comando = $query->createCommand();
         $data = $comando->queryScalar();
         return $data;
+    }
+
+    public function getOpciones()
+    {
+        $var = [
+            0 => 'Estado de Pago',
+            1 => 'Sala de Ventas',
+            2 => 'Tipo de Producto',
+            3 => 'Usario',
+        ];
+        return $var;
+    }
+
+    public function getReporte()
+    {
+        $var = [
+            0 => 'Excel',
+            1 => 'PDF',
+        ];
+        return $var;
     }
 
 }

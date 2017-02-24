@@ -468,20 +468,26 @@ class VentaController extends Controller
 
             $fechaIni = substr($model->Fecha_Creado, 6, 4) . '-' . substr($model->Fecha_Creado, 3, 2) . '-' . substr($model->Fecha_Creado, 0, 2); //'2016-06-09' ;
             $fechaFin = substr($model->Fecha_Eliminado, 6, 4) . '-' . substr($model->Fecha_Eliminado, 3, 2) . '-' . substr($model->Fecha_Eliminado, 0, 2); //'2016-06-09' ;
-            $codigoClub = $model->Codigo_club;
-            $codigoPasaporte = $model->Codigo_pasaporte;
-            $codigoCliente = $model->Codigo_Cliente;
-            $CodigoVenta = $model->Codigo_venta;
 
-            return $this->render('reporteventa', [
-                'fechaIni' => $fechaIni,
-                'fechaFin' => $fechaFin,
-                'codigoClub' => $codigoClub,
-                'codigoPasaporte' => $codigoPasaporte,
-                'codigoCliente' => $codigoCliente,
-                'CodigoVenta' => $CodigoVenta
-            ]);
-            
+//            $combo = $model->combo;
+//            $estadoPago = $model->estado_pago;
+//            $sala = $model->sala;
+//            $codigoClub = $model->Codigo_club;
+//            $usuario = $model->usuario;
+            $reporte = $model->reporte;
+
+            if ($reporte == 0) { // excel
+                 return $this->render('reporteventaexcel', [
+                    'fechaIni' => $fechaIni,
+                    'fechaFin' => $fechaFin,
+                ]);
+            } else {
+                return $this->render('reporteventa', [
+                    'fechaIni' => $fechaIni,
+                    'fechaFin' => $fechaFin,
+                ]);
+            }
+
         } else {
             return $this->render('venta', [
                 'model' => $model,

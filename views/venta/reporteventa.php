@@ -5,16 +5,12 @@ use yii\db\Query;
 
 $fechaIni;
 $fechaFin;
-$codigoClub;
-$codigoPasaporte;
-$codigoCliente;
-$CodigoVenta;
 
 class PDF extends FPDF
 {
 
 
-    function Impresion($fechaIni, $fechaFin, $codigoClub, $codigoPasaporte, $codigoCliente, $CodigoVenta)
+    function Impresion($fechaIni, $fechaFin)
     {
         $model = new \app\models\Usuario();
         $cliente = new \app\models\Cliente();
@@ -40,7 +36,7 @@ class PDF extends FPDF
         $this->SetTextColor(0, 0, 0);
         $this->Cell(9.16, 0.5, utf8_decode('Fecha: ' . date("d/m/Y", strtotime($fechaIni)) . ' Hasta el: ' . date("d/m/Y", strtotime($fechaFin))), 0, '', 'L');
 //        $this->Cell(9.16, 0.5, utf8_decode('Estado del Reporte: ' . 'Sin Estado Definido'), 0, '', 'L');
-        $this->Cell(9.16, 0.5, utf8_decode('Usuario Solicitado: ' . $model->getRol(Yii::$app->user->identity->Codigo_Rol) . $codigoCliente), 0, '', 'L');
+        $this->Cell(9.16, 0.5, utf8_decode('Usuario Solicitado: ' . $model->getRol(Yii::$app->user->identity->Codigo_Rol)), 0, '', 'L');
         $this->Ln(0.8);
 
 
@@ -262,7 +258,7 @@ class PDF extends FPDF
 $pdf = new PDF('L', 'cm', array(22, 78.5));
 $Reporte = "Reporte_de_Venta.pdf";
 $pdf->AddPage();
-$pdf->Impresion($fechaIni, $fechaFin, $codigoClub, $codigoPasaporte, $codigoCliente, $CodigoVenta);
+$pdf->Impresion($fechaIni, $fechaFin);
 //$pdf->AddPage();
 //$pdf->Comision($fechaIni, $fechaFin);
 $pdf->SetTitle("Reporte de Ventas");

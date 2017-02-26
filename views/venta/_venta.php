@@ -4,12 +4,15 @@ use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\builder\Form;
 use kartik\datecontrol\DateControl;
+use app\models\Venta;
 
 /**
  * @var yii\web\View $this
  * @var app\models\Reporte $model
  * @var yii\widgets\ActiveForm $form
+ * @var $model app\models\Venta
  */
+
 ?>
 <div class="panel panel-default">
 
@@ -23,11 +26,11 @@ use kartik\datecontrol\DateControl;
 
     <div class="fieldset">
         <div class="container-fluid">
-            <?php $form = ActiveForm::begin(['options' => ['target' => '_blank']]); ?>
+            <?php $form = ActiveForm::begin(['options' => ['target' => '_blank']]);?>
 
             <div class="row">
                 <div class="col-sm-3" id="combo">
-                    <?= $form->field($model, 'combo')->dropDownList($model->getOpciones(), ['prompt' => 'Seleccione una Opcion ', 'class' => 'form-control loginmodal-container-combo', 'onchange' => 'Combo(this.value);']) ?>
+                    <?= $form->field($model, 'Selectcombo')->dropDownList($model->getOpciones(), ['prompt' => 'Seleccione una Opcion ', 'class' => 'form-control loginmodal-container-combo', 'onchange' => 'Combo(this.value);']) ?>
                 </div>
 
                 <div class="col-sm-3" id="estadopago" style="display: none">
@@ -39,7 +42,7 @@ use kartik\datecontrol\DateControl;
                 </div>
 
                 <div class="col-sm-3" id="club" style="display: none">
-                    <?= $form->field($model, 'Codigo_club')->dropDownList($model->getClub(), ['prompt' => 'Seleccione un Club', 'class' => 'form-control loginmodal-container-combo', 'onchange' => 'Cantidad(this.value);']) ?>
+                    <?= $form->field($model, 'Codigo_club')->dropDownList($model->getClub(), ['prompt' => 'Seleccione un Club', 'class' => 'form-control loginmodal-container-combo']) ?>
                 </div>
 
                 <div class="col-sm-3" id="usuario" style="display: none">
@@ -75,7 +78,7 @@ use kartik\datecontrol\DateControl;
 
             <div class="row">
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'reporte')->dropDownList($model->getReporte(), ['prompt' => 'Seleccione un formato', 'class' => 'form-control loginmodal-container-combo', 'onchange' => 'Cantidad(this.value);']) ?>
+                    <?= $form->field($model, 'reporte')->dropDownList($model->getReporte(), ['prompt' => 'Seleccione un formato', 'class' => 'form-control loginmodal-container-combo']) ?>
                 </div>
             </div>
 

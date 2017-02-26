@@ -51,8 +51,9 @@ use yii\helpers\ArrayHelper;
  * @property string $codigo_comision14;
  * @property string $codigo_comision15;
  * @property string $codigo_comision16;
+ * @property string $num_pasaporte;
  *
- * @property integer $combo;
+ * @property integer $Selectcombo;
  * @property integer $estado_pago;
  * @property string $usuario;
  * @property string $reporte;
@@ -76,6 +77,7 @@ class Venta extends \yii\db\ActiveRecord
     public $numero_total;
     public $montoTotal;
     public $restante;
+    public $numero_pasaporte;
 
     public $CodigoComision;
     public $Codigo_venta_Comision;
@@ -96,8 +98,9 @@ class Venta extends \yii\db\ActiveRecord
     public $codigo_comision15;
     public $codigo_comision16;
     public $codigo_comision17;
-    
-    public $combo;
+    public $num_pasaporte;
+
+    public $Selectcombo;
     public $estado_pago;
     public $usuario;
     public $sala;
@@ -128,6 +131,15 @@ class Venta extends \yii\db\ActiveRecord
             [['serie_comprobante'], 'string'],
             [['numero_comprobante'], 'string'],
             [['salas'], 'string'],
+            [['numero_pasaporte'], 'string'],
+            [['num_pasaporte'], 'string'],
+
+            [['Selectcombo'], 'integer'],
+            [['estado_pago'], 'integer'],
+            [['sala'], 'integer'],
+            [['Codigo_club'], 'integer'],
+            [['usuario'], 'string'],
+            [['reporte'], 'integer'],
 
             [['numero_contrato'], 'required', 'message' => 'N° de Contrato es necesario.'],
             [['razon_social'], 'required', 'message' => 'Razon Social es necesario.'],
@@ -139,6 +151,7 @@ class Venta extends \yii\db\ActiveRecord
 
             [['uso_interno'], 'string'],
             [['numero_pasaporte'], 'match', 'pattern' => "/^.{9,9}$/", 'message' => 'Debe tener 9 digitos'],
+//            [['num_pasaporte'], 'match', 'pattern' => "/^.{9,9}$/", 'message' => 'Debe tener 9 digitos'],
 //            [['numero_pasaporte'], 'required', 'message' => 'El codigo pasaporte es requerido.'],
             [['numero_escaneado', 'numero_total', 'montoTotal', 'restante'], 'double'],
             [['Codigo_venta_Comision','CodigoComision','codigo_comision1', 'codigo_comision2', 'codigo_comision3', 'codigo_comision4', 'codigo_comision5', 'codigo_comision6','codigo_comision7', 'codigo_comision8', 'codigo_comision9', 'codigo_comision10', 'codigo_comision11', 'codigo_comision12', 'codigo_comision13'], 'string'],
@@ -164,6 +177,7 @@ class Venta extends \yii\db\ActiveRecord
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Estado' => 'Estado',
             'numero_pasaporte' => 'Ingresar Código de Pasaporte',
+            'num_pasaporte' => 'Ingresar Código de Pasaporte',
             'numero_escaneado' => 'Escaneados',
             'numero_total' => 'Total Noches',
             'uso_interno' => 'Buscar Clientes',
@@ -189,7 +203,7 @@ class Venta extends \yii\db\ActiveRecord
             'codigo_comision16' => 'Closer 2',
             'codigo_comision17' => 'Supervisor de TLMK',
 
-            'combo' => 'Opciones',
+            'Selectcombo' => 'Opciones',
             'estado_pago' => 'Estado de Pago',
             'usuario' => 'usuario',
             'sala' => 'Sala de venta',

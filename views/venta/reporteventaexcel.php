@@ -48,6 +48,7 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('W1', 'Codigó de Pasaporte')
     ->setCellValue('X1', 'Codiǵo de Certificado')
     ->setCellValue('Y1', 'Convertidor 1')
+    ->setCellValue('Z1', 'Convertidor 2')
     ->setCellValue('AA1', 'Regalos')
     ->setCellValue('AB1', 'Observaciones')
     ->setCellValue('AC1', 'Tipo de Pago')
@@ -71,7 +72,8 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('AW1', 'Jefe de Sala')
     ->setCellValue('AX1', 'Director de Ventas')
     ->setCellValue('AY1', 'Director de Proyectos')
-    ->setCellValue('AZ1', 'Generencia General');
+    ->setCellValue('AZ1', 'Generencia General')
+    ->setCellValue('BA1', 'Benficiario');
 
 $connection = \Yii::$app->db;
 $sqlStatement = '
@@ -82,6 +84,8 @@ $sqlStatement = '
               numero_comprobante AS COMPROBANTE,
               c.Nombre           AS NOMBRE,
               c.Apellido         AS APELLIDO,
+              c.DNI              AS DNI,
+              c.*,
               CASE
               c.Estado_Civil
               WHEN 0
@@ -142,7 +146,10 @@ $sqlStatement = '
               WHEN 2
                 THEN "Cancelado"
               END                AS estado_pago,
-              CONCAT(ben.Nombre,\' \',ben.Apellido) as Beneficiario
+              CONCAT(ben.Nombre,\' \',ben.Apellido) as Beneficiario,
+              p.Codigo_pasaporte  AS CP,
+              v.numero_pasaporte as NCP,
+              cl.Nombre as CLN
             FROM venta v
               INNER JOIN cliente c ON v.Codigo_Cliente = c.Codigo_Cliente
               INNER JOIN club cl ON v.Codigo_club = cl.Codigo_club
@@ -165,67 +172,35 @@ while ($row = $resultado->read()) {
         ->setCellValue('D'.$i,$row['COMPROBANTE'])
         ->setCellValue('E'.$i,$row['NOMBRE'])
         ->setCellValue('F'.$i,$row['APELLIDO'])
-        ->setCellValue('G'.$i,$row['CONVER1'])
-        ->setCellValue('H'.$i,$row['CONVER2'])
-        ->setCellValue('I'.$i,$row['REGALOS'])
-        ->setCellValue('J'.$i,$row['OBSER'])
-        ->setCellValue('K'.$i,$row['tipo_pago'])
-        ->setCellValue('L'.$i,$row['MONTO'])
-        ->setCellValue('M'.$i,$row['INGRESA'])
-        ->setCellValue('N'.$i,$row['RESTANTE'])
-        ->setCellValue('O'.$i,$row['FECHAPAGO'])
-        ->setCellValue('P'.$i,$row['estado_pago'])
-        ->setCellValue('Q'.$i,$row['Beneficiario'])
+        ->setCellValue('G'.$i,$row['DNI'])
+        ->setCellValue('H'.$i,$row['Edad'])
+        ->setCellValue('I'.$i,$row['Direccion'])
+        ->setCellValue('J'.$i,$row['Distrito'])
+        ->setCellValue('K'.$i,$row['Traslado'])
+        ->setCellValue('L'.$i,$row['Tarjeta_De_Credito'])
+        ->setCellValue('M'.$i,$row['Estado_Civil'])
+        ->setCellValue('N'.$i,$row['Profesion'])
+        ->setCellValue('O'.$i,$row['Telefono_Casa'])
+        ->setCellValue('P'.$i,$row['Telefono_Casa2'])
+        ->setCellValue('Q'.$i,$row['Telefono_Celular'])
+        ->setCellValue('R'.$i,$row['Telefono_Celular2'])
+        ->setCellValue('S'.$i,$row['Telefono_Celular3'])
+        ->setCellValue('T'.$i,$row['Email'])
+        ->setCellValue('U'.$i,$row['CLN'])
+        ->setCellValue('V'.$i,$row['NCP'])
+        ->setCellValue('CLN'.$i,$row['Distrito'])
+        ->setCellValue('W'.$i,$row['CP'])
+        ->setCellValue('Y1'.$i,$row['CONVER1'])
+        ->setCellValue('Z1'.$i,$row['CONVER2'])
+        ->setCellValue('AA1'.$i,$row['REGALOS'])
+        ->setCellValue('AB1'.$i,$row['OBSER'])
+        ->setCellValue('AC1'.$i,$row['tipo_pago'])
+        ->setCellValue('AD1'.$i,$row['MONTO'])
+        ->setCellValue('AE1'.$i,$row['INGRESA'])
+        ->setCellValue('AG1'.$i,$row['RESTANTE'])
+        ->setCellValue('AD1'.$i,$row['estado_pago'])
+        ->setCellValue('BA1'.$i,$row['Beneficiario'])
 
-//        ->setCellValue('A1', 'Razon Social')
-//        ->setCellValue('B1', 'N° de Contrato')
-//        ->setCellValue('C1', 'N° de Serie')
-//        ->setCellValue('D1', 'N° de Comprobante')
-//        ->setCellValue('E1', 'Nombres')
-//        ->setCellValue('F1', 'Apellidos')
-//        ->setCellValue('G1', 'DNI')
-//        ->setCellValue('H1', 'Edad')
-//        ->setCellValue('I1', 'Dirección')
-//        ->setCellValue('J1', 'Distrito')
-//        ->setCellValue('K1', 'Traslado')
-//        ->setCellValue('L1', 'Tipo de tarjeta')
-//        ->setCellValue('M1', 'Estado Civil')
-//        ->setCellValue('N1', 'Profesión')
-//        ->setCellValue('O1', 'Telefonó Casa 1')
-//        ->setCellValue('P1', 'Telefonó Casa 2')
-//        ->setCellValue('Q1', 'Telefonó Celular 1')
-//        ->setCellValue('R1', 'Telefonó Celular 2')
-//        ->setCellValue('S1', 'Telefonó Celular 3')
-//        ->setCellValue('T1', 'Email')
-//        ->setCellValue('U1', 'Tipo de Club')
-//        ->setCellValue('V1', 'Tipo de Pasaporte')
-//        ->setCellValue('W1', 'Codigó de Pasaporte')
-//        ->setCellValue('X1', 'Codiǵo de Certificado')
-//        ->setCellValue('Y1', 'Convertidor 1')
-//        ->setCellValue('AA1', 'Regalos')
-//        ->setCellValue('AB1', 'Observaciones')
-//        ->setCellValue('AC1', 'Tipo de Pago')
-//        ->setCellValue('AD1', 'Estado de Pago')
-//        ->setCellValue('AE1', 'Monto')
-//        ->setCellValue('AF1', 'Monto Ingresado')
-//        ->setCellValue('AG1', 'Monto Restante')
-//        ->setCellValue('AH1', 'Digitador')
-//        ->setCellValue('AI1', 'OPC')
-//        ->setCellValue('AJ1', 'Tienda')
-//        ->setCellValue('AM1', 'Supervisor Promotor')
-//        ->setCellValue('AN1', 'Supervior General OPC')
-//        ->setCellValue('AO1', 'Director de Mercadero')
-//        ->setCellValue('AP1', 'TLMK')
-//        ->setCellValue('AK1', 'Supervisor de TLMK')
-//        ->setCellValue('AR1', 'Confirmadora')
-//        ->setCellValue('AS1', 'Director de TLMK')
-//        ->setCellValue('AT1', 'Liner')
-//        ->setCellValue('AU1', 'Closer')
-//        ->setCellValue('AV1', 'Closer 2')
-//        ->setCellValue('AW1', 'Jefe de Sala')
-//        ->setCellValue('AX1', 'Director de Ventas')
-//        ->setCellValue('AY1', 'Director de Proyectos')
-//        ->setCellValue('AZ1', 'Generencia General');
 
     ;
     $i++;

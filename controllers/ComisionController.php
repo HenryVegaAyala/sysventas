@@ -65,7 +65,9 @@ class ComisionController extends Controller
     {
         $model = new Comision();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->Codigo = $model->getCodigo();
+            $model->save();
             return $this->redirect(['view', 'id' => $model->Codigo]);
         } else {
             return $this->render('create', [

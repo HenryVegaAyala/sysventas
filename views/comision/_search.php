@@ -19,13 +19,45 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'Codigo') ?>
 
-    <?= $form->field($model, 'Nombre') ?>
+    <?= $form->field($model, 'Codigo_venta') ?>
 
-    <?= $form->field($model, 'monto') ?>
+    <?= $form->field($model, 'Digitador') ?>
 
-    <?= $form->field($model, 'porcentaje') ?>
+    <?= $form->field($model, 'OPC') ?>
 
-    <?= $form->field($model, 'Fecha_Creado') ?>
+    <?= $form->field($model, 'Tienda') ?>
+
+    <?php // echo $form->field($model, 'SupervisorPromotor') ?>
+
+    <?php // echo $form->field($model, 'SuperviorGeneralOPC') ?>
+
+    <?php // echo $form->field($model, 'DirectordeMercadero') ?>
+
+    <?php // echo $form->field($model, 'TLMK') ?>
+
+    <?php // echo $form->field($model, 'SupervisordeTLMK') ?>
+
+    <?php // echo $form->field($model, 'Confirmadora') ?>
+
+    <?php // echo $form->field($model, 'DirectordeTLMK') ?>
+
+    <?php // echo $form->field($model, 'Liner') ?>
+
+    <?php // echo $form->field($model, 'Closer') ?>
+
+    <?php // echo $form->field($model, 'Closer2') ?>
+
+    <?php // echo $form->field($model, 'JefedeSala') ?>
+
+    <?php // echo $form->field($model, 'DirectordeVentas') ?>
+
+    <?php // echo $form->field($model, 'DirectordeProyectos') ?>
+
+    <?php // echo $form->field($model, 'GenerenciaGeneral') ?>
+
+    <?php // echo $form->field($model, 'monto') ?>
+
+    <?php // echo $form->field($model, 'Fecha_Creado') ?>
 
     <?php // echo $form->field($model, 'Fecha_Modificado') ?>
 
@@ -34,16 +66,6 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'Usuario_Modificado') ?>
 
     <?php // echo $form->field($model, 'Estado') ?>
-
-    <?php // echo $form->field($model, 'codigo_anfitrion') ?>
-
-    <?php // echo $form->field($model, 'codigo_supervisor_anfitrion') ?>
-
-    <?php // echo $form->field($model, 'codigo_jefe_anfitrion') ?>
-
-    <?php // echo $form->field($model, 'no_access_closer') ?>
-
-    <?php // echo $form->field($model, 'no_access_liner') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
+use yii\db\Query;
 
 /**
  * This is the model class for table "pago".
@@ -41,8 +43,7 @@ class Pago extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo_venta'], 'required'],
-            [['Codigo_venta', 'tipo_pago', 'estado_pago'], 'integer'],
+            [['Codigo_venta', 'codigo_pago', 'tipo_pago', 'estado_pago'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
             [['monto_pagado', 'monto_ingresado', 'monto_restante'], 'string', 'max' => 255],
             [['Usuario_Creado', 'Usuario_Eliminado', 'Usuario_Modificado'], 'string', 'max' => 100],
@@ -79,7 +80,7 @@ class Pago extends \yii\db\ActiveRecord
      */
     public function getFormasPagos()
     {
-        return $this->hasMany(FormasPago::className(), ['pago_codigo_pago' => 'codigo_pago']);
+        return $this->hasMany(FormasPago::className(), ['codigo_pago' => 'codigo_pago']);
     }
 
     /**
@@ -88,5 +89,15 @@ class Pago extends \yii\db\ActiveRecord
     public function getCodigoVenta()
     {
         return $this->hasOne(Venta::className(), ['Codigo_venta' => 'Codigo_venta']);
+    }
+
+    public function getCodigo()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(codigo_pago), 0) + 1');
+        $query->select($expresion)->from('pago');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
     }
 }

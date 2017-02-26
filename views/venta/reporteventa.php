@@ -3,19 +3,10 @@ header('Content-type: application/pdf');
 
 use yii\db\Query;
 
-$fechaIni;
-$fechaFin;
-$combo;
-$estadoPago;
-$sala;
-$codigoClub;
-$usuario;
-$reporte;
-
 class PDF extends FPDF
 {
 
-    function Impresion($fechaIni, $fechaFin, $combo, $estadoPago, $sala, $codigoClub, $usuario, $reporte)
+    function Impresion($fechaIni, $fechaFin, $combo, $estadoPago, $sala, $codigoClub, $usuario)
     {
         $model = new \app\models\Usuario();
         $cliente = new \app\models\Cliente();
@@ -166,8 +157,18 @@ class PDF extends FPDF
               INNER JOIN pago pa ON v.Codigo_venta = pa.Codigo_venta
               INNER JOIN formas_pago fpa ON pa.codigo_pago = fpa.codigo_pago
               INNER JOIN comision com ON v.Codigo_venta = com.Codigo_venta
-            INNER JOIN beneficiario ben ON c.Codigo_Cliente = ben.Codigo_Cliente';
-       $sqlStatement .= 'WHERE date(v.Fecha_Creado)  BETWEEN "' . $fechaIni . '" and "' . $fechaFin . '"';
+            INNER JOIN beneficiario ben ON c.Codigo_Cliente = ben.Codigo_Cliente 
+            WHERE ';
+
+        if ($combo == 0) {
+            $sqlStatement .= 'pa.estado_pago = "' . $estadoPago . '"';
+        } elseif ($combo == 1) {
+            $sqlStatement .= 'v.salas = "' . $sala . '"';
+        } elseif ($combo == 2) {
+            $sqlStatement .= 'cl.Codigo_club = "' . $codigoClub . '"';
+        } elseif ($combo == 3) {
+            $sqlStatement .= 'com.Codigo_usuario = "' . $usuario . '"';
+        }
 
         $comando = $connection->createCommand($sqlStatement);
         $resultado = $comando->query();
@@ -217,7 +218,7 @@ class PDF extends FPDF
 $pdf = new PDF('L', 'cm', array(22, 78.5));
 $Reporte = "Reporte_de_Venta.pdf";
 $pdf->AddPage();
-$pdf->Impresion($fechaIni, $fechaFin, $combo, $estadoPago, $sala, $codigoClub, $usuario, $reporte);
+$pdf->Impresion($fechaIni, $fechaFin, $combo, $estadoPago, $sala, $codigoClub, $usuario);
 $pdf->SetTitle("Reporte de Ventas");
 $pdf->SetAuthor("Rustica Club");
 $pdf->Output($Reporte, 'I');

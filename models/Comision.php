@@ -3,13 +3,32 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
+use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "comision".
  *
  * @property integer $Codigo
  * @property integer $Codigo_venta
- * @property string $Codigo_usuario
+ * @property string $Digitador
+ * @property string $OPC
+ * @property string $Tienda
+ * @property string $SupervisorPromotor
+ * @property string $SuperviorGeneralOPC
+ * @property string $DirectordeMercadero
+ * @property string $TLMK
+ * @property string $SupervisordeTLMK
+ * @property string $Confirmadora
+ * @property string $DirectordeTLMK
+ * @property string $Liner
+ * @property string $Closer
+ * @property string $Closer2
+ * @property string $JefedeSala
+ * @property string $DirectordeVentas
+ * @property string $DirectordeProyectos
+ * @property string $GenerenciaGeneral
  * @property string $monto
  * @property string $Fecha_Creado
  * @property string $Fecha_Modificado
@@ -39,7 +58,7 @@ class Comision extends \yii\db\ActiveRecord
             [['Codigo_venta'], 'integer'],
             [['monto'], 'number'],
             [['Fecha_Creado', 'Fecha_Modificado'], 'safe'],
-            [['Codigo_usuario'], 'string', 'max' => 255],
+            [['Digitador', 'OPC', 'Tienda', 'SupervisorPromotor', 'SuperviorGeneralOPC', 'DirectordeMercadero', 'TLMK', 'SupervisordeTLMK', 'Confirmadora', 'DirectordeTLMK', 'Liner', 'Closer', 'Closer2', 'JefedeSala', 'DirectordeVentas', 'DirectordeProyectos', 'GenerenciaGeneral'], 'string', 'max' => 255],
             [['Usuario_Creado', 'Usuario_Modificado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
             [['Codigo_venta'], 'exist', 'skipOnError' => true, 'targetClass' => Venta::className(), 'targetAttribute' => ['Codigo_venta' => 'Codigo_venta']],
@@ -54,7 +73,23 @@ class Comision extends \yii\db\ActiveRecord
         return [
             'Codigo' => 'Codigo',
             'Codigo_venta' => 'Codigo Venta',
-            'Codigo_usuario' => 'Codigo Usuario',
+            'Digitador' => 'Digitador',
+            'OPC' => 'OPC',
+            'Tienda' => 'Tienda',
+            'SupervisorPromotor' => 'Supervisor Promotor',
+            'SuperviorGeneralOPC' => 'Supervior General OPC',
+            'DirectordeMercadero' => 'Directorde Mercadero',
+            'TLMK' => 'TLMK',
+            'SupervisordeTLMK' => 'Supervisor de TLMK',
+            'Confirmadora' => 'Confirmadora',
+            'DirectordeTLMK' => 'Director de TLMK',
+            'Liner' => 'Liner',
+            'Closer' => 'Closer',
+            'Closer2' => 'Closer 2',
+            'JefedeSala' => 'Jefede Sala',
+            'DirectordeVentas' => 'Directorde Ventas',
+            'DirectordeProyectos' => 'Directorde Proyectos',
+            'GenerenciaGeneral' => 'Generencia General',
             'monto' => 'Monto',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',
@@ -70,5 +105,15 @@ class Comision extends \yii\db\ActiveRecord
     public function getCodigoVenta()
     {
         return $this->hasOne(Venta::className(), ['Codigo_venta' => 'Codigo_venta']);
+    }
+
+    public function getCodigo()
+    {
+        $query = new Query();
+        $expresion = new Expression('IFNULL(MAX(Codigo), 0) + 1');
+        $query->select($expresion)->from('comision');
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
     }
 }

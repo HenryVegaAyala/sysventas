@@ -10,33 +10,58 @@ use yii\widgets\Pjax;
  * @var app\models\ComisionSearch $searchModel
  */
 
-$this->title = 'Comisiones';
+$this->title = 'Comisions';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="comision-index">
+    <div class="page-header">
+        <h1><?= Html::encode($this->title) ?></h1>
+    </div>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php Pjax::begin();
-    echo GridView::widget([
+    <p>
+        <?php /* echo Html::a('Create Comision', ['create'], ['class' => 'btn btn-success'])*/  ?>
+    </p>
+
+    <?php Pjax::begin(); echo GridView::widget([
         'dataProvider' => $dataProvider,
-//        'filterModel' => $searchModel,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'Codigo',
-            'Nombre',
-            'monto',
-            'porcentaje',
+            'Codigo_venta',
+            'Digitador',
+            'OPC',
+            'Tienda',
+//            'SupervisorPromotor', 
+//            'SuperviorGeneralOPC', 
+//            'DirectordeMercadero', 
+//            'TLMK', 
+//            'SupervisordeTLMK', 
+//            'Confirmadora', 
+//            'DirectordeTLMK', 
+//            'Liner', 
+//            'Closer', 
+//            'Closer2', 
+//            'JefedeSala', 
+//            'DirectordeVentas', 
+//            'DirectordeProyectos', 
+//            'GenerenciaGeneral', 
+//            'monto', 
+//            ['attribute' => 'Fecha_Creado','format' => ['datetime',(isset(Yii::$app->modules['datecontrol']['displaySettings']['datetime'])) ? Yii::$app->modules['datecontrol']['displaySettings']['datetime'] : 'd-m-Y H:i:s A']], 
+//            ['attribute' => 'Fecha_Modificado','format' => ['datetime',(isset(Yii::$app->modules['datecontrol']['displaySettings']['datetime'])) ? Yii::$app->modules['datecontrol']['displaySettings']['datetime'] : 'd-m-Y H:i:s A']], 
+//            'Usuario_Creado', 
+//            'Usuario_Modificado', 
+//            'Estado', 
+
             [
                 'class' => 'yii\grid\ActionColumn',
-                'header' => 'Detalle',
-                'template' => '{view} ',
-                'headerOptions' => ['class' => 'itemHide'],
-                'contentOptions' => ['class' => 'itemHide'],
                 'buttons' => [
-                    'view' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>',
-                            Yii::$app->urlManager->createUrl(['comision/view', 'id' => $model->Codigo]),
-                            ['title' => Yii::t('yii', 'Ver'),]
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>',
+                            Yii::$app->urlManager->createUrl(['comision/view', 'id' => $model->Codigo, 'edit' => 't']),
+                            ['title' => Yii::t('yii', 'Edit'),]
                         );
                     }
                 ],
@@ -48,13 +73,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'floatHeader' => true,
 
         'panel' => [
-            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',
-//            'type' => 'info',
-//            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
+            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
+            'type' => 'info',
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],
-    ]);
-    Pjax::end(); ?>
+    ]); Pjax::end(); ?>
 
 </div>

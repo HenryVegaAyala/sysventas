@@ -6,9 +6,6 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Comision;
-use yii\db\Query;
-use yii\db\Expression;
-use yii\helpers\ArrayHelper;
 
 /**
  * ComisionSearch represents the model behind the search form of `app\models\Comision`.
@@ -21,9 +18,9 @@ class ComisionSearch extends Comision
     public function rules()
     {
         return [
-            [['Codigo'], 'integer'],
-            [['Nombre', 'Fecha_Creado', 'Fecha_Modificado', 'Usuario_Creado', 'Usuario_Modificado', 'Estado', 'codigo_anfitrion', 'codigo_supervisor_anfitrion', 'codigo_jefe_anfitrion', 'no_access_closer', 'no_access_liner'], 'safe'],
-            [['monto', 'porcentaje'], 'number'],
+            [['Codigo', 'Codigo_venta'], 'integer'],
+            [['Digitador', 'OPC', 'Tienda', 'SupervisorPromotor', 'SuperviorGeneralOPC', 'DirectordeMercadero', 'TLMK', 'SupervisordeTLMK', 'Confirmadora', 'DirectordeTLMK', 'Liner', 'Closer', 'Closer2', 'JefedeSala', 'DirectordeVentas', 'DirectordeProyectos', 'GenerenciaGeneral', 'Fecha_Creado', 'Fecha_Modificado', 'Usuario_Creado', 'Usuario_Modificado', 'Estado'], 'safe'],
+            [['monto'], 'number'],
         ];
     }
 
@@ -45,10 +42,7 @@ class ComisionSearch extends Comision
      */
     public function search($params)
     {
-
-        $model = new Usuario();
-        $where = new Expression($model->getComisiones(Yii::$app->user->identity->Codigo_Rol, Yii::$app->user->identity->id));
-        $query = Comision::find()->where($where);
+        $query = Comision::find();
 
         // add conditions that should always apply here
 
@@ -67,21 +61,32 @@ class ComisionSearch extends Comision
         // grid filtering conditions
         $query->andFilterWhere([
             'Codigo' => $this->Codigo,
+            'Codigo_venta' => $this->Codigo_venta,
             'monto' => $this->monto,
-            'porcentaje' => $this->porcentaje,
             'Fecha_Creado' => $this->Fecha_Creado,
             'Fecha_Modificado' => $this->Fecha_Modificado,
         ]);
 
-        $query->andFilterWhere(['like', 'Nombre', $this->Nombre])
+        $query->andFilterWhere(['like', 'Digitador', $this->Digitador])
+            ->andFilterWhere(['like', 'OPC', $this->OPC])
+            ->andFilterWhere(['like', 'Tienda', $this->Tienda])
+            ->andFilterWhere(['like', 'SupervisorPromotor', $this->SupervisorPromotor])
+            ->andFilterWhere(['like', 'SuperviorGeneralOPC', $this->SuperviorGeneralOPC])
+            ->andFilterWhere(['like', 'DirectordeMercadero', $this->DirectordeMercadero])
+            ->andFilterWhere(['like', 'TLMK', $this->TLMK])
+            ->andFilterWhere(['like', 'SupervisordeTLMK', $this->SupervisordeTLMK])
+            ->andFilterWhere(['like', 'Confirmadora', $this->Confirmadora])
+            ->andFilterWhere(['like', 'DirectordeTLMK', $this->DirectordeTLMK])
+            ->andFilterWhere(['like', 'Liner', $this->Liner])
+            ->andFilterWhere(['like', 'Closer', $this->Closer])
+            ->andFilterWhere(['like', 'Closer2', $this->Closer2])
+            ->andFilterWhere(['like', 'JefedeSala', $this->JefedeSala])
+            ->andFilterWhere(['like', 'DirectordeVentas', $this->DirectordeVentas])
+            ->andFilterWhere(['like', 'DirectordeProyectos', $this->DirectordeProyectos])
+            ->andFilterWhere(['like', 'GenerenciaGeneral', $this->GenerenciaGeneral])
             ->andFilterWhere(['like', 'Usuario_Creado', $this->Usuario_Creado])
             ->andFilterWhere(['like', 'Usuario_Modificado', $this->Usuario_Modificado])
-            ->andFilterWhere(['like', 'Estado', $this->Estado])
-            ->andFilterWhere(['like', 'codigo_anfitrion', $this->codigo_anfitrion])
-            ->andFilterWhere(['like', 'codigo_supervisor_anfitrion', $this->codigo_supervisor_anfitrion])
-            ->andFilterWhere(['like', 'codigo_jefe_anfitrion', $this->codigo_jefe_anfitrion])
-            ->andFilterWhere(['like', 'no_access_closer', $this->no_access_closer])
-            ->andFilterWhere(['like', 'no_access_liner', $this->no_access_liner]);
+            ->andFilterWhere(['like', 'Estado', $this->Estado]);
 
         return $dataProvider;
     }

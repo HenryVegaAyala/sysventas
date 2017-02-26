@@ -18,11 +18,14 @@ use Yii;
  * @property string $Usuario_Eliminado
  * @property string $Usuario_Modificado
  * @property string $Estado
+ * @property string $restante
  *
  * @property Pago $codigoPago
  */
 class FormasPago extends \yii\db\ActiveRecord
 {
+    public $restante;
+
     /**
      * @inheritdoc
      */
@@ -38,9 +41,10 @@ class FormasPago extends \yii\db\ActiveRecord
     {
         return [
             [['codigo_pago'], 'required'],
-            [['codigo_pago'], 'integer'],
-            [['fecha_pago', 'Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
+            [['codigo_pago','restante'], 'integer'],
+            [['fecha_pago', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
             [['monto'], 'number'],
+            [['Fecha_Creado'], 'string', 'max' => 45],
             [['Usuario_Creado', 'Usuario_Eliminado', 'Usuario_Modificado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
             [['codigo_pago'], 'exist', 'skipOnError' => true, 'targetClass' => Pago::className(), 'targetAttribute' => ['codigo_pago' => 'codigo_pago']],
@@ -64,6 +68,7 @@ class FormasPago extends \yii\db\ActiveRecord
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Estado' => 'Estado',
+            'restante' => 'Restante',
         ];
     }
 

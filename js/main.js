@@ -140,9 +140,9 @@ function IngresarCertificado(codigobarra, totalnoches, codigopasaporte) {
     codigopasaporte =  document.getElementById('venta-numero_pasaporte').value;
 
     if(codigopasaporte !== ''){
-        document.getElementById('venta-numero_pasaporte').disabled = true;
+        document.getElementById('venta-numero_pasaporte').setAttribute("readonly", true);
     }else{
-        document.getElementById('venta-numero_pasaporte').disabled = false;
+        document.getElementById('venta-numero_pasaporte').setAttribute("readonly", false);
     }
 
     $.ajax({

@@ -57,17 +57,17 @@ use yii\helpers\Url;
 
     <div class="container-fluid" id="Ncontrato" style="display: none;">
         <div class="row">
-            <div class="col-sm-3" style="float: right ">
-                <?= $form->field($model, 'numero_comprobante')->textInput(['placeholder' => "N° de Comprobante", 'maxlength' => 12])->label(false) ?>
+            <div class="col-sm-4" >
+                <?= $form->field($model, 'razon_social')->textInput(['autofocus' => 'autofocus', 'placeholder' => "Razon Social", 'maxlength' => 100])->label(false) ?>
             </div>
-            <div class="col-sm-2" style="float: right ">
+            <div class="col-sm-3" >
+                <?= $form->field($model, 'numero_contrato')->textInput(['placeholder' => "N° de Contrato", 'maxlength' => 12])->label(false) ?>
+            </div>
+            <div class="col-sm-2" >
                 <?= $form->field($model, 'serie_comprobante')->textInput(['placeholder' => "N° de Serie", 'maxlength' => 12])->label(false) ?>
             </div>
-            <div class="col-sm-3" style="float: right ">
-                <?= $form->field($model, 'numero_contrato')->textInput(['autofocus' => 'autofocus', 'placeholder' => "N° de Contrato", 'maxlength' => 12])->label(false) ?>
-            </div>
-            <div class="col-sm-4" style="float: right ">
-                <?= $form->field($model, 'razon_social')->textInput(['placeholder' => "Razon Social", 'maxlength' => 100])->label(false) ?>
+            <div class="col-sm-3">
+                <?= $form->field($model, 'numero_comprobante')->textInput(['placeholder' => "N° de Comprobante", 'maxlength' => 12])->label(false) ?>
             </div>
         </div>
     </div>
@@ -210,7 +210,7 @@ use yii\helpers\Url;
             </div>
 
             <div class="col-sm-3">
-                <label class="control-label" for="venta-numero_pasaporte">Resulado de la Búsqueda</label>
+                <label class="control-label" for="venta-numero_pasaporte">Resultado de la Búsqueda</label>
                 <br>
                 <span id="query2"></span>
             </div>
@@ -279,34 +279,18 @@ use yii\helpers\Url;
                 </div>
             </div>
 
-            <label class="form-control">Fechas de Pago:</label>
-
             <div class="row">
-                <div class="col-sm-6">
-                    <?= Html::button('<i class="fa fa-plus" aria-hidden="true"></i> Agregar Fechas de Pago', ['class' => 'btn btn-success']) ?>
+                <div class="col-sm-12">
+                    <?= DynamicRelations::widget([
+                        'title' => 'Formas de Pago:',
+                        'collection' => $pago->formasPagos,
+                        'viewPath' => '@app/views/formas-pago/_form.php',
+                        'collectionType' => new \app\models\FormasPago,
+
+                    ]); ?>
                 </div>
             </div>
-            <br>
-            <div class="row">
-                <div class="col-sm-4">
-                    <?php
-                    echo $form->field($formaPago, 'fecha_pago')->widget(\kartik\widgets\DatePicker::classname(), [
-                        'options' => ['placeholder' => 'Fecha'],
-                        'pluginOptions' => [
-                            'autoclose' => true,
-                            'format' => 'yyyy-mm-dd'
-                        ]
-                    ]);?>
-                </div>
 
-                <div class="col-sm-4">
-                    <?= $form->field($formaPago, 'monto')->textInput(['maxlength' => 8]) ?>
-                </div>
-
-                <div class="col-sm-4">
-                    <?= $form->field($model, 'restante')->textInput(['maxlength' => 8]) ?>
-                </div>
-            </div>
         </div>
     </fieldset>
 
@@ -359,7 +343,7 @@ use yii\helpers\Url;
                 <div class="col-sm-2">
                     <?= $form->field($model, 'codigo_comision9')->textInput(['maxlength' => 250]) ?>
                 </div>
-                
+
                 <div class="col-sm-2">
                     <?= $form->field($model, 'codigo_comision10')->textInput(['maxlength' => 250]) ?>
                 </div>

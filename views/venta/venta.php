@@ -12,9 +12,7 @@ $this->title = 'Reporte General';
 <div class="reporte-create">
 
     <?=
-
     $this->render('_venta', ['model' => $model,])
-
     ?>
 
 </div>

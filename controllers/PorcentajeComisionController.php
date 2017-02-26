@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Club;
-use app\models\ClubSearch;
+use app\models\PorcentajeComision;
+use app\models\PorcentajeComisionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ClubController implements the CRUD actions for Club model.
+ * PorcentajeComisionController implements the CRUD actions for PorcentajeComision model.
  */
-class ClubController extends Controller
+class PorcentajeComisionController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class ClubController extends Controller
     }
 
     /**
-     * Lists all Club models.
+     * Lists all PorcentajeComision models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ClubSearch();
+        $searchModel = new PorcentajeComisionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class ClubController extends Controller
     }
 
     /**
-     * Displays a single Club model.
+     * Displays a single PorcentajeComision model.
      * @param integer $id
      * @return mixed
      */
@@ -57,21 +57,16 @@ class ClubController extends Controller
     }
 
     /**
-     * Creates a new Club model.
+     * Creates a new PorcentajeComision model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Club();
+        $model = new PorcentajeComision();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->Codigo_club = $model->getCodigo();
-            $model->Fecha_Creado = $this->ZonaHoraria();
-            $model->Usuario_Creado = Yii::$app->user->identity->email;
-            $model->Estado = '1';
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->Codigo_club]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -80,7 +75,7 @@ class ClubController extends Controller
     }
 
     /**
-     * Updates an existing Club model.
+     * Updates an existing PorcentajeComision model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -90,7 +85,7 @@ class ClubController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->Codigo_club]);
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -99,7 +94,7 @@ class ClubController extends Controller
     }
 
     /**
-     * Deletes an existing Club model.
+     * Deletes an existing PorcentajeComision model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -112,26 +107,18 @@ class ClubController extends Controller
     }
 
     /**
-     * Finds the Club model based on its primary key value.
+     * Finds the PorcentajeComision model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Club the loaded model
+     * @return PorcentajeComision the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Club::findOne($id)) !== null) {
+        if (($model = PorcentajeComision::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-    public function ZonaHoraria()
-    {
-        date_default_timezone_set('America/Lima');
-        $Fecha_Hora = date('Y-m-d h:i:s', time());
-        return $Fecha_Hora;
-    }
-
 }

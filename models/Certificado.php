@@ -3,7 +3,9 @@
 namespace app\models;
 
 use Yii;
-
+use yii\db\Query;
+use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "certificado".
  *
@@ -41,7 +43,7 @@ class Certificado extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['Codigo_venta', 'Vigencia', 'Stock'], 'integer'],
+//            [['Codigo_venta', 'Vigencia', 'Stock'], 'integer'],
             [['Vigencia', 'Stock','Nombre'], 'required'],
             [['Precio'], 'number'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
@@ -51,7 +53,7 @@ class Certificado extends \yii\db\ActiveRecord
             [['Codigo_venta'], 'exist', 'skipOnError' => true, 'targetClass' => Venta::className(), 'targetAttribute' => ['Codigo_venta' => 'Codigo_venta']],
 
             [['codigo_barra'], 'match', 'pattern' => "/^.{9,9}$/", 'message' => 'Debe tener 9 digitos'],
-            [['codigo_barra'], 'required', 'message' => 'El codigo pasaporte es requerido.'],
+//            [['codigo_barra'], 'required', 'message' => 'El codigo pasaporte es requerido.'],
         ];
     }
 
@@ -86,4 +88,15 @@ class Certificado extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Venta::className(), ['Codigo_venta' => 'Codigo_venta']);
     }
+    
+    public function CantidadCertificado($codigo)
+    {
+        $query = new Query();
+        $query->select('count(codigo_barra)')->from('certificado')->where("Codigo_pasaporte ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+//        $cantidad = count($data);
+        return $data;
+    }
+
 }

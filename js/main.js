@@ -216,17 +216,37 @@ function escaneado(codigopasaporte) {
 
 function Cantidad(value) {
 
+
+    var parametros = {
+        "value": value,
+    };
+
     precio(value);
 
-    if (value == "1") {
-        document.getElementById("venta-numero_total").value = "10";
-    }
-    else if (value == "2") {
-        document.getElementById("venta-numero_total").value = "20";
-    }
-    else {
-        document.getElementById("venta-numero_total").value = "30";
-    }
+    $.ajax({
+        data: parametros,
+        url: 'cantidad',
+        type: 'post',
+        beforeSend: function () {
+        },
+
+        success: function (response) {
+            var var1;
+            var1 = document.getElementById("venta-numero_total").value = response;
+        }
+    });
+
+    // precio(value);
+    //
+    // if (value == "1") {
+    //     document.getElementById("venta-numero_total").value = "10";
+    // }
+    // else if (value == "2") {
+    //     document.getElementById("venta-numero_total").value = "20";
+    // }
+    // else {
+    //     document.getElementById("venta-numero_total").value = "30";
+    // }
 }
 
 function precio(codigo) {

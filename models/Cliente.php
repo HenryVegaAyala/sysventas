@@ -525,11 +525,6 @@ class Cliente extends \yii\db\ActiveRecord
         $data = $comando->queryScalar();
         return $data;
     }
-
-
-
-
-
-
+    
 
 }

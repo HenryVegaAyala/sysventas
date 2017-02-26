@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Expression;
+use yii\db\Query;
 
 /**
  * This is the model class for table "combo".
@@ -78,5 +80,16 @@ class Combo extends \yii\db\ActiveRecord
     public function getCodigoVenta()
     {
         return $this->hasOne(Venta::className(), ['Codigo_venta' => 'Codigo_venta']);
+    }
+
+    public function getCodigoCombo($id)
+    {
+        $query = new Query();
+        $select = new Expression('Codigo_combo');
+        $where = new Expression('Codigo_venta  = "'.$id.'"');
+        $query->select($select)->from('combo')->where($where);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
     }
 }

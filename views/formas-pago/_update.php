@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\widgets\DatePicker;
 use yii\helpers\Url;
+use synatree\dynamicrelations\DynamicRelations;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\FormasPago */
@@ -14,10 +15,10 @@ $uniq = uniqid();
 if ($model->primaryKey) {
 
     $removeAttr = 'data-dynamic-relation-remove-route="' . Url::toRoute(['delete', 'id' => $model->primaryKey]) . '"';
-    $frag = "FormasPago[{$model->primaryKey}]";
+    $frag = "FormasPago[new][".rand(1,9999999999)."]";
 } else {
     $removeAttr = "";
-    $frag = "FormasPago[new][$uniq]";
+    $frag = "FormasPago[new][".rand(1,9999999999)."]";
 }
 ?>
 

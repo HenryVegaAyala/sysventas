@@ -22,6 +22,7 @@ use yii\db\Query;
  * @property string $Usuario_Modificado
  * @property string $Usuario_Eliminado
  * @property string $Estado
+ * @property integer $Dias_noches
  *
  * @property Venta[] $ventas
  */
@@ -41,6 +42,8 @@ class Club extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['Codigo_club'], 'required'],
+            [['Codigo_club', 'Vigencia', 'Dias_noches'], 'integer'],
             [['Precio', 'Precio_por_Noche', 'Desc_Afiliado'], 'number'],
             [['Vigencia'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
@@ -68,6 +71,7 @@ class Club extends \yii\db\ActiveRecord
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Estado' => 'Estado',
+            'Dias_noches' => 'Dias Noches',
         ];
     }
 
@@ -89,4 +93,23 @@ class Club extends \yii\db\ActiveRecord
         return $data;
     }
 
+    public function getDiasNoche($codigo)
+    {
+        $query = new Query();
+        $expresion = new Expression('Dias_noches');
+        $where = new Expression('Codigo_Club = "'.$codigo.'"');
+        $query->select($expresion)->from('club')->where($where);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function PrecioClub($codigo)
+    {
+        $query = new Query();
+        $query->select('Precio')->from('club')->where("Codigo_club ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
 }

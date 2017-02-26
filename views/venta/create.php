@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'certificado' => $certificado,
         'incentivos' => $incentivos,
         'pago' => $pago,
-//        'formaPago' => $formaPago,
+        'comision' => $comision,
     ]) ?>
 
 </div>

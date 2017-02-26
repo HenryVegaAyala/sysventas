@@ -154,7 +154,7 @@ class Venta extends \yii\db\ActiveRecord
 //            [['num_pasaporte'], 'match', 'pattern' => "/^.{9,9}$/", 'message' => 'Debe tener 9 digitos'],
 //            [['numero_pasaporte'], 'required', 'message' => 'El codigo pasaporte es requerido.'],
             [['numero_escaneado', 'numero_total', 'montoTotal', 'restante'], 'double'],
-            [['Codigo_venta_Comision','CodigoComision','codigo_comision1', 'codigo_comision2', 'codigo_comision3', 'codigo_comision4', 'codigo_comision5', 'codigo_comision6','codigo_comision7', 'codigo_comision8', 'codigo_comision9', 'codigo_comision10', 'codigo_comision11', 'codigo_comision12', 'codigo_comision13'], 'string'],
+            [['Codigo_venta_Comision', 'CodigoComision', 'codigo_comision1', 'codigo_comision2', 'codigo_comision3', 'codigo_comision4', 'codigo_comision5', 'codigo_comision6', 'codigo_comision7', 'codigo_comision8', 'codigo_comision9', 'codigo_comision10', 'codigo_comision11', 'codigo_comision12', 'codigo_comision13'], 'string'],
         ];
     }
 
@@ -419,6 +419,32 @@ class Venta extends \yii\db\ActiveRecord
         return $data;
     }
 
+    public function NumeroPasaporte($CodVenta, $codigo)
+    {
+
+        $CodigoClub = new Club();
+        $Certificado = new Certificado();
+
+        $query = new Query();
+        if ($codigo == 1) {
+            $query->select('numero_pasaporte')->from('venta')->where("Codigo_Venta ='" . $CodVenta . "'");
+        } elseif ($codigo == 2) {
+            $Club = $CodigoClub->getDiasNoche($CodVenta);
+            return $Club;
+        } elseif ($codigo == 3) {
+            $CantCertificado = $Certificado->CantidadCertificado($CodVenta);
+            return $CantCertificado;
+        } elseif ($codigo == 4) {
+            $CantCertificado = $CodigoClub->PrecioClub($CodVenta);
+            return $CantCertificado;
+        }
+
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+
     public function getOpciones()
     {
         $var = [
@@ -437,6 +463,20 @@ class Venta extends \yii\db\ActiveRecord
             1 => 'PDF',
         ];
         return $var;
+    }
+
+    public function SP_Delete($codigo)
+    {
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand("call Delete_Beneficiario('" . $codigo . "')");
+        $command->execute();
+    }
+
+    public function SP_DeletePago($codigopago)
+    {
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand("call Delete_Pago('" . $codigopago . "')");
+        $command->execute();
     }
 
 }

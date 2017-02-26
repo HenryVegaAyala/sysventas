@@ -10,6 +10,8 @@ use app\models\Comision;
 use app\models\Combo;
 use synatree\dynamicrelations\DynamicRelations;
 use yii\helpers\Url;
+use yii\db\Query;
+use yii\db\Expression;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Venta */
@@ -32,24 +34,24 @@ use yii\helpers\Url;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <div class="container-fluid" id="Ncontrato" >
+    <div class="container-fluid" id="Ncontrato">
         <div class="row">
-            <div class="col-sm-3" style="float: right ">
-                <?= $form->field($model, 'numero_comprobante')->textInput(['placeholder' => "N° de Comprobante", 'maxlength' => 12])->label(false) ?>
+            <div class="col-sm-4">
+                <?= $form->field($model, 'razon_social')->textInput(['autofocus' => 'autofocus', 'placeholder' => "Razon Social", 'maxlength' => 100, 'readonly' => 'true'])->label(false) ?>
             </div>
-            <div class="col-sm-2" style="float: right ">
-                <?= $form->field($model, 'serie_comprobante')->textInput(['placeholder' => "N° de Serie", 'maxlength' => 12])->label(false) ?>
+            <div class="col-sm-3">
+                <?= $form->field($model, 'numero_contrato')->textInput(['placeholder' => "N° de Contrato", 'maxlength' => 12, 'readonly' => 'true'])->label(false) ?>
             </div>
-            <div class="col-sm-3" style="float: right ">
-                <?= $form->field($model, 'numero_contrato')->textInput(['autofocus' => 'autofocus', 'placeholder' => "N° de Contrato", 'maxlength' => 12])->label(false) ?>
+            <div class="col-sm-2">
+                <?= $form->field($model, 'serie_comprobante')->textInput(['placeholder' => "N° de Serie", 'maxlength' => 12, 'readonly' => 'true'])->label(false) ?>
             </div>
-            <div class="col-sm-4" style="float: right ">
-                <?= $form->field($model, 'razon_social')->textInput(['placeholder' => "Razon Social", 'maxlength' => 100])->label(false) ?>
+            <div class="col-sm-3">
+                <?= $form->field($model, 'numero_comprobante')->textInput(['placeholder' => "N° de Comprobante", 'maxlength' => 12, 'readonly' => 'true'])->label(false) ?>
             </div>
         </div>
     </div>
 
-    <fieldset id="ResultadoCliente" >
+    <fieldset id="ResultadoCliente">
         <legend style="padding-left:5px ">Datos del Cliente:</legend>
         <div class="container-fluid">
             <div class="row">
@@ -167,7 +169,7 @@ use yii\helpers\Url;
                 <?= $form->field($model, 'Codigo_pasaporte')->dropDownList($model->getPasaporte(), ['prompt' => 'Seleccione un Pasaporte', 'class' => 'form-control loginmodal-container-combo']) ?>
             </div>
             <div class="col-sm-3">
-                <?= $form->field($model, 'numero_pasaporte')->textInput(['maxlength' => 9, 'onkeyup' => "ValidarPasaporte($('#venta-codigo_pasaporte').val(),this.value);return false;"]) ?>
+                <?= $form->field($model, 'numero_pasaporte')->textInput(['value' => $model->NumeroPasaporte($model->Codigo_venta, 1), 'maxlength' => 9, 'onkeyup' => "ValidarPasaporte($('#venta-codigo_pasaporte').val(),this.value);return false;"]) ?>
             </div>
             <div class="col-sm-3">
                 <label class="control-label" for="venta-numero_pasaporte">Resulado de la Búsqueda</label>
@@ -178,7 +180,7 @@ use yii\helpers\Url;
 
         <div class="row">
             <div class="col-sm-4">
-                <?= $form->field($certificado, 'codigo_barra')->textInput(['maxlength' => 9]) ?>
+                <?= $form->field($certificado, 'codigo_barra')->textInput(['maxlength' => 9, 'value' => '']) ?>
             </div>
             <div class="col-sm-1">
                 <label style="color: transparent">boton</label>
@@ -187,31 +189,51 @@ use yii\helpers\Url;
             </div>
 
             <div class="col-sm-3">
-                <label class="control-label" for="venta-numero_pasaporte">Resulado de la Búsqueda</label>
+                <label class="control-label" for="venta-numero_pasaporte">Resultado de la Búsqueda</label>
                 <br>
                 <span id="query2"></span>
             </div>
 
             <div class="col-sm-1">
-                <?= $form->field($model, 'numero_escaneado')->textInput(['maxlength' => 2, 'readonly' => 'true', 'value' => '0']) ?>
+                <?= $form->field($model, 'numero_escaneado')->textInput(['value' => $certificado->CantidadCertificado($model->NumeroPasaporte($model->Codigo_venta, 1)), 'maxlength' => 2, 'readonly' => 'true']) ?>
             </div>
             <div class="col-sm-1">
                 <label style="color: transparent">boton</label>
-                <?= Html::button('<i class="fa fa-arrow-up" aria-hidden="true"></i>', ['id'=>'btnScan','class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "contador($('#venta-numero_pasaporte').val());return false;", 'onmousedown' => "escaneado($('#venta-numero_pasaporte').val());return false;"]) ?>
+                <?= Html::button('<i class="fa fa-arrow-up" aria-hidden="true"></i>', ['id' => 'btnScan', 'class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "contador($('#venta-numero_pasaporte').val());return false;", 'onmousedown' => "escaneado($('#venta-numero_pasaporte').val());return false;"]) ?>
             </div>
             <div class="col-sm-2">
-                <?= $form->field($model, 'numero_total')->textInput(['maxlength' => 2, 'readonly' => 'true']) ?>
+                <?= $form->field($model, 'numero_total')->textInput(['value' => $model->NumeroPasaporte($model->Codigo_club, 2), 'maxlength' => 2, 'readonly' => 'true']) ?>
             </div>
 
         </div>
+
         <fieldset>
-            <legend>Lista de Certificados:</legend>
-            <h4 id="Grilla"></h4>
+
+            <div>
+                <legend>Lista de Certificados:</legend>
+                <h4 id="Grilla"></h4>
+            </div>
+
+            <div>
+                <h4>
+                    <?php
+                    $connection = Yii::$app->db;
+                    $sqlStatement = "SELECT codigo_barra FROM certificado WHERE Codigo_pasaporte = '" .$model->NumeroPasaporte($model->Codigo_venta, 1). "'";
+                    $comando = $connection->createCommand($sqlStatement);
+                    $resultado = $comando->query();
+                    while ($row = $resultado->read()) {
+                        echo $row['codigo_barra'];
+                        echo " - ";
+                    }
+                    ?>
+                </h4>
+            </div>
         </fieldset>
+
     </div>
     </fieldset>
 
-    <fieldset id="Inventivos" >
+    <fieldset id="Inventivos">
         <legend style="padding-left:5px ">Incentivos:</legend>
         <div class="container-fluid">
             <div class="row">
@@ -235,7 +257,7 @@ use yii\helpers\Url;
         </div>
     </fieldset>
 
-    <fieldset id="FormaPago" >
+    <fieldset id="FormaPago">
         <legend style="padding-left:5px ">Forma de Pago:</legend>
         <div class="container-fluid">
             <div class="row">
@@ -246,7 +268,7 @@ use yii\helpers\Url;
                     <?= $form->field($pago, 'estado_pago')->dropDownList($model->getEstadoDePago(), ['prompt' => 'Seleccione un Estado de Pago', 'class' => 'form-control loginmodal-container-combo']) ?>
                 </div>
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'montoTotal')->textInput(['maxlength' => 255, 'readonly' => 'true']) ?>
+                    <?= $form->field($model, 'montoTotal')->textInput(['value' => $model->NumeroPasaporte($model->Codigo_club, 4),'maxlength' => 255, 'readonly' => 'true']) ?>
                 </div>
                 <div class="col-sm-2">
                     <?= $form->field($pago, 'monto_ingresado')->textInput(['maxlength' => 255, 'onkeyup' => "resta($('#venta-montototal').val(),this.value);return false;"]) ?>
@@ -261,97 +283,97 @@ use yii\helpers\Url;
                     <?= DynamicRelations::widget([
                         'title' => 'Formas de Pago:',
                         'collection' => $pago->formasPagos,
-                        'viewPath' => '@app/views/formas-pago/_form.php',
+                        'viewPath' => '@app/views/formas-pago/_update.php',
                         'collectionType' => new \app\models\FormasPago,
 
-                    ]);?>
+                    ]); ?>
                 </div>
             </div>
 
         </div>
     </fieldset>
 
-    <fieldset id="Comisiones" >
+    <fieldset id="Comisiones">
         <legend style="padding-left:5px ">Comisiones:</legend>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision1')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($comision, 'Digitador')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision2')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'OPC')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision15')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'Tienda')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision3')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'SupervisorPromotor')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision4')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'SuperviorGeneralOPC')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision5')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision6')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision17')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision7')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision8')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision9')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision10')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'DirectordeMercadero')->textInput(['maxlength' => true]) ?>
                 </div>
 
             </div>
             <div class="row">
-
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision16')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'TLMK')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision11')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'SupervisordeTLMK')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision12')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'Confirmadora')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision13')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'DirectordeTLMK')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision14')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'Liner')->textInput(['maxlength' => true]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'Closer')->textInput(['maxlength' => true]) ?>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'Closer2')->textInput(['maxlength' => true]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'JefedeSala')->textInput(['maxlength' => true]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'DirectordeVentas')->textInput(['maxlength' => true]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'DirectordeProyectos')->textInput(['maxlength' => true]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'GenerenciaGeneral')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
         </div>
     </fieldset>
 
-    <fieldset id="Selectsalas" >
+    <fieldset id="Selectsalas">
         <legend style="padding-left:5px ">Salas:</legend>
         <div class="container-fluid">
             <div class="row">
@@ -364,9 +386,9 @@ use yii\helpers\Url;
 
 
     <div class="panel-footer container-fluid foo">
-        <div class="col-sm-12" id="btnBotones" style="display: none">
-            <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
-            <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['create'], ['class' => 'btn btn-primary']) ?>
+        <div class="col-sm-12">
+            <?= Html::submitButton($model->isNewRecord ? "Guardar" : "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar", ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
+            <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>

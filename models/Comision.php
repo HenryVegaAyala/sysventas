@@ -116,4 +116,15 @@ class Comision extends \yii\db\ActiveRecord
         $data = $comando->queryScalar();
         return $data;
     }
+
+    public function getCodigoComision($id)
+    {
+        $query = new Query();
+        $select = new Expression('Codigo');
+        $where = new Expression('Codigo_venta  = "'.$id.'"');
+        $query->select($select)->from('comision')->where($where);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
 }

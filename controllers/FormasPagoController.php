@@ -8,6 +8,7 @@ use app\models\FormasPagoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use synatree\dynamicrelations\DynamicRelations;
 
 /**
  * FormasPagoController implements the CRUD actions for FormasPago model.
@@ -85,6 +86,8 @@ class FormasPagoController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            
+            DynamicRelations::relate($model, 'formasPagos', Yii::$app->request->post(), 'FormasPago', FormasPago::className());
             return $this->redirect(['view', 'id' => $model->Codigo_TipoPago]);
         } else {
             return $this->render('update', [

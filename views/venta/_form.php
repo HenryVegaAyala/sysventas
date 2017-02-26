@@ -299,76 +299,76 @@ use yii\helpers\Url;
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision1')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($comision, 'Digitador')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision2')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'OPC')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision15')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'Tienda')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision3')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'SupervisorPromotor')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision4')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'SuperviorGeneralOPC')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision5')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision6')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision17')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision7')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision8')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision9')->textInput(['maxlength' => 250]) ?>
-                </div>
-
-                <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision10')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'DirectordeMercadero')->textInput(['maxlength' => true]) ?>
                 </div>
 
             </div>
             <div class="row">
-
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision16')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'TLMK')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision11')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'SupervisordeTLMK')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision12')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'Confirmadora')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision13')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'DirectordeTLMK')->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'codigo_comision14')->textInput(['maxlength' => 250]) ?>
+                    <?= $form->field($comision, 'Liner')->textInput(['maxlength' => true]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'Closer')->textInput(['maxlength' => true]) ?>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'Closer2')->textInput(['maxlength' => true]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'JefedeSala')->textInput(['maxlength' => true]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'DirectordeVentas')->textInput(['maxlength' => true]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'DirectordeProyectos')->textInput(['maxlength' => true]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'GenerenciaGeneral')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
         </div>

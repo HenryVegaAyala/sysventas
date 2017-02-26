@@ -18,14 +18,14 @@ use yii\widgets\ActiveForm;
         <p class="note"></p>
     </div>
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(); $usuario = new \app\models\Usuario();?>
 
     <div class="fieldset">
         <div class="container-fluid">
 
     <div class="row">
         <div class="col-sm-3">
-            <?= $form->field($model, 'Usuario')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'Usuario')->dropDownList($usuario->getRoles(20), ['disabled ' => 'false','prompt' => 'Seleccione un Rol', 'class' => 'form-control loginmodal-container-combo']) ?>
         </div>
         <div class="col-sm-3">
             <?= $form->field($model, 'procentaje')->textInput() ?>

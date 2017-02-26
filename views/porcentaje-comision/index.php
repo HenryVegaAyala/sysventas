@@ -20,7 +20,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'Usuario',
+            ['attribute' => 'Usuario',
+                'label' => 'Usuario',
+                'value' => function ($data) {
+                    $model = new \app\models\Usuario();
+                    $rol = $data->Usuario;
+                    $valor = $model->getRol($rol);
+                    return $valor;
+                }
+            ],
+
             'procentaje',
 
             [
@@ -39,6 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> '.Html::encode($this->title).' </h3>',
+//            'type' => 'info',
+            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
             'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset List', ['index'], ['class' => 'btn btn-info']),
             'showFooter' => false
         ],

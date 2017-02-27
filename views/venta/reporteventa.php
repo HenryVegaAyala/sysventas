@@ -84,81 +84,81 @@ class PDF extends FPDF
 
         $connection = \Yii::$app->db;
         $sqlStatement = '
-            SELECT DISTINCT
+        SELECT DISTINCT
               razon_social,
-              numero_contrato    AS NUMEROCONTRATO,
-              serie_comprobante  AS SERIE,
-              numero_comprobante AS COMPROBANTE,
-              c.Nombre           AS NOMBRE,
-              c.Apellido         AS APELLIDO,
-              CASE
-              c.Estado_Civil
-              WHEN 0
-                THEN "S"
-              WHEN 1
-                THEN "C"
-              WHEN 2
-                THEN "CO"
-              WHEN 3
-                THEN "D"
-              WHEN 4
-                THEN "V"
-              END                AS Estado_Civil,
-              c.Profesion        AS PROFESION,
-              c.DNI              AS DNI,
-              c.Edad             AS EDAD,
-              c.Telefono_Celular AS TELEFONOCELULAR,
+          numero_contrato    AS NUMEROCONTRATO,
+          serie_comprobante  AS SERIE,
+          numero_comprobante AS COMPROBANTE,
+          c.Nombre           AS NOMBRE,
+          c.Apellido         AS APELLIDO,
+          CASE
+          c.Estado_Civil
+          WHEN 0
+            THEN "S"
+          WHEN 1
+            THEN "C"
+          WHEN 2
+            THEN "CO"
+          WHEN 3
+            THEN "D"
+          WHEN 4
+            THEN "V"
+          END                AS Estado_Civil,
+          c.Profesion        AS PROFESION,
+          c.DNI              AS DNI,
+          c.Edad             AS EDAD,
+          c.Telefono_Celular AS TELEFONOCELULAR,
               c.*,
-              c.Email            AS EMAIL,
-              cl.Nombre          AS NOMBRECLUB,
-              p.Nombre           AS NOMBREPASPORTE,
-              v.numero_pasaporte AS NUMEROPASAPORTE,
-              CASE
-              cl.Vigencia
-              WHEN 1
-                THEN "10"
-              WHEN 2
-                THEN "20"
-              WHEN 3
-                THEN "30"
-              END                AS VigenciaDias,
-              co.convetidor1     AS CONVER1,
-              co.convetidor2     AS CONVER2,
-              co.Regalos         AS REGALOS,
-              co.Observacion     AS OBSER,
-              CASE
-              pa.tipo_pago
-              WHEN 0
-                THEN "Tarjeta de Credito"
-              WHEN 1
-                THEN "Tarjeta de Debito"
-              WHEN 2
-                THEN "Plazo"
-              WHEN 3
-                THEN "Letras"
-              WHEN 4
-                THEN "Cash"
-              END                AS tipo_pago,
-              pa.monto_pagado    AS MONTO,
-              pa.monto_ingresado AS INGRESA,
-              pa.monto_restante  AS RESTANTE,
-              CASE
-              pa.estado_pago
-              WHEN 0
-                THEN "Adelanto"
-              WHEN 1
-                THEN "Pendiente"
-              WHEN 2
-                THEN "Cancelado"
+          c.Email            AS EMAIL,
+          cl.Nombre          AS NOMBRECLUB,
+          p.Nombre           AS NOMBREPASPORTE,
+          v.numero_pasaporte AS NUMEROPASAPORTE,
+          CASE
+          cl.Vigencia
+          WHEN 1
+            THEN "10"
+          WHEN 2
+            THEN "20"
+          WHEN 3
+            THEN "30"
+          END                AS VigenciaDias,
+          co.convetidor1     AS CONVER1,
+          co.convetidor2     AS CONVER2,
+          co.Regalos         AS REGALOS,
+          co.Observacion     AS OBSER,
+          CASE
+          pa.tipo_pago
+          WHEN 0
+            THEN "Tarjeta de Credito"
+          WHEN 1
+            THEN "Tarjeta de Debito"
+          WHEN 2
+            THEN "Plazo"
+          WHEN 3
+            THEN "Letras"
+          WHEN 4
+            THEN "Cash"
+          END                AS tipo_pago,
+          pa.monto_pagado    AS MONTO,
+          pa.monto_ingresado AS INGRESA,
+          pa.monto_restante  AS RESTANTE,
+          CASE
+          pa.estado_pago
+          WHEN 0
+            THEN "Adelanto"
+          WHEN 1
+            THEN "Pendiente"
+          WHEN 2
+            THEN "Cancelado"
               END                AS estado_pago,
               com.*
-            FROM venta v
-              INNER JOIN cliente c ON v.Codigo_Cliente = c.Codigo_Cliente
-              INNER JOIN club cl ON v.Codigo_club = cl.Codigo_club
-              INNER JOIN pasaporte p ON v.Codigo_pasaporte = v.Codigo_pasaporte
-              INNER JOIN combo co ON v.Codigo_venta = co.Codigo_venta
-              INNER JOIN pago pa ON v.Codigo_venta = pa.Codigo_venta
-              INNER JOIN comision com ON v.Codigo_venta = com.Codigo_venta
+        FROM venta v
+          INNER JOIN cliente c ON v.Codigo_Cliente = c.Codigo_Cliente
+          INNER JOIN club cl ON v.Codigo_club = cl.Codigo_club
+          INNER JOIN pasaporte p ON v.Codigo_pasaporte = v.Codigo_pasaporte
+          INNER JOIN combo co ON v.Codigo_venta = co.Codigo_venta
+          INNER JOIN pago pa ON v.Codigo_venta = pa.Codigo_venta
+          INNER JOIN comision com ON v.Codigo_venta = com.Codigo_venta
            ';
 
         if ($combo == 0) {
@@ -217,7 +217,7 @@ class PDF extends FPDF
             $this->Cell(2.5, 1, utf8_decode(strtoupper($row['RESTANTE'])), 1, '', 'C');
             $this->Cell(3, 1, utf8_decode(strtoupper('')), 1, '', 'L');
             $this->Cell(3.5, 1, utf8_decode(strtoupper($row['estado_pago'])), 1, '', 'C');
-           
+
             //Comisiones
 
             $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
@@ -230,7 +230,7 @@ class PDF extends FPDF
             $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
             $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
 
-            
+
             $this->Ln();
 
             $i++;

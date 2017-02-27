@@ -36,6 +36,9 @@ use yii\helpers\ArrayHelper;
  * @property string $Usuario_Modificado
  * @property string $Estado
  *
+ * @property string $directordePlaneamiento
+ * @property string $asesordePlaneamiento
+ *
  * @property Venta $codigoVenta
  */
 class Comision extends \yii\db\ActiveRecord
@@ -58,7 +61,7 @@ class Comision extends \yii\db\ActiveRecord
             [['Codigo_venta'], 'integer'],
             [['monto'], 'number'],
             [['Fecha_Creado', 'Fecha_Modificado'], 'safe'],
-            [['Digitador', 'OPC', 'Tienda', 'SupervisorPromotor', 'SuperviorGeneralOPC', 'DirectordeMercadero', 'TLMK', 'SupervisordeTLMK', 'Confirmadora', 'DirectordeTLMK', 'Liner', 'Closer', 'Closer2', 'JefedeSala', 'DirectordeVentas', 'DirectordeProyectos', 'GenerenciaGeneral'], 'string', 'max' => 255],
+            [['directordePlaneamiento','asesordePlaneamiento','Digitador', 'OPC', 'Tienda', 'SupervisorPromotor', 'SuperviorGeneralOPC', 'DirectordeMercadero', 'TLMK', 'SupervisordeTLMK', 'Confirmadora', 'DirectordeTLMK', 'Liner', 'Closer', 'Closer2', 'JefedeSala', 'DirectordeVentas', 'DirectordeProyectos', 'GenerenciaGeneral'], 'string', 'max' => 255],
             [['Usuario_Creado', 'Usuario_Modificado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
             [['Codigo_venta'], 'exist', 'skipOnError' => true, 'targetClass' => Venta::className(), 'targetAttribute' => ['Codigo_venta' => 'Codigo_venta']],
@@ -96,6 +99,8 @@ class Comision extends \yii\db\ActiveRecord
             'Usuario_Creado' => 'Usuario  Creado',
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Estado' => 'Estado',
+            'directordePlaneamiento' => 'Director de Planeamiento',
+            'asesordePlaneamiento' => 'Asesor de Planeamiento',
         ];
     }
 
@@ -127,4 +132,28 @@ class Comision extends \yii\db\ActiveRecord
         $data = $comando->queryScalar();
         return $data;
     }
+
+    public function comision($monto,$usuario){
+
+        $query = new Query();
+        $select = new Expression('auth_key');
+        $where = new Expression('id_personal  = "'.$usuario.'"');
+        $query->select($select)->from('user')->where($where);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+
+        $select = new Expression('procentaje');
+        $where = new Expression('Usuario  = "'.$data.'"');
+        $query->select($select)->from('porcentaje_comision')->where($where);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+
+        $res = ($monto*$data)/100;
+
+        return $res;
+
+
+    }
+
+
 }

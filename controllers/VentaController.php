@@ -140,10 +140,13 @@ class VentaController extends Controller
             $command->execute();
 
             $command = Yii::$app->db->createCommand(
-                "INSERT INTO comision (Codigo, Codigo_venta, Digitador, OPC, Tienda, SupervisorPromotor, SuperviorGeneralOPC, DirectordeMercadero, TLMK, SupervisordeTLMK, Confirmadora, DirectordeTLMK, Liner, Closer, Closer2, JefedeSala, DirectordeVentas, DirectordeProyectos, GenerenciaGeneral, monto, Fecha_Creado, Estado,Usuario_Creado)
-                VALUES (:Codigo, :Codigo_venta, :Digitador, :OPC, :Tienda, :SupervisorPromotor, :SuperviorGeneralOPC, :DirectordeMercadero, :TLMK, :SupervisordeTLMK, :Confirmadora, :DirectordeTLMK, :Liner, :Closer, :Closer2, :JefedeSala, :DirectordeVentas, :DirectordeProyectos, :GenerenciaGeneral, :monto, :Fecha_Creado, :Estado,:Usuario_Creado)");
+                "INSERT INTO comision (Codigo, Codigo_venta, Digitador, OPC, Tienda, SupervisorPromotor, SuperviorGeneralOPC, DirectordeMercadero, TLMK, SupervisordeTLMK, Confirmadora, DirectordeTLMK, Liner, Closer, Closer2, JefedeSala, DirectordeVentas, DirectordeProyectos, GenerenciaGeneral, Fecha_Creado, Estado,Usuario_Creado,
+               Porcen_Digitador, Porcen_OPC, Porcen_Tienda, Porcen_SupervisorPromotor, Porcen_SuperviorGeneralOPC, Porcen_DirectordeMercadero, Porcen_TLMK, Porcen_SupervisordeTLMK, Porcen_Confirmadora, Porcen_DirectordeTLMK, Porcen_Liner, Porcen_Closer, Porcen_Closer2, Porcen_JefedeSala, Porcen_DirectordeVentas, Porcen_DirectordeProyectos, Porcen_GenerenciaGeneral,directordePlaneamiento,asesordePlaneamiento, Porcen_directordePlaneamiento, Porcen_asesordePlaneamiento)
+                VALUES ( :Codigo, :Codigo_venta, :Digitador, :OPC, :Tienda, :SupervisorPromotor, :SuperviorGeneralOPC, :DirectordeMercadero, :TLMK, :SupervisordeTLMK, :Confirmadora, :DirectordeTLMK, :Liner, :Closer, :Closer2, :JefedeSala, :DirectordeVentas, :DirectordeProyectos, :GenerenciaGeneral, :Fecha_Creado, :Estado,:Usuario_Creado,
+                         :Porcen_Digitador, :Porcen_OPC, :Porcen_Tienda, :Porcen_SupervisorPromotor, :Porcen_SuperviorGeneralOPC, :Porcen_DirectordeMercadero, :Porcen_TLMK, :Porcen_SupervisordeTLMK, :Porcen_Confirmadora, :Porcen_DirectordeTLMK, :Porcen_Liner, :Porcen_Closer, :Porcen_Closer2, :Porcen_JefedeSala, :Porcen_DirectordeVentas, :Porcen_DirectordeProyectos, :Porcen_GenerenciaGeneral,:directordePlaneamiento,:asesordePlaneamiento,: Porcen_directordePlaneamiento,: Porcen_asesordePlaneamiento)");
             $command->bindValue(':Codigo', $comision->getCodigo());
             $command->bindValue(':Codigo_venta', $model->Codigo_venta);
+
             $command->bindValue(':Digitador', $comision->Digitador);
             $command->bindValue(':OPC', $comision->OPC);
             $command->bindValue(':Tienda', $comision->Tienda);
@@ -161,10 +164,31 @@ class VentaController extends Controller
             $command->bindValue(':DirectordeVentas', $comision->DirectordeVentas);
             $command->bindValue(':DirectordeProyectos', $comision->DirectordeProyectos);
             $command->bindValue(':GenerenciaGeneral', $comision->GenerenciaGeneral);
-            $command->bindValue(':monto', $comision->monto);
             $command->bindValue(':Fecha_Creado', $this->ZonaHoraria());
             $command->bindValue(':Estado', "1");
             $command->bindValue(':Usuario_Creado', Yii::$app->user->identity->email);
+            $command->bindValue(':directordePlaneamiento',$comision->directordePlaneamiento);
+            $command->bindValue(':asesordePlaneamiento', $comision->asesordePlaneamiento);
+
+            $command->bindValue(':Porcen_Digitador', $comision->comision($model->montoTotal, $comision->Digitador));
+            $command->bindValue(':Porcen_OPC', $comision->comision($model->montoTotal, $comision->OPC));
+            $command->bindValue(':Porcen_Tienda', $comision->comision($model->montoTotal, $comision->Tienda));
+            $command->bindValue(':Porcen_SupervisorPromotor', $comision->comision($model->montoTotal, $comision->SupervisorPromotor));
+            $command->bindValue(':Porcen_SuperviorGeneralOPC', $comision->comision($model->montoTotal, $comision->SuperviorGeneralOPC));
+            $command->bindValue(':Porcen_DirectordeMercadero', $comision->comision($model->montoTotal, $comision->DirectordeMercadero));
+            $command->bindValue(':Porcen_TLMK', $comision->comision($model->montoTotal, $comision->TLMK));
+            $command->bindValue(':Porcen_SupervisordeTLMK', $comision->comision($model->montoTotal, $comision->SupervisordeTLMK));
+            $command->bindValue(':Porcen_Confirmadora', $comision->comision($model->montoTotal, $comision->Confirmadora));
+            $command->bindValue(':Porcen_DirectordeTLMK', $comision->comision($model->montoTotal, $comision->DirectordeTLMK));
+            $command->bindValue(':Porcen_Liner', $comision->comision($model->montoTotal, $comision->Liner));
+            $command->bindValue(':Porcen_Closer', $comision->comision($model->montoTotal, $comision->Closer));
+            $command->bindValue(':Porcen_Closer2', $comision->comision($model->montoTotal, $comision->Closer2));
+            $command->bindValue(':Porcen_JefedeSala', $comision->comision($model->montoTotal, $comision->JefedeSala));
+            $command->bindValue(':Porcen_DirectordeVentas', $comision->comision($model->montoTotal, $comision->DirectordeVentas));
+            $command->bindValue(':Porcen_DirectordeProyectos', $comision->comision($model->montoTotal, $comision->DirectordeProyectos));
+            $command->bindValue(':Porcen_GenerenciaGeneral', $comision->comision($model->montoTotal, $comision->GenerenciaGeneral));
+            $command->bindValue(':Porcen_directordePlaneamiento', $comision->comision($model->montoTotal, $comision->directordePlaneamiento));
+            $command->bindValue(':Porcen_asesordePlaneamiento', $comision->comision($model->montoTotal, $comision->asesordePlaneamiento));
             $command->execute();
 
             DynamicRelations::relate($cliente, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());
@@ -255,7 +279,7 @@ class VentaController extends Controller
                 ->update('venta',
                     [
                         'Codigo_club' => $model->Codigo_club,
-                        'Codigo_pasaporte' =>  $model->Codigo_pasaporte,
+                        'Codigo_pasaporte' => $model->Codigo_pasaporte,
                         'Codigo_Cliente' => $cliente->Codigo_Cliente,
                         'numero_contrato' => $model->numero_contrato,
                         'numero_pasaporte' => $model->numero_pasaporte,
@@ -287,7 +311,7 @@ class VentaController extends Controller
             $transaction->createCommand()
                 ->update('pago',
                     [
-                        'codigo_pago' =>  $pago->codigo_pago,
+                        'codigo_pago' => $pago->codigo_pago,
                         'tipo_pago' => $pago->tipo_pago,
                         'estado_pago' => $pago->estado_pago,
                         'monto_pagado' => $model->montoTotal,
@@ -322,9 +346,31 @@ class VentaController extends Controller
                         'DirectordeVentas' => $comision->DirectordeVentas,
                         'DirectordeProyectos' => $comision->DirectordeProyectos,
                         'GenerenciaGeneral' => $comision->GenerenciaGeneral,
-                        'monto' => $comision->monto,
                         'Fecha_Modificado' => $this->ZonaHoraria(),
                         'Usuario_Modificado' => Yii::$app->user->identity->email,
+                        'directordePlaneamiento' => $comision->directordePlaneamiento,
+                        'asesordePlaneamiento' => $comision->asesordePlaneamiento,
+
+                        'Porcen_Digitador' => $comision->comision($model->montoTotal, $comision->Digitador),
+                        'Porcen_OPC' => $comision->comision($model->montoTotal, $comision->OPC),
+                        'Porcen_Tienda' => $comision->comision($model->montoTotal, $comision->Tienda),
+                        'Porcen_SupervisorPromotor' => $comision->comision($model->montoTotal, $comision->SupervisorPromotor),
+                        'Porcen_SuperviorGeneralOPC' => $comision->comision($model->montoTotal, $comision->SuperviorGeneralOPC),
+                        'Porcen_DirectordeMercadero' => $comision->comision($model->montoTotal, $comision->DirectordeMercadero),
+                        'Porcen_TLMK' => $comision->comision($model->montoTotal, $comision->TLMK),
+                        'Porcen_SupervisordeTLMK' => $comision->comision($model->montoTotal, $comision->SupervisordeTLMK),
+                        'Porcen_Confirmadora' => $comision->comision($model->montoTotal, $comision->Confirmadora),
+                        'Porcen_DirectordeTLMK' => $comision->comision($model->montoTotal, $comision->DirectordeTLMK),
+                        'Porcen_Liner' => $comision->comision($model->montoTotal, $comision->Liner),
+                        'Porcen_Closer' => $comision->comision($model->montoTotal, $comision->Closer),
+                        'Porcen_Closer2' => $comision->comision($model->montoTotal, $comision->Closer2),
+                        'Porcen_JefedeSala' => $comision->comision($model->montoTotal, $comision->JefedeSala),
+                        'Porcen_DirectordeVentas' => $comision->comision($model->montoTotal, $comision->DirectordeVentas),
+                        'Porcen_DirectordeProyectos' => $comision->comision($model->montoTotal, $comision->DirectordeProyectos),
+                        'Porcen_GenerenciaGeneral' => $comision->comision($model->montoTotal, $comision->GenerenciaGeneral),
+                        'Porcen_directordePlaneamiento' => $comision->comision($model->montoTotal, $comision->directordePlaneamiento),
+                        'Porcen_asesordePlaneamiento' => $comision->comision($model->montoTotal, $comision->asesordePlaneamiento),
+
                     ],
                     'Codigo = ' . $idcomision)
                 ->execute();

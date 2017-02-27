@@ -141,11 +141,11 @@ class Venta extends \yii\db\ActiveRecord
             [['usuario'], 'string'],
             [['reporte'], 'integer'],
 
-//            [['numero_contrato'], 'required', 'message' => 'N° de Contrato es necesario.'],
-//            [['razon_social'], 'required', 'message' => 'Razon Social es necesario.'],
+            [['numero_contrato'], 'required', 'message' => 'N° de Contrato es necesario.'],
+            [['razon_social'], 'required', 'message' => 'Razon Social es necesario.'],
 
-//            [['serie_comprobante'], 'required', 'message' => 'Se requiere la Serie.'],
-//            [['numero_comprobante'], 'required', 'message' => 'Se requiere N° de Comprobante.'],
+            [['serie_comprobante'], 'required', 'message' => 'Se requiere la Serie.'],
+            [['numero_comprobante'], 'required', 'message' => 'Se requiere N° de Comprobante.'],
             [['salas'], 'required', 'message' => 'Se requiere seleccionar una sala.'],
             [['reporte'], 'required', 'message' => 'Se requiere seleccionar un Formato.'],
 

@@ -32,6 +32,7 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('G1', 'DNI')
     ->setCellValue('H1', 'Edad')
     ->setCellValue('I1', 'Dirección')
+    ->setCellValue('J1', 'Distrito')
     ->setCellValue('K1', 'Traslado')
     ->setCellValue('L1', 'Tipo de tarjeta')
     ->setCellValue('M1', 'Estado Civil')
@@ -77,9 +78,6 @@ $objPHPExcel->setActiveSheetIndex(0)
 $connection = \Yii::$app->db;
 $sqlStatement = '
         SELECT DISTINCT
-          razon_social,
-          Edad,
-          c.*,
           numero_contrato    AS NUMEROCONTRATO,
           serie_comprobante  AS SERIE,
           numero_comprobante AS COMPROBANTE,
@@ -158,7 +156,7 @@ $resultado = $comando->query();
 $i = 2;
 while ($row = $resultado->read()) {
     $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('A'.$i,$row['razon_social'])
+        ->setCellValue('A'.$i,$row['RazonSocial'])
         ->setCellValue('B'.$i,$row['NUMEROCONTRATO'])
         ->setCellValue('C'.$i,$row['SERIE'])
         ->setCellValue('D'.$i,$row['COMPROBANTE'])
@@ -178,9 +176,10 @@ while ($row = $resultado->read()) {
         ->setCellValue('R'.$i,$row['Telefono_Celular2'])
         ->setCellValue('S'.$i,$row['Telefono_Celular3'])
         ->setCellValue('T'.$i,$row['Email'])
-//        ->setCellValue('U'.$i,$row['CLN'])
-//        ->setCellValue('V'.$i,$row['NCP'])
-//        ->setCellValue('W'.$i,$row['CP'])
+        ->setCellValue('U'.$i,$row['CLN'])
+        ->setCellValue('V'.$i,$row['NCP'])
+        ->setCellValue('CLN'.$i,$row['Distrito'])
+        ->setCellValue('W'.$i,$row['CP'])
         ->setCellValue('Y1'.$i,$row['CONVER1'])
         ->setCellValue('Z1'.$i,$row['CONVER2'])
         ->setCellValue('AA1'.$i,$row['REGALOS'])
@@ -190,7 +189,7 @@ while ($row = $resultado->read()) {
         ->setCellValue('AE1'.$i,$row['INGRESA'])
         ->setCellValue('AG1'.$i,$row['RESTANTE'])
         ->setCellValue('AD1'.$i,$row['estado_pago'])
-//        ->setCellValue('BA1'.$i,$row['Beneficiario'])
+        ->setCellValue('BA1'.$i,$row['Beneficiario'])
 
 
     ;

@@ -78,10 +78,9 @@ class Cliente extends \yii\db\ActiveRecord
             [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^.{3,80}$/", 'message' => 'Mínimo 3 caracteres'],
             [['Nombre', 'Apellido', 'Distrito', 'Profesion'], 'match', 'pattern' => "/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s\_\-\/\. ]+$/i", 'message' => 'Sólo se aceptan letras'],
 
-            [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3', 'Traslado'], 'integer', 'message' => 'Debe ser númerico.'],
+            [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3', 'Traslado', 'dni'], 'integer', 'message' => 'Debe ser númerico.'],
             [['Telefono_Casa', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3'], 'match', 'pattern' => "/^.{3,15}$/", 'message' => 'Mínimo 7 caracteres'],
-            [['dni'], 'match', 'pattern' => "/^.{8,15}$/", 'message' => 'Debe tener 8 digitos'],
-            [['dni'], 'string', 'max' => 15],
+            [['dni'], 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Debe tener 8 digitos'],
             [['Edad'], 'match', 'pattern' => "/^.{2,2}$/", 'message' => 'Debe ser edad correcta'],
 
             [['Email'], 'match', 'pattern' => "/^.{3,45}$/", 'message' => 'Mínimo 3 caracteres del correo'],
@@ -122,7 +121,7 @@ class Cliente extends \yii\db\ActiveRecord
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Estado' => 'Estado',
             'Agendado' => 'Agendado',
-            'dni' => 'DNI/Pasaporte',
+            'dni' => 'DNI',
             'Super_Promotor' => 'Supervisor del Promotor',
             'Jefe_Promotor' => 'Jefe del Promotor'
         ];

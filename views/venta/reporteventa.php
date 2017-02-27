@@ -16,7 +16,7 @@ class PDF extends FPDF
 
 //      $this->Image('ruta de imagen', horizontal, vertical, ancho, alto);
 //        $this->Image(Yii::getAlias('@groupgygUrlReporte'), 1, 1, 1.5, 1.5);
-        $this->Cell(115, 1, utf8_decode('Lista de Ventas'), 0, 'C', 'C');
+        $this->Cell(178, 1, utf8_decode('Lista de Ventas'), 0, 'C', 'C');
         $this->Ln(2);
 
         $this->SetFont('Arial', 'B', 11);
@@ -24,7 +24,7 @@ class PDF extends FPDF
         $this->SetDrawColor(150, 54, 52);     // establece el color del contorno de la celda.
         $this->SetTextColor(255, 255, 255);  // Establece el color del texto.
         $this->Cell(0.2, 0.2, utf8_decode(''), 0, 0, 'C', True);
-        $this->Cell(114.6, 0.2, utf8_decode(''), 1, 0, 'C', True);
+        $this->Cell(176, 0.2, utf8_decode(''), 1, 0, 'C', True);
         $this->Cell(0.2, 0.2, utf8_decode(''), 0, 0, 'C', True);
         $this->Ln(0.6);
 
@@ -42,6 +42,7 @@ class PDF extends FPDF
         $this->Cell(13.5, 1, utf8_decode(strtoupper('DATOS BENEFICIAROS')), 1, '', 'C');
         $this->Cell(29, 1, utf8_decode(strtoupper('INCENTIVOS')), 1, '', 'C');
         $this->Cell(19.5, 1, utf8_decode(strtoupper('FORMA DE PAGO')), 1, '', 'C');
+        $this->Cell(57, 1, utf8_decode(strtoupper('C0MISIÓNES')), 1, '', 'C');
         $this->Ln();
 
         $this->SetFont('Arial', 'B', 7.5);
@@ -80,6 +81,29 @@ class PDF extends FPDF
         $this->Cell(2.5, 1, utf8_decode(strtoupper('PENDIENTE')), 1, '', 'C');
         $this->Cell(3, 1, utf8_decode(strtoupper('FECHA PAGO FINAN.')), 1, '', 'C');
         $this->Cell(3.5, 1, utf8_decode(strtoupper('ESTADO')), 1, '', 'C');
+
+        //Comisiones
+
+        $this->Cell(3, 1, utf8_decode(strtoupper('DIGITADOR')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('OPC')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('TIENDA')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('SUPERV. PROMOTOR')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('SUPERV. GENERAL OPC')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('DIREC. DE MERCADEO')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('TLMK')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('SUPERV. DE TLMK')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('CONFIRMADOR')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('DIREC. DE TLMK')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('LINER')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('CLOSER')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('CLOSER 2')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('JEFE DE SALA')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('DIREC. DE VENTAS')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('DIREC. DE PROYECTOS')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('GERENCIA GENERAL')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('DIREC. DE PLAN.')), 1, '', 'C');
+        $this->Cell(3, 1, utf8_decode(strtoupper('ASESOR DE PLAN.')), 1, '', 'C');
+
         $this->Ln();
 
         $connection = \Yii::$app->db;
@@ -220,16 +244,25 @@ class PDF extends FPDF
 
             //Comisiones
 
-            $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
-            $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
-            $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
-            $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
-            $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
-            $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
-            $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
-            $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
-            $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
-
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['Digitador'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['OPC'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['Tienda'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['SupervisorPromotor'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['SuperviorGeneralOPC'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['DirectordeMercadero'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['TLMK'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['SupervisordeTLMK'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['Confirmadora'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['DirectordeTLMK'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['Liner'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['Closer'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['Closer2'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['JefedeSala'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['DirectordeVentas'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['DirectordeProyectos'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['GenerenciaGeneral'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['directordePlaneamiento'])), 1, '', 'C');
+            $this->Cell(3, 1, utf8_decode(strtoupper($row['asesordePlaneamiento'])), 1, '', 'C');
 
             $this->Ln();
 
@@ -240,7 +273,7 @@ class PDF extends FPDF
 
 }
 
-$pdf = new PDF('L', 'cm', array(22, 115));
+$pdf = new PDF('L', 'cm', array(22, 178));
 $Reporte = "Reporte_de_Venta.pdf";
 $pdf->AddPage();
 $pdf->Impresion($fechaIni, $fechaFin, $combo, $estadoPago, $sala, $codigoClub, $usuario);

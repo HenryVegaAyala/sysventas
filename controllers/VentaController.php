@@ -329,6 +329,7 @@ class VentaController extends Controller
                 ->update('comision',
                     [
                         'Codigo_venta' => $model->Codigo_venta,
+                        
                         'Digitador' => $comision->Digitador,
                         'OPC' => $comision->OPC,
                         'Tienda' => $comision->Tienda,

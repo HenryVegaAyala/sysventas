@@ -118,16 +118,16 @@ class PDF extends FPDF
           CASE
           c.Estado_Civil
           WHEN 0
-            THEN "S"
+            THEN "Soltero"
           WHEN 1
-            THEN "C"
+            THEN "Casado"
           WHEN 2
-            THEN "CO"
+            THEN "Comprometido"
           WHEN 3
-            THEN "D"
+            THEN "Divorciado"
           WHEN 4
-            THEN "V"
-          END                AS Estado_Civil,
+            THEN "Viudo"
+          END                AS Estado_Civil_X,
           c.Profesion        AS PROFESION,
           c.DNI              AS DNI,
           c.Edad             AS EDAD,
@@ -175,7 +175,8 @@ class PDF extends FPDF
           WHEN 2
             THEN "Cancelado"
               END                AS estado_pago,
-              com.*
+              com.*,
+                cl.Nombre  AS NOMBRE_PASAPORT
         FROM venta v
           INNER JOIN cliente c ON v.Codigo_Cliente = c.Codigo_Cliente
           INNER JOIN club cl ON v.Codigo_club = cl.Codigo_club
@@ -211,15 +212,15 @@ class PDF extends FPDF
             // Cliente
             $this->Cell(4.5, 1, utf8_decode(strtoupper($row['NOMBRE'])), 1, '', 'L');
             $this->Cell(5.5, 1, utf8_decode(strtoupper($row['APELLIDO'])), 1, '', 'L');
-            $this->Cell(2.5, 1, utf8_decode(strtoupper($row['Estado_Civil'])), 1, '', 'C');
+            $this->Cell(2.5, 1, utf8_decode(strtoupper($row['Estado_Civil_X'])), 1, '', 'L');
             $this->Cell(5, 1, utf8_decode(strtoupper($row['PROFESION'])), 1, '', 'L');
             $this->Cell(3, 1, utf8_decode(strtoupper($row['DNI'])), 1, '', 'L');
-            $this->Cell(1.5, 1, utf8_decode(strtoupper($row['EDAD'])), 1, '', 'C');
+            $this->Cell(1.5, 1, utf8_decode(strtoupper($row['EDAD'].' años')), 1, '', 'C');
             $this->Cell(2.5, 1, utf8_decode(strtoupper($row['Telefono_Casa'])), 1, '', 'L');
             $this->Cell(2.5, 1, utf8_decode(strtoupper($row['Telefono_Celular'])), 1, '', 'L');
 
             // Producto Contratado
-            $this->Cell(3.5, 1, utf8_decode(strtoupper($row['NOMBREPASPORTE'])), 1, '', 'L');
+            $this->Cell(3.5, 1, utf8_decode(strtoupper($row['NOMBRE_PASAPORT'])), 1, '', 'L');
             $this->Cell(3.5, 1, utf8_decode(strtoupper($row['NUMEROPASAPORTE'])), 1, '', 'C');
             $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');
             $this->Cell(2.5, 1, utf8_decode(strtoupper($row['VigenciaDias'])), 1, '', 'C');

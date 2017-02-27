@@ -167,6 +167,9 @@ class Usuario extends \yii\db\ActiveRecord
             case 20:
                 return 'Administrador';
                 break;
+            case 21:
+                return 'Asesor de Planeamiento y Administración';
+                break;
             default:
                 return 'Sin permiso';
         }

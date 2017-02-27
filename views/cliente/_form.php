@@ -37,7 +37,7 @@ use yii\helpers\Url;
                     <?= $form->field($model, 'Apellido')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="col-sm-2">
-                    <?= $form->field($model, 'dni')->textInput(['maxlength' => 8]) ?>
+                    <?= $form->field($model, 'dni')->textInput(['maxlength' => 15]) ?>
                 </div>
             </div>
 

@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="859410c4-7edb-49bf-b3d3-397238c5893d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/help/404.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/porcentaje-comision/_update.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/query/New Project 20170215 0234.sql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/query/New Project 20170220 0744.sql" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/query/sql.sql" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/params.php" afterPath="$PROJECT_DIR$/config/params.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/SiteController.php" afterPath="$PROJECT_DIR$/controllers/SiteController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/VentaController.php" afterPath="$PROJECT_DIR$/controllers/VentaController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models/Club.php" afterPath="$PROJECT_DIR$/models/Club.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/club/_form.php" afterPath="$PROJECT_DIR$/views/club/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/club/_update.php" afterPath="$PROJECT_DIR$/views/club/_update.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/club/index.php" afterPath="$PROJECT_DIR$/views/club/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/porcentaje-comision/_form.php" afterPath="$PROJECT_DIR$/views/porcentaje-comision/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/porcentaje-comision/index.php" afterPath="$PROJECT_DIR$/views/porcentaje-comision/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/porcentaje-comision/update.php" afterPath="$PROJECT_DIR$/views/porcentaje-comision/update.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/site/error.php" afterPath="$PROJECT_DIR$/views/site/error.php" />
     </list>
     <list id="d24657c7-09cc-4f66-9416-bd97de8c1541" name="New changelist" comment="" />
     <ignored path="dolibar.iws" />
@@ -787,11 +777,18 @@
       <option name="project" value="LOCAL" />
       <updated>1487886676905</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="sysventas">
+      <created>1488349201591</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1488349201591</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="480638000" />
+    <option name="totallyTimeSpent" value="480699000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">

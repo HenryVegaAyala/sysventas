@@ -15,7 +15,6 @@ $this->params['breadcrumbs'][] = 'Update';
     <?= $this->render('_update', [
         'model' => $model,
         'cliente' => $cliente,
-        'certificado' => $certificado,
         'incentivos' => $incentivos,
         'pago' => $pago,
         'comision' => $comision,

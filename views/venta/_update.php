@@ -22,6 +22,8 @@ use yii\db\Expression;
 /* @var $formaPago app\models\FormasPago */
 /* @var $comision app\models\Comision */
 /* @var $form yii\widgets\ActiveForm */
+
+$certificado = new Certificado();
 ?>
 
 <div class="panel panel-default" xmlns="http://www.w3.org/1999/html">
@@ -180,7 +182,7 @@ use yii\db\Expression;
 
         <div class="row">
             <div class="col-sm-4">
-                <?= $form->field($certificado, 'codigo_barra')->textInput(['maxlength' => 9, 'value' => '']) ?>
+                <?= $form->field($model, 'codigo_barra')->textInput(['maxlength' => 9, 'value' => '']) ?>
             </div>
             <div class="col-sm-1">
                 <label style="color: transparent">boton</label>

@@ -61,6 +61,8 @@ use yii\helpers\ArrayHelper;
  * @property string $Codigo_venta_Comision;
  * @property string $CodigoComision;
  *
+ * @property string $codigo_barra;
+ *
  * @property Certificado[] $certificados
  * @property Combo[] $combos
  * @property Comision[] $comisions
@@ -78,6 +80,7 @@ class Venta extends \yii\db\ActiveRecord
     public $montoTotal;
     public $restante;
     public $numero_pasaporte;
+    public $codigo_barra;
 
     public $CodigoComision;
     public $Codigo_venta_Comision;
@@ -130,6 +133,7 @@ class Venta extends \yii\db\ActiveRecord
 
             [['serie_comprobante'], 'string'],
             [['numero_comprobante'], 'string'],
+            [['codigo_barra'], 'string'],
             [['salas'], 'string'],
             [['numero_pasaporte'], 'string'],
             [['num_pasaporte'], 'string'],
@@ -183,6 +187,7 @@ class Venta extends \yii\db\ActiveRecord
             'uso_interno' => 'Buscar Clientes',
             'serie_comprobante' => 'Serie del Comprobante',
             'numero_comprobante' => 'Número del Comprobante',
+            'codigo_barra' => 'Número del Comprobante',
             'razon_social' => 'Razón Social',
 
             'codigo_comision1' => 'Digitador',

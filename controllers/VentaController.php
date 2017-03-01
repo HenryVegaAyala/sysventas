@@ -167,7 +167,7 @@ class VentaController extends Controller
             $command->bindValue(':Fecha_Creado', $this->ZonaHoraria());
             $command->bindValue(':Estado', "1");
             $command->bindValue(':Usuario_Creado', Yii::$app->user->identity->email);
-            $command->bindValue(':directordePlaneamiento',$comision->directordePlaneamiento);
+            $command->bindValue(':directordePlaneamiento', $comision->directordePlaneamiento);
             $command->bindValue(':asesordePlaneamiento', $comision->asesordePlaneamiento);
 
             $command->bindValue(':Porcen_Digitador', $comision->comision($model->montoTotal, $comision->Digitador));
@@ -233,20 +233,21 @@ class VentaController extends Controller
 
     public function actionUpdate($id)
     {
-        $model = new Combo();
-        $combo = $model->getCodigoCombo($id);
+        $CodigoCombo = new Combo();
+        $idcombo = $CodigoCombo->getCodigoCombo($id);
 
         $CodigoComisiones = new Comision();
         $idcomision = $CodigoComisiones->getCodigoComision($id);
 
+//        $certificado = $this->findModelCertificado($id);
+
         $model = $this->findModel($id);
         $cliente = $this->findModelCliente($model->Codigo_Cliente);
-        $certificado = $this->findModelCertificado($id);
-        $incentivos = $this->findModelCombo($combo);
+        $incentivos = $this->findModelCombo($idcombo);
         $pago = $this->findModelPago($id);
         $comision = $this->findModelComision($idcomision);
 
-        if ($model->load(Yii::$app->request->post()) && $comision->load(Yii::$app->request->post()) && $cliente->load(Yii::$app->request->post()) && $certificado->load(Yii::$app->request->post()) && $incentivos->load(Yii::$app->request->post()) && $pago->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post()) && $comision->load(Yii::$app->request->post()) && $cliente->load(Yii::$app->request->post()) && $incentivos->load(Yii::$app->request->post()) && $pago->load(Yii::$app->request->post())) {
 
             $CodigoCliente = $cliente->Codigo_Cliente;
             $transaction = Yii::$app->db;
@@ -323,13 +324,13 @@ class VentaController extends Controller
                     ],
                     'Codigo_venta = ' . $model->Codigo_venta)
                 ->execute();
-
+            
             $transaction = Yii::$app->db;
             $transaction->createCommand()
                 ->update('comision',
                     [
                         'Codigo_venta' => $model->Codigo_venta,
-                        
+
                         'Digitador' => $comision->Digitador,
                         'OPC' => $comision->OPC,
                         'Tienda' => $comision->Tienda,
@@ -387,7 +388,7 @@ class VentaController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'cliente' => $cliente,
-                'certificado' => $certificado,
+//                'certificado' => $certificado,
                 'incentivos' => $incentivos,
                 'pago' => $pago,
                 'comision' => $comision

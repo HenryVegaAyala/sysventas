@@ -99,4 +99,17 @@ class Certificado extends \yii\db\ActiveRecord
         return $data;
     }
 
+    public function getCodigoCertificado($id)
+    {
+        $query = new Query();
+        $select = new Expression('Codigo_certificado');
+        $where = new Expression('Codigo_venta  = "'.$id.'"');
+        $query->select($select)->from('certificado')->where($where);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+    
+    
+
 }

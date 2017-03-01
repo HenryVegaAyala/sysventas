@@ -33,7 +33,7 @@ use yii\widgets\ActiveForm;
                 </div>
 
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'Vigencia')->textInput(['onchange' => "OperacionClub($('#precio').val(),this.value);return false;"]) ?>
+                    <?= $form->field($model, 'Dias_noches')->textInput(['onchange' => "OperacionClub($('#precio').val(),this.value);return false;"]) ?>
                 </div>
 
                 <div class="col-sm-3">
@@ -43,6 +43,10 @@ use yii\widgets\ActiveForm;
             </div>
 
             <div class="row">
+                <div class="col-sm-3">
+                    <?= $form->field($model, 'Vigencia')->textInput() ?>
+                </div>
+
                 <div class="col-sm-3">
                     <?= $form->field($model, 'Desc_Afiliado')->textInput() ?>
                 </div>

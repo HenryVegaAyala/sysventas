@@ -20,14 +20,34 @@ $this->params['breadcrumbs'][] = $this->title;
 //        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            
+
             'Nombre',
             'Precio',
             'Precio_por_Noche',
-            'Vigencia',
-            'Desc_Afiliado',
+            [
+                'attribute' => 'Vigencia',
+                'label' => 'Vigencia ',
+                'value' => function ($data) {
+                    $dato = $data->Vigencia;
+                    if ($dato == 1) {
+                        $año = $data->Vigencia . ' año';
+                        return $año;
+                    } else {
+                        $año = $data->Vigencia . ' años';
+                        return $año;
+                    }
+                }
+            ],
+            [
+                'attribute' => 'Desc_Afiliado',
+                'label' => 'Descuento Afiliado ',
+                'value' => function ($data) {
+                    $dato = $data->Desc_Afiliado . ' ' . '%';
+                    return $dato;
 
-
+                }
+            ],
+            
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Detalle',

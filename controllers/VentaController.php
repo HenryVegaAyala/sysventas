@@ -236,8 +236,8 @@ class VentaController extends Controller
         $model = new Combo();
         $combo = $model->getCodigoCombo($id);
 
-        $idcomision = new Comision();
-        $idcomision = $idcomision->getCodigoComision($id);
+        $CodigoComisiones = new Comision();
+        $idcomision = $CodigoComisiones->getCodigoComision($id);
 
         $model = $this->findModel($id);
         $cliente = $this->findModelCliente($model->Codigo_Cliente);

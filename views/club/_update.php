@@ -29,19 +29,23 @@ use yii\widgets\ActiveForm;
                 </div>
 
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'Precio')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'Precio')->textInput(['maxlength' => true, 'id' => 'precio']) ?>
+                </div>
+
+                <div class="col-sm-3">
+                    <?= $form->field($model, 'Dias_noches')->textInput(['onchange' => "OperacionClub($('#precio').val(),this.value);return false;"]) ?>
                 </div>
 
                 <div class="col-sm-3">
                     <?= $form->field($model, 'Precio_por_Noche')->textInput(['maxlength' => true]) ?>
                 </div>
-
-                <div class="col-sm-3">
-                    <?= $form->field($model, 'Vigencia')->textInput() ?>
-                </div>
             </div>
 
             <div class="row">
+                <div class="col-sm-3">
+                    <?= $form->field($model, 'Vigencia')->textInput() ?>
+                </div>
+
                 <div class="col-sm-3">
                     <?= $form->field($model, 'Desc_Afiliado')->textInput() ?>
                 </div>
@@ -51,7 +55,7 @@ use yii\widgets\ActiveForm;
 
     <div class="panel-footer container-fluid foo">
         <div class="col-sm-12">
-            <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
+            <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
             <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Limpiar", ['create'], ['class' => 'btn btn-primary']) ?>
             <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['index'], ['class' => 'btn btn-primary']) ?>
         </div>

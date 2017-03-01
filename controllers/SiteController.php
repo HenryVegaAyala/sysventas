@@ -41,4 +41,9 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionError()
+    {
+        return $this->render('error');
+    }
+
 }

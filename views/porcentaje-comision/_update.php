@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
         <div class="col-sm-3">
-            <?= $form->field($model, 'Usuario')->dropDownList($usuario->getRoles(20), ['prompt' => 'Seleccione un Rol', 'class' => 'form-control loginmodal-container-combo']) ?>
+            <?= $form->field($model, 'Usuario')->dropDownList($usuario->getRoles(20), ['disabled ' => 'false','prompt' => 'Seleccione un Rol', 'class' => 'form-control loginmodal-container-combo']) ?>
         </div>
         <div class="col-sm-3">
             <?= $form->field($model, 'procentaje')->textInput() ?>

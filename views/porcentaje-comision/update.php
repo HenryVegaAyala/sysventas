@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="porcentaje-comision-update">
 
-    <?= $this->render('_form', [
+    <?= $this->render('_update', [
         'model' => $model,
     ]) ?>
 

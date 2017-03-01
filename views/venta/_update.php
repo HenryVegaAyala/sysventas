@@ -39,16 +39,16 @@ $certificado = new Certificado();
     <div class="container-fluid" id="Ncontrato">
         <div class="row">
             <div class="col-sm-4">
-                <?= $form->field($model, 'razon_social')->textInput(['autofocus' => 'autofocus', 'placeholder' => "Razon Social", 'maxlength' => 100, 'readonly' => 'true'])->label(false) ?>
+                <?= $form->field($model, 'razon_social')->textInput(['autofocus' => 'autofocus', 'placeholder' => "Razon Social", 'maxlength' => 100])->label(false) ?>
             </div>
             <div class="col-sm-3">
-                <?= $form->field($model, 'numero_contrato')->textInput(['placeholder' => "N° de Contrato", 'maxlength' => 12, 'readonly' => 'true'])->label(false) ?>
+                <?= $form->field($model, 'numero_contrato')->textInput(['placeholder' => "N° de Contrato", 'maxlength' => 12])->label(false) ?>
             </div>
             <div class="col-sm-2">
-                <?= $form->field($model, 'serie_comprobante')->textInput(['placeholder' => "N° de Serie", 'maxlength' => 12, 'readonly' => 'true'])->label(false) ?>
+                <?= $form->field($model, 'serie_comprobante')->textInput(['placeholder' => "N° de Serie", 'maxlength' => 12])->label(false) ?>
             </div>
             <div class="col-sm-3">
-                <?= $form->field($model, 'numero_comprobante')->textInput(['placeholder' => "N° de Comprobante", 'maxlength' => 12, 'readonly' => 'true'])->label(false) ?>
+                <?= $form->field($model, 'numero_comprobante')->textInput(['placeholder' => "N° de Comprobante", 'maxlength' => 12])->label(false) ?>
             </div>
         </div>
     </div>

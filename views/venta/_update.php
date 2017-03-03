@@ -371,6 +371,14 @@ $certificado = new Certificado();
                 <div class="col-sm-2">
                     <?= $form->field($comision, 'GenerenciaGeneral')->textInput(['maxlength' => true]) ?>
                 </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'directordePlaneamiento')->textInput(['maxlength' => true]) ?>
+                </div>
+
+                <div class="col-sm-2">
+                    <?= $form->field($comision, 'asesordePlaneamiento')->textInput(['maxlength' => true]) ?>
+                </div>
             </div>
         </div>
     </fieldset>

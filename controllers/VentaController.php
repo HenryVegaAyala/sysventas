@@ -46,6 +46,17 @@ class VentaController extends Controller
         ]);
     }
 
+    public function actionLista()
+    {
+        $searchModel = new VentaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('lista', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionView($id)
     {
         $CodigoCombo = new Combo();

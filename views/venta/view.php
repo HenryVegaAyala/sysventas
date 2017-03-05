@@ -585,11 +585,13 @@ $clientes = new \app\models\Cliente();
 
         <div class="panel-heading">
             <h3 class="panel-title">
+                <?php if(Yii::$app->user->identity->Codigo_Rol !== 22){?>
                 <div class="pull-right">
                     <?= Html::a('<span class="fa fa-pencil fa-lg"></span>', ['update', 'id' => $model->Codigo_venta], ['title' => 'Actualizar', 'aria-label' => 'Actualizar', 'data-pjax' => '0']) ?>
                     |
                     <?= Html::a('<span class="fa fa-trash-o fa-lg"></span>', ['delete', 'id' => $model->Codigo_venta], ['title' => 'Eliminar', 'aria-label' => 'Eliminar', 'data-pjax' => '0', 'data' => ['confirm' => '¿Estas seguro de eliminar este Contrato?', 'method' => 'post',],]) ?>
                 </div>
+                <?php }?>
             </h3>
             <h3 class="panel-title"><strong><?= 'N° de Contrato: ' . strtoupper($model->numero_contrato) ?></strong>
             </h3>

@@ -80,7 +80,7 @@ class Cliente extends \yii\db\ActiveRecord
 
             [['Telefono_Casa', 'Edad', 'Tarjeta_De_Credito', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3', 'Traslado', 'dni'], 'integer', 'message' => 'Debe ser númerico.'],
             [['Telefono_Casa', 'Telefono_Casa2', 'Telefono_Celular', 'Telefono_Celular2', 'Telefono_Celular3'], 'match', 'pattern' => "/^.{3,15}$/", 'message' => 'Mínimo 7 caracteres'],
-            [['dni'], 'match', 'pattern' => "/^.{8,8}$/", 'message' => 'Debe tener 8 digitos'],
+            [['dni'], 'match', 'pattern' => "/^.{8,15}$/", 'message' => 'Minimo 8 digitos'],
             [['Edad'], 'match', 'pattern' => "/^.{2,2}$/", 'message' => 'Debe ser edad correcta'],
 
             [['Email'], 'match', 'pattern' => "/^.{3,45}$/", 'message' => 'Mínimo 3 caracteres del correo'],
@@ -121,7 +121,7 @@ class Cliente extends \yii\db\ActiveRecord
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Estado' => 'Estado',
             'Agendado' => 'Agendado',
-            'dni' => 'DNI',
+            'dni' => 'DNI/Pasaporte',
             'Super_Promotor' => 'Supervisor del Promotor',
             'Jefe_Promotor' => 'Jefe del Promotor'
         ];
@@ -223,6 +223,30 @@ class Cliente extends \yii\db\ActiveRecord
         return $var;
     }
 
+    public function setTraslado($id)
+    {
+        switch ($id) {
+            case 0:
+                return 'Particular';
+                break;
+            case 1:
+                return 'Bus';
+                break;
+        }
+    }
+
+    public function setTarjeta($id)
+    {
+        switch ($id) {
+            case 0:
+                return 'Tarjeta de Crédito';
+                break;
+            case 1:
+                return 'Tarjeta de Débito';
+                break;
+        }
+    }
+
     // obtiene el tipo de tarjeta
     public function getTarjeta()
     {
@@ -274,9 +298,9 @@ class Cliente extends \yii\db\ActiveRecord
      */
     public function Agendar($fh_Agendado, $estado, $codigo)
     {
-        if($fh_Agendado == null){
+        if ($fh_Agendado == null) {
             $fhCreado = 'now()';
-        }else{
+        } else {
             $fhCreado = $fh_Agendado;
         }
 
@@ -525,6 +549,6 @@ class Cliente extends \yii\db\ActiveRecord
         $data = $comando->queryScalar();
         return $data;
     }
-    
+
 
 }

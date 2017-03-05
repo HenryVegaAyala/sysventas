@@ -150,7 +150,7 @@ class Venta extends \yii\db\ActiveRecord
 
             [['serie_comprobante'], 'required', 'message' => 'Se requiere la Serie.'],
             [['numero_comprobante'], 'required', 'message' => 'Se requiere N° de Comprobante.'],
-            [['salas'], 'required', 'message' => 'Se requiere seleccionar una sala.'],
+//            [['salas'], 'required', 'message' => 'Se requiere seleccionar una sala.'],
             [['reporte'], 'required', 'message' => 'Se requiere seleccionar un Formato.'],
 
             [['uso_interno'], 'string'],
@@ -288,6 +288,7 @@ class Venta extends \yii\db\ActiveRecord
             Pasaporte::find()
                 ->select(['Codigo_pasaporte' => 'Codigo_pasaporte', 'Nombre' => "Nombre"])
                 ->asArray()
+                ->where('Estado = 1')
                 ->all(), 'Codigo_pasaporte', 'Nombre');
         return $resultado;
     }
@@ -297,6 +298,7 @@ class Venta extends \yii\db\ActiveRecord
         $resultado = ArrayHelper::map(
             Club::find()
                 ->select(['Codigo_Club' => 'Codigo_Club', 'Nombre' => "Nombre"])
+                ->where('Estado = 1')
                 ->asArray()
                 ->all(), 'Codigo_Club', 'Nombre');
         return $resultado;
@@ -410,15 +412,42 @@ class Venta extends \yii\db\ActiveRecord
         $var = [
             0 => 'Pachacamac',
             1 => 'Costa Verde',
-            2 => 'Vichayito.',
+            2 => 'Vichayito',
         ];
         return $var;
+    }
+
+    public function setgetSalas($id)
+    {
+        switch ($id) {
+
+            case 0:
+                return "Pachacamac";
+                break;
+            case 1:
+                return "Costa Verde";
+                break;
+            case 2:
+                return "Vichayito";
+                break;
+            default:
+                return "Sin Sala";
+        }
     }
 
     public function Club($codigo)
     {
         $query = new Query();
         $query->select('Nombre')->from('club')->where("Codigo_Club ='" . $codigo . "'");
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        return $data;
+    }
+
+    public function TipoPasaporte($codigo)
+    {
+        $query = new Query();
+        $query->select('Nombre')->from('pasaporte')->where("Codigo_pasaporte ='" . $codigo . "'");
         $comando = $query->createCommand();
         $data = $comando->queryScalar();
         return $data;
@@ -474,6 +503,13 @@ class Venta extends \yii\db\ActiveRecord
     {
         $connection = Yii::$app->db;
         $command = $connection->createCommand("call Delete_Beneficiario('" . $codigo . "')");
+        $command->execute();
+    }
+
+    public function SP_DeleteContrato($codigo)
+    {
+        $connection = Yii::$app->db;
+        $command = $connection->createCommand("call EliminarContrato('" . $codigo . "')");
         $command->execute();
     }
 

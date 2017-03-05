@@ -28,7 +28,7 @@ class VentaSearch extends Venta
 
     public function search($params)
     {
-        $query = Venta::find();
+        $query = Venta::find()->where('Estado = 1');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

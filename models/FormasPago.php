@@ -11,6 +11,7 @@ use Yii;
  * @property integer $codigo_pago
  * @property string $fecha_pago
  * @property string $monto
+ * @property string $comprobante
  * @property string $Fecha_Creado
  * @property string $Fecha_Modificado
  * @property string $Fecha_Eliminado
@@ -45,6 +46,7 @@ class FormasPago extends \yii\db\ActiveRecord
             [['fecha_pago', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
             [['monto'], 'number'],
             [['Fecha_Creado'], 'string', 'max' => 45],
+            [['comprobante'], 'string', 'max' => 30],
             [['Usuario_Creado', 'Usuario_Eliminado', 'Usuario_Modificado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
             [['codigo_pago'], 'exist', 'skipOnError' => true, 'targetClass' => Pago::className(), 'targetAttribute' => ['codigo_pago' => 'codigo_pago']],
@@ -61,6 +63,7 @@ class FormasPago extends \yii\db\ActiveRecord
             'codigo_pago' => 'Codigo Pago',
             'fecha_pago' => 'Fecha Pago',
             'monto' => 'Monto',
+            'comprobante' => 'N° de Comprobante',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',
             'Fecha_Eliminado' => 'Fecha  Eliminado',

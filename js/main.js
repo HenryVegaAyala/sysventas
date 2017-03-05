@@ -38,6 +38,7 @@ function busqueda(cliente) {
         type: 'post',
         beforeSend: function () {
             $("#ResultadoCliente").show();
+            $("#cotitular").show();
             $("#ProductoContratado").show();
             $("#Inventivos").show();
             $("#FormaPago").show();

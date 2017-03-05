@@ -41,7 +41,7 @@ class PasaporteSearch extends Pasaporte
      */
     public function search($params)
     {
-        $query = Pasaporte::find();
+        $query = Pasaporte::find()->where("Estado = 1");;
 
         // add conditions that should always apply here
 

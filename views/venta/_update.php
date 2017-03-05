@@ -8,6 +8,7 @@ use app\models\Beneficiario;
 use app\models\Certificado;
 use app\models\Comision;
 use app\models\Combo;
+use app\models\Cotitular;
 use synatree\dynamicrelations\DynamicRelations;
 use yii\helpers\Url;
 use yii\db\Query;
@@ -21,6 +22,7 @@ use yii\db\Expression;
 /* @var $pago app\models\Pago */
 /* @var $formaPago app\models\FormasPago */
 /* @var $comision app\models\Comision */
+/* @var $cotitular app\models\Cotitular */
 /* @var $form yii\widgets\ActiveForm */
 
 $certificado = new Certificado();
@@ -143,6 +145,100 @@ $certificado = new Certificado();
                     <?= $form->field($cliente, 'Email')->textInput(['maxlength' => true]) ?>
                 </div>
             </div>
+
+            <fieldset id="cotitular" >
+                <legend style="padding-left:5px ">Datos del Co-Titular:</legend>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div style="display: none">
+                            <?= $form->field($cotitular, 'Codigo_Cliente')->textInput(['maxlength' => true]) ?>
+                        </div>
+                        <div class="col-sm-5">
+                            <?= $form->field($cotitular, 'Nombre')->textInput(['maxlength' => true]) ?>
+                        </div>
+                        <div class="col-sm-5">
+                            <?= $form->field($cotitular, 'Apellido')->textInput(['maxlength' => true]) ?>
+                        </div>
+                        <div class="col-sm-2">
+                            <?= $form->field($cotitular, 'dni')->textInput(['maxlength' => 15]) ?>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <?= $form->field($cotitular, 'Edad')->textInput(['maxlength' => 2]) ?>
+                        </div>
+                        <div class="col-sm-4">
+                            <?= $form->field($cotitular, 'Direccion')->textInput() ?>
+                        </div>
+                        <div class="col-sm-3">
+                            <?= $form->field($cotitular, 'Distrito')->widget(\yii\jui\AutoComplete::classname(), [
+                                'options' => [
+                                    'class' => 'form-control',
+                                ],
+                                'clientOptions' => [
+                                    'source' => $cliente->getDistrito(),
+                                ],
+                            ]) ?>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <?= $form->field($cotitular, 'Traslado')->dropDownList($cliente->getTraslado(), ['prompt' => 'Seleccionar tipo de Traslado', 'class' => 'form-control loginmodal-container-combo']) ?>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <?= $form->field($cotitular, 'Tarjeta_De_Credito')->dropDownList($cliente->getTarjeta(), ['prompt' => 'Seleccione una Tarjeta', 'class' => 'form-control loginmodal-container-combo']) ?>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <?= $form->field($cotitular, 'Estado_Civil')->dropDownList($cliente->getEstadoCivil(), ['prompt' => 'Seleccione un Estado  Civil', 'class' => 'form-control loginmodal-container-combo']) ?>
+                        </div>
+                        <div class="col-sm-4">
+                            <?= $form->field($cotitular, 'Profesion')->widget(\yii\jui\AutoComplete::classname(), [
+                                'options' => [
+                                    'class' => 'form-control',
+                                ],
+                                'clientOptions' => [
+                                    'source' => $cliente->getCarrera(),
+                                ],
+                            ]) ?>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <?= $form->field($cotitular, 'Telefono_Casa')->textInput(['maxlength' => true]) ?>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <?= $form->field($cotitular, 'Telefono_Casa2')->textInput(['maxlength' => true]) ?>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <?= $form->field($cotitular, 'Telefono_Celular')->textInput(['maxlength' => true]) ?>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <?= $form->field($cotitular, 'Telefono_Celular2')->textInput(['maxlength' => true]) ?>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <?= $form->field($cotitular, 'Telefono_Celular3')->textInput(['maxlength' => true]) ?>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <?= $form->field($cotitular, 'Email')->textInput(['maxlength' => true]) ?>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
 
             <div class="row">
                 <div class="col-sm-12">

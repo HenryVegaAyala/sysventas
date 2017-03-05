@@ -76,6 +76,7 @@ class Comision extends \yii\db\ActiveRecord
         return [
             'Codigo' => 'Codigo',
             'Codigo_venta' => 'Codigo Venta',
+
             'Digitador' => 'Digitador',
             'OPC' => 'OPC',
             'Tienda' => 'Tienda',
@@ -89,18 +90,19 @@ class Comision extends \yii\db\ActiveRecord
             'Liner' => 'Liner',
             'Closer' => 'Closer',
             'Closer2' => 'Closer 2',
-            'JefedeSala' => 'Jefede Sala',
-            'DirectordeVentas' => 'Directorde Ventas',
-            'DirectordeProyectos' => 'Directorde Proyectos',
+            'JefedeSala' => 'Jefe de Sala',
+            'DirectordeVentas' => 'Director de Ventas',
+            'DirectordeProyectos' => 'Director de Proyectos',
             'GenerenciaGeneral' => 'Generencia General',
+            'directordePlaneamiento' => 'Dir. de Planeamiento',
+            'asesordePlaneamiento' => 'Asesor de Planeamiento',
+
             'monto' => 'Monto',
             'Fecha_Creado' => 'Fecha  Creado',
             'Fecha_Modificado' => 'Fecha  Modificado',
             'Usuario_Creado' => 'Usuario  Creado',
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Estado' => 'Estado',
-            'directordePlaneamiento' => 'Director de Planeamiento',
-            'asesordePlaneamiento' => 'Asesor de Planeamiento',
         ];
     }
 

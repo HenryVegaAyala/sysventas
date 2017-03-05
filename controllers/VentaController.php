@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\Certificado;
 use app\models\Combo;
 use app\models\Comision;
+use app\models\Cotitular;
 use app\models\FormasPago;
 use app\models\Pago;
 use Yii;
@@ -47,8 +48,28 @@ class VentaController extends Controller
 
     public function actionView($id)
     {
+        $CodigoCombo = new Combo();
+        $idcombo = $CodigoCombo->getCodigoCombo($id);
+
+        $CodigoComisiones = new Comision();
+        $idcomision = $CodigoComisiones->getCodigoComision($id);
+
+        $model = $this->findModel($id);
+        $cliente = $this->findModelCliente($model->Codigo_Cliente);
+        $incentivos = $this->findModelCombo($idcombo);
+
+        $CodigoPago = new Pago();
+        $idPago = $CodigoPago->CodigoPago($id);
+
+        $pago = $this->findModelPago($idPago);
+        $comision = $this->findModelComision($idcomision);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'cliente' => $cliente,
+            'incentivos' => $incentivos,
+            'pago' => $pago,
+            'comision' => $comision
         ]);
     }
 
@@ -60,8 +81,9 @@ class VentaController extends Controller
         $incentivos = new Combo();
         $pago = new Pago();
         $comision = new Comision();
+        $cotitular = new Cotitular();
 
-        if ($model->load(Yii::$app->request->post()) && $cliente->load(Yii::$app->request->post()) && $certificado->load(Yii::$app->request->post()) && $incentivos->load(Yii::$app->request->post()) && $pago->load(Yii::$app->request->post()) && $comision->load(Yii::$app->request->post())) {
+        if ($cotitular->load(Yii::$app->request->post()) && $model->load(Yii::$app->request->post()) && $cliente->load(Yii::$app->request->post()) && $certificado->load(Yii::$app->request->post()) && $incentivos->load(Yii::$app->request->post()) && $pago->load(Yii::$app->request->post()) && $comision->load(Yii::$app->request->post())) {
 
             $CodigoCliente = $cliente->Codigo_Cliente;
             $transaction = Yii::$app->db;
@@ -89,14 +111,51 @@ class VentaController extends Controller
                     'Codigo_Cliente = ' . $CodigoCliente)
                 ->execute();
 
+            $command = Yii::$app->db->createCommand(
+                "INSERT INTO cotitular (Codigo_Cotitular,Codigo_Cliente,Nombre,Apellido,dni,Edad,Direccion,Distrito,Traslado,Tarjeta_De_Credito,Estado_Civil,
+Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefono_Celular3,Email,Usuario_Creado,Fecha_Creado,Estado)
+                VALUES (:Codigo_Cotitular, :Codigo_Cliente, :Nombre, :Apellido, :dni, :Edad, :Direccion, :Distrito, :Traslado, :Tarjeta_De_Credito, :Estado_Civil,
+:Profesion, :Telefono_Casa, :Telefono_Casa2, :Telefono_Celular, :Telefono_Celular2, :Telefono_Celular3, :Email, :Usuario_Creado, :Fecha_Creado, :Estado)");
+            $command->bindValue(':Codigo_Cotitular', $cotitular->getCodigo());
+            $command->bindValue(':Codigo_Cliente', $cliente->Codigo_Cliente);
+            $command->bindValue(':Nombre', $cotitular->Nombre);
+            $command->bindValue(':Apellido', $cotitular->Apellido);
+            $command->bindValue(':dni', $cotitular->dni);
+            $command->bindValue(':Edad', $cotitular->Edad);
+            $command->bindValue(':Direccion', $cotitular->Direccion);
+            $command->bindValue(':Distrito', $cotitular->Distrito);
+            $command->bindValue(':Traslado', $cotitular->Traslado);
+            $command->bindValue(':Tarjeta_De_Credito', $cotitular->Tarjeta_De_Credito);
+            $command->bindValue(':Estado_Civil', $cotitular->Estado_Civil);
+            $command->bindValue(':Profesion', $cotitular->Profesion);
+            $command->bindValue(':Telefono_Casa', $cotitular->Telefono_Casa);
+            $command->bindValue(':Telefono_Casa2', $cotitular->Telefono_Casa2);
+            $command->bindValue(':Telefono_Celular', $cotitular->Telefono_Celular);
+            $command->bindValue(':Telefono_Celular2', $cotitular->Telefono_Celular2);
+            $command->bindValue(':Telefono_Celular3', $cotitular->Telefono_Celular3);
+            $command->bindValue(':Email', $cotitular->Email);
+            $command->bindValue(':Usuario_Creado', Yii::$app->user->identity->email);
+            $command->bindValue(':Fecha_Creado', $this->ZonaHoraria());
+            $command->bindValue(':Estado', 1);
+            $command->execute();
+
             $model->Codigo_venta = $model->getCodigoVenta();
 
             $command = Yii::$app->db->createCommand(
                 "INSERT INTO venta (Codigo_venta,Codigo_club, Codigo_pasaporte, Codigo_Cliente, numero_contrato, numero_pasaporte, Fecha_Creado,Usuario_Creado, Estado,numero_comprobante,serie_comprobante,salas,razon_social)
                 VALUES (:Codigo_venta,:Codigo_club,:Codigo_pasaporte,:Codigo_Cliente,:numero_contrato,:numero_pasaporte,:Fecha_Creado,:Usuario_Creado,:Estado,:numero_comprobante,:serie_comprobante,:salas,:razon_social)");
             $command->bindValue(':Codigo_venta', $model->Codigo_venta);
-            $command->bindValue(':Codigo_club', $model->Codigo_club);
-            $command->bindValue(':Codigo_pasaporte', $model->Codigo_pasaporte);
+            if ($model->Codigo_club == '' || $model->Codigo_club == null) {
+                $command->bindValue(':Codigo_club', 999);
+            } else {
+                $command->bindValue(':Codigo_club', $model->Codigo_club);
+            }
+            if ($model->Codigo_pasaporte == '' || $model->Codigo_pasaporte == null) {
+                $command->bindValue(':Codigo_pasaporte', 999);
+            } else {
+                $command->bindValue(':Codigo_pasaporte', $model->Codigo_pasaporte);
+            }
+
             $command->bindValue(':Codigo_Cliente', $cliente->Codigo_Cliente);
             $command->bindValue(':numero_contrato', $model->numero_contrato);
             $command->bindValue(':numero_pasaporte', $model->numero_pasaporte);
@@ -105,7 +164,11 @@ class VentaController extends Controller
             $command->bindValue(':Estado', 1);
             $command->bindValue(':numero_comprobante', $model->numero_comprobante);
             $command->bindValue(':serie_comprobante', $model->serie_comprobante);
-            $command->bindValue(':salas', $model->salas);
+            if ($model->salas == '' || $model->salas == null) {
+                $command->bindValue(':salas', 9);
+            } else {
+                $command->bindValue(':salas', $model->salas);
+            }
             $command->bindValue(':razon_social', $model->razon_social);
             $command->execute();
 
@@ -129,8 +192,16 @@ class VentaController extends Controller
                 VALUES (:Codigo_venta,:codigo_pago,:tipo_pago,:estado_pago,:monto_pagado,:monto_ingresado,:monto_restante,:Fecha_Creado,:Usuario_Creado,:Estado)");
             $command->bindValue(':Codigo_venta', $model->Codigo_venta);
             $command->bindValue(':codigo_pago', $pago->codigo_pago);
-            $command->bindValue(':tipo_pago', $pago->tipo_pago);
-            $command->bindValue(':estado_pago', $pago->estado_pago);
+            if ($pago->tipo_pago == '' || $pago->tipo_pago == null) {
+                $command->bindValue(':tipo_pago', 1);
+            } else {
+                $pago->bindValue(':tipo_pago', $pago->tipo_pago);
+            }
+            if ($pago->estado_pago == '' || $pago->estado_pago == null) {
+                $command->bindValue(':estado_pago', 1);
+            } else {
+                $pago->bindValue(':estado_pago', $pago->estado_pago);
+            }
             $command->bindValue(':monto_pagado', $model->montoTotal);
             $command->bindValue(':monto_ingresado', $pago->monto_ingresado);
             $command->bindValue(':monto_restante', $pago->monto_restante);
@@ -140,12 +211,17 @@ class VentaController extends Controller
             $command->execute();
 
             $command = Yii::$app->db->createCommand(
-                "INSERT INTO comision (Codigo, Codigo_venta, Digitador, OPC, Tienda, SupervisorPromotor, SuperviorGeneralOPC, DirectordeMercadero, TLMK, SupervisordeTLMK, Confirmadora, DirectordeTLMK, Liner, Closer, Closer2, JefedeSala, DirectordeVentas, DirectordeProyectos, GenerenciaGeneral, Fecha_Creado, Estado,Usuario_Creado,
-               Porcen_Digitador, Porcen_OPC, Porcen_Tienda, Porcen_SupervisorPromotor, Porcen_SuperviorGeneralOPC, Porcen_DirectordeMercadero, Porcen_TLMK, Porcen_SupervisordeTLMK, Porcen_Confirmadora, Porcen_DirectordeTLMK, Porcen_Liner, Porcen_Closer, Porcen_Closer2, Porcen_JefedeSala, Porcen_DirectordeVentas, Porcen_DirectordeProyectos, Porcen_GenerenciaGeneral,directordePlaneamiento,asesordePlaneamiento, Porcen_directordePlaneamiento, Porcen_asesordePlaneamiento)
+                "INSERT INTO comision (
+                          Codigo, Codigo_venta, Digitador, OPC, Tienda, SupervisorPromotor, SuperviorGeneralOPC, DirectordeMercadero, TLMK, SupervisordeTLMK, Confirmadora, DirectordeTLMK, Liner, Closer, Closer2, JefedeSala, DirectordeVentas, DirectordeProyectos, GenerenciaGeneral, Fecha_Creado, Estado,Usuario_Creado,
+                          Porcen_Digitador, Porcen_OPC, Porcen_Tienda, Porcen_SupervisorPromotor, Porcen_SuperviorGeneralOPC, Porcen_DirectordeMercadero, Porcen_TLMK, Porcen_SupervisordeTLMK, Porcen_Confirmadora, Porcen_DirectordeTLMK, Porcen_Liner, Porcen_Closer, Porcen_Closer2, Porcen_JefedeSala, Porcen_DirectordeVentas, Porcen_DirectordeProyectos, Porcen_GenerenciaGeneral,directordePlaneamiento,asesordePlaneamiento, Porcen_directordePlaneamiento, Porcen_asesordePlaneamiento)
                 VALUES ( :Codigo, :Codigo_venta, :Digitador, :OPC, :Tienda, :SupervisorPromotor, :SuperviorGeneralOPC, :DirectordeMercadero, :TLMK, :SupervisordeTLMK, :Confirmadora, :DirectordeTLMK, :Liner, :Closer, :Closer2, :JefedeSala, :DirectordeVentas, :DirectordeProyectos, :GenerenciaGeneral, :Fecha_Creado, :Estado,:Usuario_Creado,
-                         :Porcen_Digitador, :Porcen_OPC, :Porcen_Tienda, :Porcen_SupervisorPromotor, :Porcen_SuperviorGeneralOPC, :Porcen_DirectordeMercadero, :Porcen_TLMK, :Porcen_SupervisordeTLMK, :Porcen_Confirmadora, :Porcen_DirectordeTLMK, :Porcen_Liner, :Porcen_Closer, :Porcen_Closer2, :Porcen_JefedeSala, :Porcen_DirectordeVentas, :Porcen_DirectordeProyectos, :Porcen_GenerenciaGeneral,:directordePlaneamiento,:asesordePlaneamiento,: Porcen_directordePlaneamiento,: Porcen_asesordePlaneamiento)");
+                         :Porcen_Digitador, :Porcen_OPC, :Porcen_Tienda, :Porcen_SupervisorPromotor, :Porcen_SuperviorGeneralOPC, :Porcen_DirectordeMercadero, :Porcen_TLMK, :Porcen_SupervisordeTLMK, :Porcen_Confirmadora, :Porcen_DirectordeTLMK, :Porcen_Liner, :Porcen_Closer, :Porcen_Closer2, :Porcen_JefedeSala, :Porcen_DirectordeVentas, :Porcen_DirectordeProyectos, :Porcen_GenerenciaGeneral,:directordePlaneamiento,:asesordePlaneamiento,:Porcen_directordePlaneamiento,:Porcen_asesordePlaneamiento)");
+
             $command->bindValue(':Codigo', $comision->getCodigo());
             $command->bindValue(':Codigo_venta', $model->Codigo_venta);
+            $command->bindValue(':Fecha_Creado', $this->ZonaHoraria());
+            $command->bindValue(':Estado', "1");
+            $command->bindValue(':Usuario_Creado', Yii::$app->user->identity->email);
 
             $command->bindValue(':Digitador', $comision->Digitador);
             $command->bindValue(':OPC', $comision->OPC);
@@ -164,9 +240,6 @@ class VentaController extends Controller
             $command->bindValue(':DirectordeVentas', $comision->DirectordeVentas);
             $command->bindValue(':DirectordeProyectos', $comision->DirectordeProyectos);
             $command->bindValue(':GenerenciaGeneral', $comision->GenerenciaGeneral);
-            $command->bindValue(':Fecha_Creado', $this->ZonaHoraria());
-            $command->bindValue(':Estado', "1");
-            $command->bindValue(':Usuario_Creado', Yii::$app->user->identity->email);
             $command->bindValue(':directordePlaneamiento', $comision->directordePlaneamiento);
             $command->bindValue(':asesordePlaneamiento', $comision->asesordePlaneamiento);
 
@@ -225,7 +298,8 @@ class VentaController extends Controller
                 'certificado' => $certificado,
                 'incentivos' => $incentivos,
                 'pago' => $pago,
-                'comision' => $comision
+                'comision' => $comision,
+                'cotitular' => $cotitular,
 
             ]);
         }
@@ -239,20 +313,51 @@ class VentaController extends Controller
         $CodigoComisiones = new Comision();
         $idcomision = $CodigoComisiones->getCodigoComision($id);
 
-//        $certificado = $this->findModelCertificado($id);
+        $CodigoPago = new Pago();
+        $idPago = $CodigoPago->CodigoPago($id);
 
         $model = $this->findModel($id);
         $cliente = $this->findModelCliente($model->Codigo_Cliente);
         $incentivos = $this->findModelCombo($idcombo);
-        $pago = $this->findModelPago($id);
+
+        $pago = $this->findModelPago($idPago);
         $comision = $this->findModelComision($idcomision);
 
-        if ($model->load(Yii::$app->request->post()) && $comision->load(Yii::$app->request->post()) && $cliente->load(Yii::$app->request->post()) && $incentivos->load(Yii::$app->request->post()) && $pago->load(Yii::$app->request->post())) {
+        $codigocotitular = new Cotitular();
+        $idcotitular = $codigocotitular->getCodigoCotitular($model->Codigo_Cliente);
+        $cotitular = $this->findModelCoTitular($idcotitular);
+
+        if ($cotitular->load(Yii::$app->request->post()) && $model->load(Yii::$app->request->post()) && $comision->load(Yii::$app->request->post()) && $cliente->load(Yii::$app->request->post()) && $incentivos->load(Yii::$app->request->post()) && $pago->load(Yii::$app->request->post())) {
 
             $CodigoCliente = $cliente->Codigo_Cliente;
             $transaction = Yii::$app->db;
             $transaction->createCommand()
                 ->update('cliente',
+                    ['Nombre' => $cliente->Nombre,
+                        'Apellido' => $cliente->Apellido,
+                        'dni' => $cliente->dni,
+                        'Edad' => $cliente->Edad,
+                        'Direccion' => $cliente->Direccion,
+                        'Distrito' => $cliente->Distrito,
+                        'Traslado' => $cliente->Traslado,
+                        'Tarjeta_De_Credito' => $cliente->Tarjeta_De_Credito,
+                        'Estado_Civil' => $cliente->Estado_Civil,
+                        'Profesion' => $cliente->Profesion,
+                        'Telefono_Casa' => $cliente->Telefono_Casa,
+                        'Telefono_Casa2' => $cliente->Telefono_Casa2,
+                        'Telefono_Celular' => $cliente->Telefono_Celular,
+                        'Telefono_Celular2' => $cliente->Telefono_Celular2,
+                        'Telefono_Celular3' => $cliente->Telefono_Celular3,
+                        'Email' => $cliente->Email,
+                        'Fecha_Modificado' => $this->ZonaHoraria(),
+                        'Usuario_Modificado' => Yii::$app->user->identity->email,
+                    ],
+                    'Codigo_Cliente = ' . $CodigoCliente)
+                ->execute();
+
+            $transaction = Yii::$app->db;
+            $transaction->createCommand()
+                ->update('cotitular',
                     ['Nombre' => $cliente->Nombre,
                         'Apellido' => $cliente->Apellido,
                         'dni' => $cliente->dni,
@@ -324,7 +429,7 @@ class VentaController extends Controller
                     ],
                     'Codigo_venta = ' . $model->Codigo_venta)
                 ->execute();
-            
+
             $transaction = Yii::$app->db;
             $transaction->createCommand()
                 ->update('comision',
@@ -388,18 +493,19 @@ class VentaController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'cliente' => $cliente,
-//                'certificado' => $certificado,
                 'incentivos' => $incentivos,
                 'pago' => $pago,
-                'comision' => $comision
+                'comision' => $comision,
+                'cotitular' => $cotitular,
             ]);
         }
     }
 
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
 
+        $model = new Venta();
+        $model->SP_DeleteContrato($id);
         return $this->redirect(['index']);
     }
 
@@ -622,6 +728,15 @@ class VentaController extends Controller
     {
         if (($cliente = Cliente::findOne($id)) !== null) {
             return $cliente;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function findModelCoTitular($id)
+    {
+        if (($cotitular = Cotitular::findOne($id)) !== null) {
+            return $cotitular;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }

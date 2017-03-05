@@ -34,4 +34,7 @@ if ($model->primaryKey) {
         <?= Html::input('text', $frag . '[monto]', $model->monto, ['id' => 'FormasPago-monto', 'class' => 'form-control', 'placeholder' => 'Ingrese el Monto']) ?>
     </div>
 
+    <div class="col-sm-4">
+        <?= Html::input('text', $frag . '[comprobante]', $model->comprobante, ['id' => 'FormasPago-comprobante', 'class' => 'form-control', 'placeholder' => 'N° de Comprobante']) ?>
+    </div>
 </div>

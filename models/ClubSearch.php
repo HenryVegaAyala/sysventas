@@ -42,7 +42,7 @@ class ClubSearch extends Club
      */
     public function search($params)
     {
-        $query = Club::find();
+        $query = Club::find()->where("Estado = 1");
 
         // add conditions that should always apply here
 

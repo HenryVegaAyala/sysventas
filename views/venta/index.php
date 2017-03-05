@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'Codigo_venta',
+            'numero_contrato',
             [
                 'attribute' => 'Codigo_Cliente',
                 'label' => 'Datos Personales',
@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $valor;
                 }
             ],
+            'razon_social',
             [
                 'attribute' => 'Codigo_club',
                 'label' => 'Tipo de Club',
@@ -45,17 +46,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'Codigo_pasaporte',
-                'label' => 'Tipo de Pasaporte',
+                'label' => 'N° de Pasaporte',
                 'value' => function ($data) {
                     $model = new \app\models\Venta();
-                    $estado = $data->Codigo_pasaporte;
-//                    $valor = $model->Pasaporte($estado);
-//                    return $valor;
+                    $Codigo = $data->Codigo_venta;
+                    $valor = $model->NumeroPasaporte($Codigo,1);
+                    return strtoupper($valor);
                 }
             ],
-            'numero_contrato',
-            'Estado',
-
+            
             [
                 'class' => 'yii\grid\ActionColumn',
                 'header' => 'Opciones de Venta',

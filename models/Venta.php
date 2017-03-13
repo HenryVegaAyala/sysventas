@@ -148,9 +148,9 @@ class Venta extends \yii\db\ActiveRecord
             [['numero_contrato'], 'required', 'message' => 'N° de Contrato es necesario.'],
             [['razon_social'], 'required', 'message' => 'Razon Social es necesario.'],
 
-            [['serie_comprobante'], 'required', 'message' => 'Se requiere la Serie.'],
-            [['numero_comprobante'], 'required', 'message' => 'Se requiere N° de Comprobante.'],
-//            [['salas'], 'required', 'message' => 'Se requiere seleccionar una sala.'],
+//            [['serie_comprobante'], 'required', 'message' => 'Se requiere la Serie.'],
+//            [['numero_comprobante'], 'required', 'message' => 'Se requiere N° de Comprobante.'],
+            [['salas'], 'required', 'message' => 'Se requiere seleccionar una sala.'],
             [['reporte'], 'required', 'message' => 'Se requiere seleccionar un Formato.'],
 
             [['uso_interno'], 'string'],
@@ -410,9 +410,9 @@ class Venta extends \yii\db\ActiveRecord
     public function getSalas()
     {
         $var = [
-            0 => 'Pachacamac',
             1 => 'Costa Verde',
-            2 => 'Vichayito',
+            2 => 'Pachacamac',
+            3 => 'Vichayito',
         ];
         return $var;
     }

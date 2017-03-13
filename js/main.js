@@ -22,7 +22,6 @@ function valueChanged() {
     $('.uso_normal').hide();
 }
 
-
 function busqueda(cliente) {
 
     var parametros = {
@@ -160,9 +159,10 @@ function IngresarCertificado(codigobarra, totalnoches, codigopasaporte) {
     });
 }
 
-function contador(codigopasaporte) {
+function contador(codigopasaporte,codigocertificado) {
     var parametros = {
         "codigopasaporte": codigopasaporte,
+        "codigocertificado": codigocertificado,
     };
 
     var escaneado,total,nTotal;
@@ -184,9 +184,6 @@ function contador(codigopasaporte) {
         type: 'post',
         beforeSend: function () {
             $("#Grilla").html("Procesando, espere por favor...");
-
-
-
         },
 
         success: function (response) {
@@ -329,4 +326,55 @@ function OperacionClub(precio,vigencia) {
     Telefono_Casa = document.getElementById('club-precio_por_noche').value = total
 }
 
+function pasaporteCodigo(codsala) {
+    var parametros = {
+        "codsala": codsala,
+    };
 
+    $.ajax({
+        data: parametros,
+        url: 'codigosala',
+        type: 'post',
+
+        success: function (response) {
+            var var1;
+            var1 = document.getElementById('venta-numero_pasaporte').value = response;
+        }
+    });
+}
+
+function jsAgregar(evt,codigobarra, totalnoches, codigopasaporte) {
+    var evt = (evt) ? evt : ((event) ? event : null);
+    if (evt.keyCode == 13) {
+
+    var parametros = {
+        "codigobarra": codigobarra,
+        "totalnoches": totalnoches,
+        "codigopasaporte": codigopasaporte,
+    };
+
+        $.ajax({
+            data: parametros,
+            url: 'insertcodigobarra',
+            type: 'post',
+            beforeSend: function () {
+                $("#queryRest").html("Procesando, espere por favor...");
+            },
+
+            success: function (response) {
+                $("#queryRest").html(response);
+            }
+        });
+
+    }
+}
+
+$(document).on("keypress", 'form', function (e) {
+    var code = e.keyCode || e.which;
+    // console.log(code);
+    if (code == 13) {
+        // console.log('Inside');
+        e.preventDefault();
+        return false;
+    }
+});

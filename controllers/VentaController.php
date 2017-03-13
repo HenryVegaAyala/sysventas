@@ -132,11 +132,19 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
             $command->bindValue(':Nombre', $cotitular->Nombre);
             $command->bindValue(':Apellido', $cotitular->Apellido);
             $command->bindValue(':dni', $cotitular->dni);
-            $command->bindValue(':Edad', $cotitular->Edad);
+            if ($cotitular->Edad == ''){
+                $command->bindValue(':Edad', 0);
+            }else{
+                $command->bindValue(':Edad', $cotitular->Edad);
+            }
             $command->bindValue(':Direccion', $cotitular->Direccion);
             $command->bindValue(':Distrito', $cotitular->Distrito);
             $command->bindValue(':Traslado', $cotitular->Traslado);
-            $command->bindValue(':Tarjeta_De_Credito', $cotitular->Tarjeta_De_Credito);
+            if ($cotitular->Tarjeta_De_Credito == ''){
+                $command->bindValue(':Tarjeta_De_Credito', 0);
+            }else{
+                $command->bindValue(':Tarjeta_De_Credito', $cotitular->Tarjeta_De_Credito);
+            }
             $command->bindValue(':Estado_Civil', $cotitular->Estado_Civil);
             $command->bindValue(':Profesion', $cotitular->Profesion);
             $command->bindValue(':Telefono_Casa', $cotitular->Telefono_Casa);
@@ -206,12 +214,12 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
             if ($pago->tipo_pago == '' || $pago->tipo_pago == null) {
                 $command->bindValue(':tipo_pago', 1);
             } else {
-                $pago->bindValue(':tipo_pago', $pago->tipo_pago);
+                $command->bindValue(':tipo_pago', $pago->tipo_pago);
             }
             if ($pago->estado_pago == '' || $pago->estado_pago == null) {
                 $command->bindValue(':estado_pago', 1);
             } else {
-                $pago->bindValue(':estado_pago', $pago->estado_pago);
+                $command->bindValue(':estado_pago', $pago->estado_pago);
             }
             $command->bindValue(':monto_pagado', $model->montoTotal);
             $command->bindValue(':monto_ingresado', $pago->monto_ingresado);
@@ -637,9 +645,9 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
 
         if ($data == 1) {
             echo "<i class=\"fa fa-font-awesome fa-2x  text-success\" aria-hidden=\"true\"></i> Este codigo puede usarse. ";
-            $connection = Yii::$app->db;
-            $command = $connection->createCommand("call ProcesarCertificado('" . $CodigoBarra . "','" . $codigopasaporte . "')");
-            $command->execute();
+//            $connection = Yii::$app->db;
+//            $command = $connection->createCommand("call ProcesarCertificado('" . $CodigoBarra . "','" . $codigopasaporte . "')");
+//            $command->execute();
         } elseif ($data == 2) {
             echo "<i class=\"fa fa-font-awesome fa-2x  text-yellow\" aria-hidden=\"true\"></i> Este codigo ha sido solicitado. ";
         } elseif ($data == 3) {
@@ -652,16 +660,24 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
     public function actionCargardata()
     {
         if (Empty($_POST['codigopasaporte'])) {
+            echo "<i class=\"fa fa-spinner fa-spin fa-2x fa-fw\"></i> Debe Ingresar Codigo Pasaporte.";
+            exit();
+        } elseif (Empty($_POST['codigocertificado'])) {
+            echo "<i class=\"fa fa-spinner fa-spin fa-2x fa-fw\"></i> Debe Ingresar Codigo Certificado.";
             exit();
         } else {
             $codigopasaporte = $_POST['codigopasaporte'];
+            $codigocertificado = $_POST['codigocertificado'];
         }
 
         $transaction = Yii::$app->db;
         $transaction->createCommand()
-            ->update('detalle_pasaporte',
-                ['Estado' => 2],
-                'codigo_barra = "' . $codigopasaporte . '"')
+            ->update('certificado',
+                [
+                    'Estado' => 2,
+                    'Codigo_pasaporte' => $codigopasaporte
+                ],
+                'codigo_barra = "' . $codigocertificado . '"')
             ->execute();
 
         $connection = Yii::$app->db;
@@ -869,5 +885,32 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
         }
     }
 
+    public function actionCodigosala()
+    {
+
+        if (Empty($_POST['codsala'])) {
+            exit();
+        } else {
+            $codigo = $_POST['codsala'];
+        }
+        $query = new Query();
+        $select = new Expression("codigo_barra");
+        $where = new Expression("sala = '" . $codigo . "' and Estado = 1 ");
+        $query->select($select)->from('detalle_pasaporte')->where($where)->limit(1);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+
+        $transaction = Yii::$app->db;
+        $transaction->createCommand()
+            ->update('detalle_pasaporte',
+                [
+                    'Estado' => '2',
+                    'FECH_SOLIC' => $this->ZonaHoraria()
+                ],
+                'codigo_barra = "' . $data . '" ')
+            ->execute();
+
+        echo $data;
+    }
 
 }

@@ -32,7 +32,11 @@ use yii\helpers\Url;
 
     <br>
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(
+        [
+            'id' => 'venta-form',
+        ]
+    ); ?>
 
     <div class="container-fluid" id="Busqueda">
         <div class="row">
@@ -60,16 +64,10 @@ use yii\helpers\Url;
     <div class="container-fluid" id="Ncontrato" style="display: none;">
         <div class="row">
             <div class="col-sm-4">
-                <?= $form->field($model, 'razon_social')->textInput(['autofocus' => 'autofocus', 'placeholder' => "Razon Social", 'maxlength' => 100])->label(false) ?>
+                <?= $form->field($model, 'salas')->dropDownList($model->getSalas(), ['prompt' => 'Seleccione un Sala', 'class' => 'form-control loginmodal-container-combo', 'onchange' => "pasaporteCodigo($('#venta-salas').val());return false;"]) ?>
             </div>
-            <div class="col-sm-3">
-                <?= $form->field($model, 'numero_contrato')->textInput(['placeholder' => "N° de Contrato", 'maxlength' => 12])->label(false) ?>
-            </div>
-            <div class="col-sm-2">
-                <?= $form->field($model, 'serie_comprobante')->textInput(['placeholder' => "N° de Serie", 'maxlength' => 12])->label(false) ?>
-            </div>
-            <div class="col-sm-3">
-                <?= $form->field($model, 'numero_comprobante')->textInput(['placeholder' => "N° de Comprobante", 'maxlength' => 12])->label(false) ?>
+            <div class="col-sm-4">
+                <?= $form->field($model, 'numero_contrato')->textInput(['placeholder' => "N° de Contrato", 'maxlength' => 12])?>
             </div>
         </div>
     </div>
@@ -279,45 +277,34 @@ use yii\helpers\Url;
             <legend style="padding-left:5px ">Producto Contratado:</legend>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <?= $form->field($model, 'Codigo_club')->dropDownList($model->getClub(), ['prompt' => 'Seleccione un Club', 'class' => 'form-control loginmodal-container-combo', 'onchange' => 'Cantidad(this.value);']) ?>
                     </div>
-                    <div class="col-sm-3">
-                        <?= $form->field($model, 'Codigo_pasaporte')->dropDownList($model->getPasaporte(), ['prompt' => 'Seleccione un Pasaporte', 'class' => 'form-control loginmodal-container-combo']) ?>
+                    <div class="col-sm-4">
+                        <?= $form->field($model, 'numero_pasaporte')->textInput(['maxlength' => 9, 'readonly' => 'true']) ?>  <!-- ValidarPasaporte($('#venta-codigo_pasaporte').val(),this.value);return false; -->
                     </div>
-                    <div class="col-sm-3">
-                        <?= $form->field($model, 'numero_pasaporte')->textInput(['maxlength' => 9, 'onkeyup' => "ValidarPasaporte($('#venta-codigo_pasaporte').val(),this.value);return false;"]) ?>
-                    </div>
-                    <div class="col-sm-3">
-                        <label class="control-label" for="venta-numero_pasaporte">Resulado de la Búsqueda</label>
-                        <br>
-                        <span id="query" class="text-success"></span>
+                    <div class="col-sm-4">
+                        <?= $form->field($certificado, 'codigo_barra')->textInput(['maxlength' => 9,'onkeyup' => "jsAgregar(event,this.value,$('#venta-codigo_club').val(),$('#venta-numero_pasaporte').val());"]) ?>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-sm-4">
-                        <?= $form->field($certificado, 'codigo_barra')->textInput(['maxlength' => 9]) ?>
+                        <label class="control-label" for="venta-numero_pasaporte">Resulado de la Búsqueda</label>
+                        <br>
+                        <span id="queryRest" class="text-success"></span>
                     </div>
-                    <div class="col-sm-1">
+
+                    <div class="col-sm-2">
                         <label style="color: transparent">boton</label>
                         <br>
-                        <?= Html::button('<i class="fa fa-plus" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "IngresarCertificado($('#certificado-codigo_barra').val(),$('#venta-numero_total').val(),$('#venta-numero_pasaporte').val());return false;"]) ?>
+                        <?= Html::button('<i class="fa fa-plus" aria-hidden="true"> Cargar Codigo</i>', ['id' => 'btnScan','class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "contador($('#venta-numero_pasaporte').val(),$('#certificado-codigo_barra').val())"]) ?>
                     </div>
 
-                    <div class="col-sm-3">
-                        <label class="control-label" for="venta-numero_pasaporte">Resultado de la Búsqueda</label>
-                        <br>
-                        <span id="query2"></span>
-                    </div>
-
-                    <div class="col-sm-1">
+                    <div class="col-sm-2">
                         <?= $form->field($model, 'numero_escaneado')->textInput(['maxlength' => 2, 'readonly' => 'true', 'value' => '0']) ?>
                     </div>
-                    <div class="col-sm-1">
-                        <label style="color: transparent">boton</label>
-                        <?= Html::button('<i class="fa fa-arrow-up" aria-hidden="true"></i>', ['id' => 'btnScan', 'class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "contador($('#venta-numero_pasaporte').val());return false;", 'onmousedown' => "escaneado($('#venta-numero_pasaporte').val());return false;"]) ?>
-                    </div>
+
                     <div class="col-sm-2">
                         <?= $form->field($model, 'numero_total')->textInput(['maxlength' => 2, 'readonly' => 'true']) ?>
                     </div>
@@ -478,21 +465,11 @@ use yii\helpers\Url;
             </div>
         </fieldset>
 
-        <fieldset id="Selectsalas" style="display: none;">
-            <legend style="padding-left:5px ">Salas:</legend>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <?= $form->field($model, 'salas')->dropDownList($model->getSalas(), ['prompt' => 'Seleccione un Sala', 'class' => 'form-control loginmodal-container-combo']) ?>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
     </div>
 
     <div class="panel-footer container-fluid foo">
         <div class="col-sm-12" id="btnBotones" style="display: none">
-            <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ']) ?>
+            <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ','id' => 'btn-form-venta']) ?>
             <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['create'], ['class' => 'btn btn-primary']) ?>
         </div>
         <?php ActiveForm::end(); ?>

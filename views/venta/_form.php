@@ -298,7 +298,7 @@ use yii\helpers\Url;
                     <div class="col-sm-2">
                         <label style="color: transparent">boton</label>
                         <br>
-                        <?= Html::button('<i class="fa fa-plus" aria-hidden="true"> Cargar Codigo</i>', ['id' => 'btnScan','class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "contador($('#venta-numero_pasaporte').val(),$('#certificado-codigo_barra').val())"]) ?>
+                        <?= Html::button('<i class="fa fa-plus" aria-hidden="true"> Cargar Codigo</i>', ['id' => 'btnScan','class' => 'btn btn-success', 'href' => 'javascript:;',  'onclick' => "contador($('#venta-numero_pasaporte').val(),$('#certificado-codigo_barra').val())"]) ?>
                     </div>
 
                     <div class="col-sm-2">

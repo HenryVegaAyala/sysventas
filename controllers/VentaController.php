@@ -913,4 +913,21 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
         echo $data;
     }
 
+    public function actionCantidadScan()
+    {
+
+        if (Empty($_POST['codigobarra'])) {
+            exit();
+        } else {
+            $codigo = $_POST['codigobarra'];
+        }
+        $query = new Query();
+        $select = new Expression("count(*)");
+        $where = new Expression("Codigo_pasaporte = '" . $codigo . "' and Estado = 2 ");
+        $query->select($select)->from('certificado')->where($where)->limit(1);
+        $comando = $query->createCommand();
+        $data = $comando->queryScalar();
+        echo $data;
+    }
+
 }

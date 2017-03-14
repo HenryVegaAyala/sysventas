@@ -137,11 +137,11 @@ function IngresarCertificado(codigobarra, totalnoches, codigopasaporte) {
 
     var codigopasaporte;
 
-    codigopasaporte =  document.getElementById('venta-numero_pasaporte').value;
+    codigopasaporte = document.getElementById('venta-numero_pasaporte').value;
 
-    if(codigopasaporte !== ''){
+    if (codigopasaporte !== '') {
         document.getElementById('venta-numero_pasaporte').setAttribute("readonly", true);
-    }else{
+    } else {
         document.getElementById('venta-numero_pasaporte').setAttribute("readonly", false);
     }
 
@@ -159,21 +159,21 @@ function IngresarCertificado(codigobarra, totalnoches, codigopasaporte) {
     });
 }
 
-function contador(codigopasaporte,codigocertificado) {
+function contador(codigopasaporte, codigocertificado) {
     var parametros = {
         "codigopasaporte": codigopasaporte,
         "codigocertificado": codigocertificado,
     };
 
-    var escaneado,total,nTotal;
+    var escaneado, total, nTotal;
     escaneado = document.getElementById('venta-numero_escaneado').value;
     total = document.getElementById('venta-numero_total').value;
 
-    nTotal = total-1;
+    nTotal = total - 1;
 
-    if(nTotal <= escaneado){
+    if (nTotal <= escaneado) {
         document.getElementById('btnScan').disabled = true;
-    }else{
+    } else {
         document.getElementById('btnScan').disabled = false;
     }
 
@@ -191,6 +191,7 @@ function contador(codigopasaporte,codigocertificado) {
         }
     });
 }
+
 
 function escaneado(codigopasaporte) {
     var parametros = {
@@ -294,22 +295,22 @@ function Combo(estado) {
         document.getElementById('sala').style.display = 'none';
         document.getElementById('club').style.display = 'none';
         document.getElementById('usuario').style.display = 'none';
-    }else if (estado == 1){
+    } else if (estado == 1) {
         document.getElementById('sala').style.display = 'block';
         document.getElementById('estadopago').style.display = 'none';
         document.getElementById('club').style.display = 'none';
         document.getElementById('usuario').style.display = 'none';
-    }else if (estado == 2){
+    } else if (estado == 2) {
         document.getElementById('club').style.display = 'block';
         document.getElementById('estadopago').style.display = 'none';
         document.getElementById('sala').style.display = 'none';
         document.getElementById('usuario').style.display = 'none';
-    }else if (estado == 3){
+    } else if (estado == 3) {
         document.getElementById('usuario').style.display = 'block';
         document.getElementById('estadopago').style.display = 'none';
         document.getElementById('sala').style.display = 'none';
         document.getElementById('club').style.display = 'none';
-    }else if (estado == null || estado == ''){
+    } else if (estado == null || estado == '') {
         document.getElementById('estadopago').style.display = 'none';
         document.getElementById('sala').style.display = 'none';
         document.getElementById('club').style.display = 'none';
@@ -318,10 +319,10 @@ function Combo(estado) {
 
 }
 
-function OperacionClub(precio,vigencia) {
+function OperacionClub(precio, vigencia) {
 
     var total;
-    total = parseFloat(precio/vigencia);
+    total = parseFloat(precio / vigencia);
 
     Telefono_Casa = document.getElementById('club-precio_por_noche').value = total
 }
@@ -343,15 +344,15 @@ function pasaporteCodigo(codsala) {
     });
 }
 
-function jsAgregar(evt,codigobarra, totalnoches, codigopasaporte) {
+function jsAgregar(evt, codigobarra, totalnoches, codigopasaporte) {
     var evt = (evt) ? evt : ((event) ? event : null);
     if (evt.keyCode == 13) {
 
-    var parametros = {
-        "codigobarra": codigobarra,
-        "totalnoches": totalnoches,
-        "codigopasaporte": codigopasaporte,
-    };
+        var parametros = {
+            "codigobarra": codigobarra,
+            "totalnoches": totalnoches,
+            "codigopasaporte": codigopasaporte,
+        };
 
         $.ajax({
             data: parametros,
@@ -369,6 +370,23 @@ function jsAgregar(evt,codigobarra, totalnoches, codigopasaporte) {
     }
 }
 
+function contadorescaneado(codigobarra) {
+
+    var parametros = {
+        "codigobarra": codigobarra,
+    };
+
+    $.ajax({
+        data: parametros,
+        url: 'cantidadscan',
+        type: 'post',
+
+        success: function (response) {
+            $("#venta-numero_escaneado").html(response);
+        }
+    });
+}
+
 $(document).on("keypress", 'form', function (e) {
     var code = e.keyCode || e.which;
     // console.log(code);
@@ -378,3 +396,4 @@ $(document).on("keypress", 'form', function (e) {
         return false;
     }
 });
+

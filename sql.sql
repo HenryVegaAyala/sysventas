@@ -2,6 +2,9 @@ ALTER TABLE detalle_pasaporte ADD sala VARCHAR(2);
 ALTER TABLE detalle_pasaporte ADD FECH_SOLIC datetime;
 ALTER TABLE detalle_pasaporte ADD FECH_VENCE datetime;
 ALTER TABLE cotitular ALTER COLUMN Edad SET DEFAULT 0;
+ALTER TABLE formas_pago ADD num_serie VARCHAR(20);
+ALTER TABLE formas_pago ADD raz_social VARCHAR(50);
+ALTER TABLE formas_pago ADD form_pago VARCHAR(1);
 
 INSERT INTO detalle_pasaporte (Codigo_pasaporte, codigo_barra, Fecha_Creado, Fecha_Modificado, Fecha_Eliminado, Usuario_Creado, Usuario_Modificado, Usuario_Eliminado, Estado, sala) VALUES (1, 'PRC300001', null, null, null, null, null, null, '1', 1);
 INSERT INTO detalle_pasaporte (Codigo_pasaporte, codigo_barra, Fecha_Creado, Fecha_Modificado, Fecha_Eliminado, Usuario_Creado, Usuario_Modificado, Usuario_Eliminado, Estado, sala) VALUES (1, 'PRC300002', null, null, null, null, null, null, '1', 1);

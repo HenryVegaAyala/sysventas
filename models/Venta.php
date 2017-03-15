@@ -416,7 +416,7 @@ class Venta extends \yii\db\ActiveRecord
         ];
         return $var;
     }
-
+    
     public function setgetSalas($id)
     {
         switch ($id) {

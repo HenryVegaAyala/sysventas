@@ -11,6 +11,7 @@ use app\models\Combo;
 use app\models\Cotitular;
 use synatree\dynamicrelations\DynamicRelations;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Venta */
@@ -31,12 +32,13 @@ use yii\helpers\Url;
     </div>
 
     <br>
-
-    <?php $form = ActiveForm::begin(
-        [
-            'id' => 'venta-form',
-        ]
-    ); ?>
+    <?php Pjax::begin() ?>
+    <?php $form = ActiveForm::begin([
+        'id' => 'venta-form',
+        'enableAjaxValidation' => false,
+        'options' => ['data-pjax' => true],
+        'enableClientValidation' => true
+    ]); ?>
 
     <div class="container-fluid" id="Busqueda">
         <div class="row">
@@ -67,7 +69,7 @@ use yii\helpers\Url;
                 <?= $form->field($model, 'salas')->dropDownList($model->getSalas(), ['prompt' => 'Seleccione un Sala', 'class' => 'form-control loginmodal-container-combo', 'onchange' => "pasaporteCodigo($('#venta-salas').val());return false;"]) ?>
             </div>
             <div class="col-sm-4">
-                <?= $form->field($model, 'numero_contrato')->textInput(['placeholder' => "N° de Contrato", 'maxlength' => 12])?>
+                <?= $form->field($model, 'numero_contrato')->textInput(['placeholder' => "N° de Contrato", 'maxlength' => 12]) ?>
             </div>
         </div>
     </div>
@@ -281,10 +283,11 @@ use yii\helpers\Url;
                         <?= $form->field($model, 'Codigo_club')->dropDownList($model->getClub(), ['prompt' => 'Seleccione un Club', 'class' => 'form-control loginmodal-container-combo', 'onchange' => 'Cantidad(this.value);']) ?>
                     </div>
                     <div class="col-sm-4">
-                        <?= $form->field($model, 'numero_pasaporte')->textInput(['maxlength' => 9, 'readonly' => 'true']) ?>  <!-- ValidarPasaporte($('#venta-codigo_pasaporte').val(),this.value);return false; -->
+                        <?= $form->field($model, 'numero_pasaporte')->textInput(['maxlength' => 9, 'readonly' => 'true']) ?>
+                        <!-- ValidarPasaporte($('#venta-codigo_pasaporte').val(),this.value);return false; -->
                     </div>
                     <div class="col-sm-4">
-                        <?= $form->field($certificado, 'codigo_barra')->textInput(['maxlength' => 9,'onkeyup' => "jsAgregar(event,this.value,$('#venta-codigo_club').val(),$('#venta-numero_pasaporte').val());"]) ?>
+                        <?= $form->field($certificado, 'codigo_barra')->textInput(['maxlength' => 9, 'onkeyup' => "jsAgregar(event,this.value,$('#venta-codigo_club').val(),$('#venta-numero_pasaporte').val());"]) ?>
                     </div>
                 </div>
 
@@ -298,11 +301,11 @@ use yii\helpers\Url;
                     <div class="col-sm-2">
                         <label style="color: transparent">boton</label>
                         <br>
-                        <?= Html::button('<i class="fa fa-plus" aria-hidden="true"></i>', ['id' => 'btnScan','class' => 'btn btn-success', 'href' => 'javascript:;',  'onclick' => "contadorescaneado($('#venta-numero_pasaporte').val());contador($('#venta-numero_pasaporte').val(),$('#certificado-codigo_barra').val());"]) ?>
+                        <?= Html::button('Cargar Certificado', ['id' => 'btnScan', 'class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "contador($('#venta-numero_pasaporte').val(),$('#certificado-codigo_barra').val());contadorescaneado($('#venta-numero_pasaporte').val());"]) ?>
                     </div>
 
                     <div class="col-sm-2">
-                        <?= $form->field($model, 'numero_escaneado')->textInput(['maxlength' => 2, 'readonly' => 'true', 'value' => '0']) ?>
+                        <?= $form->field($model, 'numero_escaneado')->textInput(['maxlength' => 2, 'readonly' => 'true']) ?>
                     </div>
 
                     <div class="col-sm-2">
@@ -349,7 +352,7 @@ use yii\helpers\Url;
                         <?= $form->field($pago, 'tipo_pago')->dropDownList($model->getMedioDePago(), ['prompt' => 'Seleccione un Medio de Pago', 'class' => 'form-control loginmodal-container-combo']) ?>
                     </div>
                     <div class="col-sm-3">
-                        <?= $form->field($pago, 'estado_pago')->dropDownList($model->getEstadoDePago(), ['prompt' => 'Seleccione un Estado de Pago', 'class' => 'form-control loginmodal-container-combo']) ?>
+                        <?= $form->field($pago, 'estado_pago')->dropDownList($model->getEstadoDePago(), ['onchange' => "validador($('#pago-estado_pago').val(),$('#venta-montototal').val(),$('#pago-monto_ingresado').val());return false;",'prompt' => 'Seleccione un Estado de Pago', 'class' => 'form-control loginmodal-container-combo']) ?>
                     </div>
                     <div class="col-sm-2">
                         <?= $form->field($model, 'montoTotal')->textInput(['maxlength' => 255, 'readonly' => 'true']) ?>
@@ -469,10 +472,11 @@ use yii\helpers\Url;
 
     <div class="panel-footer container-fluid foo">
         <div class="col-sm-12" id="btnBotones" style="display: none">
-            <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ','id' => 'btn-form-venta']) ?>
+            <?= Html::submitButton($model->isNewRecord ? "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar" : 'Update', ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ', 'id' => 'btn-form-venta','disabled' =>""]) ?>
             <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['create'], ['class' => 'btn btn-primary']) ?>
         </div>
         <?php ActiveForm::end(); ?>
+        <?php Pjax::end() ?>
     </div>
 
 </div>

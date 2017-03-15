@@ -171,7 +171,9 @@ function contador(codigopasaporte, codigocertificado) {
 
     nTotal = total - 1;
 
-    if (nTotal <= escaneado) {
+    if (parseInt(total) <= parseInt(escaneado)) {
+        document.getElementById('btnScan').disabled = true;
+    } else if (parseInt(nTotal) <= parseInt(escaneado)) {
         document.getElementById('btnScan').disabled = true;
     } else {
         document.getElementById('btnScan').disabled = false;
@@ -188,6 +190,7 @@ function contador(codigopasaporte, codigocertificado) {
 
         success: function (response) {
             $("#Grilla").html(response);
+            alert("Se Inserto Correctamente el Certificado");
         }
     });
 }
@@ -270,10 +273,52 @@ function precio(codigo) {
 function resta(montoTotal, MontoIngresa) {
 
     if (parseFloat(MontoIngresa) > parseFloat(montoTotal)) {
-        alert("El monto ingresado no debe ser igual al Total.");
+        alert("El monto ingresado no debe ser mayor al Total.");
         document.getElementById('pago-monto_ingresado').value = "";
-    } else {
+        document.getElementById('pago-monto_restante').value = "";
+
+        if (document.getElementById('pago-estado_pago').value == 2) {
+            if (parseFloat(montoTotal - MontoIngresa) == 0) {
+                document.getElementById('btn-form-venta').disabled = false;
+            } else {
+                document.getElementById('btn-form-venta').disabled = true;
+            }
+        }
+
+    }
+    else if (parseFloat(MontoIngresa) == parseFloat(montoTotal)) {
         document.getElementById('pago-monto_restante').value = parseFloat(montoTotal - MontoIngresa);
+        document.getElementById('btn-form-venta').disabled = true;
+        if (parseFloat(montoTotal - MontoIngresa) == 0) {
+            document.getElementById('btn-form-venta').disabled = false;
+        }
+    }
+    else {
+        document.getElementById('pago-monto_restante').value = parseFloat(montoTotal - MontoIngresa);
+
+        if (document.getElementById('pago-estado_pago').value == 2) {
+            if (parseFloat(montoTotal - MontoIngresa) == 0) {
+                document.getElementById('btn-form-venta').disabled = false;
+            } else {
+                document.getElementById('btn-form-venta').disabled = true;
+            }
+        }
+
+    }
+
+}
+
+function validador(estado, montoTotal, MontoIngresa) {
+
+    if (estado == 2) {
+        document.getElementById('btn-form-venta').disabled = true;
+        alert("El monto cancelado debe ser igual al Monto Total");
+
+        if (document.getElementById('venta-montototal').value == '' || document.getElementById('venta-montototal').value == null) {
+            alert("No esta seleccionado un club, validar por favor");
+        }
+    } else {
+        document.getElementById('btn-form-venta').disabled = false;
     }
 
 }
@@ -363,7 +408,13 @@ function jsAgregar(evt, codigobarra, totalnoches, codigopasaporte) {
             },
 
             success: function (response) {
-                $("#queryRest").html(response);
+                if (response == '<i class="fa fa-font-awesome fa-2x  text-success" aria-hidden="true"></i> Este codigo puede usarse. ') {
+                    document.getElementById('btnScan').disabled = false;
+                    $("#queryRest").html(response);
+                } else {
+                    document.getElementById('btnScan').disabled = true;
+                    $("#queryRest").html(response);
+                }
             }
         });
 
@@ -377,15 +428,12 @@ function contadorescaneado(codigobarra) {
     };
 
     $.ajax({
-        cache: false,
         data: parametros,
         url: 'cantidadscan',
-        timeout: 1000,
         type: 'post',
 
         success: function (response) {
-            var var1;
-            var1 = document.getElementById('venta-numero_escaneado').value = response;
+            document.getElementById('venta-numero_escaneado').value = response;
         }
     });
 }

@@ -132,17 +132,17 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
             $command->bindValue(':Nombre', $cotitular->Nombre);
             $command->bindValue(':Apellido', $cotitular->Apellido);
             $command->bindValue(':dni', $cotitular->dni);
-            if ($cotitular->Edad == ''){
+            if ($cotitular->Edad == '') {
                 $command->bindValue(':Edad', 0);
-            }else{
+            } else {
                 $command->bindValue(':Edad', $cotitular->Edad);
             }
             $command->bindValue(':Direccion', $cotitular->Direccion);
             $command->bindValue(':Distrito', $cotitular->Distrito);
             $command->bindValue(':Traslado', $cotitular->Traslado);
-            if ($cotitular->Tarjeta_De_Credito == ''){
+            if ($cotitular->Tarjeta_De_Credito == '') {
                 $command->bindValue(':Tarjeta_De_Credito', 0);
-            }else{
+            } else {
                 $command->bindValue(':Tarjeta_De_Credito', $cotitular->Tarjeta_De_Credito);
             }
             $command->bindValue(':Estado_Civil', $cotitular->Estado_Civil);
@@ -645,9 +645,6 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
 
         if ($data == 1) {
             echo "<i class=\"fa fa-font-awesome fa-2x  text-success\" aria-hidden=\"true\"></i> Este codigo puede usarse. ";
-//            $connection = Yii::$app->db;
-//            $command = $connection->createCommand("call ProcesarCertificado('" . $CodigoBarra . "','" . $codigopasaporte . "')");
-//            $command->execute();
         } elseif ($data == 2) {
             echo "<i class=\"fa fa-font-awesome fa-2x  text-yellow\" aria-hidden=\"true\"></i> Este codigo ha sido solicitado. ";
         } elseif ($data == 3) {

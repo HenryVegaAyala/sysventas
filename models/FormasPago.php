@@ -21,6 +21,10 @@ use Yii;
  * @property string $Estado
  * @property string $restante
  *
+ * @property string $num_serie
+ * @property string $raz_social
+ * @property string $form_pago
+ *
  * @property Pago $codigoPago
  */
 class FormasPago extends \yii\db\ActiveRecord
@@ -46,9 +50,9 @@ class FormasPago extends \yii\db\ActiveRecord
             [['fecha_pago', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
             [['monto'], 'number'],
             [['Fecha_Creado'], 'string', 'max' => 45],
-            [['comprobante'], 'string', 'max' => 30],
+            [['comprobante','num_serie','raz_social'], 'string', 'max' => 30],
             [['Usuario_Creado', 'Usuario_Eliminado', 'Usuario_Modificado'], 'string', 'max' => 100],
-            [['Estado'], 'string', 'max' => 1],
+            [['Estado','form_pago'], 'string', 'max' => 1],
             [['codigo_pago'], 'exist', 'skipOnError' => true, 'targetClass' => Pago::className(), 'targetAttribute' => ['codigo_pago' => 'codigo_pago']],
         ];
     }
@@ -72,6 +76,9 @@ class FormasPago extends \yii\db\ActiveRecord
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Estado' => 'Estado',
             'restante' => 'Restante',
+            'num_serie' => 'Número de Serie',
+            'raz_social' => 'Razón Social',
+            'form_pago' => 'Forma de Pago',
         ];
     }
 
@@ -81,5 +88,17 @@ class FormasPago extends \yii\db\ActiveRecord
     public function getCodigoPago()
     {
         return $this->hasOne(Pago::className(), ['codigo_pago' => 'codigo_pago']);
+    }
+
+    public function getFormaPagos()
+    {
+        $var = [
+            1 => 'Credito',
+            2 => 'Debito',
+            3 => 'Cheque',
+            4 => 'Transferencia',
+            5 => 'Efectivo',
+        ];
+        return $var;
     }
 }

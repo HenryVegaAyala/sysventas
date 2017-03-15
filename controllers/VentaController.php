@@ -913,9 +913,8 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
         echo $data;
     }
 
-    public function actionCantidadScan()
+    public function actionCantidadscan()
     {
-
         if (Empty($_POST['codigobarra'])) {
             exit();
         } else {

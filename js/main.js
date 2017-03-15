@@ -377,12 +377,15 @@ function contadorescaneado(codigobarra) {
     };
 
     $.ajax({
+        cache: false,
         data: parametros,
         url: 'cantidadscan',
+        timeout: 1000,
         type: 'post',
 
         success: function (response) {
-            $("#venta-numero_escaneado").html(response);
+            var var1;
+            var1 = document.getElementById('venta-numero_escaneado').value = response;
         }
     });
 }

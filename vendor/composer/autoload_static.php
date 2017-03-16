@@ -85,6 +85,7 @@ class ComposerStaticInit9f032fdef57f162ad7807a139c506787
             'kartik\\detail\\' => 14,
             'kartik\\depdrop\\' => 15,
             'kartik\\datetime\\' => 16,
+            'kartik\\daterange\\' => 17,
             'kartik\\datecontrol\\' => 19,
             'kartik\\date\\' => 12,
             'kartik\\color\\' => 13,
@@ -348,6 +349,10 @@ class ComposerStaticInit9f032fdef57f162ad7807a139c506787
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-datetimepicker',
         ),
+        'kartik\\daterange\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-date-range',
+        ),
         'kartik\\datecontrol\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-datecontrol',
@@ -533,7 +538,6 @@ class ComposerStaticInit9f032fdef57f162ad7807a139c506787
         'CGIFIMAGE' => __DIR__ . '/..' . '/mpdf/mpdf/classes/gif.php',
         'CGIFIMAGEHEADER' => __DIR__ . '/..' . '/mpdf/mpdf/classes/gif.php',
         'CGIFLZW' => __DIR__ . '/..' . '/mpdf/mpdf/classes/gif.php',
-        'FPDF' => __DIR__ . '/..' . '/setasign/fpdf/fpdf.php',
         'FPDF_TPL' => __DIR__ . '/..' . '/setasign/fpdi/fpdf_tpl.php',
         'FPDI' => __DIR__ . '/..' . '/setasign/fpdi/fpdi.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',

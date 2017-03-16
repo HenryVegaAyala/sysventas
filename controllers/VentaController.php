@@ -57,6 +57,17 @@ class VentaController extends Controller
         ]);
     }
 
+    public function actionCobranza()
+    {
+        $searchModel = new VentaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->post());
+
+        return $this->render('cobranza', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     public function actionView($id)
     {
         $CodigoCombo = new Combo();
@@ -76,6 +87,33 @@ class VentaController extends Controller
         $comision = $this->findModelComision($idcomision);
 
         return $this->render('view', [
+            'model' => $model,
+            'cliente' => $cliente,
+            'incentivos' => $incentivos,
+            'pago' => $pago,
+            'comision' => $comision
+        ]);
+    }
+
+    public function actionVista($id)
+    {
+        $CodigoCombo = new Combo();
+        $idcombo = $CodigoCombo->getCodigoCombo($id);
+
+        $CodigoComisiones = new Comision();
+        $idcomision = $CodigoComisiones->getCodigoComision($id);
+
+        $model = $this->findModel($id);
+        $cliente = $this->findModelCliente($model->Codigo_Cliente);
+        $incentivos = $this->findModelCombo($idcombo);
+
+        $CodigoPago = new Pago();
+        $idPago = $CodigoPago->CodigoPago($id);
+
+        $pago = $this->findModelPago($idPago);
+        $comision = $this->findModelComision($idcomision);
+
+        return $this->render('vista', [
             'model' => $model,
             'cliente' => $cliente,
             'incentivos' => $incentivos,
@@ -161,8 +199,8 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
             $model->Codigo_venta = $model->getCodigoVenta();
 
             $command = Yii::$app->db->createCommand(
-                "INSERT INTO venta (Codigo_venta,Codigo_club, Codigo_pasaporte, Codigo_Cliente, numero_contrato, numero_pasaporte, Fecha_Creado,Usuario_Creado, Estado,numero_comprobante,serie_comprobante,salas,razon_social)
-                VALUES (:Codigo_venta,:Codigo_club,:Codigo_pasaporte,:Codigo_Cliente,:numero_contrato,:numero_pasaporte,:Fecha_Creado,:Usuario_Creado,:Estado,:numero_comprobante,:serie_comprobante,:salas,:razon_social)");
+                "INSERT INTO venta (Codigo_venta,Codigo_club, Codigo_pasaporte, Codigo_Cliente, numero_contrato, numero_pasaporte, Fecha_Creado,Usuario_Creado, Estado,numero_comprobante,serie_comprobante,salas,razon_social,estado_pago)
+                VALUES (:Codigo_venta,:Codigo_club,:Codigo_pasaporte,:Codigo_Cliente,:numero_contrato,:numero_pasaporte,:Fecha_Creado,:Usuario_Creado,:Estado,:numero_comprobante,:serie_comprobante,:salasestado_pago,:estado_pago)");
             $command->bindValue(':Codigo_venta', $model->Codigo_venta);
             if ($model->Codigo_club == '' || $model->Codigo_club == null) {
                 $command->bindValue(':Codigo_club', 999);
@@ -189,6 +227,7 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
                 $command->bindValue(':salas', $model->salas);
             }
             $command->bindValue(':razon_social', $model->razon_social);
+            $command->bindValue(':estado_pago', $model->estado_pago);
             $command->execute();
 
             $command = Yii::$app->db->createCommand(
@@ -228,6 +267,15 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
             $command->bindValue(':Usuario_Creado', Yii::$app->user->identity->email);
             $command->bindValue(':Estado', "1");
             $command->execute();
+
+            $transaction = Yii::$app->db;
+            $transaction->createCommand()
+                ->update('venta',
+                    [
+                        'estado_pago' => $pago->estado_pago,
+                    ],
+                    'Codigo_venta = "' . $model->Codigo_venta . '"')
+                ->execute();
 
             $command = Yii::$app->db->createCommand(
                 "INSERT INTO comision (
@@ -336,6 +384,7 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
         $idPago = $CodigoPago->CodigoPago($id);
 
         $model = $this->findModel($id);
+
         $cliente = $this->findModelCliente($model->Codigo_Cliente);
         $incentivos = $this->findModelCombo($idcombo);
 
@@ -451,6 +500,16 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
 
             $transaction = Yii::$app->db;
             $transaction->createCommand()
+                ->update('venta',
+                    [
+                        'estado_pago' => $pago->estado_pago,
+                    ],
+                    'Codigo_venta = "' . $model->Codigo_venta . '"')
+                ->execute();
+
+
+            $transaction = Yii::$app->db;
+            $transaction->createCommand()
                 ->update('comision',
                     [
                         'Codigo_venta' => $model->Codigo_venta,
@@ -510,6 +569,160 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
 
         } else {
             return $this->render('update', [
+                'model' => $model,
+                'cliente' => $cliente,
+                'incentivos' => $incentivos,
+                'pago' => $pago,
+                'comision' => $comision,
+                'cotitular' => $cotitular,
+            ]);
+        }
+    }
+
+    public function actionCobranzas($id)
+    {
+        $CodigoCombo = new Combo();
+        $idcombo = $CodigoCombo->getCodigoCombo($id);
+
+        $CodigoComisiones = new Comision();
+        $idcomision = $CodigoComisiones->getCodigoComision($id);
+
+        $CodigoPago = new Pago();
+        $idPago = $CodigoPago->CodigoPago($id);
+
+        $model = $this->findModel($id);
+
+        $cliente = $this->findModelCliente($model->Codigo_Cliente);
+        $incentivos = $this->findModelCombo($idcombo);
+
+        $pago = $this->findModelPago($idPago);
+        $comision = $this->findModelComision($idcomision);
+
+        $codigocotitular = new Cotitular();
+        $idcotitular = $codigocotitular->getCodigoCotitular($model->Codigo_Cliente);
+        $cotitular = $this->findModelCoTitular($idcotitular);
+
+        if ($cotitular->load(Yii::$app->request->post()) && $model->load(Yii::$app->request->post()) && $comision->load(Yii::$app->request->post()) && $cliente->load(Yii::$app->request->post()) && $incentivos->load(Yii::$app->request->post()) && $pago->load(Yii::$app->request->post())) {
+
+            $CodigoCliente = $cliente->Codigo_Cliente;
+            $transaction = Yii::$app->db;
+            $transaction->createCommand()
+                ->update('cliente',
+                    ['Nombre' => $cliente->Nombre,
+                        'Apellido' => $cliente->Apellido,
+                        'dni' => $cliente->dni,
+                        'Edad' => $cliente->Edad,
+                        'Direccion' => $cliente->Direccion,
+                        'Distrito' => $cliente->Distrito,
+                        'Traslado' => $cliente->Traslado,
+                        'Tarjeta_De_Credito' => $cliente->Tarjeta_De_Credito,
+                        'Estado_Civil' => $cliente->Estado_Civil,
+                        'Profesion' => $cliente->Profesion,
+                        'Telefono_Casa' => $cliente->Telefono_Casa,
+                        'Telefono_Casa2' => $cliente->Telefono_Casa2,
+                        'Telefono_Celular' => $cliente->Telefono_Celular,
+                        'Telefono_Celular2' => $cliente->Telefono_Celular2,
+                        'Telefono_Celular3' => $cliente->Telefono_Celular3,
+                        'Email' => $cliente->Email,
+                        'Fecha_Modificado' => $this->ZonaHoraria(),
+                        'Usuario_Modificado' => Yii::$app->user->identity->email,
+                    ],
+                    'Codigo_Cliente = ' . $CodigoCliente)
+                ->execute();
+
+            $transaction = Yii::$app->db;
+            $transaction->createCommand()
+                ->update('cotitular',
+                    ['Nombre' => $cliente->Nombre,
+                        'Apellido' => $cliente->Apellido,
+                        'dni' => $cliente->dni,
+                        'Edad' => $cliente->Edad,
+                        'Direccion' => $cliente->Direccion,
+                        'Distrito' => $cliente->Distrito,
+                        'Traslado' => $cliente->Traslado,
+                        'Tarjeta_De_Credito' => $cliente->Tarjeta_De_Credito,
+                        'Estado_Civil' => $cliente->Estado_Civil,
+                        'Profesion' => $cliente->Profesion,
+                        'Telefono_Casa' => $cliente->Telefono_Casa,
+                        'Telefono_Casa2' => $cliente->Telefono_Casa2,
+                        'Telefono_Celular' => $cliente->Telefono_Celular,
+                        'Telefono_Celular2' => $cliente->Telefono_Celular2,
+                        'Telefono_Celular3' => $cliente->Telefono_Celular3,
+                        'Email' => $cliente->Email,
+                        'Fecha_Modificado' => $this->ZonaHoraria(),
+                        'Usuario_Modificado' => Yii::$app->user->identity->email,
+                    ],
+                    'Codigo_Cliente = ' . $CodigoCliente)
+                ->execute();
+
+            $transaction = Yii::$app->db;
+            $transaction->createCommand()
+                ->update('venta',
+                    [
+                        'Codigo_club' => $model->Codigo_club,
+                        'Codigo_pasaporte' => $model->Codigo_pasaporte,
+                        'Codigo_Cliente' => $cliente->Codigo_Cliente,
+                        'numero_contrato' => $model->numero_contrato,
+                        'numero_pasaporte' => $model->numero_pasaporte,
+                        'numero_comprobante' => $model->numero_comprobante,
+                        'serie_comprobante' => $model->serie_comprobante,
+                        'salas' => $model->salas,
+                        'razon_social' => $model->razon_social,
+                        'Fecha_Modificado' => $this->ZonaHoraria(),
+                        'Usuario_Modificado' => Yii::$app->user->identity->email,
+                    ],
+                    'Codigo_venta = ' . $model->Codigo_venta)
+                ->execute();
+
+            $transaction = Yii::$app->db;
+            $transaction->createCommand()
+                ->update('combo',
+                    [
+                        'convetidor1' => $incentivos->convetidor1,
+                        'convetidor2' => $incentivos->convetidor2,
+                        'Regalos' => $incentivos->Regalos,
+                        'Observacion' => $incentivos->Observacion,
+                        'Fecha_Modificado' => $this->ZonaHoraria(),
+                        'Usuario_Modificado' => Yii::$app->user->identity->email,
+                    ],
+                    'Codigo_venta = ' . $model->Codigo_venta)
+                ->execute();
+
+            $transaction = Yii::$app->db;
+            $transaction->createCommand()
+                ->update('pago',
+                    [
+                        'codigo_pago' => $pago->codigo_pago,
+                        'tipo_pago' => $pago->tipo_pago,
+                        'estado_pago' => $pago->estado_pago,
+                        'monto_pagado' => $model->montoTotal,
+                        'monto_ingresado' => $pago->monto_ingresado,
+                        'monto_restante' => $pago->monto_restante,
+
+                        'Fecha_Modificado' => $this->ZonaHoraria(),
+                        'Usuario_Modificado' => Yii::$app->user->identity->email,
+                    ],
+                    'Codigo_venta = ' . $model->Codigo_venta)
+                ->execute();
+
+            $transaction = Yii::$app->db;
+            $transaction->createCommand()
+                ->update('venta',
+                    [
+                        'estado_pago' => $pago->estado_pago,
+                    ],
+                    'Codigo_venta = "' . $model->Codigo_venta . '"')
+                ->execute();
+            
+            $model->SP_Delete($model->Codigo_Cliente);
+            DynamicRelations::relate($cliente, 'beneficiarios', Yii::$app->request->post(), 'Beneficiario', Beneficiario::className());
+            $model->SP_DeletePago($pago->codigo_pago);
+            DynamicRelations::relate($pago, 'formasPagos', Yii::$app->request->post(), 'FormasPago', FormasPago::className());
+
+            return $this->redirect(['vista', 'id' => $model->Codigo_venta]);
+
+        } else {
+            return $this->render('cobranzas', [
                 'model' => $model,
                 'cliente' => $cliente,
                 'incentivos' => $incentivos,

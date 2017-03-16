@@ -582,7 +582,7 @@ $clientes = new \app\models\Cliente();
             <h3 class="panel-title">
                 <?php if(Yii::$app->user->identity->Codigo_Rol !== 22){?>
                 <div class="pull-right">
-                    <?= Html::a('<span class="fa fa-pencil fa-lg"></span>', ['update', 'id' => $model->Codigo_venta], ['title' => 'Actualizar', 'aria-label' => 'Actualizar', 'data-pjax' => '0']) ?>
+                    <?= Html::a('<span class="fa fa-pencil fa-lg"></span>', ['cobranzas', 'id' => $model->Codigo_venta], ['title' => 'Actualizar', 'aria-label' => 'Actualizar', 'data-pjax' => '0']) ?>
                 </div>
                 <?php }?>
             </h3>

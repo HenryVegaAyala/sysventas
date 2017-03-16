@@ -173,7 +173,7 @@ class Venta extends \yii\db\ActiveRecord
             'Codigo_pasaporte' => 'Tipo de Pasaporte',
             'Codigo_Cliente' => 'Codigo  Cliente',
             'numero_contrato' => 'Numero Contrato',
-            'Fecha_Creado' => 'Fecha  Inicio',
+            'Fecha_Creado' => 'Periodos',
             'Fecha_Modificado' => 'Fecha  Modificado',
             'Fecha_Eliminado' => 'Fecha  Final',
             'Usuario_Creado' => 'Usuario  Creado',
@@ -211,7 +211,7 @@ class Venta extends \yii\db\ActiveRecord
             'Selectcombo' => 'Opciones',
             'estado_pago' => 'Estado de Pago',
             'usuario' => 'usuario',
-            'sala' => 'Sala de venta',
+            'salas' => 'Sala de venta',
             'reporte' => 'Seleccionar Reporte',
 
         ];
@@ -420,14 +420,13 @@ class Venta extends \yii\db\ActiveRecord
     public function setgetSalas($id)
     {
         switch ($id) {
-
-            case 0:
+            case 1:
                 return "Pachacamac";
                 break;
-            case 1:
+            case 2:
                 return "Costa Verde";
                 break;
-            case 2:
+            case 3:
                 return "Vichayito";
                 break;
             default:

@@ -472,4 +472,13 @@ return array (
       '@synatree/dynamicrelations' => $vendorDir . '/synatree/yii2-dynamic-relations',
     ),
   ),
+  'kartik-v/yii2-date-range' => 
+  array (
+    'name' => 'kartik-v/yii2-date-range',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@kartik/daterange' => $vendorDir . '/kartik-v/yii2-date-range',
+    ),
+  ),
 );

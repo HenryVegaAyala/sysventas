@@ -10,13 +10,15 @@ use yii\widgets\Pjax;
  * @var app\models\VentaSearch $searchModel
  */
 
-$this->title = 'Lista de Ventas';
+$this->title = 'Lista de Cobranza';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="venta-index">
 
-    <?php Pjax::begin();
-    echo GridView::widget([
+    <?php Pjax::begin(); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?php echo GridView::widget([
         'dataProvider' => $dataProvider,
 //        'filterModel' => $searchModel,
         'columns' => [
@@ -50,17 +52,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($data) {
                     $model = new \app\models\Venta();
                     $Codigo = $data->Codigo_venta;
-                    $valor = $model->NumeroPasaporte($Codigo,1);
+                    $valor = $model->NumeroPasaporte($Codigo, 1);
                     return strtoupper($valor);
                 }
+            ],
+            [
+                'attribute' => 'salas',
+                'label' => 'Salas',
+                'value' => function ($data) {
+                    $model = new \app\models\Venta();
+                    $salas = $data->salas;
+                    $valor = $model->setgetSalas($salas);
+                    return $valor;
+                },
             ],
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'header' => 'Opciones de Venta',
+                'header' => 'Cobranza',
                 'buttonOptions' => ['class' => 'btn btn-default'],
-                'template' => '<div class="btn-group btn-group-sm text-center" role="group">{view} {contrato} {factura} {archivo}</div>',
-                'options' => ['style' => 'width:130px;'],
+                'template' => '<div class="btn-group btn-group-sm text-center" role="group">{vista}</div>',
+                'options' => ['style' => 'width:80px;'],
                 'headerOptions' => ['class' => 'itemHide'],
                 'contentOptions' => ['class' => 'itemHide'],
                 'buttons' => [
@@ -71,13 +83,15 @@ $this->params['breadcrumbs'][] = $this->title;
 //                    'factura' => function ($url, $model, $key) {
 //                        return Html::a('<i class="fa fa-file-pdf-o"></i>', $url, ['title' => Yii::t('app', 'Generar Factura'),'target' => '_blank', 'class' => 'btn btn-default', 'data' => ['pjax' => 0]]);
 //                    },
+                    'vista' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', ['vista', 'id' => $model['Codigo_venta']], ['title' => Yii::t('app', 'Vista Detalle'), 'class' => 'btn btn-default', 'data' => ['pjax' => 0]]);},
 
                     'archivo' => function ($url, $model) {
 //                        return Html::a('<i class="fa fa-cloud-upload"></i>', ['archivo', 'id' => $model['Codigo_venta']], ['title' => Yii::t('app', 'Subir Archivo'), 'class' => 'btn btn-default', 'data' => ['pjax' => 0]]);
                         return Html::a('<i class="fa fa-cloud-upload"></i>', $url, ['title' => Yii::t('app', 'Subir Archivo'), 'class' => 'btn btn-default', 'data' => ['pjax' => 0]]);
                     },
 
-        ],
+                ],
             ],
         ],
         'responsive' => true,
@@ -88,8 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-th-list"></i> ' . Html::encode($this->title) . ' </h3>',
 //            'type' => 'info',
-//            'before' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-success']),
-            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Actualizar Lista', ['index'], ['class' => 'btn btn-primary']),
+            'after' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Actualizar Lista', ['cobranza'], ['class' => 'btn btn-primary']),
             'showFooter' => false
         ],
     ]);

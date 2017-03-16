@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+//use yii\widgets\ActiveForm;
+use kartik\widgets\ActiveForm;
+use kartik\daterange\DateRangePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\VentaSearch */
@@ -9,47 +11,60 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="venta-search">
+    <div class="panel panel-default">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+        <div class="panel-heading">
+            <h3 class="panel-title">Filtros de Cobranza</h3>
+        </div>
 
-    <?= $form->field($model, 'Codigo_venta') ?>
+        <div class="container-fluid">
+            <p class="note"></p>
+        </div>
 
-    <?= $form->field($model, 'Codigo_pasaporte') ?>
+        <?php $form = ActiveForm::begin([
+            'action' => ['cobranza'],
+            'method' => 'post',
+            'options' => [
+                'data-pjax' => 1
+            ],
+        ]); ?>
 
-    <?= $form->field($model, 'Codigo_Cliente') ?>
+        <div class="fieldset">
+            <div class="container-fluid">
 
-    <?= $form->field($model, 'medio_pago') ?>
+                <div class="col-sm-4">
+                    <?php
+                    echo $form->field($model, 'Fecha_Creado', [
+                        'addon' => ['prepend' => ['content' => '<i class="glyphicon glyphicon-calendar"></i>']],
+                        'options' => ['class' => 'drp-container form-group']
+                    ])->widget(DateRangePicker::classname(), [
+                        'useWithAddon' => true,
+                        'convertFormat' => true,
+                        'pluginOptions' => [
+                            'opens' => 'right',
+                            'locale' => [
+                                'cancelLabel' => 'Clear',
+                                'format' => 'Y-m-d',
+                            ]
+                        ]]);
+                    ?>
+                </div>
 
-    <?= $form->field($model, 'Estado_pago') ?>
+                <div class="col-sm-4">
+                    <?= $form->field($model, 'salas')->dropDownList($model->getSalas(), ['prompt' => 'Seleccione un Sala', 'class' => 'form-control loginmodal-container-combo']) ?>
+                </div>
 
-    <?php // echo $form->field($model, 'porcentaje_pagado') ?>
+                <div class="col-sm-4">
+                    <?php echo $form->field($model, 'estado_pago')->dropDownList($model->getEstadoDePago(), ['prompt' => 'Seleccione un Estado de Pago', 'class' => 'form-control loginmodal-container-combo']) ?>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer container-fluid foo">
+            <?= Html::submitButton("<i class=\"fa fa-search\" aria-hidden=\"true\"></i> Buscar", ['class' => 'btn btn-primary', 'id' => 'BtnBuscar']) ?>
+            <?= Html::a('<i class="fa fa-eraser"></i> Limpiar', ['cobranza'], ['class' => 'btn btn-primary']) ?>
+            <?php ActiveForm::end(); ?>
 
-    <?php // echo $form->field($model, 'cod_barra_pasaporte') ?>
-
-    <?php // echo $form->field($model, 'cod_barra_pasaporte_manual') ?>
-
-    <?php // echo $form->field($model, 'Fecha_Creado') ?>
-
-    <?php // echo $form->field($model, 'Fecha_Modificado') ?>
-
-    <?php // echo $form->field($model, 'Fecha_Eliminado') ?>
-
-    <?php // echo $form->field($model, 'Usuario_Creado') ?>
-
-    <?php // echo $form->field($model, 'Usuario_Modificado') ?>
-
-    <?php // echo $form->field($model, 'Usuario_Eliminado') ?>
-
-    <?php // echo $form->field($model, 'Estado') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+        </div>
     </div>
-
-    <?php ActiveForm::end(); ?>
 
 </div>

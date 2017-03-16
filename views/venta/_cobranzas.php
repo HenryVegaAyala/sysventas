@@ -48,7 +48,7 @@ $certificado = new Certificado();
     <div class="container-fluid" id="Ncontrato">
         <div class="row">
             <div class="col-sm-4">
-                <?= $form->field($model, 'salas')->dropDownList($model->getSalas(), ['prompt' => 'Seleccione un Sala', 'class' => 'form-control loginmodal-container-combo', 'onchange' => "pasaporteCodigo($('#venta-salas').val());return false;",'disabled' => 'true']) ?>
+                <?= $form->field($model, 'salas')->dropDownList($model->getSalas(), ['prompt' => 'Seleccione un Sala', 'class' => 'form-control loginmodal-container-combo', 'onchange' => "pasaporteCodigo($('#venta-salas').val());return false;", 'disabled' => 'true']) ?>
             </div>
             <div class="col-sm-4">
                 <?= $form->field($model, 'numero_contrato')->textInput(['placeholder' => "N° de Contrato", 'maxlength' => 12, 'readonly' => 'true']) ?>
@@ -94,18 +94,18 @@ $certificado = new Certificado();
                 </div>
 
                 <div class="col-sm-3">
-                    <?= $form->field($cliente, 'Traslado')->dropDownList($cliente->getTraslado(), ['prompt' => 'Seleccionar tipo de Traslado', 'class' => 'form-control loginmodal-container-combo','disabled' => 'true']) ?>
+                    <?= $form->field($cliente, 'Traslado')->dropDownList($cliente->getTraslado(), ['prompt' => 'Seleccionar tipo de Traslado', 'class' => 'form-control loginmodal-container-combo', 'disabled' => 'true']) ?>
                 </div>
 
             </div>
 
             <div class="row">
                 <div class="col-sm-4">
-                    <?= $form->field($cliente, 'Tarjeta_De_Credito')->dropDownList($cliente->getTarjeta(), ['prompt' => 'Seleccione una Tarjeta', 'class' => 'form-control loginmodal-container-combo','disabled' => 'true']) ?>
+                    <?= $form->field($cliente, 'Tarjeta_De_Credito')->dropDownList($cliente->getTarjeta(), ['prompt' => 'Seleccione una Tarjeta', 'class' => 'form-control loginmodal-container-combo', 'disabled' => 'true']) ?>
                 </div>
 
                 <div class="col-sm-4">
-                    <?= $form->field($cliente, 'Estado_Civil')->dropDownList($cliente->getEstadoCivil(), ['prompt' => 'Seleccione un Estado  Civil', 'class' => 'form-control loginmodal-container-combo','disabled' => 'true']) ?>
+                    <?= $form->field($cliente, 'Estado_Civil')->dropDownList($cliente->getEstadoCivil(), ['prompt' => 'Seleccione un Estado  Civil', 'class' => 'form-control loginmodal-container-combo', 'disabled' => 'true']) ?>
                 </div>
                 <div class="col-sm-4">
                     <?= $form->field($cliente, 'Profesion')->widget(\yii\jui\AutoComplete::classname(), [
@@ -185,18 +185,18 @@ $certificado = new Certificado();
                         </div>
 
                         <div class="col-sm-3">
-                            <?= $form->field($cotitular, 'Traslado')->dropDownList($cliente->getTraslado(), ['prompt' => 'Seleccionar tipo de Traslado', 'class' => 'form-control loginmodal-container-combo','disabled' => 'true']) ?>
+                            <?= $form->field($cotitular, 'Traslado')->dropDownList($cliente->getTraslado(), ['prompt' => 'Seleccionar tipo de Traslado', 'class' => 'form-control loginmodal-container-combo', 'disabled' => 'true']) ?>
                         </div>
 
                     </div>
 
                     <div class="row">
                         <div class="col-sm-4">
-                            <?= $form->field($cotitular, 'Tarjeta_De_Credito')->dropDownList($cliente->getTarjeta(), ['prompt' => 'Seleccione una Tarjeta', 'class' => 'form-control loginmodal-container-combo','disabled' => 'true']) ?>
+                            <?= $form->field($cotitular, 'Tarjeta_De_Credito')->dropDownList($cliente->getTarjeta(), ['prompt' => 'Seleccione una Tarjeta', 'class' => 'form-control loginmodal-container-combo', 'disabled' => 'true']) ?>
                         </div>
 
                         <div class="col-sm-4">
-                            <?= $form->field($cotitular, 'Estado_Civil')->dropDownList($cliente->getEstadoCivil(), ['prompt' => 'Seleccione un Estado  Civil', 'class' => 'form-control loginmodal-container-combo','disabled' => 'true']) ?>
+                            <?= $form->field($cotitular, 'Estado_Civil')->dropDownList($cliente->getEstadoCivil(), ['prompt' => 'Seleccione un Estado  Civil', 'class' => 'form-control loginmodal-container-combo', 'disabled' => 'true']) ?>
                         </div>
                         <div class="col-sm-4">
                             <?= $form->field($cotitular, 'Profesion')->widget(\yii\jui\AutoComplete::classname(), [
@@ -249,7 +249,7 @@ $certificado = new Certificado();
                     <ul class="list-group">
 
                         <li class="list-group-item">
-                            <a href="" class="btn btn-success btn-sm"  disabled="true">
+                            <a href="" class="btn btn-success btn-sm" disabled="true">
                                 <i class="glyphicon glyphicon-plus"></i> Agregar
                             </a>
                         </li>
@@ -267,7 +267,7 @@ $certificado = new Certificado();
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-4">
-                    <?= $form->field($model, 'Codigo_club')->dropDownList($model->getClub(), ['prompt' => 'Seleccione un Club', 'class' => 'form-control loginmodal-container-combo', 'onchange' => 'Cantidad(this.value);','disabled' => 'true']) ?>
+                    <?= $form->field($model, 'Codigo_club')->dropDownList($model->getClub(), ['prompt' => 'Seleccione un Club', 'class' => 'form-control loginmodal-container-combo', 'onchange' => 'Cantidad(this.value);', 'disabled' => 'true']) ?>
                 </div>
                 <div class="col-sm-4">
                     <?= $form->field($model, 'numero_pasaporte')->textInput(['maxlength' => 9, 'readonly' => 'true']) ?>
@@ -288,7 +288,7 @@ $certificado = new Certificado();
                 <div class="col-sm-2">
                     <label style="color: transparent">boton</label>
                     <br>
-                    <?= Html::button('Cargar Certificado', ['id' => 'btnScan', 'class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "contador($('#venta-numero_pasaporte').val(),$('#certificado-codigo_barra').val());contadorescaneado($('#venta-numero_pasaporte').val());",'disabled' => 'true']) ?>
+                    <?= Html::button('Cargar Certificado', ['id' => 'btnScan', 'class' => 'btn btn-success', 'href' => 'javascript:;', 'onclick' => "contador($('#venta-numero_pasaporte').val(),$('#certificado-codigo_barra').val());contadorescaneado($('#venta-numero_pasaporte').val());", 'disabled' => 'true']) ?>
                 </div>
 
                 <div class="col-sm-2">
@@ -382,6 +382,67 @@ $certificado = new Certificado();
                 </div>
             </div>
 
+        </div>
+    </fieldset>
+
+    <fieldset id="Comisiones">
+        <legend style="padding-left:5px ">Historial de Pagos:</legend>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <?php
+                    echo '<table class="table table-hover table-bordered table-condensed table-striped">';
+                    echo '<tr>';
+                    echo '<th style="text-align: center;" class="col-md-1">Item</th>';
+                    echo '<th style="text-align: center;" class="col-md-3">Fecha Creado</th>';
+                    echo '<th style="text-align: center;" class="col-md-3">Fecha de Pago</th>';
+                    echo '<th style="text-align: center;" class="col-md-2">Monto</th>';
+                    echo '<th style="text-align: center;" class="col-md-3">Estado</th>';
+                    echo '</tr>';
+                    $connection = Yii::$app->db;
+                    $sqlStatement = "
+                    SELECT
+                      b.Fecha_Creado          AS FechaCre, 
+                      b.fecha_pago            AS FechaPa,
+                      b.monto                 AS Monto,
+                      CASE b.Estado_Pago
+                      WHEN 1
+                        THEN \"Cancelado\"
+                      WHEN 2
+                        THEN \"Pendiente\"
+                      END                     AS EstadoPago
+                    FROM pago a
+                      INNER JOIN formas_pago b ON a.codigo_pago = b.codigo_pago
+                    WHERE b.Estado = 1 AND a.Codigo_venta = '" . $pago->Codigo_venta . "'";
+                    $comando = $connection->createCommand($sqlStatement);
+                    $resultado = $comando->query();
+                    $i = 0;
+                    while ($row = $resultado->read()) {
+                        echo '<tr>';
+                        echo '<td>' . $row[$i] . '</td>';
+                        echo '<td>' . $row['FechaCre'] . '</td>';
+                        echo '<td>' . $row['FechaPa'] . '</td>';
+                        echo '<td>' . $row['Monto'] . '</td>';
+                        echo '<td>' . $row['EstadoPago'] . '</td>';
+                        echo '</tr>';
+                        $i++;
+                    }
+
+                    echo '</table>';
+                    ?>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset id="Comisiones">
+        <legend style="padding-left:5px ">Observaciones:</legend>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <?= $form->field($pago, 'comentario')->textarea(['maxlength' => 255]) ?>
+                </div>
+            </div>
         </div>
     </fieldset>
 

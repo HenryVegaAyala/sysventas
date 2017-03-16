@@ -23,6 +23,7 @@ use yii\db\Query;
  * @property string $Usuario_Eliminado
  * @property string $Usuario_Modificado
  * @property string $Estado
+ * @property string $comentario
  *
  * @property FormasPago[] $formasPagos
  * @property Venta $codigoVenta
@@ -45,7 +46,7 @@ class Pago extends \yii\db\ActiveRecord
         return [
             [['Codigo_venta', 'codigo_pago'], 'integer'],
             [['Fecha_Creado', 'Fecha_Modificado', 'Fecha_Eliminado'], 'safe'],
-            [['monto_pagado', 'monto_ingresado', 'monto_restante', 'tipo_pago', 'estado_pago'], 'string', 'max' => 255],
+            [['monto_pagado', 'monto_ingresado', 'monto_restante', 'tipo_pago', 'estado_pago','comentario'], 'string', 'max' => 255],
             [['Usuario_Creado', 'Usuario_Eliminado', 'Usuario_Modificado'], 'string', 'max' => 100],
             [['Estado'], 'string', 'max' => 1],
             [['Codigo_venta'], 'exist', 'skipOnError' => true, 'targetClass' => Venta::className(), 'targetAttribute' => ['Codigo_venta' => 'Codigo_venta']],
@@ -72,6 +73,7 @@ class Pago extends \yii\db\ActiveRecord
             'Usuario_Eliminado' => 'Usuario  Eliminado',
             'Usuario_Modificado' => 'Usuario  Modificado',
             'Estado' => 'Estado',
+            'comentario' => 'Observaciones',
         ];
     }
 

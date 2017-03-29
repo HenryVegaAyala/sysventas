@@ -410,8 +410,8 @@ class Venta extends \yii\db\ActiveRecord
     public function getSalas()
     {
         $var = [
-            1 => 'Costa Verde',
-            2 => 'Pachacamac',
+            1 => 'Pachacamac',
+            2 => 'Costa Verde',
             3 => 'Vichayito',
         ];
         return $var;

@@ -305,7 +305,7 @@ $certificado = new Certificado();
                     <h4>
                         <?php
                         $connection = Yii::$app->db;
-                        $sqlStatement = "SELECT codigo_barra FROM certificado WHERE Codigo_pasaporte = '" . $model->NumeroPasaporte($model->Codigo_venta, 1) . "'";
+                        $sqlStatement = "SELECT codigo_barra FROM certificado WHERE Codigo_venta  = '" . $model->Codigo_venta . "'";
                         $comando = $connection->createCommand($sqlStatement);
                         $resultado = $comando->query();
                         while ($row = $resultado->read()) {

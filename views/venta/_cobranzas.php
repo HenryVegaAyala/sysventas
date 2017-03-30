@@ -249,7 +249,7 @@ $certificado = new Certificado();
                     <ul class="list-group">
 
                         <li class="list-group-item">
-                            <a href="" class="btn btn-success btn-sm" disabled="true">
+                            <a class="btn btn-success btn-sm" disabled="true">
                                 <i class="glyphicon glyphicon-plus"></i> Agregar
                             </a>
                         </li>
@@ -311,7 +311,7 @@ $certificado = new Certificado();
                     <h4>
                         <?php
                         $connection = Yii::$app->db;
-                        $sqlStatement = "SELECT codigo_barra FROM certificado WHERE Codigo_pasaporte = '" . $model->NumeroPasaporte($model->Codigo_venta, 1) . "'";
+                        $sqlStatement = "SELECT codigo_barra FROM certificado WHERE Codigo_venta = '" . $model->Codigo_venta. "'";
                         $comando = $connection->createCommand($sqlStatement);
                         $resultado = $comando->query();
                         while ($row = $resultado->read()) {
@@ -363,14 +363,14 @@ $certificado = new Certificado();
                     <?= $form->field($model, 'montoTotal')->textInput(['value' => $model->NumeroPasaporte($model->Codigo_club, 4), 'maxlength' => 255, 'readonly' => 'true']) ?>
                 </div>
                 <div class="col-sm-2">
-                    <?= $form->field($pago, 'monto_ingresado')->textInput(['maxlength' => 255, 'onkeyup' => "resta($('#venta-montototal').val(),this.value);return false;"]) ?>
+                    <?= $form->field($pago, 'monto_ingresado')->textInput(['maxlength' => 255, 'onkeyup' => "resta($('#venta-montototal').val(),this.value);return false;",'readonly' => 'true']) ?>
                 </div>
                 <div class="col-sm-2">
                     <?= $form->field($pago, 'monto_restante')->textInput(['maxlength' => 255, 'readonly' => 'true']) ?>
                 </div>
             </div>
 
-            <div class="row">
+            <div id="FormaDePagoAct" class="row">
                 <div class="col-sm-12">
                     <?= DynamicRelations::widget([
                         'title' => 'Formas de Pago:',
@@ -379,6 +379,21 @@ $certificado = new Certificado();
                         'collectionType' => new \app\models\FormasPago,
 
                     ]); ?>
+                </div>
+            </div>
+
+            <div id="FormaDePagoInac" class="row">
+                <div class="col-sm-12">
+                    <label class="form-control">Formas de Pago:</label>
+                </div>
+                <div class="col-sm-12">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a id="inactivo" class="btn btn-success btn-sm" disabled="true">
+                                <i class="glyphicon glyphicon-plus"></i> Agregar
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
@@ -413,14 +428,14 @@ $certificado = new Certificado();
                       END                     AS EstadoPago
                     FROM pago a
                       INNER JOIN formas_pago b ON a.codigo_pago = b.codigo_pago
-                    WHERE b.Estado = 1 AND a.Codigo_venta = '" . $pago->Codigo_venta . "'";
+                    WHERE a.Codigo_venta = '" . $pago->Codigo_venta . "'";
                     $comando = $connection->createCommand($sqlStatement);
                     $resultado = $comando->query();
                     $i = 0;
                     while ($row = $resultado->read()) {
                         echo '<tr>';
-                        echo '<td>' . $row[$i] . '</td>';
-                        echo '<td>' . $row['FechaCre'] . '</td>';
+                        echo '<td>' . $i . '</td>';
+                        echo '<td>' . $row['FechaPa'] . '</td>';
                         echo '<td>' . $row['FechaPa'] . '</td>';
                         echo '<td>' . $row['Monto'] . '</td>';
                         echo '<td>' . $row['EstadoPago'] . '</td>';
@@ -539,7 +554,7 @@ $certificado = new Certificado();
 <div class="panel-footer container-fluid foo">
     <div class="col-sm-12">
         <?= Html::submitButton($model->isNewRecord ? "Guardar" : "<i class=\"fa fa-plus-square\" aria-hidden=\"true\"></i> Guardar", ['class' => $model->isNewRecord ? 'btn btn-primary ' : 'btn btn-primary ', 'id' => 'btn-form-venta']) ?>
-        <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['create'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a("<i class=\"fa fa-chevron-circle-left\" aria-hidden=\"true\"></i> Cancelar", ['cobranza'], ['class' => 'btn btn-primary']) ?>
     </div>
     <?php ActiveForm::end(); ?>
     <?php Pjax::end() ?>

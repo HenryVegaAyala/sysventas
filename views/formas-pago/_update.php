@@ -28,33 +28,33 @@ if ($model->primaryKey) {
     <div class="row">
 
         <div class="col-sm-3">
-            <?= Html::input('date', $frag . '[fecha_pago]', $model->fecha_pago, ['id' => 'FormasPago-fecha_pago', 'class' => 'form-control', 'dateFormat' => 'Y-m-d']) ?>
+            <?= Html::input('date', $frag . '[fecha_pago]', $model->fecha_pago, ['id' => 'FormasPago-fecha_pago', 'class' => 'form-control', 'dateFormat' => 'Y-m-d','readonly' => 'true']) ?>
         </div>
 
         <div class="col-sm-3">
-            <?= Html::input('text', $frag . '[monto]', $model->monto, ['id' => 'FormasPago-monto', 'class' => 'form-control', 'placeholder' => 'Ingrese el Monto']) ?>
+            <?= Html::input('text', $frag . '[monto]', $model->monto, ['id' => 'FormasPago-monto', 'class' => 'form-control', 'placeholder' => 'Ingrese el Monto','readonly' => 'true']) ?>
         </div>
 
         <div class="col-sm-3">
-            <?= Html::dropDownList($frag . '[form_pago]', $model->form_pago, $model->getFormaPagos(), ["id" => "FormasPago-form_pago", 'class' => 'form-control', 'prompt' => 'Seleccionar Pago']) ?>
+            <?= Html::dropDownList($frag . '[form_pago]', $model->form_pago, $model->getFormaPagos(), ["id" => "FormasPago-form_pago", 'class' => 'form-control', 'prompt' => 'Seleccionar Pago','disabled' => 'disabled']) ?>
         </div>
 
         <div class="col-sm-3">
-            <?= Html::dropDownList($frag . '[Estado_Pago]', $model->Estado_Pago, $model->getEstadoPagos(), ["id" => "FormasPago-Estado_Pago", 'class' => 'form-control', 'prompt' => 'Seleccionar Estado']) ?>
+            <?= Html::dropDownList($frag . '[Estado_Pago]', $model->Estado_Pago, $model->getEstadoPagos(), ["id" => "FormasPago-Estado_Pago", 'class' => 'form-control', 'prompt' => 'Seleccionar Estado','disabled' => 'disabled']) ?>
         </div>
     </div>
 
     <div class="row">
         <div class="col-sm-3">
-            <?= Html::input('text', $frag . '[num_serie]', $model->num_serie, ['id' => 'FormasPago-num_serie', 'class' => 'form-control', 'placeholder' => 'N° de Serie']) ?>
+            <?= Html::input('text', $frag . '[num_serie]', $model->num_serie, ['id' => 'FormasPago-num_serie', 'class' => 'form-control', 'placeholder' => 'N° de Serie','readonly' => 'true']) ?>
         </div>
 
         <div class="col-sm-3">
-            <?= Html::input('text', $frag . '[comprobante]', $model->comprobante, ['id' => 'FormasPago-comprobante', 'class' => 'form-control', 'placeholder' => 'N° de Comprobante']) ?>
+            <?= Html::input('text', $frag . '[comprobante]', $model->comprobante, ['id' => 'FormasPago-comprobante', 'class' => 'form-control', 'placeholder' => 'N° de Comprobante','readonly' => 'true']) ?>
         </div>
 
         <div class="col-sm-3">
-            <?= Html::input('text', $frag . '[raz_social]', $model->raz_social, ['id' => 'FormasPago-raz_social', 'class' => 'form-control', 'placeholder' => 'N° de Razón Social']) ?>
+            <?= Html::input('text', $frag . '[raz_social]', $model->raz_social, ['id' => 'FormasPago-raz_social', 'class' => 'form-control', 'placeholder' => 'N° de Razón Social','readonly' => 'true']) ?>
         </div>
     </div>
 </div>

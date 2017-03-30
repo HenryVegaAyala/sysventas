@@ -421,21 +421,31 @@ function jsAgregar(evt, codigobarra, totalnoches, codigopasaporte) {
     }
 }
 
+document.getElementById('btnScan').disabled = true;
+var clicks = 0;
+
 function contadorescaneado(codigobarra) {
 
-    var parametros = {
-        "codigobarra": codigobarra,
-    };
+    if (codigobarra !== 0){
+        clicks += 1;
+        document.getElementById("venta-numero_escaneado").value = clicks;
+    }else {
+        alert("Seleccionar un Codigo de barra valido.");
+    }
 
-    $.ajax({
-        data: parametros,
-        url: 'cantidadscan',
-        type: 'post',
-
-        success: function (response) {
-            document.getElementById('venta-numero_escaneado').value = response;
-        }
-    });
+    // var parametros = {
+    //     "codigobarra": codigobarra,
+    // };
+    //
+    // $.ajax({
+    //     data: parametros,
+    //     url: 'cantidadscan',
+    //     type: 'post',
+    //
+    //     success: function (response) {
+    //         document.getElementById('venta-numero_escaneado').value = response;
+    //     }
+    // });
 }
 
 $(document).on("keypress", 'form', function (e) {
@@ -446,5 +456,28 @@ $(document).on("keypress", 'form', function (e) {
         e.preventDefault();
         return false;
     }
+});
+
+
+$("#FormaDePagoInac").hide();
+
+$(document).on("click", "#FormaDePagoAct", function () {
+    var MontoTotal, MontoIngresado;
+    MontoTotal = document.getElementById('venta-montototal').value;
+    MontoIngresado = document.getElementById('pago-monto_ingresado').value;
+
+    if (MontoTotal == parseFloat(MontoIngresado)) {
+        $("#FormaDePagoAct").hide();
+        $("#FormaDePagoInac").show();
+        $('.add-dynamic-relation').hide();
+        $('.add-dynamic-relation').attr('disabled', 'disabled');
+
+    } else {
+        $("#FormaDePagoAct").show();
+        $("#FormaDePagoInac").hide();
+        $('.add-dynamic-relation').hide();
+        $('.add-dynamic-relation').attr('disabled', 'disabled');
+    }
+
 });
 

@@ -200,7 +200,7 @@ Profesion,Telefono_Casa,Telefono_Casa2,Telefono_Celular,Telefono_Celular2,Telefo
 
             $command = Yii::$app->db->createCommand(
                 "INSERT INTO venta (Codigo_venta,Codigo_club, Codigo_pasaporte, Codigo_Cliente, numero_contrato, numero_pasaporte, Fecha_Creado,Usuario_Creado, Estado,numero_comprobante,serie_comprobante,salas,razon_social,estado_pago)
-                VALUES (:Codigo_venta,:Codigo_club,:Codigo_pasaporte,:Codigo_Cliente,:numero_contrato,:numero_pasaporte,:Fecha_Creado,:Usuario_Creado,:Estado,:numero_comprobante,:serie_comprobante,:salasestado_pago,:estado_pago)");
+                VALUES (:Codigo_venta,:Codigo_club,:Codigo_pasaporte,:Codigo_Cliente,:numero_contrato,:numero_pasaporte,:Fecha_Creado,:Usuario_Creado,:Estado,:numero_comprobante,:serie_comprobante,:salas,:razon_social,:estado_pago)");
             $command->bindValue(':Codigo_venta', $model->Codigo_venta);
             if ($model->Codigo_club == '' || $model->Codigo_club == null) {
                 $command->bindValue(':Codigo_club', 999);
